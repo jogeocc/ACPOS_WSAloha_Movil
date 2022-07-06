@@ -25,7 +25,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 Icon = icono,
                 Visible = true,
-                Text = $"Agente corriendo {App.Version}",
+                Text = $"Agente {App.Version}",
             };
             ContextMenu contextMenu = new ContextMenu();
             contextMenu.MenuItems.Add("Información", Informacion);

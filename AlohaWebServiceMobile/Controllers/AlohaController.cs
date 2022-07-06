@@ -35,7 +35,8 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage submenus()
         {
             //TODO REALIZAR DEVOLUCION DE MODELO DE MENUS
-            return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
+            var submenus = App.Catalogos.ObtenerSubMenus();
+            return Request.CreateResponse(HttpStatusCode.OK, submenus, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpGet]
@@ -43,7 +44,8 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage items()
         {
             //TODO REALIZAR DEVOLUCION DE MODELO DE MENUS
-            return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
+            var items = App.Catalogos.ObtenerItems();
+            return Request.CreateResponse(HttpStatusCode.OK, items, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpGet]
@@ -51,7 +53,8 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage modificadores()
         {
             //TODO REALIZAR DEVOLUCION DE MODELO DE MENUS
-            return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
+            var mods = App.Catalogos.ObtenerModificadores();
+            return Request.CreateResponse(HttpStatusCode.OK, mods, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpGet]
@@ -59,7 +62,8 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage modos_pedidos()
         {
             //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
-            return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
+            var orderMods = App.Catalogos.ObtenerModosDePedido();
+            return Request.CreateResponse(HttpStatusCode.OK, orderMods, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpGet]
@@ -67,7 +71,8 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage formas_pago()
         {
             //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
-            return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
+            var tenders = App.Catalogos.FormasDePago();
+            return Request.CreateResponse(HttpStatusCode.OK, tenders, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpGet]
