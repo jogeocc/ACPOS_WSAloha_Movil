@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlohaWebServiceMobile.Models.Catalogos
 {
-    public class MOD
+    public class MODmobile
     {
         public int id_modificador { get; set; }
         public string descripcion_corta { get; set; }

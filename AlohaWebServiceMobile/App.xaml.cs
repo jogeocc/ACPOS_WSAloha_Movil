@@ -26,6 +26,7 @@ namespace AlohaWebServiceMobile
         public bool iniciar = false;
         public bool IsError = false;
         public ViewLoading splash = new ViewLoading();
+        public static EstructurarData Catalogos = new EstructurarData();
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -78,7 +79,7 @@ namespace AlohaWebServiceMobile
 
         private void IniciarWebService()
         {
-            string url_base = "http://127.0.0.1:8083/api/v1/aloha";
+            string url_base = "http://127.0.0.1:8083";
             HttpSelfHostConfiguration config_server = new HttpSelfHostConfiguration(url_base);
             config_server.MapHttpAttributeRoutes();
             var server = new HttpSelfHostServer(config_server);

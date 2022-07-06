@@ -79,12 +79,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Catalogos\ITM.cs" />
-    <Compile Include="Models\Catalogos\MNU.cs" />
-    <Compile Include="Models\Catalogos\MOD.cs" />
-    <Compile Include="Models\Catalogos\ODR.cs" />
-    <Compile Include="Models\Catalogos\SUB.cs" />
-    <Compile Include="Models\Catalogos\TDR.cs" />
+    <Compile Include="Models\Catalogos\ITMmobile.cs" />
+    <Compile Include="Models\Catalogos\MNUmobile.cs" />
+    <Compile Include="Models\Catalogos\MODmobile.cs" />
+    <Compile Include="Models\Catalogos\ODRmobile.cs" />
+    <Compile Include="Models\Catalogos\SUBmobile.cs" />
+    <Compile Include="Models\Catalogos\TDRmobile.cs" />
     <Compile Include="Utils\AlohaConnection.cs" />
     <Compile Include="Utils\EstructurarData.cs" />
     <Compile Include="Utils\IconoNotificacion.cs" />
@@ -136,7 +136,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AlohaLibrary\AlohaLibrary.csproj">
+      <Project>{3c37ff9d-6d23-49ef-bfc3-04cecd5dff21}</Project>
+      <Name>AlohaLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Resource\DLLS\Aloha.SDK.Common.dll" />
     <Content Include="Resource\DLLS\LasaActivity.dll" />

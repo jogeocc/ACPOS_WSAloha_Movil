@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlohaWebServiceMobile.Models.Catalogos
 {
-    public class ODR
+    public class ODRmobile
     {
         public int ID { get; set; }
         public string NAME { get; set; }

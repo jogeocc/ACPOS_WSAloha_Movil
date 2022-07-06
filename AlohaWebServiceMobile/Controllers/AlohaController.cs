@@ -25,8 +25,9 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("menus")]
         public HttpResponseMessage menus()
         {
-            //TODO REALIZAR DEVOLUCION DE MODELO DE MENUS
-            return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
+
+            var menus = App.Catalogos.ObtenerMenus();
+            return Request.CreateResponse(HttpStatusCode.OK, menus, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpGet]
