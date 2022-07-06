@@ -38,6 +38,7 @@ namespace AlohaWebServiceMobile.Utils
         private static void Salir(object sender, EventArgs e)
         {
             DesplegarNotificacion("Salir", "Cerrando agente");
+            notifyIcon.Dispose();
             Environment.Exit(0);
         }
 
