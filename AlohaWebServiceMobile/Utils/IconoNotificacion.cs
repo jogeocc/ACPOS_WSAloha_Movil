@@ -34,7 +34,6 @@ namespace AlohaWebServiceMobile.Utils
             DesplegarNotificacion("Agente", $"Funcionando con exito {App.Version}");
             App.logger.Info("Icono contextual creado correctamente");
         }
-
         private static void Salir(object sender, EventArgs e)
         {
             DesplegarNotificacion("Salir", "Cerrando agente");
