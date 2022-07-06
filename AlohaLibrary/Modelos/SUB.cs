@@ -1,0 +1,218 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AlohaLibrary.Modelos
+{
+    public class SUB
+    {
+        public int ID { get; set; }
+        public string SHORTNAME { get; set; }
+
+        public string LONGNAME { get; set; }
+
+        //Lista de ids de items 
+        public int ITEM01 { get; set; }
+        public int ITEM02 { get; set; }
+        public int ITEM03 { get; set; }
+        public int ITEM04 { get; set; }
+        public int ITEM05 { get; set; }
+        public int ITEM06 { get; set; }
+        public int ITEM07 { get; set; }
+        public int ITEM08 { get; set; }
+        public int ITEM09 { get; set; }
+        public int ITEM10 { get; set; }
+        public int ITEM11 { get; set; }
+        public int ITEM12 { get; set; }
+        public int ITEM13 { get; set; }
+        public int ITEM14 { get; set; }
+        public int ITEM15 { get; set; }
+        public int ITEM16 { get; set; }
+        public int ITEM17 { get; set; }
+        public int ITEM18 { get; set; }
+        public int ITEM19 { get; set; }
+        public int ITEM20 { get; set; }
+        public int ITEM21 { get; set; }
+        public int ITEM22 { get; set; }
+        public int ITEM23 { get; set; }
+        public int ITEM24 { get; set; }
+        public int ITEM25 { get; set; }
+        public int ITEM26 { get; set; }
+        public int ITEM27 { get; set; }
+        public int ITEM28 { get; set; }
+        public int ITEM29 { get; set; }
+        public int ITEM30 { get; set; }
+        public int ITEM31 { get; set; }
+        public int ITEM32 { get; set; }
+        public int ITEM33 { get; set; }
+        public int ITEM34 { get; set; }
+        public int ITEM35 { get; set; }
+        public int ITEM36 { get; set; }
+        public int ITEM37 { get; set; }
+        public int ITEM38 { get; set; }
+        public int ITEM39 { get; set; }
+        public int ITEM40 { get; set; }
+        public int ITEM41 { get; set; }
+        public int ITEM42 { get; set; }
+        public int ITEM43 { get; set; }
+        public int ITEM44 { get; set; }
+        public int ITEM45 { get; set; }
+        public int ITEM46 { get; set; }
+        public int ITEM47 { get; set; }
+        public int ITEM48 { get; set; }
+
+        //Lista de precios asociados
+        public double PRICE01 { get; set; }
+        public double PRICE02 { get; set; }
+        public double PRICE03 { get; set; }
+        public double PRICE04 { get; set; }
+        public double PRICE05 { get; set; }
+        public double PRICE06 { get; set; }
+        public double PRICE07 { get; set; }
+        public double PRICE08 { get; set; }
+        public double PRICE09 { get; set; }
+        public double PRICE10 { get; set; }
+        public double PRICE11 { get; set; }
+        public double PRICE12 { get; set; }
+        public double PRICE13 { get; set; }
+        public double PRICE14 { get; set; }
+        public double PRICE15 { get; set; }
+        public double PRICE16 { get; set; }
+        public double PRICE17 { get; set; }
+        public double PRICE18 { get; set; }
+        public double PRICE19 { get; set; }
+        public double PRICE20 { get; set; }
+        public double PRICE21 { get; set; }
+        public double PRICE22 { get; set; }
+        public double PRICE23 { get; set; }
+        public double PRICE24 { get; set; }
+        public double PRICE25 { get; set; }
+        public double PRICE26 { get; set; }
+        public double PRICE27 { get; set; }
+        public double PRICE28 { get; set; }
+        public double PRICE29 { get; set; }
+        public double PRICE30 { get; set; }
+        public double PRICE31 { get; set; }
+        public double PRICE32 { get; set; }
+        public double PRICE33 { get; set; }
+        public double PRICE34 { get; set; }
+        public double PRICE35 { get; set; }
+        public double PRICE36 { get; set; }
+        public double PRICE37 { get; set; }
+        public double PRICE38 { get; set; }
+        public double PRICE39 { get; set; }
+        public double PRICE40 { get; set; }
+        public double PRICE41 { get; set; }
+        public double PRICE42 { get; set; }
+        public double PRICE43 { get; set; }
+        public double PRICE44 { get; set; }
+        public double PRICE45 { get; set; }
+        public double PRICE46 { get; set; }
+        public double PRICE47 { get; set; }
+        public double PRICE48 { get; set; }
+        public int PRMETHOD01 { get; set; }
+        public int PRMETHOD02 { get; set; }
+        public int PRMETHOD03 { get; set; }
+        public int PRMETHOD04 { get; set; }
+        public int PRMETHOD05 { get; set; }
+        public int PRMETHOD06 { get; set; }
+        public int PRMETHOD07 { get; set; }
+        public int PRMETHOD08 { get; set; }
+        public int PRMETHOD09 { get; set; }
+        public int PRMETHOD10 { get; set; }
+        public int PRMETHOD11 { get; set; }
+        public int PRMETHOD12 { get; set; }
+        public int PRMETHOD13 { get; set; }
+        public int PRMETHOD14 { get; set; }
+        public int PRMETHOD15 { get; set; }
+        public int PRMETHOD16 { get; set; }
+        public int PRMETHOD17 { get; set; }
+        public int PRMETHOD18 { get; set; }
+        public int PRMETHOD19 { get; set; }
+        public int PRMETHOD20 { get; set; }
+        public int PRMETHOD21 { get; set; }
+        public int PRMETHOD22 { get; set; }
+        public int PRMETHOD23 { get; set; }
+        public int PRMETHOD24 { get; set; }
+        public int PRMETHOD25 { get; set; }
+        public int PRMETHOD26 { get; set; }
+        public int PRMETHOD27 { get; set; }
+        public int PRMETHOD28 { get; set; }
+        public int PRMETHOD29 { get; set; }
+        public int PRMETHOD30 { get; set; }
+        public int PRMETHOD31 { get; set; }
+        public int PRMETHOD32 { get; set; }
+        public int PRMETHOD33 { get; set; }
+        public int PRMETHOD34 { get; set; }
+        public int PRMETHOD35 { get; set; }
+        public int PRMETHOD36 { get; set; }
+        public int PRMETHOD37 { get; set; }
+        public int PRMETHOD38 { get; set; }
+        public int PRMETHOD39 { get; set; }
+        public int PRMETHOD40 { get; set; }
+        public int PRMETHOD41 { get; set; }
+        public int PRMETHOD42 { get; set; }
+        public int PRMETHOD43 { get; set; }
+        public int PRMETHOD44 { get; set; }
+        public int PRMETHOD45 { get; set; }
+        public int PRMETHOD46 { get; set; }
+        public int PRMETHOD47 { get; set; }
+        public int PRMETHOD48 { get; set; }
+
+
+        //NIVELES DE PRECIO
+
+        public int PRICELVL01 { get; set; }
+        public int PRICELVL02 { get; set; }
+        public int PRICELVL03 { get; set; }
+        public int PRICELVL04 { get; set; }
+        public int PRICELVL05 { get; set; }
+        public int PRICELVL06 { get; set; }
+        public int PRICELVL07 { get; set; }
+        public int PRICELVL08 { get; set; }
+        public int PRICELVL09 { get; set; }
+        public int PRICELVL10 { get; set; }
+        public int PRICELVL11 { get; set; }
+        public int PRICELVL12 { get; set; }
+        public int PRICELVL13 { get; set; }
+        public int PRICELVL14 { get; set; }
+        public int PRICELVL15 { get; set; }
+        public int PRICELVL16 { get; set; }
+        public int PRICELVL17 { get; set; }
+        public int PRICELVL18 { get; set; }
+        public int PRICELVL19 { get; set; }
+        public int PRICELVL20 { get; set; }
+        public int PRICELVL21 { get; set; }
+        public int PRICELVL22 { get; set; }
+        public int PRICELVL23 { get; set; }
+        public int PRICELVL24 { get; set; }
+        public int PRICELVL25 { get; set; }
+        public int PRICELVL26 { get; set; }
+        public int PRICELVL27 { get; set; }
+        public int PRICELVL28 { get; set; }
+        public int PRICELVL29 { get; set; }
+        public int PRICELVL30 { get; set; }
+        public int PRICELVL31 { get; set; }
+        public int PRICELVL32 { get; set; }
+        public int PRICELVL33 { get; set; }
+        public int PRICELVL34 { get; set; }
+        public int PRICELVL35 { get; set; }
+        public int PRICELVL36 { get; set; }
+        public int PRICELVL37 { get; set; }
+        public int PRICELVL38 { get; set; }
+        public int PRICELVL39 { get; set; }
+        public int PRICELVL40 { get; set; }
+        public int PRICELVL41 { get; set; }
+        public int PRICELVL42 { get; set; }
+        public int PRICELVL43 { get; set; }
+        public int PRICELVL44 { get; set; }
+        public int PRICELVL45 { get; set; }
+        public int PRICELVL46 { get; set; }
+        public int PRICELVL47 { get; set; }
+        public int PRICELVL48 { get; set; }
+
+
+    }
+}
