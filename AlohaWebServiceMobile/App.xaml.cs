@@ -11,7 +11,14 @@ namespace AlohaWebServiceMobile
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
+
     public partial class App : Application
     {
+        public static string Version = "Version 1.0.0";
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+
+        }
     }
 }
