@@ -14,6 +14,11 @@ namespace AlohaWebServiceMobile.Utils
     {
         string pathALoha = @"D:\PROYECTOS\VAPIANO\reforma\Data";
 
+        public EstructurarData()
+        {
+            //pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+        }
+
         public List<MNUmobile> ObtenerMenus()
         {
             List<MNUmobile> Menus = new List<MNUmobile>();
