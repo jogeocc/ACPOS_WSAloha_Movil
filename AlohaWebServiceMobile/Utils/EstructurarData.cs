@@ -16,7 +16,7 @@ namespace AlohaWebServiceMobile.Utils
 
         public EstructurarData()
         {
-            //pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+            pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
         }
 
         public List<MNUmobile> ObtenerMenus()
