@@ -46,6 +46,37 @@ namespace AlohaWebServiceMobile.Utils
             return IsLogedOut;
         }
 
+        public bool ClockIn(int IdTerm, int IdJobCode)
+        {
+            bool IsSuccess = false;
+            try
+            {
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                xFunction.ClockIn(IdTerm, IdJobCode);
+                IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error", ex);
+            }
+            return IsSuccess;
+        }
+
+        public bool ClockOut(int IdTerm, double tips, double DeclaredCash)
+        {
+            bool IsSuccess = false;
+            try
+            {
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                xFunction.PerformCheckout(IdTerm, DeclaredCash);
+                xFunction.ClockOut(IdTerm, tips);
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error en Clock Out", ex);
+            }
+            return IsSuccess;
+        }
 
 
         private bool IsAlreadyClockIn(int IdEmpleado)
