@@ -19,6 +19,7 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                IsAlreadyClockIn(IdEmpleado);
                 xFunction.LogIn(IdTerm, IdEmpleado, "", "");
                 isLoged = true;
             }
@@ -42,8 +43,27 @@ namespace AlohaWebServiceMobile.Utils
             {
                 App.logger.Error("Error al ingresar con el usuario tal", ex);
             }
-
             return IsLogedOut;
+        }
+
+
+
+        private bool IsAlreadyClockIn(int IdEmpleado)
+        {
+            bool IsClocked = false;
+            try
+            {
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
+                IberEnum EnumEmpleados = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado);
+                IberObject empleado = EnumEmpleados.First();
+                IsClocked = empleado.GetBoolVal("CLOCKED_IN") == 1 ? true : false;
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("", ex);
+            }
+            return IsClocked;
 
         }
     }
