@@ -45,6 +45,7 @@ namespace AlohaWebServiceMobile
                         //while (!iniciar)
                         //{
                         //}
+                        IniciarWebService();
                     }
                     catch (Exception ex)
                     {
@@ -60,7 +61,6 @@ namespace AlohaWebServiceMobile
                     }
 
                     CargaIcono();
-                    IniciarWebService();
                     //splash.Hide();
                 }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
 

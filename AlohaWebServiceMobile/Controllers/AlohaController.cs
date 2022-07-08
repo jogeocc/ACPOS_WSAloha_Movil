@@ -98,14 +98,9 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage login(RequestLogin requestLogin)
         {
             //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
-            while (App.ocupado)
-            {
 
-            }
-            App.ocupado = true;
             bool IsSuccess = App.AlohaConnection.login(requestLogin.TermId, requestLogin.IdEmpleado);
-            App.ocupado = false;
-            return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
+            return Request.CreateResponse(HttpStatusCode.OK, IsSuccess, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpPost]

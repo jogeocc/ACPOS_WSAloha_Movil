@@ -24,6 +24,7 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
+                App.logger.Error("Error al ingresar con el usuario tal");
             }
             return isLoged;
         }
