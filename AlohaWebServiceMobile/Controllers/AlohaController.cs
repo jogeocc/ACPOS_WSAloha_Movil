@@ -105,10 +105,11 @@ namespace AlohaWebServiceMobile.Controllers
 
         [HttpPost]
         [Route("logout")]
-        public HttpResponseMessage logout()
+        public HttpResponseMessage logout(RequestLogout requestLogout)
         {
             //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
-            return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
+            bool IsSuccess = App.AlohaConnection.logout(requestLogout.TermId);
+            return Request.CreateResponse(HttpStatusCode.OK, IsSuccess, Configuration.Formatters.JsonFormatter);
         }
 
     }

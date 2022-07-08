@@ -24,10 +24,27 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error("Error al ingresar con el usuario tal");
+                App.logger.Error("Error al ingresar con el usuario tal", ex);
             }
             return isLoged;
         }
 
+        public bool logout(int IdTerm)
+        {
+            bool IsLogedOut = false;
+            try
+            {
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                xFunction.LogOut(IdTerm);
+                IsLogedOut = true;
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error al ingresar con el usuario tal", ex);
+            }
+
+            return IsLogedOut;
+
+        }
     }
 }
