@@ -57,6 +57,7 @@ namespace AlohaWebServiceMobile.Utils
                 IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
                 IberEnum EnumEmpleados = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado);
                 IberObject empleado = EnumEmpleados.First();
+                var clock = empleado.GetBoolVal("CLOCKED_IN");
                 IsClocked = empleado.GetBoolVal("CLOCKED_IN") == 1 ? true : false;
             }
             catch (Exception ex)
