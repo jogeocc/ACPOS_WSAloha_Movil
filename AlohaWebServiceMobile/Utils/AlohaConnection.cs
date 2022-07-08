@@ -12,19 +12,18 @@ namespace AlohaWebServiceMobile.Utils
 
         private SdkFunctions _sdkFunctions = new SdkFunctions();
         private IIberFuncs23 xFunction;
-        public bool login(int CodigoEmpleado)
+
+        public bool login(int IdTerm, int IdEmpleado)
         {
             bool isLoged = false;
             try
             {
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
-                xFunction.LogIn(3, CodigoEmpleado, "", "");
-                xFunction.LogOut(3);
+                xFunction.LogIn(IdTerm, IdEmpleado, "", "");
                 isLoged = true;
             }
             catch (Exception ex)
             {
-
             }
             return isLoged;
         }

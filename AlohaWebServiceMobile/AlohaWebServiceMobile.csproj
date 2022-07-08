@@ -93,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Aloha\RequestLogin.cs" />
     <Compile Include="Models\Catalogos\ITMmobile.cs" />
     <Compile Include="Models\Catalogos\MNUmobile.cs" />
     <Compile Include="Models\Catalogos\MODmobile.cs" />
@@ -148,7 +149,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlohaLibrary\AlohaLibrary.csproj">

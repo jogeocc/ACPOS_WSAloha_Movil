@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlohaWebServiceMobile.Models.Aloha;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -94,7 +95,7 @@ namespace AlohaWebServiceMobile.Controllers
 
         [HttpPost]
         [Route("login")]
-        public HttpResponseMessage login()
+        public HttpResponseMessage login(RequestLogin requestLogin)
         {
             //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
             while (App.ocupado)
@@ -102,7 +103,7 @@ namespace AlohaWebServiceMobile.Controllers
 
             }
             App.ocupado = true;
-            bool IsSuccess = App.AlohaConnection.login(999);
+            bool IsSuccess = App.AlohaConnection.login(requestLogin.TermId, requestLogin.IdEmpleado);
             App.ocupado = false;
             return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
         }
