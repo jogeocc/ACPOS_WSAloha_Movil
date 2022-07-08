@@ -28,6 +28,7 @@ namespace AlohaWebServiceMobile
         public ViewLoading splash = new ViewLoading();
         public static EstructurarData Catalogos = new EstructurarData();
         public static bool ocupado = false;
+        public static AlohaConnection AlohaConnection = new AlohaConnection();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
