@@ -53,6 +53,7 @@ namespace AlohaWebServiceMobile.Utils
                         }
                     }
                     #endregion
+                    Menus.Add(mNUmobile);
                 }
 
             }
