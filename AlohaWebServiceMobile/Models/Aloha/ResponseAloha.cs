@@ -8,5 +8,8 @@ namespace AlohaWebServiceMobile.Models.Aloha
 {
     public class ResponseAloha
     {
+        public bool isClockIn { get; set; }
+        public object mesas_empleado { get; set; }
+
     }
 }

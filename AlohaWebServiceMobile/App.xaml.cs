@@ -80,6 +80,7 @@ namespace AlohaWebServiceMobile
 
         private void IniciarWebService()
         {
+
             string url_base = "http://127.0.0.1:8082";
             HttpSelfHostConfiguration config_server = new HttpSelfHostConfiguration(url_base);
             config_server.MapHttpAttributeRoutes();

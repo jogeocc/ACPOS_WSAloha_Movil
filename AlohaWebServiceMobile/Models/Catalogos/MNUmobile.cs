@@ -20,21 +20,29 @@ namespace AlohaWebServiceMobile.Models.Catalogos
     public class SubMenu
     {
         public int id { get; set; }
-        public string nombre { get; set; }
+        public string descripcion_corta { get; set; }
+        public string descripcion_larga { get; set; }
+
         public List<Item> items { get; set; } = new List<Item>();
     }
 
     public class Item
     {
         public int id { get; set; }
+        public string descripcion_corta { get; set; }
+        public string descripcion_larga { get; set; }
         public double precio { get; set; }
         public List<Mods> mods { get; set; } = new List<Mods>();
-
     }
 
     public class Mods
     {
-        public int id_mod { get; set; }
+        public int id_modificador { get; set; }
+        public string descripcion_corta { get; set; }
+        public string descripcion_larga { get; set; }
+        public int num_min { get; set; }
+        public int num_max { get; set; }
+        public int num_gratis { get; set; }
         public List<Item> items { get; set; } = new List<Item>();
     }
 

@@ -14,6 +14,11 @@ namespace AlohaWebServiceMobile.Utils
     {
         string pathALoha = @"D:\PROYECTOS\VAPIANO\reforma\Data";
 
+        List<MNU> Menus2 = new List<MNU>();
+        List<SUB> SubMenus = new List<SUB>();
+        List<ITM> Items = new List<ITM>();
+        List<MOD> Mods = new List<MOD>();
+
         public EstructurarData()
         {
             pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
@@ -23,10 +28,7 @@ namespace AlohaWebServiceMobile.Utils
         {
             List<MNUmobile> Menus = new List<MNUmobile>();
 
-            List<MNU> Menus2 = new List<MNU>();
-            List<SUB> SubMenus = new List<SUB>();
-            List<ITM> Items = new List<ITM>();
-            List<MOD> Mods = new List<MOD>();
+
             using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
             {
                 Menus2 = new MNUServicio(contextoAlh).GetAll();
@@ -65,11 +67,7 @@ namespace AlohaWebServiceMobile.Utils
 
             return Menus;
         }
-       
-        
-        
 
-        
         public List<SUBmobile> ObtenerSubMenus()
         {
             List<SUBmobile> SubMenus = new List<SUBmobile>();
@@ -173,6 +171,15 @@ namespace AlohaWebServiceMobile.Utils
 
 
             return TendersMobile.OrderBy(t => t.id_forma_de_pago).ToList();
+        }
+
+
+
+
+        public List<JOBmobile> ObtenerPerfilesTrabajo()
+        {
+            List<JOBmobile> ObtenerPerfilesTrabajo = new List<JOBmobile>();
+            return ObtenerPerfilesTrabajo;
         }
     }
 }
