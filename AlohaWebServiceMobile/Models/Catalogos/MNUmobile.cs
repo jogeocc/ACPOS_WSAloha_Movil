@@ -25,12 +25,15 @@ namespace AlohaWebServiceMobile.Models.Catalogos
 
     public class Item
     {
+        public int id { get; set; }
+        public double precio { get; set; }
         public List<Mods> mods { get; set; } = new List<Mods>();
 
     }
 
     public class Mods
     {
+        public int id_mod { get; set; }
         public List<Item> items { get; set; } = new List<Item>();
     }
 
