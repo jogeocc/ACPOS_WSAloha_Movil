@@ -23,27 +23,39 @@ namespace AlohaWebServiceMobile.Utils
         {
             List<MNUmobile> Menus = new List<MNUmobile>();
 
-            //try
-            //{
-            //    pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
-            //}
-            //catch (Exception exception)
-            //{
-            //    Console.WriteLine(exception);
-            //}
-
             using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
             {
                 var MenuAloha = new MNUServicio(contextoAlh).GetAll();
                 foreach (MNU menu in MenuAloha)
                 {
-                    Menus.Add(new MNUmobile
+
+                    MNUmobile mNUmobile = new MNUmobile();
+                    mNUmobile.id_menu = menu.ID;
+                    mNUmobile.descripcion_larga = menu.LONGNAME;
+                    mNUmobile.descripcion_corta = menu.SHORTNAME;
+                    #region iterar sobre submenus del menu
+                    var Props = menu.GetType().GetProperties().ToList();
+                    string MENU = "MENU";
+                    int couter = 0;
+                    int couterOrder = 1;
+                    foreach (var propItem in Props.FindAll(p => p.Name.ToString().Contains("MENU")))
                     {
-                        id_menu = menu.ID,
-                        descripcion_corta = menu.SHORTNAME,
-                        descripcion_larga = menu.LONGNAME,
-                    });
+                        if ((int)propItem.GetValue(menu) > 0)
+                        {
+                            var name = propItem.Name;
+                            SUBMenu SubMenus = new SUBMenu()
+                            {
+                                id = (int)propItem.GetValue(menu),
+                                OrdenPos = couterOrder
+                            };
+
+                            couterOrder++;
+                            mnUrequest.submenus.Add(SubMenus);
+                        }
+                    }
+                    #endregion
                 }
+
             }
 
 

@@ -15,5 +15,23 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public string imagen { get; set; }
         public byte status { get; set; } = 1;
 
+        public List<SubMenu> subMenus { get; set; } = new List<SubMenu>();
     }
+    public class SubMenu
+    {
+        public int id { get; set; }
+        public List<Item> items { get; set; } = new List<Item>();
+    }
+
+    public class Item
+    {
+        public List<Mods> mods { get; set; } = new List<Mods>();
+
+    }
+
+    public class Mods
+    {
+        public List<Item> items { get; set; } = new List<Item>();
+    }
+
 }
