@@ -18,12 +18,10 @@ namespace AlohaWebServiceMobile.Utils
         List<SUB> SubMenus = new List<SUB>();
         List<ITM> Items = new List<ITM>();
         List<MOD> Mods = new List<MOD>();
-
         public EstructurarData()
         {
             pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
         }
-
         public List<MNUmobile> ObtenerMenuMovil()
         {
             List<MNUmobile> Menus = new List<MNUmobile>();
@@ -67,7 +65,6 @@ namespace AlohaWebServiceMobile.Utils
 
             return Menus;
         }
-
         public List<SUBmobile> ObtenerSubMenus()
         {
             List<SUBmobile> SubMenus = new List<SUBmobile>();
@@ -127,12 +124,6 @@ namespace AlohaWebServiceMobile.Utils
 
             return Mods;
         }
-
-
-
-
-
-
         public List<ODRmobile> ObtenerModosDePedido()
         {
             List<ODRmobile> OrderModMobile = new List<ODRmobile>();
@@ -172,10 +163,6 @@ namespace AlohaWebServiceMobile.Utils
 
             return TendersMobile.OrderBy(t => t.id_forma_de_pago).ToList();
         }
-
-
-
-
         public List<JOBmobile> ObtenerPerfilesTrabajo()
         {
             List<JOBmobile> ObtenerPerfilesTrabajo = new List<JOBmobile>();
