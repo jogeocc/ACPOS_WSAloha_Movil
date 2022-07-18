@@ -20,6 +20,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
     public class SubMenu
     {
         public int id { get; set; }
+        public string nombre { get; set; }
         public List<Item> items { get; set; } = new List<Item>();
     }
 

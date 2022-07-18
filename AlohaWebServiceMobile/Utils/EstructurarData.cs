@@ -23,16 +23,24 @@ namespace AlohaWebServiceMobile.Utils
         {
             List<MNUmobile> Menus = new List<MNUmobile>();
 
+            List<SUB> SubMenus = new List<SUB>();
+            List<ITM> Items = new List<ITM>();
+            List<MOD> Mods = new List<MOD>();
+            List<MNU> Menus2 = new List<MNU>();
+
+
             using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
             {
-                var MenuAloha = new MNUServicio(contextoAlh).GetAll();
-                foreach (MNU menu in MenuAloha)
-                {
+                Menus2 = new MNUServicio(contextoAlh).GetAll();
+                SubMenus = new SUBServicio(contextoAlh).GetAll();
 
+                foreach (MNU menu in Menus2)
+                {
                     MNUmobile mNUmobile = new MNUmobile();
                     mNUmobile.id_menu = menu.ID;
                     mNUmobile.descripcion_larga = menu.LONGNAME;
                     mNUmobile.descripcion_corta = menu.SHORTNAME;
+
                     #region iterar sobre submenus del menu
                     var Props = menu.GetType().GetProperties().ToList();
                     string MENU = "MENU";
@@ -43,19 +51,23 @@ namespace AlohaWebServiceMobile.Utils
                         if ((int)propItem.GetValue(menu) > 0)
                         {
                             var name = propItem.Name;
-                            SubMenu SubMenus = new SubMenu()
+                            SubMenu submenu = new SubMenu()
                             {
                                 id = (int)propItem.GetValue(menu),
                             };
 
                             couterOrder++;
-                            mNUmobile.subMenus.Add(SubMenus);
+                            mNUmobile.subMenus.Add(submenu);
                         }
                     }
                     #endregion
+
+                    foreach (var SubMenu in mNUmobile.subMenus)
+                    {
+                        SubMenu.nombre = SubMenus.Find(S => S.ID == SubMenu.id).LONGNAME;
+                    }
                     Menus.Add(mNUmobile);
                 }
-
             }
 
 
