@@ -43,14 +43,13 @@ namespace AlohaWebServiceMobile.Utils
                         if ((int)propItem.GetValue(menu) > 0)
                         {
                             var name = propItem.Name;
-                            SUBMenu SubMenus = new SUBMenu()
+                            SubMenu SubMenus = new SubMenu()
                             {
                                 id = (int)propItem.GetValue(menu),
-                                OrdenPos = couterOrder
                             };
 
                             couterOrder++;
-                            mnUrequest.submenus.Add(SubMenus);
+                            mNUmobile.subMenus.Add(SubMenus);
                         }
                     }
                     #endregion
