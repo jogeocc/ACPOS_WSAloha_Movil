@@ -19,60 +19,57 @@ namespace AlohaWebServiceMobile.Utils
             pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
         }
 
-        public List<MNUmobile> ObtenerMenus()
+        public List<MNUmobile> ObtenerMenuMovil()
         {
             List<MNUmobile> Menus = new List<MNUmobile>();
 
+            List<MNU> Menus2 = new List<MNU>();
             List<SUB> SubMenus = new List<SUB>();
             List<ITM> Items = new List<ITM>();
             List<MOD> Mods = new List<MOD>();
-            List<MNU> Menus2 = new List<MNU>();
-
-
             using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
             {
                 Menus2 = new MNUServicio(contextoAlh).GetAll();
                 SubMenus = new SUBServicio(contextoAlh).GetAll();
-
-                foreach (MNU menu in Menus2)
-                {
-                    MNUmobile mNUmobile = new MNUmobile();
-                    mNUmobile.id_menu = menu.ID;
-                    mNUmobile.descripcion_larga = menu.LONGNAME;
-                    mNUmobile.descripcion_corta = menu.SHORTNAME;
-
-                    #region iterar sobre submenus del menu
-                    var Props = menu.GetType().GetProperties().ToList();
-                    string MENU = "MENU";
-                    int couter = 0;
-                    int couterOrder = 1;
-                    foreach (var propItem in Props.FindAll(p => p.Name.ToString().Contains("MENU")))
-                    {
-                        if ((int)propItem.GetValue(menu) > 0)
-                        {
-                            var name = propItem.Name;
-                            SubMenu submenu = new SubMenu()
-                            {
-                                id = (int)propItem.GetValue(menu),
-                            };
-
-                            couterOrder++;
-                            mNUmobile.subMenus.Add(submenu);
-                        }
-                    }
-                    #endregion
-
-                    foreach (var SubMenu in mNUmobile.subMenus)
-                    {
-                        SubMenu.nombre = SubMenus.Find(S => S.ID == SubMenu.id).LONGNAME;
-                    }
-                    Menus.Add(mNUmobile);
-                }
+                Items = new ITMServicio(contextoAlh).GetAll();
+                Mods = new MODServicio(contextoAlh).GetAll();
             }
 
+            //RELACIONAR TODO LA DATA DEL MENU -> SUBMENUS -> ITEMS -> MODS -> ITEMS
+
+            foreach (MNU menu in Menus2)
+            {
+                MNUmobile mNUmobile = new MNUmobile();
+                mNUmobile.id_menu = menu.ID;
+                mNUmobile.descripcion_larga = menu.LONGNAME;
+                mNUmobile.descripcion_corta = menu.SHORTNAME;
+
+                #region iterar sobre submenus del menu
+                var Props = menu.GetType().GetProperties().ToList();
+                string MENU = "MENU";
+                foreach (var propItem in Props.FindAll(p => p.Name.ToString().Contains("MENU")))
+                {
+                    if ((int)propItem.GetValue(menu) > 0)
+                    {
+                        var name = propItem.Name;
+                        SubMenu submenu = new SubMenu()
+                        {
+                            id = (int)propItem.GetValue(menu),
+                        };
+                        mNUmobile.subMenus.Add(submenu);
+                    }
+                }
+                #endregion
+                Menus.Add(mNUmobile);
+            }
 
             return Menus;
         }
+       
+        
+        
+
+        
         public List<SUBmobile> ObtenerSubMenus()
         {
             List<SUBmobile> SubMenus = new List<SUBmobile>();
@@ -112,7 +109,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return Items;
         }
-
         public List<MODmobile> ObtenerModificadores()
         {
             List<MODmobile> Mods = new List<MODmobile>();
@@ -133,6 +129,11 @@ namespace AlohaWebServiceMobile.Utils
 
             return Mods;
         }
+
+
+
+
+
 
         public List<ODRmobile> ObtenerModosDePedido()
         {

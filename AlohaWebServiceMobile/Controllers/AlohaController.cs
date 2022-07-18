@@ -28,36 +28,37 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage menus()
         {
 
-            var menus = App.Catalogos.ObtenerMenus();
+            var menus = App.Catalogos.ObtenerMenuMovil();
             return Request.CreateResponse(HttpStatusCode.OK, menus, Configuration.Formatters.JsonFormatter);
         }
 
-        [HttpGet]
-        [Route("submenus")]
-        public HttpResponseMessage submenus()
-        {
-            //TODO REALIZAR DEVOLUCION DE MODELO DE MENUS
-            var submenus = App.Catalogos.ObtenerSubMenus();
-            return Request.CreateResponse(HttpStatusCode.OK, submenus, Configuration.Formatters.JsonFormatter);
-        }
+        //[HttpGet]
+        //[Route("submenus")]
+        //public HttpResponseMessage submenus()
+        //{
+        //    //TODO REALIZAR DEVOLUCION DE MODELO DE MENUS
+        //    var submenus = App.Catalogos.ObtenerSubMenus();
+        //    return Request.CreateResponse(HttpStatusCode.OK, submenus, Configuration.Formatters.JsonFormatter);
+        //}
 
-        [HttpGet]
-        [Route("items")]
-        public HttpResponseMessage items()
-        {
-            //TODO REALIZAR DEVOLUCION DE MODELO DE MENUS
-            var items = App.Catalogos.ObtenerItems();
-            return Request.CreateResponse(HttpStatusCode.OK, items, Configuration.Formatters.JsonFormatter);
-        }
+        //[HttpGet]
+        //[Route("items")]
+        //public HttpResponseMessage items()
+        //{
+        //    //TODO REALIZAR DEVOLUCION DE MODELO DE MENUS
+        //    var items = App.Catalogos.ObtenerItems();
+        //    return Request.CreateResponse(HttpStatusCode.OK, items, Configuration.Formatters.JsonFormatter);
+        //}
 
-        [HttpGet]
-        [Route("modificadores")]
-        public HttpResponseMessage modificadores()
-        {
-            //TODO REALIZAR DEVOLUCION DE MODELO DE MENUS
-            var mods = App.Catalogos.ObtenerModificadores();
-            return Request.CreateResponse(HttpStatusCode.OK, mods, Configuration.Formatters.JsonFormatter);
-        }
+        //[HttpGet]
+        //[Route("modificadores")]
+        //public HttpResponseMessage modificadores()
+        //{
+        //    //TODO REALIZAR DEVOLUCION DE MODELO DE MENUS
+        //    var mods = App.Catalogos.ObtenerModificadores();
+        //    return Request.CreateResponse(HttpStatusCode.OK, mods, Configuration.Formatters.JsonFormatter);
+        //}
+
 
         [HttpGet]
         [Route("modos_pedidos")]
