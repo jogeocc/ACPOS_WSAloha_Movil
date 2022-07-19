@@ -71,7 +71,6 @@ namespace AlohaLibrary.Implementaciones
                     mod.items.Add(int.Parse(item[itemAux].ToString()));
                     mod.precios.Add(decimal.Parse(item[precioAux].ToString()));
                 }
-
                 mods.Add(mod);
             }
 
