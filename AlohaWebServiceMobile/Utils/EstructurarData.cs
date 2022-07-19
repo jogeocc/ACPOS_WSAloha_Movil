@@ -181,65 +181,10 @@ namespace AlohaWebServiceMobile.Utils
 
             return Menus;
         }
-        public List<SUBmobile> ObtenerSubMenus()
-        {
-            List<SUBmobile> SubMenus = new List<SUBmobile>();
-            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
-            {
-                var SubAloha = new SUBServicio(contextoAlh).GetAll();
-                foreach (var sub in SubAloha)
-                {
-                    SubMenus.Add(new SUBmobile
-                    {
-                        id_submenu = sub.ID,
-                        descripcion_corta = sub.SHORTNAME,
-                        descripcion_larga = sub.LONGNAME,
-                    });
-                }
 
-            }
-            return SubMenus;
-        }
-        public List<ITMmobile> ObtenerItems()
-        {
 
-            List<ITMmobile> Items = new List<ITMmobile>();
-            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
-            {
-                var ItemsAloha = new ITMServicio(contextoAlh).GetAll();
-                foreach (var itm in ItemsAloha)
-                {
-                    Items.Add(new ITMmobile
-                    {
-                        id_item = itm.ID,
-                        descripcion_corta = itm.SHORTNAME,
-                        descripcion_larga = itm.LONGNAME
-                    });
-                }
 
-            }
-            return Items;
-        }
-        public List<MODmobile> ObtenerModificadores()
-        {
-            List<MODmobile> Mods = new List<MODmobile>();
 
-            using (AplicacionBdContextoALH contextoALH = new AplicacionBdContextoALH(pathALoha))
-            {
-                var ModsAloha = new MODServicio(contextoALH).GetAll();
-                foreach (var mod in ModsAloha)
-                {
-                    Mods.Add(new MODmobile
-                    {
-                        id_modificador = mod.ID,
-                        descripcion_corta = mod.SHORTNAME,
-                        descripcion_larga = mod.LONGNAME
-                    });
-                }
-            }
-
-            return Mods;
-        }
         public List<ODRmobile> ObtenerModosDePedido()
         {
             List<ODRmobile> OrderModMobile = new List<ODRmobile>();
