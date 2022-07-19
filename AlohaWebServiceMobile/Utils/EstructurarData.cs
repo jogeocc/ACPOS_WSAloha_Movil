@@ -226,13 +226,21 @@ namespace AlohaWebServiceMobile.Utils
         }
         public List<JOBmobile> ObtenerPerfilesTrabajo()
         {
-            List<JOBmobile> ObtenerPerfilesTrabajo = new List<JOBmobile>();
+            List<JOBmobile> PerfilesTrabajo = new List<JOBmobile>();
             List<JOB> JobsDBFS = new List<JOB>();
             using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
             {
-
+                JobsDBFS = new JOBServicio(contextoAlh).GetAll();
             }
-            return ObtenerPerfilesTrabajo;
+            foreach (var perfil in JobsDBFS)
+            {
+                JOBmobile job = new JOBmobile();
+                job.id = perfil.ID;
+                job.descripcion_corta = perfil.SHORTNAME;
+                job.descripcion_larga = perfil.LONGNAME;
+                PerfilesTrabajo.Add(job);
+            }
+            return PerfilesTrabajo;
         }
 
     }

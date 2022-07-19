@@ -80,8 +80,8 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("jobcodes")]
         public HttpResponseMessage jobcodes()
         {
-            //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
-            return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
+            var perfiles = App.Catalogos.ObtenerPerfilesTrabajo();
+            return Request.CreateResponse(HttpStatusCode.OK, perfiles, Configuration.Formatters.JsonFormatter);
         }
         //ACCIONES DE ALOHA CONNECTION
 
