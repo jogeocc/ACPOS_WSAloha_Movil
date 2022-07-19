@@ -1,4 +1,5 @@
 ﻿using Aloha.SDK.Common;
+using AlohaWebServiceMobile.Models.Aloha;
 using LasaFOHLib;
 using System;
 using System.Collections.Generic;
@@ -13,21 +14,22 @@ namespace AlohaWebServiceMobile.Utils
         private SdkFunctions _sdkFunctions = new SdkFunctions();
         private IIberFuncs23 xFunction;
 
-        public bool login(int IdTerm, int IdEmpleado)
+        public ResponseAloha login(int IdTerm, int IdEmpleado)
         {
-            bool isLoged = false;
+            ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
-                IsAlreadyClockIn(IdEmpleado);
                 xFunction.LogIn(IdTerm, IdEmpleado, "", "");
-                isLoged = true;
+                responseAloha.Codigo = 0;
+                responseAloha.isClockIn = IsAlreadyClockIn(IdEmpleado);
+                responseAloha.mensaje = "Login realizado con exito";
             }
             catch (Exception ex)
             {
                 App.logger.Error("Error al ingresar con el usuario tal", ex);
             }
-            return isLoged;
+            return responseAloha;
         }
         public bool logout(int IdTerm)
         {

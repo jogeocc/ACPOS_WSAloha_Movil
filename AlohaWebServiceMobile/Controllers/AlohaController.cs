@@ -99,8 +99,8 @@ namespace AlohaWebServiceMobile.Controllers
         {
             //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
 
-            bool IsSuccess = App.AlohaConnection.login(requestLogin.TermId, requestLogin.IdEmpleado);
-            return Request.CreateResponse(HttpStatusCode.OK, IsSuccess, Configuration.Formatters.JsonFormatter);
+            var response = App.AlohaConnection.login(requestLogin.TermId, requestLogin.IdEmpleado);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpPost]

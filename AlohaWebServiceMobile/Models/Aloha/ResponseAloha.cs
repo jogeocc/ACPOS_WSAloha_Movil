@@ -10,6 +10,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
     {
         public bool isClockIn { get; set; }
         public object mesas_empleado { get; set; }
-
+        public int Codigo { get; set; }
+        public string mensaje { get; set; }
     }
 }
