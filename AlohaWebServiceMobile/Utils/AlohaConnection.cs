@@ -1,4 +1,5 @@
 ﻿using Aloha.SDK.Common;
+using AlohaWebServiceMobile.Enums;
 using AlohaWebServiceMobile.Models.Aloha;
 using LasaFOHLib;
 using System;
@@ -21,7 +22,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
                 xFunction.LogIn(IdTerm, IdEmpleado, "", "");
-                responseAloha.Codigo = 0;
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.isClockIn = IsAlreadyClockIn(IdEmpleado);
                 responseAloha.mensaje = "Login realizado con exito";
             }

@@ -9,7 +9,6 @@ namespace AlohaWebServiceMobile.Models.Aloha
     public class RequestLogin
     {
         public int TermId { get; set; }
-
         public int IdEmpleado { get; set; }
     }
 }
