@@ -31,11 +31,15 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public int id { get; set; }
         public string descripcion_corta { get; set; }
         public string descripcion_larga { get; set; }
-        public double precio { get; set; }
-        public List<Mods> mods { get; set; } = new List<Mods>();
+        public double submenu_precio_sub { get; set; }
+        public int submenu_precio_metodo { get; set; }
+        public int submenu_precio_nivel { get; set; }
+        public decimal item_precio { get; set; }
+        public int item_precio_ID { get; set; }
+        public List<Mod> mods { get; set; } = new List<Mod>();
     }
 
-    public class Mods
+    public class Mod
     {
         public int id_modificador { get; set; }
         public string descripcion_corta { get; set; }
@@ -43,7 +47,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public int num_min { get; set; }
         public int num_max { get; set; }
         public int num_gratis { get; set; }
-        public List<Item> items { get; set; } = new List<Item>();
+        public List<Item> item_mod { get; set; } = new List<Item>();
     }
 
 }

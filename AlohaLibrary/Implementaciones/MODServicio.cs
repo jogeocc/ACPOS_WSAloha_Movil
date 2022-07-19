@@ -69,7 +69,7 @@ namespace AlohaLibrary.Implementaciones
                     string methodAux = auxMethods + (i + 1).ToString().PadLeft(2, '0');
                     mod.methods.Add(int.Parse(item[methodAux].ToString()));
                     mod.items.Add(int.Parse(item[itemAux].ToString()));
-                    mod.precios.Add(double.Parse(item[precioAux].ToString()));
+                    mod.precios.Add(decimal.Parse(item[precioAux].ToString()));
                 }
 
                 mods.Add(mod);

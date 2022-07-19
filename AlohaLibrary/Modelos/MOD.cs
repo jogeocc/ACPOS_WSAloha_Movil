@@ -16,7 +16,7 @@ namespace AlohaLibrary.Modelos
         public int FREE { get; set; }
 
         public List<int> items { get; set; } = new List<int>();
-        public List<double> precios { get; set; } = new List<double>();
+        public List<decimal> precios { get; set; } = new List<decimal>();
         public List<int> methods { get; set; } = new List<int>();
 
 
