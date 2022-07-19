@@ -227,7 +227,11 @@ namespace AlohaWebServiceMobile.Utils
         public List<JOBmobile> ObtenerPerfilesTrabajo()
         {
             List<JOBmobile> ObtenerPerfilesTrabajo = new List<JOBmobile>();
+            List<JOB> JobsDBFS = new List<JOB>();
+            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
+            {
 
+            }
             return ObtenerPerfilesTrabajo;
         }
 
