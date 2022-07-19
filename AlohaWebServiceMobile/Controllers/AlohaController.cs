@@ -19,10 +19,9 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("version")]
         public HttpResponseMessage version()
         {
-            object obj = new {ip="192.168.101.110",port = "8082" };
+            object obj = new { ip = "192.168.101.110", port = "8082" };
             return Request.CreateResponse(HttpStatusCode.OK, obj, Configuration.Formatters.JsonFormatter);
         }
-
         [HttpGet]
         [Route("menus")]
         public HttpResponseMessage menus()
@@ -31,7 +30,6 @@ namespace AlohaWebServiceMobile.Controllers
             var menus = App.Catalogos.ObtenerMenuMovil();
             return Request.CreateResponse(HttpStatusCode.OK, menus, Configuration.Formatters.JsonFormatter);
         }
-
         //[HttpGet]
         //[Route("submenus")]
         //public HttpResponseMessage submenus()

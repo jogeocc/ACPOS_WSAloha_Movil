@@ -22,6 +22,7 @@ namespace AlohaWebServiceMobile.Utils
         {
             pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
         }
+
         public List<MNUmobile> ObtenerMenuMovil()
         {
             List<MNUmobile> Menus = new List<MNUmobile>();
@@ -62,6 +63,16 @@ namespace AlohaWebServiceMobile.Utils
                 #endregion
                 Menus.Add(mNUmobile);
             }
+
+
+
+
+
+
+
+
+
+
 
             return Menus;
         }
@@ -166,7 +177,9 @@ namespace AlohaWebServiceMobile.Utils
         public List<JOBmobile> ObtenerPerfilesTrabajo()
         {
             List<JOBmobile> ObtenerPerfilesTrabajo = new List<JOBmobile>();
+
             return ObtenerPerfilesTrabajo;
         }
+
     }
 }

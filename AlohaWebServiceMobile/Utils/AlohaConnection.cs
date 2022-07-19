@@ -29,7 +29,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return isLoged;
         }
-
         public bool logout(int IdTerm)
         {
             bool IsLogedOut = false;
@@ -45,7 +44,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return IsLogedOut;
         }
-
         public bool ClockIn(int IdTerm, int IdJobCode)
         {
             bool IsSuccess = false;
@@ -61,7 +59,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return IsSuccess;
         }
-
         public bool ClockOut(int IdTerm, double tips, double DeclaredCash)
         {
             bool IsSuccess = false;
@@ -77,8 +74,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return IsSuccess;
         }
-
-
         private bool IsAlreadyClockIn(int IdEmpleado)
         {
             bool IsClocked = false;
