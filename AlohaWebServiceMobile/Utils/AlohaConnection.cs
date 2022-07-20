@@ -132,9 +132,13 @@ namespace AlohaWebServiceMobile.Utils
         public ResponseAloha OpenCheck(int IdTerm, int IdMesaInterno)
         {
             ResponseAloha responseAloha = new ResponseAloha();
+
             try
             {
-                xFunction.AddCheck(IdTerm, IdMesaInterno);
+                int idChequeInterno = xFunction.AddCheck(IdTerm, IdMesaInterno);
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = $"Cuenta abierda con id {idChequeInterno}";
+                responseAloha.idMesa = idChequeInterno;
             }
             catch (Exception ex)
             {
@@ -148,7 +152,6 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 xFunction.CloseCheck(IdTerm, IdCheckInterno);
-
             }
             catch (Exception ex)
             {

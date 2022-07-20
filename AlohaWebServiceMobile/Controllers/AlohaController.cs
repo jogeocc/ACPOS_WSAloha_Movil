@@ -117,5 +117,21 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
+        [HttpPost]
+        [Route("OpenCheck")]
+        public HttpResponseMessage OpenCheck(RequestOpenCheck requestOpenCheck)
+        {
+            var response = App.AlohaConnection.OpenCheck(requestOpenCheck.IdTerm, requestOpenCheck.IdMesaInterno);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+        [HttpPost]
+        [Route("CloseCheck")]
+        public HttpResponseMessage CloseCheck(RequestCloseCheck requestCloseCheck)
+        {
+            var response = App.AlohaConnection.CloseCheck(requestCloseCheck.IdChequeInterno, requestCloseCheck.IdChequeInterno);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
     }
 }
