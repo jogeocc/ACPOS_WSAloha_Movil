@@ -129,6 +129,34 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+        public ResponseAloha OpenCheck(int IdTerm, int IdMesaInterno)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                xFunction.AddCheck(IdTerm, IdMesaInterno);
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al abrir cheque", ex);
+            }
+            return responseAloha;
+        }
+        public ResponseAloha CloseCheck(int IdTerm, int IdCheckInterno)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                xFunction.CloseCheck(IdTerm, IdCheckInterno);
+
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al cerrar cheque", ex);
+            }
+            return responseAloha;
+
+        }
 
 
 
