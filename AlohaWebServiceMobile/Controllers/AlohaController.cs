@@ -97,8 +97,6 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("login")]
         public HttpResponseMessage login(RequestLogin requestLogin)
         {
-            //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
-
             var response = App.AlohaConnection.login(requestLogin.TermId, requestLogin.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
@@ -107,9 +105,16 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("logout")]
         public HttpResponseMessage logout(RequestLogout requestLogout)
         {
-            //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
             bool IsSuccess = App.AlohaConnection.logout(requestLogout.TermId);
             return Request.CreateResponse(HttpStatusCode.OK, IsSuccess, Configuration.Formatters.JsonFormatter);
+        }
+
+        [HttpPost]
+        [Route("OpenTable")]
+        public HttpResponseMessage OpenTable(RequestOpenTable requestOpenTable)
+        {
+            var response = App.AlohaConnection.OpenTable(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
     }

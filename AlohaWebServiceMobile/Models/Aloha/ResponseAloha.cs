@@ -12,5 +12,6 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public object mesas_empleado { get; set; }
         public int Codigo { get; set; }
         public string mensaje { get; set; }
+        public int idMesa { get; set; }
     }
 }

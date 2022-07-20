@@ -78,6 +78,61 @@ namespace AlohaWebServiceMobile.Utils
             }
             return IsSuccess;
         }
+
+        public ResponseAloha OpenTable(int IdTerm, int idNumMesa, string NombreMesa, int NumInvitados)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
+                responseAloha.idMesa = IdMesaInterno;
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Mesa abierta con exito";
+            }
+            catch (Exception ex)
+            {
+                responseAloha.mensaje = $"Error abriendo cuenta {idNumMesa}";
+                App.logger.Error("Error al abrir mesa id = , ", ex);
+            }
+            return responseAloha;
+        }
+        public ResponseAloha OpenTab(int IdTerm, int idNumMesa, string NombreMesa, int NumInvitados)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                //Para abrir un tab, por defecto debe de ser el numero de mesa en 0
+                int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
+                responseAloha.idMesa = IdMesaInterno;
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Cuenta abierta";
+            }
+            catch (Exception ex)
+            {
+                responseAloha.mensaje = $"Error abriendo cuenta {NombreMesa}";
+                App.logger.Error($"Error al abrir mesa id = {idNumMesa}, ", ex);
+            }
+            return responseAloha;
+        }
+
+        public ResponseAloha CloseTabTable(int IdTerm, int IdMesaInterno)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                xFunction.CloseTable(IdTerm, IdMesaInterno);
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error al cerrar mesa", ex);
+            }
+            return responseAloha;
+        }
+
+
+
+
+
         private bool IsAlreadyClockIn(int IdEmpleado)
         {
             bool IsClocked = false;

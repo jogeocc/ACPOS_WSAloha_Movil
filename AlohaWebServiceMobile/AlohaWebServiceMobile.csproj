@@ -96,6 +96,7 @@
     <Compile Include="Enums\CodigosError.cs" />
     <Compile Include="Models\Aloha\RequestLogin.cs" />
     <Compile Include="Models\Aloha\RequestLogout.cs" />
+    <Compile Include="Models\Aloha\RequestOpenTable.cs" />
     <Compile Include="Models\Aloha\ResponseAloha.cs" />
     <Compile Include="Models\Catalogos\ITMmobile.cs" />
     <Compile Include="Models\Catalogos\JOBmobile.cs" />
