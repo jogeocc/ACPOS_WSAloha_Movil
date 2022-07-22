@@ -93,8 +93,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CodigosErrorAloha\ErroresAloha.cs" />
     <Compile Include="Enums\CodigosError.cs" />
     <Compile Include="Models\Aloha\RequestCloseCheck.cs" />
+    <Compile Include="Models\Aloha\RequestCloseTabTable.cs" />
     <Compile Include="Models\Aloha\RequestLogin.cs" />
     <Compile Include="Models\Aloha\RequestLogout.cs" />
     <Compile Include="Models\Aloha\RequestOpenCheck.cs" />

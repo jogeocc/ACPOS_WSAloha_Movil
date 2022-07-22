@@ -121,10 +121,15 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 xFunction.CloseTable(IdTerm, IdMesaInterno);
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Mesa/Cuenta cerrada con éxito";
             }
             catch (Exception ex)
             {
                 App.logger.Error("Error al cerrar mesa", ex);
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Mesa/Cuenta con error al cerrar";
+
             }
             return responseAloha;
         }
@@ -152,9 +157,12 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 xFunction.CloseCheck(IdTerm, IdCheckInterno);
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = $"Cuenta Cerrada con id ";
             }
             catch (Exception ex)
             {
+                responseAloha.mensaje = $"Error al cerrar cuenta con id ";
                 App.logger.Error($"Error al cerrar cheque", ex);
             }
             return responseAloha;

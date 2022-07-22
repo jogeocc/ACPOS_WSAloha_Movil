@@ -116,6 +116,13 @@ namespace AlohaWebServiceMobile.Controllers
             var response = App.AlohaConnection.OpenTable(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
+        [HttpPost]
+        [Route("CloseTabTable")]
+        public HttpResponseMessage CloseTabTable(RequestCloseTabTable requestCloseTabTable)
+        {
+            var response = App.AlohaConnection.CloseTabTable(requestCloseTabTable.IdTerm, requestCloseTabTable.IdMesaInterno);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
 
         [HttpPost]
         [Route("OpenCheck")]
@@ -129,7 +136,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("CloseCheck")]
         public HttpResponseMessage CloseCheck(RequestCloseCheck requestCloseCheck)
         {
-            var response = App.AlohaConnection.CloseCheck(requestCloseCheck.IdChequeInterno, requestCloseCheck.IdChequeInterno);
+            var response = App.AlohaConnection.CloseCheck(requestCloseCheck.IdTerm, requestCloseCheck.IdChequeInterno);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
