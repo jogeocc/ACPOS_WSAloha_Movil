@@ -168,6 +168,21 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
 
         }
+        public ResponseAloha AddItem()
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error al agregar item", ex);
+            };
+
+            return responseAloha;
+        }
 
 
         //FUNCIONES DE CONTROL DE DATOS
