@@ -30,7 +30,8 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                responseAloha.mensaje = $"Error al intentar ingresar con el usuario {IdEmpleado} - {(ErroresAloha.MensajeMobile(ex.Message))}";
+                string CodigoError = ex.Message.Substring(ex.Message.Count() - 10);
+                responseAloha.mensaje = $"Error al intentar ingresar con el usuario {IdEmpleado} - {(ErroresAloha.MensajeMobile(CodigoError))}";
                 App.logger.Error("Error al ingresar con el usuario tal", ex);
             }
             return responseAloha;
