@@ -207,5 +207,31 @@ namespace AlohaWebServiceMobile.Utils
 
             return nombre;
         }
+
+        private List<int> IdsJobsEmpleado(int IdEmpleado)
+        {
+            List<int> ListaJobs = new List<int>();
+            try
+            {
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
+                IberEnum EnumEmpleados = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado);
+                IberObject empleado = EnumEmpleados.First();
+                for (int i = 0; i < 10; i++)
+                {
+                    int job = empleado.GetLongVal($"JOBCODE" + i + 1);
+                    if (job > 0)
+                    {
+                        ListaJobs.Add(job);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al recuperar los jobs del empelado {IdEmpleado}", ex);
+            }
+            return ListaJobs;
+            return ListaJobs;
+        }
     }
 }
