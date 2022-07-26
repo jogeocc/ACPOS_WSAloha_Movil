@@ -1,4 +1,5 @@
 ﻿using Aloha.SDK.Common;
+using AlohaWebServiceMobile.CodigosErrorAloha;
 using AlohaWebServiceMobile.Enums;
 using AlohaWebServiceMobile.Models.Aloha;
 using LasaFOHLib;
@@ -11,10 +12,8 @@ namespace AlohaWebServiceMobile.Utils
 {
     public class AlohaConnection
     {
-
         private SdkFunctions _sdkFunctions = new SdkFunctions();
         private IIberFuncs23 xFunction;
-
         public ResponseAloha login(int IdTerm, int IdEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
@@ -31,7 +30,7 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                responseAloha.mensaje = $"Error al intentar ingresar con el usuario {IdEmpleado} - {ex.Message}";
+                responseAloha.mensaje = $"Error al intentar ingresar con el usuario {IdEmpleado} - {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error("Error al ingresar con el usuario tal", ex);
             }
             return responseAloha;
@@ -168,13 +167,19 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
 
         }
-        public ResponseAloha AddItem()
+        public ResponseAloha AddItem(int IdTerm, int IdCheck, int IdItem, double Amount, int IdMod, double AmountMod)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
-
+                int idEntry = xFunction.BeginItem(IdTerm, IdCheck, IdItem, "", Amount);
+                #region modificadores
+                //xFunction.ModItem(IdTerm, idEntry, IdMod, "", AmountMod, 0);
+                #endregion
+                xFunction.EndItem(IdTerm);
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Producto insertado con exito";
             }
             catch (Exception ex)
             {
@@ -184,7 +189,23 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+        public ResponseAloha AddSpecialMessage(int IdTerm, int IdCheckId, int IdEntry, string Message)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                xFunction.ApplySpecialMessage(IdTerm, IdCheckId, IdEntry, Message);
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Producto insertado con exito";
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error al agregar item", ex);
+            };
 
+            return responseAloha;
+        }
         //FUNCIONES DE CONTROL DE DATOS
         private bool IsAlreadyClockIn(int IdEmpleado)
         {
@@ -223,7 +244,6 @@ namespace AlohaWebServiceMobile.Utils
 
             return nombre;
         }
-
         private List<int> IdsJobsEmpleado(int IdEmpleado)
         {
             List<int> ListaJobs = new List<int>();
