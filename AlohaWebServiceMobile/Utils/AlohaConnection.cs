@@ -25,6 +25,8 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.isClockIn = IsAlreadyClockIn(IdEmpleado);
                 responseAloha.mensaje = "Login realizado con exito";
+                responseAloha.Nombre_Empleado = NombreEmpleado(IdEmpleado);
+
             }
             catch (Exception ex)
             {
@@ -78,7 +80,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return IsSuccess;
         }
-
         public ResponseAloha OpenTable(int IdTerm, int idNumMesa, string NombreMesa, int NumInvitados)
         {
             ResponseAloha responseAloha = new ResponseAloha();
@@ -114,7 +115,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return responseAloha;
         }
-
         public ResponseAloha CloseTabTable(int IdTerm, int IdMesaInterno)
         {
             ResponseAloha responseAloha = new ResponseAloha();
@@ -133,7 +133,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return responseAloha;
         }
-
         public ResponseAloha OpenCheck(int IdTerm, int IdMesaInterno)
         {
             ResponseAloha responseAloha = new ResponseAloha();
@@ -170,8 +169,7 @@ namespace AlohaWebServiceMobile.Utils
         }
 
 
-
-
+        //FUNCIONES DE CONTROL DE DATOS
         private bool IsAlreadyClockIn(int IdEmpleado)
         {
             bool IsClocked = false;
@@ -190,6 +188,24 @@ namespace AlohaWebServiceMobile.Utils
             }
             return IsClocked;
 
+        }
+        private string NombreEmpleado(int IdEmpleado)
+        {
+            string nombre = "";
+            try
+            {
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
+                IberEnum EnumEmpleados = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado);
+                IberObject empleado = EnumEmpleados.First();
+                nombre = empleado.GetStringVal("NICKNAME");
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error recuperando nombre del empleado", ex);
+            }
+
+            return nombre;
         }
     }
 }

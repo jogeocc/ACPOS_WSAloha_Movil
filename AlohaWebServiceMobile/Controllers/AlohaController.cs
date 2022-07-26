@@ -44,7 +44,6 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("formas_pago")]
         public HttpResponseMessage formas_pago()
         {
-            //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
             var tenders = App.Catalogos.FormasDePago();
             return Request.CreateResponse(HttpStatusCode.OK, tenders, Configuration.Formatters.JsonFormatter);
         }
@@ -56,8 +55,8 @@ namespace AlohaWebServiceMobile.Controllers
             var perfiles = App.Catalogos.ObtenerPerfilesTrabajo();
             return Request.CreateResponse(HttpStatusCode.OK, perfiles, Configuration.Formatters.JsonFormatter);
         }
-        //ACCIONES DE ALOHA CONNECTION
 
+        //ACCIONES DE ALOHA CONNECTION
         [HttpPost]
         [Route("clockin")]
         public HttpResponseMessage clockin()
