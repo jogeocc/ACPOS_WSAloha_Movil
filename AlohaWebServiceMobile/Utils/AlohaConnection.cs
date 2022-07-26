@@ -26,6 +26,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.isClockIn = IsAlreadyClockIn(IdEmpleado);
                 responseAloha.mensaje = "Login realizado con exito";
                 responseAloha.Nombre_Empleado = NombreEmpleado(IdEmpleado);
+                responseAloha.idJobs = IdsJobsEmpleado(IdEmpleado);
 
             }
             catch (Exception ex)
