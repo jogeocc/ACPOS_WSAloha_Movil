@@ -220,7 +220,8 @@ namespace AlohaWebServiceMobile.Utils
                 IberObject empleado = EnumEmpleados.First();
                 for (int i = 0; i < 10; i++)
                 {
-                    int job = empleado.GetLongVal($"JOBCODE" + i + 1);
+                    string NameJob = $"JOBCODE{(i + 1)}";
+                    int job = empleado.GetLongVal(NameJob);
                     if (job > 0)
                     {
                         ListaJobs.Add(job);
