@@ -318,7 +318,8 @@ namespace AlohaWebServiceMobile.Utils
                 while (MesasEmpleado != null)
                 {
                     MesaEmpleado mesaEmpleado = new MesaEmpleado();
-                    mesaEmpleado.IdMesa = MesaAbierta.GetLongVal("ID");
+                    mesaEmpleado.Id = MesaAbierta.GetLongVal("ID");
+                    mesaEmpleado.Name = MesaAbierta.GetStringVal("NAME");
                     ListaMesas.Add(mesaEmpleado);
                     MesaAbierta = MesasEmpleado.Next();
                 }
