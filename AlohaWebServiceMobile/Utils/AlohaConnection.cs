@@ -320,8 +320,19 @@ namespace AlohaWebServiceMobile.Utils
                     MesaEmpleado mesaEmpleado = new MesaEmpleado();
                     mesaEmpleado.Id = MesaAbierta.GetLongVal("ID");
                     mesaEmpleado.Name = MesaAbierta.GetStringVal("NAME");
-                    mesaEmpleado.IsTab = MesaAbierta.GetBoolVal("TYPE") == 0 ? false : true;
+                    mesaEmpleado.IsTable = MesaAbierta.GetBoolVal("TYPE") == 0 ? false : true;
                     mesaEmpleado.IdMesa = MesaAbierta.GetLongVal("TABLEDEF_ID");
+
+                    IberEnum ChequesEmpleado = MesaAbierta.GetEnum((int)COMEnums.INTERNAL_TABLES_CHECKS);
+                    IberObject ChequeAbierto = ChequesEmpleado.First();
+                    while (ChequesEmpleado != null)
+                    {
+                        Check check = new Check();
+                        check.Id = ChequeAbierto.GetLongVal("ID");
+                        mesaEmpleado.Checks.Add(check);
+                        ChequeAbierto = ChequesEmpleado.Next();
+                    }
+
                     ListaMesas.Add(mesaEmpleado);
                     MesaAbierta = MesasEmpleado.Next();
                 }
