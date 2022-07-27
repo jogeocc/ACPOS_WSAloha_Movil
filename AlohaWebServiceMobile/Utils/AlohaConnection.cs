@@ -343,7 +343,7 @@ namespace AlohaWebServiceMobile.Utils
                                     item.IdEntry = ItemAbierto.GetLongVal("ID");
                                     item.Name = ItemAbierto.GetStringVal("DISP_NAME");
                                     item.Price = ItemAbierto.GetDoubleVal("PRICE");
-                                    item.DisplayPrice = ItemAbierto.GetStringVal("DISP_PRICE");
+                                    item.DisplayPrice = ItemAbierto.GetStringVal("DISP_PRICE").Trim(); ;
                                     check.Items.Add(item);
                                     ItemAbierto = ItemsEmpleado.Next();
                                 }
