@@ -354,7 +354,8 @@ namespace AlohaWebServiceMobile.Utils
                                     }
                                     else
                                     {
-                                        item.Mods.First(I => I.IdEntry == IdPadre).Mods.Add(item);
+                                        check.Items.First(I => I.IdEntry == IdPadre).Mods.Add(item);
+                                        //item.Mods.First(I => I.IdEntry == IdPadre).Mods.Add(item);
                                     }
                                     ItemAbierto = ItemsEmpleado.Next();
                                 }
