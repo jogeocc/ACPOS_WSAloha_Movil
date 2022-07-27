@@ -12,7 +12,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public string Name { get; set; }
         public int Id { get; set; }
         public int IdMesa { get; set; }
-        public List<Check> Checks { get; set; }
+        public List<Check> Checks { get; set; } = new List<Check>();
     }
     public class Check
     {
