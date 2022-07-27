@@ -29,7 +29,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public double Price { get; set; }
         public string DisplayPrice { get; set; }
         public int NivelMod { get; set; }
-        public List<Mod> Mods { get; set; } = new List<Mod>();
+        public List<Item> Mods { get; set; } = new List<Item>();
     }
 
     public class Mod

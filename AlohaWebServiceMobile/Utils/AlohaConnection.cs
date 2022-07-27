@@ -337,6 +337,7 @@ namespace AlohaWebServiceMobile.Utils
                             {
                                 IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
                                 IberObject ItemAbierto = ItemsEmpleado.First();
+                                int IdPadre;
                                 while (ItemAbierto != null)
                                 {
                                     Item item = new Item();
@@ -345,7 +346,16 @@ namespace AlohaWebServiceMobile.Utils
                                     item.Price = ItemAbierto.GetDoubleVal("PRICE");
                                     item.DisplayPrice = ItemAbierto.GetStringVal("DISP_PRICE").Trim(); ;
                                     item.NivelMod = ItemAbierto.GetLongVal("LEVEL");
-                                    check.Items.Add(item);
+                                    
+                                    if(item.NivelMod == 0)
+                                    {
+                                        IdPadre = item.IdEntry;
+                                        check.Items.Add(item);
+                                    }
+                                    else
+                                    {
+                                        item.Mods.Add(item);
+                                    }
                                     ItemAbierto = ItemsEmpleado.Next();
                                 }
 
