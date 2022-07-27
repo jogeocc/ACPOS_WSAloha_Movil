@@ -29,6 +29,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.mensaje = "Login realizado con exito";
                 responseAloha.Nombre_Empleado = NombreEmpleado(IdEmpleado);
                 responseAloha.idJobs = IdsJobsEmpleado(IdEmpleado);
+                responseAloha.mesas_empleado = RecuperarMesas(IdEmpleado);
 
             }
             catch (Exception ex)
@@ -303,8 +304,9 @@ namespace AlohaWebServiceMobile.Utils
             return ListaJobs;
         }
 
-        private void RecuperarMesas(int IdEmpleado)
+        private List<MesaEmpleado> RecuperarMesas(int IdEmpleado)
         {
+            List<MesaEmpleado> ListaMesas = new List<MesaEmpleado>();
             try
             {
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
@@ -312,12 +314,20 @@ namespace AlohaWebServiceMobile.Utils
                 IberEnum EnumEmpleados = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado);
                 IberObject empleado = EnumEmpleados.First();
                 IberEnum MesasEmpleado = empleado.GetEnum((int)COMEnums.INTERNAL_EMP_OPEN_TABLES);
+                IberObject MesaAbierta = MesasEmpleado.First();
+                while (MesasEmpleado != null)
+                {
+                    MesaEmpleado mesaEmpleado = new MesaEmpleado();
+                    mesaEmpleado.IdMesa = MesaAbierta.GetLongVal("ID");
+                    ListaMesas.Add(mesaEmpleado);
+                    MesaAbierta = MesasEmpleado.Next();
+                }
             }
             catch (Exception ex)
             {
                 App.logger.Error("Error recueprando mesas del empleado", ex);
-                throw;
             }
+            return ListaMesas;
         }
     }
 
