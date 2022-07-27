@@ -321,6 +321,7 @@ namespace AlohaWebServiceMobile.Utils
                     mesaEmpleado.Id = MesaAbierta.GetLongVal("ID");
                     mesaEmpleado.Name = MesaAbierta.GetStringVal("NAME");
                     mesaEmpleado.IsTab = MesaAbierta.GetBoolVal("TYPE") == 0 ? false : true;
+                    mesaEmpleado.IdMesa = MesaAbierta.GetLongVal("TABLEDEF_ID");
                     ListaMesas.Add(mesaEmpleado);
                     MesaAbierta = MesasEmpleado.Next();
                 }
