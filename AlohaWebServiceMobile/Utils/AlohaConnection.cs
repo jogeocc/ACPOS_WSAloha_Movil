@@ -332,6 +332,28 @@ namespace AlohaWebServiceMobile.Utils
                         {
                             Check check = new Check();
                             check.Id = ChequeAbierto.GetLongVal("ID");
+
+                            try
+                            {
+                                IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
+                                IberObject ItemAbierto = ItemsEmpleado.First();
+                                while (ItemAbierto != null)
+                                {
+                                    Item item = new Item();
+                                    item.IdEntry = ItemAbierto.GetLongVal("ID");
+                                    item.Name = ItemAbierto.GetStringVal("DISP_NAME");
+                                    item.Price = ItemAbierto.GetDoubleVal("PRICE");
+                                    item.DisplayPrice = ItemAbierto.GetStringVal("DISP_PRICE");
+                                    ItemAbierto = ItemsEmpleado.Next();
+                                }
+
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+
+
                             mesaEmpleado.Checks.Add(check);
                             ChequeAbierto = ChequesEmpleado.Next();
                         }
