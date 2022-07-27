@@ -325,12 +325,19 @@ namespace AlohaWebServiceMobile.Utils
 
                     IberEnum ChequesEmpleado = MesaAbierta.GetEnum((int)COMEnums.INTERNAL_TABLES_CHECKS);
                     IberObject ChequeAbierto = ChequesEmpleado.First();
-                    while (ChequesEmpleado != null)
+
+                    try
                     {
-                        Check check = new Check();
-                        check.Id = ChequeAbierto.GetLongVal("ID");
-                        mesaEmpleado.Checks.Add(check);
-                        ChequeAbierto = ChequesEmpleado.Next();
+                        while (ChequesEmpleado != null)
+                        {
+                            Check check = new Check();
+                            check.Id = ChequeAbierto.GetLongVal("ID");
+                            mesaEmpleado.Checks.Add(check);
+                            ChequeAbierto = ChequesEmpleado.Next();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
                     }
 
                     ListaMesas.Add(mesaEmpleado);
