@@ -344,6 +344,7 @@ namespace AlohaWebServiceMobile.Utils
                                     item.Name = ItemAbierto.GetStringVal("DISP_NAME");
                                     item.Price = ItemAbierto.GetDoubleVal("PRICE");
                                     item.DisplayPrice = ItemAbierto.GetStringVal("DISP_PRICE").Trim(); ;
+                                    item.NivelMod = ItemAbierto.GetLongVal("LEVEL");
                                     check.Items.Add(item);
                                     ItemAbierto = ItemsEmpleado.Next();
                                 }
