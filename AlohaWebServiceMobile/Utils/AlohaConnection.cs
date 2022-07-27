@@ -8,10 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace AlohaWebServiceMobile.Utils
 {
+
     public class AlohaConnection
     {
+
         private SdkFunctions _sdkFunctions = new SdkFunctions();
         private IIberFuncs23 xFunction;
         public ResponseAloha login(int IdTerm, int IdEmpleado)
@@ -189,7 +192,6 @@ namespace AlohaWebServiceMobile.Utils
 
             return responseAloha;
         }
-
         public ResponseAloha AddSpecialMessage(int IdTerm, int IdCheckId, int IdEntry, string Message)
         {
             ResponseAloha responseAloha = new ResponseAloha();
@@ -207,6 +209,36 @@ namespace AlohaWebServiceMobile.Utils
 
             return responseAloha;
         }
+        public ResponseAloha ConfirmOrderMode(int IdTerm, int IdMesa, int IdModoPedido)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                xFunction.OrderItems(IdTerm, IdMesa, IdModoPedido);
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Productos ordenados con exito";
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error al agregar item", ex);
+            };
+            return responseAloha;
+        }
+        public ResponseAloha AplicarPago(int IdTerm, int IdChequeId, int IdPago, double Amount, double Tip, string Digitos = "", string Expiracion = "", string Info = "", string Autorizacion = "")
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                xFunction.ApplyPayment(IdTerm, IdChequeId, IdPago, Amount, Tip, Digitos, Expiracion, Info, Autorizacion);
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error al aplicar pago", ex);
+            }
+            return responseAloha;
+        }
+
         //FUNCIONES DE CONTROL DE DATOS
         private bool IsAlreadyClockIn(int IdEmpleado)
         {
@@ -269,7 +301,24 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"Error al recuperar los jobs del empelado {IdEmpleado}", ex);
             }
             return ListaJobs;
-            return ListaJobs;
+        }
+
+        private void RecuperarMesas(int IdEmpleado)
+        {
+            try
+            {
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
+                IberEnum EnumEmpleados = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado);
+                IberObject empleado = EnumEmpleados.First();
+                IberEnum MesasEmpleado = empleado.GetEnum((int)COMEnums.INTERNAL_EMP_OPEN_TABLES);
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error recueprando mesas del empleado", ex);
+                throw;
+            }
         }
     }
+
 }
