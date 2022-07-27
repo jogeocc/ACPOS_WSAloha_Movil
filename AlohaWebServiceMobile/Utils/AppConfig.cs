@@ -8,5 +8,15 @@ namespace AlohaWebServiceMobile.Utils
 {
     public class AppConfig
     {
+        public AppConfig()
+        {
+
+        }
+        public string IP { get; set; }
+        public string PORT { get; set; }
+        public string URL_BASE { get; set; }
+        public int ID_MENU_MOVIL { get; set; }
     }
+
+
 }

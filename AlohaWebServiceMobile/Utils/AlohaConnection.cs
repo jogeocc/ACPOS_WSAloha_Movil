@@ -333,6 +333,7 @@ namespace AlohaWebServiceMobile.Utils
                             Check check = new Check();
                             check.Id = ChequeAbierto.GetLongVal("ID");
 
+                            //ITEMS
                             try
                             {
                                 IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
@@ -355,7 +356,6 @@ namespace AlohaWebServiceMobile.Utils
                                     else
                                     {
                                         check.Items.First(I => I.IdEntry == IdPadre).Mods.Add(item);
-                                        //item.Mods.First(I => I.IdEntry == IdPadre).Mods.Add(item);
                                     }
                                     ItemAbierto = ItemsEmpleado.Next();
                                 }

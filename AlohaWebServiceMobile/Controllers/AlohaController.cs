@@ -59,9 +59,9 @@ namespace AlohaWebServiceMobile.Controllers
         //ACCIONES DE ALOHA CONNECTION
         [HttpPost]
         [Route("clockin")]
-        public HttpResponseMessage clockin()
+        public HttpResponseMessage clockin(RequestClockIn requestClockIn)
         {
-            //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
+            var response = App.AlohaConnection.ClockIn(requestClockIn.IdTerm, requestClockIn.IdJobCode);
             return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
         }
 
