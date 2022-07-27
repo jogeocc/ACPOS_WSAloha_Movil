@@ -320,6 +320,7 @@ namespace AlohaWebServiceMobile.Utils
                     MesaEmpleado mesaEmpleado = new MesaEmpleado();
                     mesaEmpleado.Id = MesaAbierta.GetLongVal("ID");
                     mesaEmpleado.Name = MesaAbierta.GetStringVal("NAME");
+                    mesaEmpleado.IsTab = MesaAbierta.GetBoolVal("TYPE") == 0 ? false : true;
                     ListaMesas.Add(mesaEmpleado);
                     MesaAbierta = MesasEmpleado.Next();
                 }
