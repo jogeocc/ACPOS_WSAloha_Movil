@@ -35,7 +35,6 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("modos_pedidos")]
         public HttpResponseMessage modos_pedidos()
         {
-            //TODO REALIZAR DEVOLUCION DE MODELO DE ESTA FUNCION
             var orderMods = App.Catalogos.ObtenerModosDePedido();
             return Request.CreateResponse(HttpStatusCode.OK, orderMods, Configuration.Formatters.JsonFormatter);
         }
