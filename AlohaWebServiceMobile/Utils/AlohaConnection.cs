@@ -400,7 +400,7 @@ namespace AlohaWebServiceMobile.Utils
                                     Promotion promotion = new Promotion();
                                     promotion.Id = PromocionAbierto.GetLongVal("ID");
                                     promotion.IdPromo = PromocionAbierto.GetLongVal("PROMOTION_ID");
-                                    promotion.Name = PromocionAbierto.GetStringVal("IDENT");
+                                    promotion.Name = PromocionAbierto.GetStringVal("NAME");
                                     promotion.AmountDiscount = PromocionAbierto.GetDoubleVal("AMOUNT");
                                     check.Promotions.Add(promotion);
                                     PromocionAbierto = PromocionesEmpleado.Next();
