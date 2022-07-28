@@ -39,7 +39,7 @@ namespace AlohaWebServiceMobile.Utils
             //RELACIONAR TODO LA DATA DEL MENU -> SUBMENUS -> ITEMS -> MODS -> ITEMS
 
             //RECOLECTAR PRIMER PASO MENUS
-            foreach (MNU menu in MenusDbfs.Where(M => M.ID == 109))
+            foreach (MNU menu in MenusDbfs.Where(M => M.ID == App.appConfig.ID_MENU_MOVIL))
             {
                 MNUmobile mNUmobile = new MNUmobile();
                 mNUmobile.id_menu = menu.ID;

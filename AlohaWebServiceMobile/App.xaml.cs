@@ -27,8 +27,8 @@ namespace AlohaWebServiceMobile
         public bool IsError = false;
         public ViewLoading splash = new ViewLoading();
         public static EstructurarData Catalogos = new EstructurarData();
-        public static bool ocupado = false;
         public static AlohaConnection AlohaConnection = new AlohaConnection();
+        public static AppConfig appConfig = new AppConfig();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
@@ -79,7 +79,7 @@ namespace AlohaWebServiceMobile
         private void IniciarWebService()
         {
 
-            string url_base = "http://127.0.0.1:8082";
+            string url_base = String.Format(appConfig.URL_BASE, appConfig.IP, appConfig.PORT);
             HttpSelfHostConfiguration config_server = new HttpSelfHostConfiguration(url_base);
             config_server.MapHttpAttributeRoutes();
             var server = new HttpSelfHostServer(config_server);

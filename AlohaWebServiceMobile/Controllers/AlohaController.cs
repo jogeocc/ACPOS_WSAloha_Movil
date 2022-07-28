@@ -19,7 +19,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("version")]
         public HttpResponseMessage version()
         {
-            object obj = new { ip = "192.168.101.110", port = "8082" };
+            object obj = new { ip = App.appConfig.IP, port = App.appConfig.PORT };
             return Request.CreateResponse(HttpStatusCode.OK, obj, Configuration.Formatters.JsonFormatter);
         }
         [HttpGet]
