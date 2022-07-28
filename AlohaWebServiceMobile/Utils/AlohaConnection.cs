@@ -384,6 +384,49 @@ namespace AlohaWebServiceMobile.Utils
                                 }
 
                             }
+
+                            catch (Exception ex)
+                            {
+
+                            }
+
+                            //Promociones aplicadas a la mesa
+                            try
+                            {
+                                IberEnum PromocionesEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_PROMOS);
+                                IberObject PromocionAbierto = PromocionesEmpleado.First();
+                                while (PromocionAbierto != null)
+                                {
+                                    Promotion promotion = new Promotion();
+                                    promotion.Id = PromocionAbierto.GetLongVal("ID");
+                                    promotion.IdPromo = PromocionAbierto.GetLongVal("PROMOTION_ID");
+                                    promotion.Name = PromocionAbierto.GetStringVal("IDENT");
+                                    promotion.AmountDiscount = PromocionAbierto.GetDoubleVal("AMOUNT");
+                                    check.Promotions.Add(promotion);
+                                    PromocionAbierto = PromocionesEmpleado.Next();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+                            //Cortesias aplicadas a la mesa
+                            try
+                            {
+                                IberEnum CortesiasEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_COMPS);
+                                IberObject CortesiaAbierta = CortesiasEmpleado.First();
+                                while (CortesiaAbierta != null)
+                                {
+                                    Comp Comp = new Comp();
+                                    Comp.Id = CortesiaAbierta.GetLongVal("ID");
+                                    Comp.IdComp = CortesiaAbierta.GetLongVal("COMPTYPE_ID");
+                                    Comp.Unit = CortesiaAbierta.GetStringVal("UNIT");
+                                    Comp.Name = CortesiaAbierta.GetStringVal("NAME");
+                                    Comp.AmountDiscount = CortesiaAbierta.GetDoubleVal("AMOUNT");
+                                    check.Comps.Add(Comp);
+                                    CortesiaAbierta = CortesiasEmpleado.Next();
+                                }
+                            }
                             catch (Exception ex)
                             {
 

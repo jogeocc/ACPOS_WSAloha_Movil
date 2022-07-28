@@ -19,11 +19,26 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int Id { get; set; }
         public List<Item> Items { get; set; } = new List<Item>();
         public List<Payment> Payments { get; set; } = new List<Payment>();
-        public List<object> Promotions { get; set; }
-        public List<object> Comps { get; set; }
+        public List<Promotion> Promotions { get; set; } = new List<Promotion>();
+        public List<Comp> Comps { get; set; } = new List<Comp>();
     }
 
+    public class Comp
+    {
+        public int Id { get; set; }
+        public int IdComp { get; set; }
+        public double AmountDiscount { get; set; }
+        public string Name { get; set; }
+        public string Unit { get; set; }
+    }
 
+    public class Promotion
+    {
+        public int Id { get; set; }
+        public int IdPromo { get; set; }
+        public string Name { get; set; }
+        public double AmountDiscount { get; set; }
+    }
 
     public class Item
     {
