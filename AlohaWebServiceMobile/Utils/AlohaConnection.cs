@@ -315,6 +315,7 @@ namespace AlohaWebServiceMobile.Utils
                 IberObject empleado = EnumEmpleados.First();
                 IberEnum MesasEmpleado = empleado.GetEnum((int)COMEnums.INTERNAL_EMP_OPEN_TABLES);
                 IberObject MesaAbierta = MesasEmpleado.First();
+                //MESAS ABIERTAS
                 while (MesasEmpleado != null)
                 {
                     MesaEmpleado mesaEmpleado = new MesaEmpleado();
@@ -323,9 +324,10 @@ namespace AlohaWebServiceMobile.Utils
                     mesaEmpleado.IsTable = MesaAbierta.GetBoolVal("TYPE") == 0 ? false : true;
                     mesaEmpleado.IdMesa = MesaAbierta.GetLongVal("TABLEDEF_ID");
 
+
                     IberEnum ChequesEmpleado = MesaAbierta.GetEnum((int)COMEnums.INTERNAL_TABLES_CHECKS);
                     IberObject ChequeAbierto = ChequesEmpleado.First();
-
+                    //CHEQUES ABIERTOS DE LA MESA
                     try
                     {
                         while (ChequesEmpleado != null)
@@ -365,8 +367,27 @@ namespace AlohaWebServiceMobile.Utils
                             {
 
                             }
+                            //PAGOS APLICADOS A LA MESA
+                            try
+                            {
+                                IberEnum PagosEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_PAYMENTS);
+                                IberObject PagoAplicado = PagosEmpleado.First();
+                                while (PagoAplicado != null)
+                                {
+                                    Payment payment = new Payment();
+                                    payment.IdPayment = PagoAplicado.GetLongVal("ID");
+                                    payment.IdTender = PagoAplicado.GetLongVal("TENDER_ID");
+                                    payment.Name = PagoAplicado.GetStringVal("NAME");
+                                    payment.Tip = PagoAplicado.GetDoubleVal("TIP");
+                                    payment.Amount = PagoAplicado.GetDoubleVal("AMOUNT");
+                                    check.Payments.Add(payment);
+                                }
 
+                            }
+                            catch (Exception ex)
+                            {
 
+                            }
                             mesaEmpleado.Checks.Add(check);
                             ChequeAbierto = ChequesEmpleado.Next();
                         }

@@ -18,10 +18,13 @@ namespace AlohaWebServiceMobile.Models.Aloha
     {
         public int Id { get; set; }
         public List<Item> Items { get; set; } = new List<Item>();
-        public List<object> Payments { get; set; }
+        public List<Payment> Payments { get; set; } = new List<Payment>();
         public List<object> Promotions { get; set; }
         public List<object> Comps { get; set; }
     }
+
+
+
     public class Item
     {
         public int IdEntry { get; set; }
@@ -31,14 +34,12 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int NivelMod { get; set; }
         public List<Item> Mods { get; set; } = new List<Item>();
     }
-
-    public class Mod
+    public class Payment
     {
-        public int IdEntry { get; set; }
+        public int IdPayment { get; set; }
+        public int IdTender { get; set; }
+        public double Amount { get; set; }
+        public double Tip { get; set; }
         public string Name { get; set; }
-        public double Price { get; set; }
-        public string DisplayPrice { get; set; }
-        public int NivelMod { get; set; }
-
     }
 }
