@@ -96,6 +96,7 @@
     <Compile Include="CodigosErrorAloha\ErroresAloha.cs" />
     <Compile Include="Enums\CodigosError.cs" />
     <Compile Include="Models\Aloha\MesaEmpleado.cs" />
+    <Compile Include="Models\Aloha\RequestAddItem.cs" />
     <Compile Include="Models\Aloha\RequestClockIn.cs" />
     <Compile Include="Models\Aloha\RequestCloseCheck.cs" />
     <Compile Include="Models\Aloha\RequestCloseTabTable.cs" />

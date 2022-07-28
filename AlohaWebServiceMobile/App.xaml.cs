@@ -70,14 +70,12 @@ namespace AlohaWebServiceMobile
                 logger.Error(ex);
             }
         }
-
         private void CargaIcono()
         {
             IconoNotificacion.CrearNotifyIcon();
             splash.Hide();
 
         }
-
         private void IniciarWebService()
         {
 

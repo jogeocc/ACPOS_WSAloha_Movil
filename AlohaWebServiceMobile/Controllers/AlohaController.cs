@@ -111,5 +111,11 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
+        [HttpPost]
+        [Route("AddItem")]
+        public HttpResponseMessage AddItem(RequestAddItem requestAddItem)
+        {
+
+        }
     }
 }
