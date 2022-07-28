@@ -377,7 +377,7 @@ namespace AlohaWebServiceMobile.Utils
                                     Payment payment = new Payment();
                                     payment.IdPayment = PagoAplicado.GetLongVal("ID");
                                     payment.IdTender = PagoAplicado.GetLongVal("TENDER_ID");
-                                    payment.Name = PagoAplicado.GetStringVal("NAME");
+                                    payment.Name = PagoAplicado.GetStringVal("AR_PRINT_REFERENCE");
                                     payment.Tip = PagoAplicado.GetDoubleVal("TIP");
                                     payment.Amount = PagoAplicado.GetDoubleVal("AMOUNT");
                                     check.Payments.Add(payment);
