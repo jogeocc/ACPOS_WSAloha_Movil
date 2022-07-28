@@ -381,6 +381,7 @@ namespace AlohaWebServiceMobile.Utils
                                     payment.Tip = PagoAplicado.GetDoubleVal("TIP");
                                     payment.Amount = PagoAplicado.GetDoubleVal("AMOUNT");
                                     check.Payments.Add(payment);
+                                    PagoAplicado = PagosEmpleado.Next();
                                 }
 
                             }
