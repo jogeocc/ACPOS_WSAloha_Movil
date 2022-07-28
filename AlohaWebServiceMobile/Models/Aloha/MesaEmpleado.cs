@@ -40,6 +40,5 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int IdTender { get; set; }
         public double Amount { get; set; }
         public double Tip { get; set; }
-        public string Name { get; set; }
     }
 }
