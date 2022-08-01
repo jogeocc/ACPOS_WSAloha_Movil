@@ -76,8 +76,8 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("logout")]
         public HttpResponseMessage logout(RequestLogout requestLogout)
         {
-            bool IsSuccess = App.AlohaConnection.logout(requestLogout.TermId);
-            return Request.CreateResponse(HttpStatusCode.OK, IsSuccess, Configuration.Formatters.JsonFormatter);
+            var response = App.AlohaConnection.logout(requestLogout.TermId);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpPost]
