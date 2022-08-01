@@ -351,7 +351,7 @@ namespace AlohaWebServiceMobile.Utils
                                     item.Price = ItemAbierto.GetDoubleVal("PRICE");
                                     item.DisplayPrice = ItemAbierto.GetStringVal("DISP_PRICE").Trim(); ;
                                     item.NivelMod = ItemAbierto.GetLongVal("LEVEL");
-
+                                    int IsMessage = ItemAbierto.GetLongVal("DATA");
                                     if (item.NivelMod == 0)
                                     {
                                         IdPadre = item.IdEntry;
