@@ -61,7 +61,7 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage clockin(RequestClockIn requestClockIn)
         {
             var response = App.AlohaConnection.ClockIn(requestClockIn.IdTerm, requestClockIn.IdJobCode);
-            return Request.CreateResponse(HttpStatusCode.OK, $"Servicio web Aloha Mobile {App.Version} - Web Service", Configuration.Formatters.JsonFormatter);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpPost]

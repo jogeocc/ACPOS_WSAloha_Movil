@@ -40,35 +40,37 @@ namespace AlohaWebServiceMobile.Utils
             }
             return responseAloha;
         }
-        public bool logout(int IdTerm)
+        public ResponseAloha logout(int IdTerm)
         {
-            bool IsLogedOut = false;
+            ResponseAloha response = new ResponseAloha();
             try
             {
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
                 xFunction.LogOut(IdTerm);
-                IsLogedOut = true;
+                response.Estado = true;
             }
             catch (Exception ex)
             {
-                App.logger.Error("Error al ingresar con el usuario tal", ex);
+                response.Estado = false;
+                App.logger.Error("Error al salie con el usuario tal", ex);
             }
-            return IsLogedOut;
+            return response;
         }
-        public bool ClockIn(int IdTerm, int IdJobCode)
+        public ResponseAloha ClockIn(int IdTerm, int IdJobCode)
         {
-            bool IsSuccess = false;
+            ResponseAloha response = new ResponseAloha();
             try
             {
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
                 xFunction.ClockIn(IdTerm, IdJobCode);
-                IsSuccess = true;
+                response.Estado = true;
             }
             catch (Exception ex)
             {
+                response.Estado = false;
                 App.logger.Error("Error", ex);
             }
-            return IsSuccess;
+            return response;
         }
         public bool ClockOut(int IdTerm, double tips, double DeclaredCash)
         {
