@@ -280,9 +280,9 @@ namespace AlohaWebServiceMobile.Utils
 
             return nombre;
         }
-        private List<int> IdsJobsEmpleado(int IdEmpleado)
+        private List<Job> IdsJobsEmpleado(int IdEmpleado)
         {
-            List<int> ListaJobs = new List<int>();
+            List<Job> ListaJobs = new List<Job>();
             try
             {
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
@@ -295,7 +295,7 @@ namespace AlohaWebServiceMobile.Utils
                     int job = empleado.GetLongVal(NameJob);
                     if (job > 0)
                     {
-                        ListaJobs.Add(job);
+                        ListaJobs.Add(new Job { IdJob = job });
                     }
                 }
             }

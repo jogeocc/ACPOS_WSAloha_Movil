@@ -15,6 +15,10 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public string mensaje { get; set; }
         public string Nombre_Empleado { get; set; }
         public int idMesa { get; set; }
-        public List<int> idJobs { get; set; } = new List<int>();
+        public List<Job> idJobs { get; set; } = new List<Job>();
+    }
+    public class Job
+    {
+        public int IdJob { get; set; }
     }
 }
