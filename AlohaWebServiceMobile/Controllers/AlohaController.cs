@@ -88,6 +88,13 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
         [HttpPost]
+        [Route("OpenTab")]
+        public HttpResponseMessage OpenTab(RequestOpenTable requestOpenTable)
+        {
+            var response = App.AlohaConnection.OpenTab(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+        [HttpPost]
         [Route("CloseTabTable")]
         public HttpResponseMessage CloseTabTable(RequestCloseTabTable requestCloseTabTable)
         {
