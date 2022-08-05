@@ -129,7 +129,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("ListTables")]
         public HttpResponseMessage ListTables(RequestListTables requestListTables)
         {
-            ResponseAloha response = App.AlohaConnection.ListTables(requestListTables.IdEmpleado, requestListTables.IdTerm);
+            ResponseAloha response = App.AlohaConnection.ListTables(requestListTables.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
     }
