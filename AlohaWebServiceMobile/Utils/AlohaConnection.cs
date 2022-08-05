@@ -140,6 +140,9 @@ namespace AlohaWebServiceMobile.Utils
             }
             return responseAloha;
         }
+
+
+
         public ResponseAloha OpenCheck(int IdTerm, int IdMesaInterno)
         {
             ResponseAloha responseAloha = new ResponseAloha();
@@ -461,6 +464,16 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error("Error recueprando mesas del empleado", ex);
             }
             return ListaMesas;
+        }
+
+        public ResponseAloha ListTables(int IdEmpleado)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+            responseAloha.mensaje = "Mesas recuperadas con exito";
+            responseAloha.Nombre_Empleado = NombreEmpleado(IdEmpleado);
+            responseAloha.mesas_empleado = RecuperarMesas(IdEmpleado);
+            return responseAloha;
         }
     }
 

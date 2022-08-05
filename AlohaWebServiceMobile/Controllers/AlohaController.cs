@@ -68,7 +68,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("login")]
         public HttpResponseMessage login(RequestLogin requestLogin)
         {
-            var response = App.AlohaConnection.login(requestLogin.TermId, requestLogin.IdEmpleado);
+            ResponseAloha response = App.AlohaConnection.login(requestLogin.TermId, requestLogin.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -76,7 +76,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("logout")]
         public HttpResponseMessage logout(RequestLogout requestLogout)
         {
-            var response = App.AlohaConnection.logout(requestLogout.TermId);
+            ResponseAloha response = App.AlohaConnection.logout(requestLogout.TermId);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -84,21 +84,21 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("OpenTable")]
         public HttpResponseMessage OpenTable(RequestOpenTable requestOpenTable)
         {
-            var response = App.AlohaConnection.OpenTable(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados);
+            ResponseAloha response = App.AlohaConnection.OpenTable(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
         [HttpPost]
         [Route("OpenTab")]
         public HttpResponseMessage OpenTab(RequestOpenTable requestOpenTable)
         {
-            var response = App.AlohaConnection.OpenTab(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados);
+            ResponseAloha response = App.AlohaConnection.OpenTab(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
         [HttpPost]
         [Route("CloseTabTable")]
         public HttpResponseMessage CloseTabTable(RequestCloseTabTable requestCloseTabTable)
         {
-            var response = App.AlohaConnection.CloseTabTable(requestCloseTabTable.IdTerm, requestCloseTabTable.IdMesaInterno);
+            ResponseAloha response = App.AlohaConnection.CloseTabTable(requestCloseTabTable.IdTerm, requestCloseTabTable.IdMesaInterno);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -106,7 +106,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("OpenCheck")]
         public HttpResponseMessage OpenCheck(RequestOpenCheck requestOpenCheck)
         {
-            var response = App.AlohaConnection.OpenCheck(requestOpenCheck.IdTerm, requestOpenCheck.IdMesaInterno);
+            ResponseAloha response = App.AlohaConnection.OpenCheck(requestOpenCheck.IdTerm, requestOpenCheck.IdMesaInterno);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -114,7 +114,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("CloseCheck")]
         public HttpResponseMessage CloseCheck(RequestCloseCheck requestCloseCheck)
         {
-            var response = App.AlohaConnection.CloseCheck(requestCloseCheck.IdTerm, requestCloseCheck.IdChequeInterno);
+            ResponseAloha response = App.AlohaConnection.CloseCheck(requestCloseCheck.IdTerm, requestCloseCheck.IdChequeInterno);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -122,7 +122,14 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("AddItem")]
         public HttpResponseMessage AddItem(RequestAddItem requestAddItem)
         {
-            object response = null;
+            ResponseAloha response = null;
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+        [HttpPost]
+        [Route("ListTables")]
+        public HttpResponseMessage ListTables(RequestListTables requestListTables)
+        {
+            ResponseAloha response = App.AlohaConnection.ListTables(requestListTables.IdEmpleado, requestListTables.IdTerm);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
     }
