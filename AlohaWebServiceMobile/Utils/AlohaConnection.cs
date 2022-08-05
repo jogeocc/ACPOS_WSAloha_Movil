@@ -189,17 +189,20 @@ namespace AlohaWebServiceMobile.Utils
 
 
 
-        public ResponseAloha AddItem(int IdTerm, int IdCheck, int IdItem, double Amount, int IdMod, double AmountMod)
+        public ResponseAloha AddItem(RequestAddItem requestAddItem)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
-                int idEntry = xFunction.BeginItem(IdTerm, IdCheck, IdItem, "", Amount);
+                int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem.item.IdItem, "", requestAddItem.item.Amount);
                 #region modificadores
-                //xFunction.ModItem(IdTerm, idEntry, IdMod, "", AmountMod, 0);
+                foreach (var mod in requestAddItem.item.Mods)
+                {
+                    xFunction.ModItem(requestAddItem.IdTerm, idEntry, mod.IdMod, "", mod.Amount, 0);
+                }
                 #endregion
-                xFunction.EndItem(IdTerm);
+                xFunction.EndItem(requestAddItem.IdTerm);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto insertado con exito";
             }
