@@ -185,10 +185,6 @@ namespace AlohaWebServiceMobile.Utils
             return IsSuccess;
         }
 
-
-
-
-
         public ResponseAloha AddItem(RequestAddItem requestAddItem)
         {
             ResponseAloha responseAloha = new ResponseAloha();
@@ -246,12 +242,12 @@ namespace AlohaWebServiceMobile.Utils
             };
             return responseAloha;
         }
-        public ResponseAloha AplicarPago(int IdTerm, int IdChequeId, int IdPago, double Amount, double Tip, string Digitos = "", string Expiracion = "", string Info = "", string Autorizacion = "")
+        public ResponseAloha AplicarPago(int IdTerm, int IdCheckId, int IdTender, double Amount, double Tip, string Digitos = "", string Expiration = "", string Info = "", string authorization = "")
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                xFunction.ApplyPayment(IdTerm, IdChequeId, IdPago, Amount, Tip, Digitos, Expiracion, Info, Autorizacion);
+                xFunction.ApplyPayment(IdTerm, IdCheckId, IdTender, Amount, Tip, Digitos, Expiration, Info, authorization);
             }
             catch (Exception ex)
             {
@@ -259,13 +255,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return responseAloha;
         }
-
-
-
-
-
-
-
 
         //FUNCIONES DE CONTROL DE DATOS
 

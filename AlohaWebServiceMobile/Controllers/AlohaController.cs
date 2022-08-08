@@ -135,6 +135,14 @@ namespace AlohaWebServiceMobile.Controllers
         }
 
         [HttpPost]
+        [Route("AplyPayment")]
+        public HttpResponseMessage AplyPayment(RequestAplyPayment requestAplyPayment)
+        {
+            var response = App.AlohaConnection.AplicarPago(requestAplyPayment.IdTerm, requestAplyPayment.IdCheckId, requestAplyPayment.IdTender, requestAplyPayment.Amount, requestAplyPayment.Tip, requestAplyPayment.Digitos, requestAplyPayment.Expiration, requestAplyPayment.Info, requestAplyPayment.authorization);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+        [HttpPost]
         [Route("ListTables")]
         public HttpResponseMessage ListTables(RequestListTables requestListTables)
         {
