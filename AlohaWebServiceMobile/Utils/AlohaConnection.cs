@@ -268,8 +268,6 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-
-
         private List<MesaEmpleado> RecuperarMesas(int IdEmpleado)
         {
             List<MesaEmpleado> ListaMesas = new List<MesaEmpleado>();
@@ -294,127 +292,127 @@ namespace AlohaWebServiceMobile.Utils
                     IberEnum ChequesEmpleado = MesaAbierta.GetEnum((int)COMEnums.INTERNAL_TABLES_CHECKS);
                     IberObject ChequeAbierto = ChequesEmpleado.First();
                     //CHEQUES ABIERTOS DE LA MESA
-                    try
-                    {
-                        while (ChequesEmpleado != null)
-                        {
-                            Check check = new Check();
-                            check.Id = ChequeAbierto.GetLongVal("ID");
+                    //try
+                    //{
+                    //    while (ChequesEmpleado != null)
+                    //    {
+                    //        Check check = new Check();
+                    //        check.Id = ChequeAbierto.GetLongVal("ID");
 
-                            //ITEMS
-                            try
-                            {
-                                IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
-                                IberObject ItemAbierto = ItemsEmpleado.First();
-                                int IdPadre = 0;
-                                while (ItemAbierto != null)
-                                {
-                                    Item item = new Item();
-                                    item.IdEntry = ItemAbierto.GetLongVal("ID");
-                                    item.Name = ItemAbierto.GetStringVal("DISP_NAME");
-                                    item.Price = ItemAbierto.GetDoubleVal("PRICE");
-                                    item.DisplayPrice = ItemAbierto.GetStringVal("DISP_PRICE").Trim(); ;
-                                    item.NivelMod = ItemAbierto.GetLongVal("LEVEL");
+                    //        //ITEMS
+                    //        try
+                    //        {
+                    //            IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
+                    //            IberObject ItemAbierto = ItemsEmpleado.First();
+                    //            int IdPadre = 0;
+                    //            while (ItemAbierto != null)
+                    //            {
+                    //                Item item = new Item();
+                    //                item.IdEntry = ItemAbierto.GetLongVal("ID");
+                    //                item.Name = ItemAbierto.GetStringVal("DISP_NAME");
+                    //                item.Price = ItemAbierto.GetDoubleVal("PRICE");
+                    //                item.DisplayPrice = ItemAbierto.GetStringVal("DISP_PRICE").Trim(); ;
+                    //                item.NivelMod = ItemAbierto.GetLongVal("LEVEL");
 
-                                    int IsMessage = ItemAbierto.GetLongVal("TYPE");
+                    //                int IsMessage = ItemAbierto.GetLongVal("TYPE");
 
 
 
-                                    if (IsMessage == 0)
-                                    {
-                                        if (item.NivelMod == 0)
-                                        {
-                                            IdPadre = item.IdEntry;
-                                            check.Items.Add(item);
-                                        }
-                                        else
-                                        {
-                                            check.Items.First(I => I.IdEntry == IdPadre).Mods.Add(item);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        check.Items.First(I => I.IdEntry == IdPadre).SpecialMessage = item.Name;
-                                    }
-                                    ItemAbierto = ItemsEmpleado.Next();
-                                }
+                    //                if (IsMessage == 0)
+                    //                {
+                    //                    if (item.NivelMod == 0)
+                    //                    {
+                    //                        IdPadre = item.IdEntry;
+                    //                        check.Items.Add(item);
+                    //                    }
+                    //                    else
+                    //                    {
+                    //                        check.Items.First(I => I.IdEntry == IdPadre).Mods.Add(item);
+                    //                    }
+                    //                }
+                    //                else
+                    //                {
+                    //                    check.Items.First(I => I.IdEntry == IdPadre).SpecialMessage = item.Name;
+                    //                }
+                    //                ItemAbierto = ItemsEmpleado.Next();
+                    //            }
 
-                            }
-                            catch (Exception ex)
-                            {
+                    //        }
+                    //        catch (Exception ex)
+                    //        {
 
-                            }
-                            //PAGOS APLICADOS A LA MESA
-                            try
-                            {
-                                IberEnum PagosEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_PAYMENTS);
-                                IberObject PagoAplicado = PagosEmpleado.First();
-                                while (PagoAplicado != null)
-                                {
-                                    Payment payment = new Payment();
-                                    payment.IdPayment = PagoAplicado.GetLongVal("ID");
-                                    payment.IdTender = PagoAplicado.GetLongVal("TENDER_ID");
-                                    payment.Tip = PagoAplicado.GetDoubleVal("TIP");
-                                    payment.Amount = PagoAplicado.GetDoubleVal("AMOUNT");
-                                    check.Payments.Add(payment);
-                                    PagoAplicado = PagosEmpleado.Next();
-                                }
+                    //        }
+                    //        //PAGOS APLICADOS A LA MESA
+                    //        try
+                    //        {
+                    //            IberEnum PagosEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_PAYMENTS);
+                    //            IberObject PagoAplicado = PagosEmpleado.First();
+                    //            while (PagoAplicado != null)
+                    //            {
+                    //                Payment payment = new Payment();
+                    //                payment.IdPayment = PagoAplicado.GetLongVal("ID");
+                    //                payment.IdTender = PagoAplicado.GetLongVal("TENDER_ID");
+                    //                payment.Tip = PagoAplicado.GetDoubleVal("TIP");
+                    //                payment.Amount = PagoAplicado.GetDoubleVal("AMOUNT");
+                    //                check.Payments.Add(payment);
+                    //                PagoAplicado = PagosEmpleado.Next();
+                    //            }
 
-                            }
+                    //        }
 
-                            catch (Exception ex)
-                            {
+                    //        catch (Exception ex)
+                    //        {
 
-                            }
+                    //        }
 
-                            //Promociones aplicadas a la mesa
-                            try
-                            {
-                                IberEnum PromocionesEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_PROMOS);
-                                IberObject PromocionAbierto = PromocionesEmpleado.First();
-                                while (PromocionAbierto != null)
-                                {
-                                    Promotion promotion = new Promotion();
-                                    promotion.Id = PromocionAbierto.GetLongVal("ID");
-                                    promotion.IdPromo = PromocionAbierto.GetLongVal("PROMOTION_ID");
-                                    promotion.Name = PromocionAbierto.GetStringVal("IDENT");
-                                    promotion.AmountDiscount = PromocionAbierto.GetDoubleVal("AMOUNT");
-                                    check.Promotions.Add(promotion);
-                                    PromocionAbierto = PromocionesEmpleado.Next();
-                                }
-                            }
-                            catch (Exception ex)
-                            {
+                    //        //Promociones aplicadas a la mesa
+                    //        try
+                    //        {
+                    //            IberEnum PromocionesEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_PROMOS);
+                    //            IberObject PromocionAbierto = PromocionesEmpleado.First();
+                    //            while (PromocionAbierto != null)
+                    //            {
+                    //                Promotion promotion = new Promotion();
+                    //                promotion.Id = PromocionAbierto.GetLongVal("ID");
+                    //                promotion.IdPromo = PromocionAbierto.GetLongVal("PROMOTION_ID");
+                    //                promotion.Name = PromocionAbierto.GetStringVal("IDENT");
+                    //                promotion.AmountDiscount = PromocionAbierto.GetDoubleVal("AMOUNT");
+                    //                check.Promotions.Add(promotion);
+                    //                PromocionAbierto = PromocionesEmpleado.Next();
+                    //            }
+                    //        }
+                    //        catch (Exception ex)
+                    //        {
 
-                            }
-                            //Cortesias aplicadas a la mesa
-                            try
-                            {
-                                IberEnum CortesiasEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_COMPS);
-                                IberObject CortesiaAbierta = CortesiasEmpleado.First();
-                                while (CortesiaAbierta != null)
-                                {
-                                    Comp Comp = new Comp();
-                                    Comp.Id = CortesiaAbierta.GetLongVal("ID");
-                                    Comp.IdComp = CortesiaAbierta.GetLongVal("COMPTYPE_ID");
-                                    Comp.Unit = CortesiaAbierta.GetStringVal("UNIT");
-                                    Comp.Name = CortesiaAbierta.GetStringVal("NAME");
-                                    Comp.AmountDiscount = CortesiaAbierta.GetDoubleVal("AMOUNT");
-                                    check.Comps.Add(Comp);
-                                    CortesiaAbierta = CortesiasEmpleado.Next();
-                                }
-                            }
-                            catch (Exception ex)
-                            {
+                    //        }
+                    //        //Cortesias aplicadas a la mesa
+                    //        try
+                    //        {
+                    //            IberEnum CortesiasEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_COMPS);
+                    //            IberObject CortesiaAbierta = CortesiasEmpleado.First();
+                    //            while (CortesiaAbierta != null)
+                    //            {
+                    //                Comp Comp = new Comp();
+                    //                Comp.Id = CortesiaAbierta.GetLongVal("ID");
+                    //                Comp.IdComp = CortesiaAbierta.GetLongVal("COMPTYPE_ID");
+                    //                Comp.Unit = CortesiaAbierta.GetStringVal("UNIT");
+                    //                Comp.Name = CortesiaAbierta.GetStringVal("NAME");
+                    //                Comp.AmountDiscount = CortesiaAbierta.GetDoubleVal("AMOUNT");
+                    //                check.Comps.Add(Comp);
+                    //                CortesiaAbierta = CortesiasEmpleado.Next();
+                    //            }
+                    //        }
+                    //        catch (Exception ex)
+                    //        {
 
-                            }
-                            mesaEmpleado.Checks.Add(check);
-                            ChequeAbierto = ChequesEmpleado.Next();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                    }
+                    //        }
+                    //        mesaEmpleado.Checks.Add(check);
+                    //        ChequeAbierto = ChequesEmpleado.Next();
+                    //    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //}
 
                     ListaMesas.Add(mesaEmpleado);
                     MesaAbierta = MesasEmpleado.Next();
