@@ -426,6 +426,22 @@ namespace AlohaWebServiceMobile.Utils
             return ListaMesas;
         }
 
+        private Check RecuperarCheque(int IdCheck)
+        {
+            Check check = new Check();
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+            return check;
+        }
+
         private List<int> IdsJobsEmpleado(int IdEmpleado)
         {
             List<int> ListaJobs = new List<int>();
