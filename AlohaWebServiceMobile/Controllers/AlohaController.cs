@@ -149,5 +149,12 @@ namespace AlohaWebServiceMobile.Controllers
             ResponseAloha response = App.AlohaConnection.ListTables(requestListTables.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
+        [HttpPost]
+        [Route("GetCheck")]
+        public HttpResponseMessage GetCheck(RequestGetCheck requestGetCheck)
+        {
+            ResponseAloha response = App.AlohaConnection.GetCheck(requestGetCheck.IdCheck);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
     }
 }

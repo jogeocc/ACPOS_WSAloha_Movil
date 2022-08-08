@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlohaWebServiceMobile.Enums
+namespace AlohaWebServiceMobile.Models.Aloha
 {
-    public enum CodigosError
+    public class RequestGetCheck
     {
-        NO_ERROR = 0,
-        ERROR = 1,
+        public int IdCheck { get; set; }
     }
 }

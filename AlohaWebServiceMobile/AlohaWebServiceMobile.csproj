@@ -105,6 +105,7 @@
     <Compile Include="Models\Aloha\RequestClockIn.cs" />
     <Compile Include="Models\Aloha\RequestCloseCheck.cs" />
     <Compile Include="Models\Aloha\RequestCloseTabTable.cs" />
+    <Compile Include="Models\Aloha\RequestGetCheck.cs" />
     <Compile Include="Models\Aloha\RequestListTables.cs" />
     <Compile Include="Models\Aloha\RequestLogin.cs" />
     <Compile Include="Models\Aloha\RequestLogout.cs" />
