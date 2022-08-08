@@ -452,7 +452,7 @@ namespace AlohaWebServiceMobile.Utils
             Check check = new Check();
             try
             {
-
+                check.Id = IdCheck;
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
                 IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
                 IberObject ChequeAbierto = depot.FindObjectFromId((int)COMEnums.INTERNAL_CHECKS, IdCheck).First();
