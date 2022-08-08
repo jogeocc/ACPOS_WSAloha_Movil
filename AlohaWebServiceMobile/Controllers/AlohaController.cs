@@ -125,6 +125,15 @@ namespace AlohaWebServiceMobile.Controllers
             ResponseAloha response = App.AlohaConnection.AddItem(requestAddItem); ;
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
+
+        [HttpPost]
+        [Route("OrderMode")]
+        public HttpResponseMessage OrderMode(RequestOrderMode requestOrderMode)
+        {
+            ResponseAloha response = App.AlohaConnection.ConfirmOrderMode(requestOrderMode.IdTerm, requestOrderMode.IdMesa, requestOrderMode.IdModoPedido);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
         [HttpPost]
         [Route("ListTables")]
         public HttpResponseMessage ListTables(RequestListTables requestListTables)

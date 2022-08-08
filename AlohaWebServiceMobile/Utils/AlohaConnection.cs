@@ -260,6 +260,13 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+
+
+
+
+
+
+
         //FUNCIONES DE CONTROL DE DATOS
 
         public ResponseAloha ListTables(int IdEmpleado)
