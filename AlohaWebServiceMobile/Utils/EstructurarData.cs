@@ -14,14 +14,14 @@ namespace AlohaWebServiceMobile.Utils
     {
         string pathALoha = @"D:\PROYECTOS\VAPIANO\reforma\Data";
 
-        List<MNU> MenusDbfs = new List<MNU>();
-        List<SUB> SubMenusDBFS = new List<SUB>();
-        List<ITM> ItemsDbfs = new List<ITM>();
-        List<MOD> ModsDbfs = new List<MOD>();
-        int BotonPlu = 999999;
+        private List<MNU> MenusDbfs = new List<MNU>();
+        private List<SUB> SubMenusDBFS = new List<SUB>();
+        private List<ITM> ItemsDbfs = new List<ITM>();
+        private List<MOD> ModsDbfs = new List<MOD>();
+        private int BotonPlu = 999999;
         public EstructurarData()
         {
-            pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+            pathALoha = @"D:\PROYECTOS\VAPIANO\data\version 12";
         }
 
         public List<MNUmobile> ObtenerMenuMovil()

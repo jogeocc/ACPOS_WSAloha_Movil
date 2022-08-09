@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,13 +29,39 @@ namespace AlohaLibrary.Implementaciones
             EjecutarConsulta(query).Fill(ds, "JOB");
 
             DataTable tabla = ds.Tables["JOB"];
+
             foreach (DataRow item in tabla.Rows)
             {
                 JOB job = new JOB();
-                job.ID = int.Parse(item["ID"].ToString());
-                job.LONGNAME = item["LONGNAME"].ToString();
-                job.SHORTNAME = item["SHORTNAME"].ToString();
-                job.ORDERENTRY = item["ORDERENTRY"].ToString().ToUpper().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N;
+
+
+                var Props = job.GetType().GetProperties().ToList();
+                foreach (PropertyInfo prop in Props)
+                {
+                    if (prop.PropertyType == typeof(double))
+                    {
+                        double.TryParse(item[prop.Name].ToString(), out double result);
+                        prop.SetValue(job, result);
+                    }
+                    else
+                    {
+                        if (int.TryParse(item[prop.Name].ToString(), out int value))
+                        {
+                            //ENTEROS
+                            prop.SetValue(job, value);
+                        }
+                        else if ((item[prop.Name].ToString().ToUpper() == "Y" || item[prop.Name].ToString().ToUpper() == "N"))
+                        {
+                            //BOOLEANO TIPO ALOHA
+                            prop.SetValue(job, item[prop.Name].ToString().ToUpper() == "Y");
+                        }
+                        else
+                        {
+                            //CADENAS
+                            prop.SetValue(job, item[prop.Name].ToString());
+                        }
+                    }
+                }
                 JobList.Add(job);
             }
             return JobList;
