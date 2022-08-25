@@ -12,9 +12,12 @@ namespace AlohaLibrary.Modelos
         public int ID { get; set; }
         public string SHORTNAME { get; set; }
         public string LONGNAME { get; set; }
+
+
+
+
+
         public bool ORDERENTRY { get; set; }
-
-
         public int OWNERID { get; set; }
         public int USERNUMBER { get; set; }
         public bool DECLWAGES { get; set; }
