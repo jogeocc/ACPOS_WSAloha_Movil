@@ -260,6 +260,28 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+
+        public ResponseAloha EliminarPago(int IdTerm, int IdCheckId, int IdPayment)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                xFunction.DeletePayment(IdTerm, IdCheckId, IdPayment);
+                responseAloha.Estado = true;
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Forma de pago eliminada";
+            }
+            catch (Exception ex)
+            {
+                responseAloha.Estado = false;
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+                responseAloha.mensaje = $"Error al eliminar pago,{ErroresAloha.MensajeMobile(ex.Message)}";
+                App.logger.Error("Error al eliminar pago", ex);
+            }
+            return responseAloha;
+        }
+
+
         //FUNCIONES DE CONTROL DE DATOS
 
         public ResponseAloha ListTables(int IdEmpleado)

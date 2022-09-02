@@ -156,5 +156,14 @@ namespace AlohaWebServiceMobile.Controllers
             ResponseAloha response = App.AlohaConnection.GetCheck(requestGetCheck.IdCheck);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
+
+        [HttpPost]
+        [Route("DeletePayment")]
+        public HttpResponseMessage DeletePayment()
+        {
+            ResponseAloha response = App.AlohaConnection.GetCheck();
+
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
     }
 }
