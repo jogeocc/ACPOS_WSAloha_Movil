@@ -21,7 +21,7 @@ namespace AlohaWebServiceMobile.Utils
         private int BotonPlu = 999999;
         public EstructurarData()
         {
-            pathALoha = @"D:\PROYECTOS\VAPIANO\data\version 12";
+            pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
         }
 
         public List<MNUmobile> ObtenerMenuMovil()
