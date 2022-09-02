@@ -40,6 +40,7 @@ namespace AlohaLibrary.Implementaciones
                 {
                     if (prop.PropertyType == typeof(double))
                     {
+                        //VALORES DOUBLE
                         double.TryParse(item[prop.Name].ToString(), out double result);
                         prop.SetValue(job, result);
                     }

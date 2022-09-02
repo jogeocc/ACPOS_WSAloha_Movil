@@ -15,9 +15,9 @@ namespace AlohaWebServiceMobile.Models.Catalogos
 
 
 
-        public int OWNERID { get; set; }
-        public string USERNUMBER { get; set; }
         public bool ORDERENTRY { get; set; }
+        public int OWNERID { get; set; }
+        public int USERNUMBER { get; set; }
         public bool DECLWAGES { get; set; }
         public bool PAYTIPSHAR { get; set; }
         public bool SHIFTREQD { get; set; }
@@ -39,7 +39,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public bool SENDBAR { get; set; }
         public bool BLIND { get; set; }
         public int ONLYMODE { get; set; }
-        public bool EXPORT { get; set; }
+        public string EXPORT { get; set; }
         public bool SELFVOID { get; set; }
         public bool NOPRINT { get; set; }
         public bool NOSCHED { get; set; }
@@ -73,7 +73,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public bool RECON { get; set; }
         public int ATTEMPT { get; set; }
         public bool PWDEXP { get; set; }
-        public bool PWDEXPDAYS { get; set; }
+        public int PWDEXPDAYS { get; set; }
         public bool STARTPMS { get; set; }
         public bool FORCEPMS { get; set; }
         public bool TEAMCHECK { get; set; }
