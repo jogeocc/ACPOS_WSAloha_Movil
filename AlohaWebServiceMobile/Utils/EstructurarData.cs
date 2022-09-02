@@ -182,10 +182,6 @@ namespace AlohaWebServiceMobile.Utils
 
             return Menus;
         }
-
-
-
-
         public List<ODRmobile> ObtenerModosDePedido()
         {
             List<ODRmobile> OrderModMobile = new List<ODRmobile>();
