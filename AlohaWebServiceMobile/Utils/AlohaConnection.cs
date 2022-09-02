@@ -576,7 +576,7 @@ namespace AlohaWebServiceMobile.Utils
                         AmountPayed += Pago.Amount;
                     });
 
-                    check.Amount = check.Amount - AmountPayed;
+                    check.AmountDue = check.Amount - AmountPayed;
                 }
             }
             catch (Exception ex)
