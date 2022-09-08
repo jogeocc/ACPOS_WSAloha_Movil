@@ -99,7 +99,7 @@ namespace AlohaWebServiceMobile.CodigosErrorAloha
                 }
                 else
                 {
-                    Mensaje = "Error interno, reportar al área de sistemas";
+                    Mensaje = "Error interno, Error no encontrado";
                 }
             }
             catch (Exception ex)
