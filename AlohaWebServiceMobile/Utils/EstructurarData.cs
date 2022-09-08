@@ -1,4 +1,5 @@
 ﻿using AlohaLibrary.Contexto;
+using AlohaLibrary.Enums;
 using AlohaLibrary.Implementaciones;
 using AlohaLibrary.Modelos;
 using AlohaWebServiceMobile.Models.Catalogos;
@@ -194,7 +195,8 @@ namespace AlohaWebServiceMobile.Utils
                     OrderModMobile.Add(new ODRmobile
                     {
                         ID = odr.ID,
-                        NAME = odr.NAME
+                        NAME = odr.NAME,
+                        ACTIVE = odr.ACTIVE == TipoLogicoALH.Y
                     });
                 }
             }
