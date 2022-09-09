@@ -199,6 +199,7 @@ namespace AlohaWebServiceMobile.Utils
                 }
                 #endregion
                 xFunction.EndItem(requestAddItem.IdTerm);
+                xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, requestAddItem.item.SpecialMessage);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto insertado con exito";
             }
