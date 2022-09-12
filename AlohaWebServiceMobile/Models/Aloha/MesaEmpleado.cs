@@ -44,6 +44,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
 
     public class Item
     {
+        public int Id { get; set; }
         public int IdEntry { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }

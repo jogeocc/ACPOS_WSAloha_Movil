@@ -490,6 +490,7 @@ namespace AlohaWebServiceMobile.Utils
                     while (ItemAbierto != null)
                     {
                         Item item = new Item();
+                        item.Id = ItemAbierto.GetLongVal("DATA");
                         item.IdEntry = ItemAbierto.GetLongVal("ID");
                         item.Name = ItemAbierto.GetStringVal("DISP_NAME");
                         item.Price = ItemAbierto.GetDoubleVal("PRICE");
