@@ -74,7 +74,7 @@ namespace AlohaWebServiceMobile.Utils
             catch (Exception ex)
             {
                 responseAloha.mensaje = $"Error abriendo cuenta {idNumMesa}";
-                App.logger.Error("Error al abrir mesa id = , ", ex);
+                App.logger.Error($"Error al abrir mesa id = {idNumMesa}", ex);
             }
             return responseAloha;
         }
@@ -94,7 +94,7 @@ namespace AlohaWebServiceMobile.Utils
             catch (Exception ex)
             {
                 responseAloha.mensaje = $"Error abriendo cuenta {NombreMesa}";
-                App.logger.Error($"Error al abrir mesa id = {idNumMesa}, ", ex);
+                App.logger.Error($"Error abriendo cuenta = {NombreMesa}", ex);
             }
             return responseAloha;
         }
