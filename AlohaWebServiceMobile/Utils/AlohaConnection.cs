@@ -68,7 +68,7 @@ namespace AlohaWebServiceMobile.Utils
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-
+                responseAloha.NombreMesa = GetTabTableName(IdMesaInterno);
                 responseAloha.mensaje = "Mesa abierta con exito";
             }
             catch (Exception ex)
