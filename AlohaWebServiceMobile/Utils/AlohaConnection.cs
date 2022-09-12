@@ -68,6 +68,7 @@ namespace AlohaWebServiceMobile.Utils
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+
                 responseAloha.mensaje = "Mesa abierta con exito";
             }
             catch (Exception ex)
@@ -88,6 +89,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.idMesa = IdMesaInterno;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Cuenta abierta";
+                responseAloha.NombreMesa = GetTabTableName(IdMesaInterno);
             }
             catch (Exception ex)
             {
@@ -675,6 +677,25 @@ namespace AlohaWebServiceMobile.Utils
 
         }
 
+        private string GetTabTableName(int idTableTab)
+        {
+            string Name = "Error_mesa";
+            xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+            IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
+
+            try
+            {
+                IberEnum Mesas = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES, idTableTab);
+                IberObject Mesa = Mesas.First();
+                Name = Mesa.GetStringVal("NAME");
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al recuperar nombre de la mesa", ex);
+            }
+
+            return Name;
+        }
     }
 
 }
