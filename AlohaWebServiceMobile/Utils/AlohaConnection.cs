@@ -65,6 +65,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
@@ -85,6 +86,7 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 //Para abrir un tab, por defecto debe de ser el numero de mesa en 0
+                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
