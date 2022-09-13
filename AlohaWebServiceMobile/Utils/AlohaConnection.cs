@@ -196,6 +196,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
                 int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem.item.IdItem, "", requestAddItem.item.Amount);
+
                 #region modificadores
                 foreach (var mod in requestAddItem.item.Mods)
                 {
