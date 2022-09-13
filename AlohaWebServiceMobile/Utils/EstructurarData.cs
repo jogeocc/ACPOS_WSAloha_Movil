@@ -19,6 +19,7 @@ namespace AlohaWebServiceMobile.Utils
         private List<SUB> SubMenusDBFS = new List<SUB>();
         private List<ITM> ItemsDbfs = new List<ITM>();
         private List<MOD> ModsDbfs = new List<MOD>();
+        private List<QTYPRICE> Qtyprices = new List<QTYPRICE>();
         private int BotonPlu = 999999;
         public EstructurarData()
         {
@@ -36,6 +37,7 @@ namespace AlohaWebServiceMobile.Utils
                 SubMenusDBFS = new SUBServicio(contextoAlh).GetAll();
                 ItemsDbfs = new ITMServicio(contextoAlh).GetAll();
                 ModsDbfs = new MODServicio(contextoAlh).GetAll();
+                Qtyprices = new QTYPRICEServicio(contextoAlh).GetAll();
             }
 
             //RELACIONAR TODO LA DATA DEL MENU -> SUBMENUS -> ITEMS -> MODS -> ITEMS
@@ -128,7 +130,17 @@ namespace AlohaWebServiceMobile.Utils
                             if (articulo.MOD7 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD7, });
                             if (articulo.MOD8 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD8, });
                             if (articulo.MOD9 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD9, });
-                            if (articulo.MOD10 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD10, });
+                            if (articulo.MOD10 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD10 });
+
+                            if (Qtyprices.Any(I => I.ITEMID == item.id))
+                            {
+                                var Cantidad = Qtyprices.First(I => I.ID == item.id);
+                                item.is_cantidad = true;
+                                item.unidad_medida = Cantidad.UNITNAME;
+                                item.unidad_decimales = Cantidad.DECIMALS;
+                            }
+
+
                         }
                     }
                 }

@@ -37,6 +37,10 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public decimal item_precio { get; set; }
         public int item_precio_ID { get; set; }
         public List<Mod> mods { get; set; } = new List<Mod>();
+        //13/09/2022 CAMPOS EXTRAS PARA IDENTIFICAR LOS RPODUCTOS DE TIPO KILOS
+        public bool is_cantidad { get; set; }
+        public string unidad_medida { get; set; } = "";
+        public int unidad_decimales { get; set; }
     }
 
     public class Mod
