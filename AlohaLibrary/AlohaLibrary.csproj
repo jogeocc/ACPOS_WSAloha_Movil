@@ -53,6 +53,7 @@
     <Compile Include="Implementaciones\PRDServicio.cs" />
     <Compile Include="Implementaciones\PRLServicio.cs" />
     <Compile Include="Implementaciones\PROServicio.cs" />
+    <Compile Include="Implementaciones\QTYPRICEServicio.cs" />
     <Compile Include="Implementaciones\RsnServicioALH.cs" />
     <Compile Include="Implementaciones\CATServicio.cs" />
     <Compile Include="Implementaciones\GNDVoidServicio.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Interfaces\IPRDServicio.cs" />
     <Compile Include="Interfaces\IPRL.cs" />
     <Compile Include="Interfaces\IPROServicio.cs" />
+    <Compile Include="Interfaces\IQTYPRICE.cs" />
     <Compile Include="Interfaces\IRsn.cs" />
     <Compile Include="Interfaces\ISUB.cs" />
     <Compile Include="Interfaces\ITAB.cs" />
