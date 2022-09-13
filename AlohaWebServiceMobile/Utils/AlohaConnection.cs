@@ -204,11 +204,19 @@ namespace AlohaWebServiceMobile.Utils
                 }
                 #endregion
                 xFunction.EndItem(requestAddItem.IdTerm);
-                if (!string.IsNullOrEmpty(requestAddItem.item.SpecialMessage || )
+                if (!string.IsNullOrEmpty(requestAddItem.item.SpecialMessage) || !string.IsNullOrEmpty(requestAddItem.item.Unidad_Medida))
                 {
+                    string Mensaje = "";
 
+                    Mensaje += requestAddItem.item.Cantidad_Peso > 0 ? requestAddItem.item.Cantidad_Peso.ToString() : "";
+
+                    Mensaje += !string.IsNullOrEmpty(requestAddItem.item.Unidad_Medida) ? requestAddItem.item.Unidad_Medida : "";
+
+                    Mensaje += !string.IsNullOrEmpty(requestAddItem.item.SpecialMessage) ? $" {requestAddItem.item.SpecialMessage}" : "";
+
+                    xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, Mensaje);
                 }
-                xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, requestAddItem.item.SpecialMessage);
+
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto insertado con exito";
             }
