@@ -17,7 +17,7 @@ namespace AlohaLibrary.Modelos
         public string UNITNAME { get; set; }
         public int DECIMALS { get; set; }
         public double UNITPRICE { get; set; }
-        public TipoLogicoALH AFFECTINVT { get; set; }
-        public TipoLogicoALH ITEMQTY { get; set; }
+        public bool AFFECTINVT { get; set; }
+        public bool ITEMQTY { get; set; }
     }
 }
