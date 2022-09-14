@@ -200,7 +200,7 @@ namespace AlohaWebServiceMobile.Utils
                 #region modificadores
                 foreach (var mod in requestAddItem.item.Mods)
                 {
-                    xFunction.ModItem(requestAddItem.IdTerm, idEntry, mod.IdMod, "", mod.Amount, 0);
+                    xFunction.ModItem(requestAddItem.IdTerm, idEntry, mod.IdMod, "", mod.Amount, mod.ModCode);
                 }
                 #endregion
                 xFunction.EndItem(requestAddItem.IdTerm);

@@ -49,6 +49,7 @@
     <Compile Include="Implementaciones\GCHKINFOServicio.cs" />
     <Compile Include="Implementaciones\JOBServicio.cs" />
     <Compile Include="Implementaciones\MNUServicio.cs" />
+    <Compile Include="Implementaciones\MODCODEServicio.cs" />
     <Compile Include="Implementaciones\MODServicio.cs" />
     <Compile Include="Implementaciones\PRDServicio.cs" />
     <Compile Include="Implementaciones\PRLServicio.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Interfaces\IJOB.cs" />
     <Compile Include="Interfaces\IMNU.cs" />
     <Compile Include="Interfaces\IMOD.cs" />
+    <Compile Include="Interfaces\IMODCODE.cs" />
     <Compile Include="Interfaces\IPRDServicio.cs" />
     <Compile Include="Interfaces\IPRL.cs" />
     <Compile Include="Interfaces\IPROServicio.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="Modelos\JOB.cs" />
     <Compile Include="Modelos\MNU.cs" />
     <Compile Include="Modelos\MOD.cs" />
+    <Compile Include="Modelos\MODCODE.cs" />
     <Compile Include="Modelos\PRD.cs" />
     <Compile Include="Modelos\PRL.cs" />
     <Compile Include="Modelos\PRO.cs" />

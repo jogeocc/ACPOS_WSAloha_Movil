@@ -54,7 +54,14 @@ namespace AlohaWebServiceMobile.Controllers
             var perfiles = App.Catalogos.ObtenerPerfilesTrabajo();
             return Request.CreateResponse(HttpStatusCode.OK, perfiles, Configuration.Formatters.JsonFormatter);
         }
+        [HttpGet]
+        [Route("ModCodes")]
+        public HttpResponseMessage ModCodes()
+        {
+            var ModeCodes = App.Catalogos.ObtenerModCodes();
+            return Request.CreateResponse(HttpStatusCode.OK, ModeCodes, Configuration.Formatters.JsonFormatter);
 
+        }
         //ACCIONES DE ALOHA CONNECTION
         [HttpPost]
         [Route("clockin")]

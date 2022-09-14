@@ -195,6 +195,9 @@ namespace AlohaWebServiceMobile.Utils
 
             return Menus;
         }
+
+
+
         public List<ODRmobile> ObtenerModosDePedido()
         {
             List<ODRmobile> OrderModMobile = new List<ODRmobile>();
@@ -254,5 +257,27 @@ namespace AlohaWebServiceMobile.Utils
             return PerfilesTrabajo;
         }
 
+        public List<MODCODEmobile> ObtenerModCodes()
+        {
+            List<MODCODEmobile> List = new List<MODCODEmobile>();
+            List<MODCODE> ListDBFS = new List<MODCODE>();
+            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
+            {
+                ListDBFS = new MODCODEServicio(contextoAlh).GetAll();
+            }
+            foreach (var CodeMod in ListDBFS)
+            {
+                List.Add(new MODCODEmobile
+                {
+                    ID = CodeMod.USERNUMBER,
+                    ACTIVE = CodeMod.ACTIVE,
+                    DESC = CodeMod.DESC,
+                    INDICATOR = CodeMod.INDICATOR,
+                    MOD_NAME = CodeMod.MOD_NAME,
+                    QUANTITY = CodeMod.QUANTITY,
+                });
+            }
+            return List;
+        }
     }
 }

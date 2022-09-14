@@ -117,6 +117,7 @@
     <Compile Include="Models\Catalogos\ITMmobile.cs" />
     <Compile Include="Models\Catalogos\JOBmobile.cs" />
     <Compile Include="Models\Catalogos\MNUmobile.cs" />
+    <Compile Include="Models\Catalogos\MODCODEmobile.cs" />
     <Compile Include="Models\Catalogos\MODmobile.cs" />
     <Compile Include="Models\Catalogos\ODRmobile.cs" />
     <Compile Include="Models\Catalogos\SUBmobile.cs" />

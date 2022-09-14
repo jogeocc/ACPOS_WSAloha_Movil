@@ -26,5 +26,6 @@ namespace AlohaWebServiceMobile.Models.Aloha
     {
         public int IdMod { get; set; }
         public double Amount { get; set; }
+        public int ModCode { get; set; }
     }
 }
