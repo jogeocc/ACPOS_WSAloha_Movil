@@ -37,6 +37,8 @@ namespace AlohaLibrary.Implementaciones
                     USERNUMBER = int.Parse(item["USERNUMBER"].ToString()),
                     NAME = item["NAME"].ToString(),
                     CASH = item["CASH"].ToString().ToUpper().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N,
+                    ACTIVE = item["ACTIVE"].ToString().ToUpper().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N,
+                    TIPS = item["TIPS"].ToString().ToUpper().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N,
                 });
             }
 
