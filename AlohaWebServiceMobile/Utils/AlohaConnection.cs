@@ -268,11 +268,16 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                responseAloha.Estado = true;
                 responseAloha.idPago = xFunction.ApplyPayment(IdTerm, IdCheckId, IdTender, Amount, Tip, Digitos, Expiration, Info, authorization);
+                responseAloha.Estado = true;
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Pago aplicado con exito";
             }
             catch (Exception ex)
             {
+                responseAloha.Estado = false;
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+                responseAloha.mensaje = $"Error al eliminar pago,{ErroresAloha.MensajeMobile(ex.Message)}";
                 App.logger.Error("Error al aplicar pago", ex);
             }
             return responseAloha;
