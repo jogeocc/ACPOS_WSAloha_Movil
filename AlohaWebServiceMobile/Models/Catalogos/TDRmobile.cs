@@ -10,7 +10,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
     {
         public int id_forma_de_pago { get; set; }
         public string descripcion { get; set; }
-        public byte status { get; set; }
-        public byte acepta_propina { get; set; }
+        public bool status { get; set; }
+        public bool acepta_propina { get; set; }
     }
 }

@@ -230,7 +230,8 @@ namespace AlohaWebServiceMobile.Utils
                     {
                         id_forma_de_pago = tdr.ID,
                         descripcion = tdr.NAME,
-                        status = (byte)(tdr.ACTIVE == AlohaLibrary.Enums.TipoLogicoALH.Y ? 1 : 0),
+                        acepta_propina = tdr.TIPS == TipoLogicoALH.Y ? true : false,
+                        status = tdr.ACTIVE == TipoLogicoALH.Y ? true : false,
                     });
                 }
             }
