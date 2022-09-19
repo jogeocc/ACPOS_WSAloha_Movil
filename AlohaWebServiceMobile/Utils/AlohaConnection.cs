@@ -612,19 +612,18 @@ namespace AlohaWebServiceMobile.Utils
                 {
 
                 }
-
+                double AmountPayed = 0;
                 //Aritmetica para Monto pendiente de pagar
                 if (check.Payments.Count > 0)
                 {
-                    double AmountPayed = 0;
 
                     check.Payments.ForEach((Pago) =>
                     {
                         AmountPayed += Pago.Amount;
                     });
-
-                    check.AmountDue = check.Amount - AmountPayed;
                 }
+                check.AmountDue = check.Amount - AmountPayed;
+
             }
             catch (Exception ex)
             {
