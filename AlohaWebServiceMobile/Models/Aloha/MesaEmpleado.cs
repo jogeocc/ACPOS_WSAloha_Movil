@@ -52,6 +52,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int NivelMod { get; set; }
         public string SpecialMessage { get; set; } = "";
         public List<Item> Mods { get; set; } = new List<Item>();
+        public int ModCode { get; set; }
     }
     public class Payment
     {
