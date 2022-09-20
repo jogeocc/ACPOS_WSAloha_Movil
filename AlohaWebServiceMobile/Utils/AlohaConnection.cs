@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace AlohaWebServiceMobile.Utils
 {
-
     public class AlohaConnection
     {
 
@@ -565,10 +564,9 @@ namespace AlohaWebServiceMobile.Utils
                     }
 
                 }
-
                 catch (Exception ex)
                 {
-
+                    App.logger.Error($"Error al obtener pagos aplicados en la cuenta");
                 }
 
                 //Promociones aplicadas a la mesa
@@ -717,5 +715,4 @@ namespace AlohaWebServiceMobile.Utils
             return Name;
         }
     }
-
 }
