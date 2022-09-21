@@ -31,7 +31,7 @@ namespace AlohaLibrary.Modelos
         public int FONTSIZE { get; set; }
         public string FONTNAME { get; set; }
         public string OPOSNAME { get; set; }
-        public string EPSONLOGO { get; set; }
+        public int EPSONLOGO { get; set; }
         public string SLPREROUTE { get; set; }
         public string CODEPAGEID { get; set; }
         public bool SORTBYSEAT { get; set; }
