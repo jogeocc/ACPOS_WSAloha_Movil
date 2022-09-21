@@ -32,8 +32,8 @@ namespace AlohaLibrary.Modelos
         public string FONTNAME { get; set; }
         public string OPOSNAME { get; set; }
         public int EPSONLOGO { get; set; }
-        public string SLPREROUTE { get; set; }
-        public string CODEPAGEID { get; set; }
+        public int SLPREROUTE { get; set; }
+        public int CODEPAGEID { get; set; }
         public bool SORTBYSEAT { get; set; }
         public bool PRTPRICES { get; set; }
         public bool PRTTOTAL { get; set; }
