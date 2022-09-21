@@ -296,14 +296,8 @@ namespace AlohaWebServiceMobile.Utils
                     TERMINAL = Printer.TERMINAL,
                 });
             }
-
-
             return Impresoras;
-
         }
-
-
     }
-
 }
 
