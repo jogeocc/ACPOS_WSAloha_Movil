@@ -280,7 +280,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 responseAloha.Estado = false;
                 responseAloha.Codigo = (int)CodigosError.ERROR;
-                responseAloha.mensaje = $"Error al eliminar pago,{ErroresAloha.MensajeMobile(ex.Message)}";
+                responseAloha.mensaje = $"Error al aplicar pago,{ErroresAloha.MensajeMobile(ex.Message)}";
                 App.logger.Error("Error al aplicar pago", ex);
             }
             return responseAloha;

@@ -173,11 +173,11 @@ namespace AlohaWebServiceMobile.Controllers
 
         [HttpPost]
         [Route("DeletePayment")]
-        public HttpResponseMessage DeletePayment()
+        public HttpResponseMessage DeletePayment(RequestDeletePayment requestDeletePayment)
         {
-            //ResponseAloha response = App.AlohaConnection.GetCheck(123123);
+            ResponseAloha response = App.AlohaConnection.EliminarPago(requestDeletePayment.IdTerm, requestDeletePayment.IdCheckId, requestDeletePayment.IdPayment);
 
-            return Request.CreateResponse(HttpStatusCode.OK, "", Configuration.Formatters.JsonFormatter);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpPost]

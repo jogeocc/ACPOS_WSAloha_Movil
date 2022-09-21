@@ -8,5 +8,8 @@ namespace AlohaWebServiceMobile.Models.Aloha
 {
     public class RequestDeletePayment
     {
+        public int IdTerm { get; set; }
+        public int IdCheckId { get; set; }
+        public int IdPayment { get; set; }
     }
 }
