@@ -731,7 +731,7 @@ namespace AlohaWebServiceMobile.Utils
         private void VerificarIber()
         {
             xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
-            IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
+            depot = AlohaSdkFactory.GetIberDepotInstance();
         }
     }
 }
