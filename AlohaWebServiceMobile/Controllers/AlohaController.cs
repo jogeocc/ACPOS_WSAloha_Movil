@@ -62,6 +62,13 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ModeCodes, Configuration.Formatters.JsonFormatter);
 
         }
+        [HttpGet]
+        [Route("Printers")]
+        public HttpResponseMessage Printers()
+        {
+            var Catalogos = App.Catalogos.ObtenerImpresoras();
+            return Request.CreateResponse(HttpStatusCode.OK, Catalogos, Configuration.Formatters.JsonFormatter);
+        }
         //ACCIONES DE ALOHA CONNECTION
         [HttpPost]
         [Route("clockin")]

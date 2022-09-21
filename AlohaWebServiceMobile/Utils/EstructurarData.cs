@@ -196,8 +196,6 @@ namespace AlohaWebServiceMobile.Utils
             return Menus;
         }
 
-
-
         public List<ODRmobile> ObtenerModosDePedido()
         {
             List<ODRmobile> OrderModMobile = new List<ODRmobile>();
@@ -280,5 +278,32 @@ namespace AlohaWebServiceMobile.Utils
             }
             return List;
         }
+
+        public List<PRTMobile> ObtenerImpresoras()
+        {
+            List<PRTMobile> Impresoras = new List<PRTMobile>();
+            List<PRT> ListDBFS = new List<PRT>();
+
+            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
+            {
+                ListDBFS = new PRTServicio(contextoAlh).GetAll();
+            }
+            foreach (var Printer in ListDBFS)
+            {
+                Impresoras.Add(new PRTMobile
+                {
+                    NAME = Printer.NAME,
+                    TERMINAL = Printer.TERMINAL,
+                });
+            }
+
+
+            return Impresoras;
+
+        }
+
+
     }
+
 }
+

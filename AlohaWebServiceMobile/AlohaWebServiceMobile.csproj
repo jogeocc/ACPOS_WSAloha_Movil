@@ -121,6 +121,7 @@
     <Compile Include="Models\Catalogos\MODCODEmobile.cs" />
     <Compile Include="Models\Catalogos\MODmobile.cs" />
     <Compile Include="Models\Catalogos\ODRmobile.cs" />
+    <Compile Include="Models\Catalogos\PRTMobile.cs" />
     <Compile Include="Models\Catalogos\SUBmobile.cs" />
     <Compile Include="Models\Catalogos\TDRmobile.cs" />
     <Compile Include="Utils\AlohaConnection.cs" />
