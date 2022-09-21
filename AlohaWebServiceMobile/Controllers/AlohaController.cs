@@ -81,11 +81,6 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("login")]
         public HttpResponseMessage login(RequestLogin requestLogin)
         {
-            while (App.UserInSystem)
-            {
-                App.logger.Info($"Esperando liberacion");
-            }
-
             ResponseAloha response = App.AlohaConnection.login(requestLogin.TermId, requestLogin.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
