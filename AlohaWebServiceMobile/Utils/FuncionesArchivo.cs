@@ -12,8 +12,8 @@ namespace AlohaWebServiceMobile.Utils
 
     public class FuncionesArchivo
     {
-        private string NombreArchivo = @".\Trans.log";
-        private string RespaldoArchivo = @".\Mirror.log";
+        private string NombreArchivo = ".\\Trans.log";
+        private string RespaldoArchivo = ".\\Mirror.log";
 
 
         public void AddTrans(User user)
@@ -78,9 +78,9 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     File.Delete(RespaldoArchivo);
                 }
+                File.Copy(NombreArchivo, RespaldoArchivo);
+                File.Delete(NombreArchivo);
             }
-            File.Copy(NombreArchivo, RespaldoArchivo);
-            File.Delete(NombreArchivo);
             using (BinaryWriter binWriter =
                 new BinaryWriter(File.Open(NombreArchivo, FileMode.Create)))
             {
