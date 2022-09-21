@@ -31,7 +31,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Nombre_Empleado = NombreEmpleado(IdEmpleado);
                 responseAloha.idJobs = IdsJobsEmpleado(IdEmpleado);
                 responseAloha.mesas_empleado = RecuperarMesas(IdEmpleado);
-                App.UserInSystem = true;
+                LogoutInterno(IdTerm);
             }
             catch (Exception ex)
             {
@@ -59,17 +59,19 @@ namespace AlohaWebServiceMobile.Utils
             return response;
         }
 
-        public ResponseAloha OpenTable(int IdTerm, int idNumMesa, string NombreMesa, int NumInvitados)
+        public ResponseAloha OpenTable(int IdTerm, int idNumMesa, string NombreMesa, int NumInvitados, int idEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 VerificarIber();
+                LoginInterno(IdTerm, idEmpleado);
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Mesa abierta con exito";
                 responseAloha.NombreMesa = GetTabTableName(IdMesaInterno);
+                LogoutInterno(IdTerm);
             }
             catch (Exception ex)
             {
@@ -100,17 +102,19 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha OpenCheck(int IdTerm, int IdMesaInterno)
+        public ResponseAloha OpenCheck(int IdTerm, int IdMesaInterno, int idEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
 
             try
             {
                 VerificarIber();
+                LoginInterno(IdTerm, idEmpleado);
                 int idChequeInterno = xFunction.AddCheck(IdTerm, IdMesaInterno);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = $"Cuenta abierda con id {idChequeInterno}";
                 responseAloha.idMesa = idChequeInterno;
+                LogoutInterno(IdTerm);
             }
             catch (Exception ex)
             {
@@ -166,7 +170,6 @@ namespace AlohaWebServiceMobile.Utils
                 VerificarIber();
                 xFunction.LogOut(IdTerm);
                 response.Estado = true;
-                App.UserInSystem = false;
             }
             catch (Exception ex)
             {
@@ -736,5 +739,33 @@ namespace AlohaWebServiceMobile.Utils
             xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
             depot = AlohaSdkFactory.GetIberDepotInstance();
         }
+
+        //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
+
+        private void LogoutInterno(int Idterm)
+        {
+            try
+            {
+                xFunction.LogOut(Idterm);
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al LOGOUT interno{ex.Message}");
+            }
+        }
+
+        private void LoginInterno(int IdTerm, int IdEmpleado)
+        {
+            try
+            {
+                xFunction.LogIn(IdTerm, IdEmpleado, "", "");
+
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al LOGIN interno{ex.Message}");
+            }
+        }
+
     }
 }

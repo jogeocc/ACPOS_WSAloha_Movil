@@ -8,6 +8,8 @@ namespace AlohaWebServiceMobile.Models.Aloha
 {
     public class RequestOpenCheck
     {
+        public int IdEmpleado { get; set; }
+
         public int IdTerm { get; set; }
         public int IdMesaInterno { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using AlohaWebServiceMobile.Utils;
+﻿using AlohaWebServiceMobile.Models.Transacciones;
+using AlohaWebServiceMobile.Utils;
 using AlohaWebServiceMobile.Views.Modals;
 using log4net;
 using System;
@@ -29,7 +30,7 @@ namespace AlohaWebServiceMobile
         public static EstructurarData Catalogos = new EstructurarData();
         public static AlohaConnection AlohaConnection = new AlohaConnection();
         public static AppConfig appConfig = new AppConfig();
-        public static bool UserInSystem = false;
+        public static BdInterna bdInterna = new BdInterna();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
@@ -43,9 +44,6 @@ namespace AlohaWebServiceMobile
                 {
                     try
                     {
-                        //while (!iniciar)
-                        //{
-                        //}
                         IniciarWebService();
                     }
                     catch (Exception ex)

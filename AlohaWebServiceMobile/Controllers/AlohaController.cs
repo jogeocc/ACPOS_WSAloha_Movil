@@ -102,7 +102,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("OpenTable")]
         public HttpResponseMessage OpenTable(RequestOpenTable requestOpenTable)
         {
-            ResponseAloha response = App.AlohaConnection.OpenTable(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados);
+            ResponseAloha response = App.AlohaConnection.OpenTable(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados,requestOpenTable.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
         [HttpPost]
@@ -124,7 +124,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("OpenCheck")]
         public HttpResponseMessage OpenCheck(RequestOpenCheck requestOpenCheck)
         {
-            ResponseAloha response = App.AlohaConnection.OpenCheck(requestOpenCheck.IdTerm, requestOpenCheck.IdMesaInterno);
+            ResponseAloha response = App.AlohaConnection.OpenCheck(requestOpenCheck.IdTerm, requestOpenCheck.IdMesaInterno,requestOpenCheck.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 

@@ -8,6 +8,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
 {
     public class RequestAddItem
     {
+        public int IdEmpleado { get; set; }
         public int IdTerm { get; set; }
         public int IdCheck { get; set; }
         public ItemAloha item { get; set; }
