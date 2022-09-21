@@ -277,15 +277,17 @@ namespace AlohaWebServiceMobile.Utils
 
             return responseAloha;
         }
-        public ResponseAloha ConfirmOrderMode(int IdTerm, int IdMesa, int IdModoPedido)
+        public ResponseAloha ConfirmOrderMode(int IdTerm, int IdMesa, int IdModoPedido, int idEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 VerificarIber();
+                LoginInterno(IdTerm, idEmpleado);
                 xFunction.OrderItems(IdTerm, IdMesa, IdModoPedido);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Productos ordenados con exito";
+                LogoutInterno(IdTerm);
             }
             catch (Exception ex)
             {
