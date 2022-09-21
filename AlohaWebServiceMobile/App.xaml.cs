@@ -29,6 +29,7 @@ namespace AlohaWebServiceMobile
         public static EstructurarData Catalogos = new EstructurarData();
         public static AlohaConnection AlohaConnection = new AlohaConnection();
         public static AppConfig appConfig = new AppConfig();
+        public static bool UserInSystem = false;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try

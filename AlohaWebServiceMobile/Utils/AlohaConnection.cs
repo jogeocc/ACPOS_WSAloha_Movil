@@ -31,7 +31,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Nombre_Empleado = NombreEmpleado(IdEmpleado);
                 responseAloha.idJobs = IdsJobsEmpleado(IdEmpleado);
                 responseAloha.mesas_empleado = RecuperarMesas(IdEmpleado);
-
+                App.UserInSystem = true;
             }
             catch (Exception ex)
             {
@@ -166,6 +166,7 @@ namespace AlohaWebServiceMobile.Utils
                 VerificarIber();
                 xFunction.LogOut(IdTerm);
                 response.Estado = true;
+                App.UserInSystem = false;
             }
             catch (Exception ex)
             {
