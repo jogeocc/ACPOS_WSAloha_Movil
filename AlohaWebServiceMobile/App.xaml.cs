@@ -31,12 +31,14 @@ namespace AlohaWebServiceMobile
         public static AlohaConnection AlohaConnection = new AlohaConnection();
         public static AppConfig appConfig = new AppConfig();
         public static BdInterna bdInterna = new BdInterna();
+        public static FuncionesArchivo funcionesArchivo = new FuncionesArchivo();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
             {
                 var thisProcess = Process.GetCurrentProcess();
-                if ((Process.GetProcessesByName(thisProcess.ProcessName).Count() > 1)) Environment.Exit(0);
+                if ((Process.GetProcessesByName(thisProcess.ProcessName).Count() > 1))
+                    Environment.Exit(0);
                 logger.Info("Iniciando sistema...");
                 splash.Show();
 
@@ -45,6 +47,7 @@ namespace AlohaWebServiceMobile
                     try
                     {
                         IniciarWebService();
+                        bdInterna.users = funcionesArchivo.ReadTrans();
                     }
                     catch (Exception ex)
                     {

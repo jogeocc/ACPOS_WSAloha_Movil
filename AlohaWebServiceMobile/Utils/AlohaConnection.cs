@@ -2,6 +2,7 @@
 using AlohaWebServiceMobile.CodigosErrorAloha;
 using AlohaWebServiceMobile.Enums;
 using AlohaWebServiceMobile.Models.Aloha;
+using AlohaWebServiceMobile.Models.Transacciones;
 using LasaFOHLib;
 using System;
 using System.Collections.Generic;
@@ -23,15 +24,28 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                VerificarIber();
-                xFunction.LogIn(IdTerm, IdEmpleado, "", "");
-                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-                responseAloha.isClockIn = IsAlreadyClockIn(IdEmpleado);
-                responseAloha.mensaje = "Login realizado con exito";
-                responseAloha.Nombre_Empleado = NombreEmpleado(IdEmpleado);
-                responseAloha.idJobs = IdsJobsEmpleado(IdEmpleado);
-                responseAloha.mesas_empleado = RecuperarMesas(IdEmpleado);
-                LogoutInterno(IdTerm);
+                User UserInSesion = App.bdInterna.users.Find(u => u.IdEmpleado == IdEmpleado);
+
+                if (UserInSesion == null)
+                {
+                    VerificarIber();
+                    xFunction.LogIn(IdTerm, IdEmpleado, "", "");
+                    responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                    responseAloha.isClockIn = IsAlreadyClockIn(IdEmpleado);
+                    responseAloha.mensaje = "Login realizado con exito";
+                    responseAloha.Nombre_Empleado = NombreEmpleado(IdEmpleado);
+                    responseAloha.idJobs = IdsJobsEmpleado(IdEmpleado);
+                    responseAloha.mesas_empleado = RecuperarMesas(IdEmpleado);
+                    LogoutInterno(IdTerm);
+                    App.bdInterna.users.Add(new User { IdEmpleado = IdEmpleado });
+                }
+                else
+                {
+                    responseAloha.mensaje = $"Usuario ya en sesion";
+                    responseAloha.Codigo = (int)CodigosError.ERROR;
+                    App.logger.Error($"El usuario ya esta en sesion");
+                }
+
             }
             catch (Exception ex)
             {
@@ -162,13 +176,20 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha logout(int IdTerm)
+        public ResponseAloha logout(int IdTerm, int idEmpleado)
         {
             ResponseAloha response = new ResponseAloha();
             try
             {
+
                 VerificarIber();
-                xFunction.LogOut(IdTerm);
+                //xFunction.LogOut(IdTerm);
+                User UserInSesion = App.bdInterna.users.Find(u => u.IdEmpleado == idEmpleado);
+                if (UserInSesion != null)
+                {
+                    App.bdInterna.users.Remove(UserInSesion);
+                }
+
                 response.Estado = true;
             }
             catch (Exception ex)

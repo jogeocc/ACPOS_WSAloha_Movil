@@ -8,6 +8,8 @@ namespace AlohaWebServiceMobile.Models.Aloha
 {
     public class RequestLogout
     {
+
         public int TermId { get; set; }
+        public int IdEmpleado { get; set; }
     }
 }

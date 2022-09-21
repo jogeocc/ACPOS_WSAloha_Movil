@@ -28,6 +28,7 @@ namespace AlohaWebServiceMobile.Models.Transacciones
         public new void Add(T item)
         {
             base.Add(item);
+            App.funcionesArchivo.AddTrans(item as User);
         }
 
         /// <summary>
@@ -37,6 +38,8 @@ namespace AlohaWebServiceMobile.Models.Transacciones
         public new void Remove(T item)
         {
             base.Remove(item);
+            App.funcionesArchivo.DeleteTrans(item as User);
+
         }
     }
 }

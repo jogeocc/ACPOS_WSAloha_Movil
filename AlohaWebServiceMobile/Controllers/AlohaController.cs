@@ -89,7 +89,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("logout")]
         public HttpResponseMessage logout(RequestLogout requestLogout)
         {
-            ResponseAloha response = App.AlohaConnection.logout(requestLogout.TermId);
+            ResponseAloha response = App.AlohaConnection.logout(requestLogout.TermId,requestLogout.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
