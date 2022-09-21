@@ -17,13 +17,13 @@ namespace AlohaWebServiceMobile.Utils
         private SdkFunctions _sdkFunctions = new SdkFunctions();
 
         private IIberFuncs23 xFunction;
-
+        private IIberDepot depot;
         public ResponseAloha login(int IdTerm, int IdEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                VerificarIber();
                 xFunction.LogIn(IdTerm, IdEmpleado, "", "");
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.isClockIn = IsAlreadyClockIn(IdEmpleado);
@@ -47,7 +47,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha response = new ResponseAloha();
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                VerificarIber();
                 xFunction.ClockIn(IdTerm, IdJobCode);
                 response.Estado = true;
             }
@@ -64,7 +64,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                VerificarIber();
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
@@ -85,7 +85,7 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 //Para abrir un tab, por defecto debe de ser el numero de mesa en 0
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                VerificarIber();
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
@@ -106,6 +106,7 @@ namespace AlohaWebServiceMobile.Utils
 
             try
             {
+                VerificarIber();
                 int idChequeInterno = xFunction.AddCheck(IdTerm, IdMesaInterno);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = $"Cuenta abierda con id {idChequeInterno}";
@@ -123,6 +124,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
+                VerificarIber();
                 xFunction.CloseCheck(IdTerm, IdCheckInterno);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = $"Cuenta Cerrada con id ";
@@ -141,6 +143,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
+                VerificarIber();
                 xFunction.CloseTable(IdTerm, IdMesaInterno);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Mesa/Cuenta cerrada con éxito";
@@ -160,7 +163,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha response = new ResponseAloha();
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                VerificarIber();
                 xFunction.LogOut(IdTerm);
                 response.Estado = true;
             }
@@ -177,7 +180,7 @@ namespace AlohaWebServiceMobile.Utils
             bool IsSuccess = false;
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                VerificarIber();
                 xFunction.PerformCheckout(IdTerm, DeclaredCash);
                 xFunction.ClockOut(IdTerm, tips);
             }
@@ -193,7 +196,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                VerificarIber();
                 int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem.item.IdItem, "", requestAddItem.item.Amount);
 
                 #region modificadores
@@ -227,14 +230,12 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-
-
         public ResponseAloha AddSpecialMessage(int IdTerm, int IdCheckId, int IdEntry, string Message)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                VerificarIber();
                 xFunction.ApplySpecialMessage(IdTerm, IdCheckId, IdEntry, Message);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto insertado con exito";
@@ -251,7 +252,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+                VerificarIber();
                 xFunction.OrderItems(IdTerm, IdMesa, IdModoPedido);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Productos ordenados con exito";
@@ -267,6 +268,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
+                VerificarIber();
                 responseAloha.idPago = xFunction.ApplyPayment(IdTerm, IdCheckId, IdTender, Amount, Tip, Digitos, Expiration, Info, authorization);
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
@@ -282,12 +284,12 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-
         public ResponseAloha EliminarPago(int IdTerm, int IdCheckId, int IdPayment)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
+                VerificarIber();
                 xFunction.DeletePayment(IdTerm, IdCheckId, IdPayment);
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
@@ -303,11 +305,33 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+        public ResponseAloha Print(int idTerm, int idCheck)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                VerificarIber();
+                xFunction.PrintCheck(idTerm, idCheck);
+                responseAloha.Estado = true;
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Enviando tarea de impresión";
+            }
+            catch (Exception ex)
+            {
+                responseAloha.Estado = false;
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+                responseAloha.mensaje = $"Error al imprimir,{ErroresAloha.MensajeMobile(ex.Message)}";
+                App.logger.Error("Error al imprimir", ex);
+            }
+            return responseAloha;
+        }
+
 
         //FUNCIONES DE CONTROL DE DATOS
 
         public ResponseAloha ListTables(int IdEmpleado)
         {
+            VerificarIber();
             ResponseAloha responseAloha = new ResponseAloha();
             responseAloha.Codigo = (int)CodigosError.NO_ERROR;
             responseAloha.mensaje = "Mesas recuperadas con exito";
@@ -321,8 +345,6 @@ namespace AlohaWebServiceMobile.Utils
             List<MesaEmpleado> ListaMesas = new List<MesaEmpleado>();
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
-                IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
                 IberEnum EnumEmpleados = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado);
                 IberObject empleado = EnumEmpleados.First();
                 IberEnum MesasEmpleado = empleado.GetEnum((int)COMEnums.INTERNAL_EMP_OPEN_TABLES);
@@ -476,6 +498,7 @@ namespace AlohaWebServiceMobile.Utils
 
         public ResponseAloha GetCheck(int idCheck)
         {
+            VerificarIber();
             ResponseAloha responseAloha = new ResponseAloha();
             responseAloha.check = RecuperarCheque(idCheck);
 
@@ -498,8 +521,7 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 check.Id = IdCheck;
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
-                IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
+
                 IberObject ChequeAbierto = depot.FindObjectFromId((int)COMEnums.INTERNAL_CHECKS, IdCheck).First();
                 //ITEMS
                 check.Amount = ChequeAbierto.GetDoubleVal("SUBTOTAL");
@@ -635,8 +657,6 @@ namespace AlohaWebServiceMobile.Utils
             List<int> ListaJobs = new List<int>();
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
-                IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
                 IberEnum EnumEmpleados = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado);
                 IberObject empleado = EnumEmpleados.First();
                 for (int i = 0; i < 10; i++)
@@ -661,8 +681,6 @@ namespace AlohaWebServiceMobile.Utils
             string nombre = "";
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
-                IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
                 IberEnum EnumEmpleados = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado);
                 IberObject empleado = EnumEmpleados.First();
                 nombre = empleado.GetStringVal("NICKNAME");
@@ -680,8 +698,6 @@ namespace AlohaWebServiceMobile.Utils
             bool IsClocked = false;
             try
             {
-                xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
-                IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
                 IberEnum EnumEmpleados = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado);
                 IberObject empleado = EnumEmpleados.First();
                 var clock = empleado.GetBoolVal("CLOCKED_IN");
@@ -698,9 +714,6 @@ namespace AlohaWebServiceMobile.Utils
         private string GetTabTableName(int idTableTab)
         {
             string Name = "Error_mesa";
-            xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
-            IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
-
             try
             {
                 IberEnum Mesas = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES, idTableTab);
@@ -713,6 +726,12 @@ namespace AlohaWebServiceMobile.Utils
             }
 
             return Name;
+        }
+
+        private void VerificarIber()
+        {
+            xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
+            IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
         }
     }
 }
