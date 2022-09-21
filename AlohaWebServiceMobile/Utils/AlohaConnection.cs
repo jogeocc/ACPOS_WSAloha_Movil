@@ -170,7 +170,9 @@ namespace AlohaWebServiceMobile.Utils
             catch (Exception ex)
             {
                 response.Estado = false;
-                App.logger.Error("Error al salie con el usuario tal", ex);
+                response.Codigo = (int)CodigosError.ERROR;
+                response.mensaje = $"Error al salir de la terminal {IdTerm} {ErroresAloha.MensajeMobile(ex.Message)}";
+                App.logger.Error($"Error al salir de la terminal {IdTerm}", ex);
             }
             return response;
         }
