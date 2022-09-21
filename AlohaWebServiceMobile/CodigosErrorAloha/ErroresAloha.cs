@@ -179,7 +179,7 @@ namespace AlohaWebServiceMobile.CodigosErrorAloha
             string Mensaje = "{0} - {1}";
             try
             {
-                var messaje = Errores.FirstOrDefault(K => K.Key.Contains(CodigoError.Substring(K.Key.Length)));
+                var messaje = Errores.FirstOrDefault(K => K.Key.Contains(CodigoError.Substring(CodigoError.Length - K.Key.Length)));
                 if (messaje.Key != null)
                 { 
                     Mensaje = String.Format(Mensaje, messaje.Key.Trim(), messaje.Value.Trim());
