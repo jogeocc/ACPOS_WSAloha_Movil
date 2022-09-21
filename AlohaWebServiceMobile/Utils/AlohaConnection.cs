@@ -203,6 +203,7 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
                 int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem.item.IdItem, "", requestAddItem.item.Amount);
 
                 #region modificadores
@@ -227,6 +228,8 @@ namespace AlohaWebServiceMobile.Utils
 
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto insertado con exito";
+                LogoutInterno(requestAddItem.IdTerm);
+
             }
             catch (Exception ex)
             {
