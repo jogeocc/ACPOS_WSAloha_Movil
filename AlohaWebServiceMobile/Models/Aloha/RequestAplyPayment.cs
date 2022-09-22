@@ -17,5 +17,6 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public string Expiration { get; set; }
         public string Info { get; set; }
         public string authorization { get; set; }
+        public int IdEmpleado { get; set; }
     }
 }

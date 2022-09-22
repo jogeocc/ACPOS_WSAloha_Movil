@@ -56,14 +56,16 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha ClockIn(int IdTerm, int IdJobCode)
+        public ResponseAloha ClockIn(int IdTerm, int IdJobCode, int idEmpleado)
         {
             ResponseAloha response = new ResponseAloha();
             try
             {
                 VerificarIber();
+                LoginInterno(IdTerm, idEmpleado);
                 xFunction.ClockIn(IdTerm, IdJobCode);
                 response.Estado = true;
+                LogoutInterno(IdTerm);
             }
             catch (Exception ex)
             {
@@ -95,18 +97,21 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha OpenTab(int IdTerm, int idNumMesa, string NombreMesa, int NumInvitados)
+        public ResponseAloha OpenTab(int IdTerm, int idNumMesa, string NombreMesa, int NumInvitados, int idEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 //Para abrir un tab, por defecto debe de ser el numero de mesa en 0
                 VerificarIber();
+                LoginInterno(IdTerm, idEmpleado);
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Cuenta abierta";
                 responseAloha.NombreMesa = GetTabTableName(IdMesaInterno);
+                LogoutInterno(IdTerm);
+
             }
             catch (Exception ex)
             {
@@ -137,15 +142,17 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha CloseCheck(int IdTerm, int IdCheckInterno)
+        public ResponseAloha CloseCheck(int IdTerm, int IdCheckInterno, int idEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 VerificarIber();
+                LoginInterno(IdTerm, idEmpleado);
                 xFunction.CloseCheck(IdTerm, IdCheckInterno);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = $"Cuenta Cerrada con id ";
+                LogoutInterno(IdTerm);
             }
             catch (Exception ex)
             {
@@ -156,15 +163,17 @@ namespace AlohaWebServiceMobile.Utils
 
         }
 
-        public ResponseAloha CloseTabTable(int IdTerm, int IdMesaInterno)
+        public ResponseAloha CloseTabTable(int IdTerm, int IdMesaInterno, int idEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 VerificarIber();
+                LoginInterno(IdTerm, idEmpleado);
                 xFunction.CloseTable(IdTerm, IdMesaInterno);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Mesa/Cuenta cerrada con éxito";
+                LogoutInterno(IdTerm);
             }
             catch (Exception ex)
             {
@@ -295,16 +304,18 @@ namespace AlohaWebServiceMobile.Utils
             };
             return responseAloha;
         }
-        public ResponseAloha AplicarPago(int IdTerm, int IdCheckId, int IdTender, double Amount, double Tip, string Digitos = "", string Expiration = "", string Info = "", string authorization = "")
+        public ResponseAloha AplicarPago(int idEmpleado, int IdTerm, int IdCheckId, int IdTender, double Amount, double Tip, string Digitos = "", string Expiration = "", string Info = "", string authorization = "")
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 VerificarIber();
+                LoginInterno(IdTerm, idEmpleado);
                 responseAloha.idPago = xFunction.ApplyPayment(IdTerm, IdCheckId, IdTender, Amount, Tip, Digitos, Expiration, Info, authorization);
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Pago aplicado con exito";
+                LogoutInterno(IdTerm);
             }
             catch (Exception ex)
             {
@@ -316,16 +327,18 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha EliminarPago(int IdTerm, int IdCheckId, int IdPayment)
+        public ResponseAloha EliminarPago(int IdTerm, int IdCheckId, int IdPayment, int idEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 VerificarIber();
+                LoginInterno(IdTerm, idEmpleado);
                 xFunction.DeletePayment(IdTerm, IdCheckId, IdPayment);
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Forma de pago eliminada";
+                LogoutInterno(IdTerm);
             }
             catch (Exception ex)
             {
@@ -337,16 +350,18 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha Print(int idTerm, int idCheck)
+        public ResponseAloha Print(int idTerm, int idCheck, int IdEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 VerificarIber();
+                LoginInterno(idTerm, IdEmpleado);
                 xFunction.PrintCheck(idTerm, idCheck);
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Enviando tarea de impresión";
+                LogoutInterno(idTerm);
             }
             catch (Exception ex)
             {

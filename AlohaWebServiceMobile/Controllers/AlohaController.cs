@@ -73,7 +73,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("clockin")]
         public HttpResponseMessage clockin(RequestClockIn requestClockIn)
         {
-            var response = App.AlohaConnection.ClockIn(requestClockIn.IdTerm, requestClockIn.IdJobCode);
+            var response = App.AlohaConnection.ClockIn(requestClockIn.IdTerm, requestClockIn.IdJobCode, requestClockIn.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -89,7 +89,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("logout")]
         public HttpResponseMessage logout(RequestLogout requestLogout)
         {
-            ResponseAloha response = App.AlohaConnection.logout(requestLogout.TermId,requestLogout.IdEmpleado);
+            ResponseAloha response = App.AlohaConnection.logout(requestLogout.TermId, requestLogout.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -97,21 +97,21 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("OpenTable")]
         public HttpResponseMessage OpenTable(RequestOpenTable requestOpenTable)
         {
-            ResponseAloha response = App.AlohaConnection.OpenTable(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados,requestOpenTable.IdEmpleado);
+            ResponseAloha response = App.AlohaConnection.OpenTable(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados, requestOpenTable.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
         [HttpPost]
         [Route("OpenTab")]
         public HttpResponseMessage OpenTab(RequestOpenTable requestOpenTable)
         {
-            ResponseAloha response = App.AlohaConnection.OpenTab(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados);
+            ResponseAloha response = App.AlohaConnection.OpenTab(requestOpenTable.IdTerm, requestOpenTable.IdMesa, requestOpenTable.NombreMesa, requestOpenTable.NumInvitados, requestOpenTable.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
         [HttpPost]
         [Route("CloseTabTable")]
         public HttpResponseMessage CloseTabTable(RequestCloseTabTable requestCloseTabTable)
         {
-            ResponseAloha response = App.AlohaConnection.CloseTabTable(requestCloseTabTable.IdTerm, requestCloseTabTable.IdMesaInterno);
+            ResponseAloha response = App.AlohaConnection.CloseTabTable(requestCloseTabTable.IdTerm, requestCloseTabTable.IdMesaInterno, requestCloseTabTable.idEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -119,7 +119,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("OpenCheck")]
         public HttpResponseMessage OpenCheck(RequestOpenCheck requestOpenCheck)
         {
-            ResponseAloha response = App.AlohaConnection.OpenCheck(requestOpenCheck.IdTerm, requestOpenCheck.IdMesaInterno,requestOpenCheck.IdEmpleado);
+            ResponseAloha response = App.AlohaConnection.OpenCheck(requestOpenCheck.IdTerm, requestOpenCheck.IdMesaInterno, requestOpenCheck.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -127,7 +127,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("CloseCheck")]
         public HttpResponseMessage CloseCheck(RequestCloseCheck requestCloseCheck)
         {
-            ResponseAloha response = App.AlohaConnection.CloseCheck(requestCloseCheck.IdTerm, requestCloseCheck.IdChequeInterno);
+            ResponseAloha response = App.AlohaConnection.CloseCheck(requestCloseCheck.IdTerm, requestCloseCheck.IdChequeInterno, requestCloseCheck.idEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -143,7 +143,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("OrderMode")]
         public HttpResponseMessage OrderMode(RequestOrderMode requestOrderMode)
         {
-            ResponseAloha response = App.AlohaConnection.ConfirmOrderMode(requestOrderMode.IdTerm, requestOrderMode.IdMesa, requestOrderMode.IdModoPedido,requestOrderMode.IdEmpleado);
+            ResponseAloha response = App.AlohaConnection.ConfirmOrderMode(requestOrderMode.IdTerm, requestOrderMode.IdMesa, requestOrderMode.IdModoPedido, requestOrderMode.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -151,7 +151,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("AplyPayment")]
         public HttpResponseMessage AplyPayment(RequestAplyPayment requestAplyPayment)
         {
-            var response = App.AlohaConnection.AplicarPago(requestAplyPayment.IdTerm, requestAplyPayment.IdCheckId, requestAplyPayment.IdTender, requestAplyPayment.Amount, requestAplyPayment.Tip, requestAplyPayment.Digitos, requestAplyPayment.Expiration, requestAplyPayment.Info, requestAplyPayment.authorization);
+            var response = App.AlohaConnection.AplicarPago(requestAplyPayment.IdEmpleado, requestAplyPayment.IdTerm, requestAplyPayment.IdCheckId, requestAplyPayment.IdTender, requestAplyPayment.Amount, requestAplyPayment.Tip, requestAplyPayment.Digitos, requestAplyPayment.Expiration, requestAplyPayment.Info, requestAplyPayment.authorization);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -174,7 +174,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("DeletePayment")]
         public HttpResponseMessage DeletePayment(RequestDeletePayment requestDeletePayment)
         {
-            ResponseAloha response = App.AlohaConnection.EliminarPago(requestDeletePayment.IdTerm, requestDeletePayment.IdCheckId, requestDeletePayment.IdPayment);
+            ResponseAloha response = App.AlohaConnection.EliminarPago(requestDeletePayment.IdTerm, requestDeletePayment.IdCheckId, requestDeletePayment.IdPayment, requestDeletePayment.IdEmpleado);
 
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
@@ -183,7 +183,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("Print")]
         public HttpResponseMessage Print(RequestPrint requestPrint)
         {
-            ResponseAloha response = App.AlohaConnection.Print(requestPrint.IdTerm, requestPrint.IdCheck);
+            ResponseAloha response = App.AlohaConnection.Print(requestPrint.IdTerm, requestPrint.IdCheck,requestPrint.IdEmpleado);
 
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
