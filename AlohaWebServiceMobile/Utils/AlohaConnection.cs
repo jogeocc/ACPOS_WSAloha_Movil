@@ -572,6 +572,7 @@ namespace AlohaWebServiceMobile.Utils
                 IberObject ChequeAbierto = depot.FindObjectFromId((int)COMEnums.INTERNAL_CHECKS, IdCheck).First();
                 //ITEMS
                 check.Amount = ChequeAbierto.GetDoubleVal("SUBTOTAL");
+                check.Tax = ChequeAbierto.GetDoubleVal("TAX");
                 try
                 {
                     IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
