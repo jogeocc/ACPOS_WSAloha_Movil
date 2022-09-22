@@ -19,6 +19,10 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int Id { get; set; }
         public double Amount { get; set; }
         public double AmountDue { get; set; }
+        public double Tax { get; set; }
+        public string Tax1 { get; set; }
+        public double Tax2 { get; set; }
+
         public List<Item> Items { get; set; } = new List<Item>();
         public List<Payment> Payments { get; set; } = new List<Payment>();
         public List<Promotion> Promotions { get; set; } = new List<Promotion>();
