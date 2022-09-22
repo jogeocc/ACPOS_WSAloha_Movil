@@ -111,7 +111,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("CloseTabTable")]
         public HttpResponseMessage CloseTabTable(RequestCloseTabTable requestCloseTabTable)
         {
-            ResponseAloha response = App.AlohaConnection.CloseTabTable(requestCloseTabTable.IdTerm, requestCloseTabTable.IdMesaInterno, requestCloseTabTable.idEmpleado);
+            ResponseAloha response = App.AlohaConnection.CloseTabTable(requestCloseTabTable.IdTerm, requestCloseTabTable.IdMesaInterno, requestCloseTabTable.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -127,7 +127,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("CloseCheck")]
         public HttpResponseMessage CloseCheck(RequestCloseCheck requestCloseCheck)
         {
-            ResponseAloha response = App.AlohaConnection.CloseCheck(requestCloseCheck.IdTerm, requestCloseCheck.IdChequeInterno, requestCloseCheck.idEmpleado);
+            ResponseAloha response = App.AlohaConnection.CloseCheck(requestCloseCheck.IdTerm, requestCloseCheck.IdChequeInterno, requestCloseCheck.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
