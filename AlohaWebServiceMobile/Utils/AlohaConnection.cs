@@ -557,9 +557,6 @@ namespace AlohaWebServiceMobile.Utils
                 IberObject ChequeAbierto = depot.FindObjectFromId((int)COMEnums.INTERNAL_CHECKS, IdCheck).First();
                 //ITEMS
                 check.Amount = ChequeAbierto.GetDoubleVal("SUBTOTAL");
-                check.Tax = ChequeAbierto.GetDoubleVal("TAX");
-                check.Tax1 = ChequeAbierto.GetStringVal("TAX_NUMBER");
-
                 try
                 {
                     IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
@@ -576,7 +573,8 @@ namespace AlohaWebServiceMobile.Utils
                         item.ModCode = ItemAbierto.GetLongVal("MOD_CODE");
                         item.NivelMod = ItemAbierto.GetLongVal("LEVEL");
                         int IsMessage = ItemAbierto.GetLongVal("TYPE");
-
+                        item.Ordered = ItemAbierto.GetBoolVal("SELECTED") > 0;
+                        item.Ordered1 = ItemAbierto.GetLongVal("MODE");
 
 
                         if (IsMessage == 0)

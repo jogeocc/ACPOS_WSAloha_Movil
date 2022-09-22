@@ -19,10 +19,6 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int Id { get; set; }
         public double Amount { get; set; }
         public double AmountDue { get; set; }
-        public double Tax { get; set; }
-        public string Tax1 { get; set; }
-        public double Tax2 { get; set; }
-
         public List<Item> Items { get; set; } = new List<Item>();
         public List<Payment> Payments { get; set; } = new List<Payment>();
         public List<Promotion> Promotions { get; set; } = new List<Promotion>();
@@ -53,6 +49,8 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public string Name { get; set; }
         public double Price { get; set; }
         public string DisplayPrice { get; set; }
+        public bool Ordered { get; set; }
+        public int Ordered1 { get; set; }
         public int NivelMod { get; set; }
         public string SpecialMessage { get; set; } = "";
         public List<Item> Mods { get; set; } = new List<Item>();
