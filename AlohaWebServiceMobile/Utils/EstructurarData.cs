@@ -230,6 +230,7 @@ namespace AlohaWebServiceMobile.Utils
                         descripcion = tdr.NAME,
                         acepta_propina = tdr.TIPS == TipoLogicoALH.Y ? true : false,
                         status = tdr.ACTIVE == TipoLogicoALH.Y ? true : false,
+                        pin_pad = tdr.ID == 46
                     });
                 }
             }

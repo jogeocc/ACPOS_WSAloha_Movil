@@ -12,5 +12,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public string descripcion { get; set; }
         public bool status { get; set; }
         public bool acepta_propina { get; set; }
+
+        public bool pin_pad { get; set; }
     }
 }
