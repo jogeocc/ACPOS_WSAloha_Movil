@@ -49,9 +49,12 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                string CodigoError = ex.Message.Substring(ex.Message.Count() - 10);
-                responseAloha.mensaje = $"Error al intentar ingresar con el usuario {IdEmpleado} - {(ErroresAloha.MensajeMobile(CodigoError))}";
+                responseAloha.mensaje = $"Error al intentar ingresar con el usuario {IdEmpleado} - {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error("Error al ingresar con el usuario tal", ex);
+                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                {
+                    xFunction.LogOut(IdTerm);
+                }
             }
             return responseAloha;
         }
@@ -70,7 +73,13 @@ namespace AlohaWebServiceMobile.Utils
             catch (Exception ex)
             {
                 response.Estado = false;
-                App.logger.Error("Error", ex);
+                response.Codigo = (int)CodigosError.ERROR;
+                response.mensaje = $"Error al intentar registrarse con el usuario {idEmpleado} - {(ErroresAloha.MensajeMobile(ex.Message))}";
+                App.logger.Error("Error al intentar registrarse con el usuario", ex);
+                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                {
+                    xFunction.LogOut(IdTerm);
+                }
             }
             return response;
         }
@@ -91,8 +100,14 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                responseAloha.mensaje = $"Error abriendo cuenta {idNumMesa}";
+                responseAloha.Estado = false;
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+                responseAloha.mensaje = $"Error abriendo mesa {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error($"Error al abrir mesa id = {idNumMesa}", ex);
+                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                {
+                    xFunction.LogOut(IdTerm);
+                }
             }
             return responseAloha;
         }
@@ -115,8 +130,14 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                responseAloha.mensaje = $"Error abriendo cuenta {NombreMesa}";
-                App.logger.Error($"Error abriendo cuenta = {NombreMesa}", ex);
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+                responseAloha.Estado = false;
+                responseAloha.mensaje = $"Error abriendo mesa-cuenta {(ErroresAloha.MensajeMobile(ex.Message))}";
+                App.logger.Error($"Error abriendo mesa-cuenta id = {idNumMesa}", ex);
+                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                {
+                    xFunction.LogOut(IdTerm);
+                }
             }
             return responseAloha;
         }
@@ -137,7 +158,14 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+                responseAloha.Estado = false;
+                responseAloha.mensaje = $"Error al abrir cheque {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error($"Error al abrir cheque", ex);
+                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                {
+                    xFunction.LogOut(IdTerm);
+                }
             }
             return responseAloha;
         }
@@ -156,8 +184,14 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                responseAloha.mensaje = $"Error al cerrar cuenta con id ";
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+                responseAloha.Estado = false;
+                responseAloha.mensaje = $"Error al cerrar cheque {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error($"Error al cerrar cheque", ex);
+                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                {
+                    xFunction.LogOut(IdTerm);
+                }
             }
             return responseAloha;
 
@@ -177,9 +211,14 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error("Error al cerrar mesa", ex);
-                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-                responseAloha.mensaje = "Mesa/Cuenta con error al cerrar";
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+                responseAloha.Estado = false;
+                responseAloha.mensaje = $"Error al cerrar mesa {(ErroresAloha.MensajeMobile(ex.Message))}";
+                App.logger.Error($"Error al cerrar mesa", ex);
+                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                {
+                    xFunction.LogOut(IdTerm);
+                }
 
             }
             return responseAloha;
@@ -198,22 +237,27 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     App.bdInterna.users.Remove(UserInSesion);
                 }
+                response.mensaje = "Salida realizada con éxito";
 
                 response.Estado = true;
             }
             catch (Exception ex)
             {
-                response.Estado = false;
                 response.Codigo = (int)CodigosError.ERROR;
-                response.mensaje = $"Error al salir de la terminal {IdTerm} {ErroresAloha.MensajeMobile(ex.Message)}";
+                response.Estado = false;
+                response.mensaje = $"Error al salir de terminal {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error($"Error al salir de la terminal {IdTerm}", ex);
+                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                {
+                    xFunction.LogOut(IdTerm);
+                }
             }
             return response;
         }
 
-        public bool ClockOut(int IdTerm, double tips, double DeclaredCash)
+        public ResponseAloha ClockOut(int IdTerm, double tips, double DeclaredCash)
         {
-            bool IsSuccess = false;
+            ResponseAloha response = new ResponseAloha();
             try
             {
                 VerificarIber();
@@ -222,9 +266,16 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error("Error en Clock Out", ex);
+                response.Codigo = (int)CodigosError.ERROR;
+                response.Estado = false;
+                response.mensaje = $"Error al hacer salida {(ErroresAloha.MensajeMobile(ex.Message))}";
+                App.logger.Error($"Error al hacer salida {IdTerm}", ex);
+                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                {
+                    xFunction.LogOut(IdTerm);
+                }
             }
-            return IsSuccess;
+            return response;
         }
 
         public ResponseAloha AddItem(RequestAddItem requestAddItem)
