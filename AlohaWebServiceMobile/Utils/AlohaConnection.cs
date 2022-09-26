@@ -292,30 +292,33 @@ namespace AlohaWebServiceMobile.Utils
             {
                 VerificarIber();
                 LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
-                int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem.item.IdItem, "", requestAddItem.item.Amount);
-
-                #region modificadores
-                foreach (var mod in requestAddItem.item.Mods)
+                
+                foreach(var item in requestAddItem.items)
                 {
-                    xFunction.ModItem(requestAddItem.IdTerm, idEntry, mod.IdMod, "", mod.Amount, mod.ModCode);
+                    int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
+                    #region modificadores
+                    foreach (var mod in item.Mods)
+                    {
+                        xFunction.ModItem(requestAddItem.IdTerm, idEntry, mod.IdMod, "", mod.Amount, mod.ModCode);
+                    }
+                    #endregion
+                    xFunction.EndItem(requestAddItem.IdTerm);
+                    if (!string.IsNullOrEmpty(item.SpecialMessage) || !string.IsNullOrEmpty(item.Unidad_Medida))
+                    {
+                        string Mensaje = "";
+
+                        Mensaje += item.Cantidad_Peso > 0 ? item.Cantidad_Peso.ToString() : "";
+
+                        Mensaje += !string.IsNullOrEmpty(item.Unidad_Medida) ? item.Unidad_Medida : "";
+
+                        Mensaje += !string.IsNullOrEmpty(item.SpecialMessage) ? $" {item.SpecialMessage}" : "";
+
+                        xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, Mensaje);
+                    }
+                    responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                    responseAloha.mensaje = "Producto insertado con exito";
                 }
-                #endregion
-                xFunction.EndItem(requestAddItem.IdTerm);
-                if (!string.IsNullOrEmpty(requestAddItem.item.SpecialMessage) || !string.IsNullOrEmpty(requestAddItem.item.Unidad_Medida))
-                {
-                    string Mensaje = "";
 
-                    Mensaje += requestAddItem.item.Cantidad_Peso > 0 ? requestAddItem.item.Cantidad_Peso.ToString() : "";
-
-                    Mensaje += !string.IsNullOrEmpty(requestAddItem.item.Unidad_Medida) ? requestAddItem.item.Unidad_Medida : "";
-
-                    Mensaje += !string.IsNullOrEmpty(requestAddItem.item.SpecialMessage) ? $" {requestAddItem.item.SpecialMessage}" : "";
-
-                    xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, Mensaje);
-                }
-
-                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-                responseAloha.mensaje = "Producto insertado con exito";
                 LogoutInterno(requestAddItem.IdTerm);
 
             }

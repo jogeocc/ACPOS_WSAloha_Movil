@@ -11,8 +11,9 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int IdEmpleado { get; set; }
         public int IdTerm { get; set; }
         public int IdCheck { get; set; }
-        public ItemAloha item { get; set; }
+        public List<ItemAloha> items { get; set; }
     }
+
     public class ItemAloha
     {
         public int IdItem { get; set; }
