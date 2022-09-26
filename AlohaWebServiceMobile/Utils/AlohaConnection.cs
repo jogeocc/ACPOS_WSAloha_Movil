@@ -366,7 +366,14 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+                responseAloha.Estado = false;
+                responseAloha.mensaje = $"Error al agregar item {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error("Error al agregar item", ex);
+                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                {
+                    xFunction.LogOut(requestAddItem.IdTerm);
+                }
             };
 
             return responseAloha;
