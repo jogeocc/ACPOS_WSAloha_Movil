@@ -366,7 +366,7 @@ namespace AlohaWebServiceMobile.Utils
                     }
                     responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                     responseAloha.mensaje = "Producto insertado con exito";
-
+                    error = true;
                     LogoutInterno(requestAddItem.IdTerm);
                 }
                 catch (Exception ex)
@@ -382,7 +382,6 @@ namespace AlohaWebServiceMobile.Utils
                 };
             }
 
-            error = true;
 
             return responseAloha;
         }
