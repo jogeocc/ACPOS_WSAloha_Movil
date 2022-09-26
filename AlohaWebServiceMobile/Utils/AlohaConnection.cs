@@ -229,6 +229,8 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+
+
         public ResponseAloha logout(int IdTerm, int idEmpleado)
         {
             ResponseAloha response = new ResponseAloha();
@@ -872,6 +874,18 @@ namespace AlohaWebServiceMobile.Utils
         public BdInterna GetUsersInSession()
         {
             return App.bdInterna;
+        }
+
+        public object ReleaseUser(int IdEmpleado)
+        {
+            User UserInSesion = App.bdInterna.users.Find(u => u.IdEmpleado == IdEmpleado);
+            if (UserInSesion != null)
+            {
+                App.bdInterna.users.Remove(UserInSesion);
+            }
+
+
+            return "Elimineado";
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AlohaWebServiceMobile.Models.Aloha;
+using AlohaWebServiceMobile.Models.Aloha.Desktop;
 using AlohaWebServiceMobile.Models.Transacciones;
 using System;
 using System.Collections.Generic;
@@ -194,7 +195,15 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("Users")]
         public HttpResponseMessage Users()
         {
-            var response = App.AlohaConnection.GetUsersInSession(); ;
+            var response = App.AlohaConnection.GetUsersInSession();
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+        [HttpPost]
+        [Route("ReleaseUser")]
+        public HttpResponseMessage ReleaseUser(RequestUser requestUser)
+        {
+            var response = App.AlohaConnection.ReleaseUser(requestUser.IdUser);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
     }
