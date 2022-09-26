@@ -37,7 +37,11 @@ namespace AlohaWebServiceMobile.Utils
                     responseAloha.idJobs = IdsJobsEmpleado(IdEmpleado);
                     responseAloha.mesas_empleado = RecuperarMesas(IdEmpleado);
                     LogoutInterno(IdTerm);
-                    App.bdInterna.users.Add(new User { IdEmpleado = IdEmpleado });
+                    App.bdInterna.users.Add(new User
+                    {
+                        IdEmpleado = IdEmpleado,
+                        UserName = NombreEmpleado(IdEmpleado)
+                    });
                 }
                 else
                 {
@@ -775,7 +779,7 @@ namespace AlohaWebServiceMobile.Utils
             return ListaJobs;
         }
 
-        private string NombreEmpleado(int IdEmpleado)
+        public string NombreEmpleado(int IdEmpleado)
         {
             string nombre = "";
             try
@@ -860,5 +864,12 @@ namespace AlohaWebServiceMobile.Utils
             }
         }
 
+
+        //ACCIONES PARA APLICACION DE ESCRITORIO
+
+        public BdInterna GetUsersInSession()
+        {
+            return App.bdInterna;
+        }
     }
 }

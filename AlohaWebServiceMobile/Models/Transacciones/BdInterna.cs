@@ -15,6 +15,7 @@ namespace AlohaWebServiceMobile.Models.Transacciones
     public class User
     {
         public int IdEmpleado { get; set; }
+        public string UserName { get; set; }
     }
 
 
