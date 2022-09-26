@@ -17,6 +17,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
     public class Check
     {
         public int Id { get; set; }
+        public int ChceckNumber { get; set; }
         public double Amount { get; set; }
         public double AmountDue { get; set; }
         public double Tax { get; set; }

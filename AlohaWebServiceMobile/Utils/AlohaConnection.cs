@@ -19,6 +19,7 @@ namespace AlohaWebServiceMobile.Utils
 
         private IIberFuncs23 xFunction;
         private IIberDepot depot;
+        private SdkFunctions SdkFunctions;
         public ResponseAloha login(int IdTerm, int IdEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
@@ -470,7 +471,7 @@ namespace AlohaWebServiceMobile.Utils
                         {
                             Check check = new Check();
                             check.Id = ChequeAbierto.GetLongVal("ID");
-
+                            check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
                             ////ITEMS
                             //try
                             //{
@@ -835,6 +836,7 @@ namespace AlohaWebServiceMobile.Utils
         {
             xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
             depot = AlohaSdkFactory.GetIberDepotInstance();
+            SdkFunctions = new SdkFunctions();
         }
 
         //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
