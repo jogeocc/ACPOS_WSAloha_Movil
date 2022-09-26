@@ -883,8 +883,6 @@ namespace AlohaWebServiceMobile.Utils
             {
                 App.bdInterna.users.Remove(UserInSesion);
             }
-
-
             return "Elimineado";
         }
     }
