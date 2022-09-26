@@ -649,7 +649,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error("Error recueprando mesas del empleado", ex);
             }
             return ListaMesas;
         }
