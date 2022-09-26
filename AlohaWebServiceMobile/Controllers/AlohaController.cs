@@ -190,11 +190,10 @@ namespace AlohaWebServiceMobile.Controllers
         }
 
         //CONTROLADORES PARA APLICACION DE ESCRITORIO
-        [HttpPost]
+        [HttpGet]
         [Route("Users")]
         public HttpResponseMessage Users()
         {
-
             var response = App.AlohaConnection.GetUsersInSession(); ;
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
