@@ -1,4 +1,5 @@
-﻿using AlohaWebServiceMobile.Enums;
+﻿using Aloha.SDK.Common;
+using AlohaWebServiceMobile.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +63,10 @@ namespace AlohaWebServiceMobile.Models.Aloha
         {
             get
             {
-                return ModCode == (int)ModCodesAloha.ITEM_ANULADO || ModCode==(int)ModCodesAloha.ITEM_PRINT_ANULADO;
+                return
+                    ModCode == (int)ModCodes.MOD_PRINTED_DELETED
+                    ||
+                    ModCode == (int)ModCodes.MOD_DELETED;
             }
         }
     }
