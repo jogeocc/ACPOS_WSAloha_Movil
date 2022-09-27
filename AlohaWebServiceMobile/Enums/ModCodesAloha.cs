@@ -8,6 +8,7 @@ namespace AlohaWebServiceMobile.Enums
 {
     public enum ModCodesAloha
     {
-        ITEM_ANULADO = 12
+        ITEM_ANULADO = 12,
+        ITEM_PRINT_ANULADO = 8
     }
 }

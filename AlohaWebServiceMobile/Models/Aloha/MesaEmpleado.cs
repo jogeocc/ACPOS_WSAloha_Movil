@@ -62,7 +62,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         {
             get
             {
-                return ModCode == (int)ModCodesAloha.ITEM_ANULADO;
+                return ModCode == (int)ModCodesAloha.ITEM_ANULADO || ModCode==(int)ModCodesAloha.ITEM_PRINT_ANULADO;
             }
         }
     }
