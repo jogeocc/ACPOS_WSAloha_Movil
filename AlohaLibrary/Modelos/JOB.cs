@@ -24,7 +24,15 @@ namespace AlohaLibrary.Modelos
         public bool PAYTIPSHAR { get; set; }
         public bool SHIFTREQD { get; set; }
         public bool BARTENDER { get; set; }
-        //2 ONLY TABLES / 1 TABLES AND TABS / 0 ONLY TABS
+
+
+        /// <summary>
+        /// 
+        ///2 ONLY TABLES
+        ///1 TABLES AND TABS
+        ///ONLY TABS
+        /// 
+        /// </summary>
         public int TABS { get; set; }
         public bool TRAINING { get; set; }
         public bool PASSWORD { get; set; }
