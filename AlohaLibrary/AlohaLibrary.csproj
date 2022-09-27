@@ -45,6 +45,7 @@
     <Compile Include="Contexto\AplicacionBdContextoALH.cs" />
     <Compile Include="Enums\TipoLogicoALH.cs" />
     <Compile Include="Helpers\DirectoriosAloha.cs" />
+    <Compile Include="Implementaciones\ACCServicio.cs" />
     <Compile Include="Implementaciones\CITServicio.cs" />
     <Compile Include="Implementaciones\GCHKINFOServicio.cs" />
     <Compile Include="Implementaciones\JOBServicio.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Infraestructura\ServicioBaseALH.cs" />
     <Compile Include="Infraestructura\IBdContextoALH.cs" />
     <Compile Include="Infraestructura\IServicioBaseALH.cs" />
+    <Compile Include="Interfaces\IACC.cs" />
     <Compile Include="Interfaces\ICATServicio.cs" />
     <Compile Include="Interfaces\ICIT.cs" />
     <Compile Include="Interfaces\IGCHKINFOServicio.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="ModelosPersonalizados\Sale.cs" />
     <Compile Include="ModelosPersonalizados\SaleDiscount.cs" />
     <Compile Include="ModelosPersonalizados\Tender.cs" />
+    <Compile Include="Modelos\ACC.cs" />
     <Compile Include="Modelos\CAT.cs" />
     <Compile Include="Modelos\CIT.cs" />
     <Compile Include="Modelos\GCHKINFO.cs" />

@@ -242,9 +242,12 @@ namespace AlohaWebServiceMobile.Utils
         {
             List<JOBmobile> PerfilesTrabajo = new List<JOBmobile>();
             List<JOB> JobsDBFS = new List<JOB>();
+            List<ACC> Accesos = new List<ACC>();
+
             using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
             {
                 JobsDBFS = new JOBServicio(contextoAlh).GetAll();
+                Accesos = new ACCServicio(contextoAlh).GetAll();
             }
             foreach (var perfil in JobsDBFS)
             {
