@@ -70,7 +70,7 @@ namespace AlohaLibrary.Modelos
         public string USER5 { get; set; }
         public bool PREAUTH { get; set; }
         public int CARDTYPE { get; set; }
-        public string MAGONLY { get; set; }
+        public bool MAGONLY { get; set; }
         public int PRINTER { get; set; }
         public int VALDIGITS { get; set; }
         public bool NOVERIFY { get; set; }
