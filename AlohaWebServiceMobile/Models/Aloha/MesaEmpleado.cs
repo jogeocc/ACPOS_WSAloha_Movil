@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlohaWebServiceMobile.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,6 +58,13 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public string SpecialMessage { get; set; } = "";
         public List<Item> Mods { get; set; } = new List<Item>();
         public int ModCode { get; set; }
+        public bool IsAnulado
+        {
+            get
+            {
+                return ModCode == (int)ModCodesAloha.ITEM_ANULADO;
+            }
+        }
     }
     public class Payment
     {

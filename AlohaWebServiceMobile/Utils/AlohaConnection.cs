@@ -491,6 +491,20 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+        public object VoidEntry()
+        {
+            VerificarIber();
+
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return new object();
+        }
+
 
         //FUNCIONES DE CONTROL DE DATOS
 
