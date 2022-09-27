@@ -23,11 +23,11 @@ namespace AlohaLibrary.Implementaciones
         {
             List<RSN> lista = new List<RSN>();
 
-            string query = $"SELECT ID,OWNERID,USERNUMBER,NAME FROM Rsn";
+            string query = $"SELECT * FROM RSN";
 
             DataSet ds = new DataSet();
-            EjecutarConsulta(query).Fill(ds, "Rsn");
-            DataTable tabla = ds.Tables["Rsn"];
+            EjecutarConsulta(query).Fill(ds, "RSN");
+            DataTable tabla = ds.Tables["RSN"];
 
             foreach (DataRow item in tabla.Rows)
             {
