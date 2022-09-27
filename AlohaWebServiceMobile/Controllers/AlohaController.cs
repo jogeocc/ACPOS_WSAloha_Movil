@@ -70,6 +70,13 @@ namespace AlohaWebServiceMobile.Controllers
             var Catalogos = App.Catalogos.ObtenerImpresoras();
             return Request.CreateResponse(HttpStatusCode.OK, Catalogos, Configuration.Formatters.JsonFormatter);
         }
+        [HttpGet]
+        [Route("Voids")]
+        public HttpResponseMessage Voids()
+        {
+            var Voids = App.Catalogos.ObtenerVoids();
+            return Request.CreateResponse(HttpStatusCode.OK, Voids, Configuration.Formatters.JsonFormatter);
+        }
         //ACCIONES DE ALOHA CONNECTION
         [HttpPost]
         [Route("clockin")]

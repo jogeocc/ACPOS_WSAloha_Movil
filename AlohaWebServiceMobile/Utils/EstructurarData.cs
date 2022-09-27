@@ -20,6 +20,7 @@ namespace AlohaWebServiceMobile.Utils
         private List<ITM> ItemsDbfs = new List<ITM>();
         private List<MOD> ModsDbfs = new List<MOD>();
         private List<QTYPRICE> Qtyprices = new List<QTYPRICE>();
+
         private int BotonPlu = 999999;
         public EstructurarData()
         {
@@ -195,7 +196,6 @@ namespace AlohaWebServiceMobile.Utils
 
             return Menus;
         }
-
         public List<ODRmobile> ObtenerModosDePedido()
         {
             List<ODRmobile> OrderModMobile = new List<ODRmobile>();
@@ -228,8 +228,8 @@ namespace AlohaWebServiceMobile.Utils
                     {
                         id_forma_de_pago = tdr.ID,
                         descripcion = tdr.NAME,
-                        acepta_propina = tdr.TIPS == TipoLogicoALH.Y ? true : false,
-                        status = tdr.ACTIVE == TipoLogicoALH.Y ? true : false,
+                        acepta_propina = tdr.TIPS,
+                        status = tdr.ACTIVE,
                         pin_pad = tdr.ID == 46
                     });
                 }
@@ -256,7 +256,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return PerfilesTrabajo;
         }
-
         public List<MODCODEmobile> ObtenerModCodes()
         {
             List<MODCODEmobile> List = new List<MODCODEmobile>();
@@ -279,7 +278,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return List;
         }
-
         public List<PRTMobile> ObtenerImpresoras()
         {
             List<PRTMobile> Impresoras = new List<PRTMobile>();
@@ -298,6 +296,25 @@ namespace AlohaWebServiceMobile.Utils
                 });
             }
             return Impresoras;
+        }
+        public List<VOIDMobile> ObtenerVoids()
+        {
+            List<VOIDMobile> ListaVoids = new List<VOIDMobile>();
+            List<RSN> ListDBFS = new List<RSN>();
+
+            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
+            {
+                ListDBFS = new RsnServicioALH(contextoAlh).GetAll();
+            }
+            foreach (var Anulacion in ListDBFS)
+            {
+                ListaVoids.Add(new VOIDMobile
+                {
+                    NAME = Anulacion.NAME,
+                    ID = Anulacion.ID,
+                });
+            }
+            return ListaVoids;
         }
     }
 }

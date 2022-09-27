@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,29 +21,45 @@ namespace AlohaLibrary.Implementaciones
 
         public override List<TDR> GetAll()
         {
-            List<TDR> lista = new List<TDR>();
-
+            List<TDR> Lista = new List<TDR>();
             string query = "SELECT * FROM TDR";
-
             DataSet ds = new DataSet();
             EjecutarConsulta(query).Fill(ds, "TDR");
             DataTable tabla = ds.Tables["TDR"];
-
             foreach (DataRow item in tabla.Rows)
             {
-                lista.Add(new TDR()
+                TDR Tdr = new TDR();
+                var Props = Tdr.GetType().GetProperties().ToList();
+                foreach (PropertyInfo prop in Props)
                 {
-                    ID = int.Parse(item["ID"].ToString()),
-                    OWNERID = int.Parse(item["OWNERID"].ToString()),
-                    USERNUMBER = int.Parse(item["USERNUMBER"].ToString()),
-                    NAME = item["NAME"].ToString(),
-                    CASH = item["CASH"].ToString().ToUpper().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N,
-                    ACTIVE = item["ACTIVE"].ToString().ToUpper().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N,
-                    TIPS = item["TIPS"].ToString().ToUpper().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N,
-                });
+                    if (prop.PropertyType == typeof(double))
+                    {
+                        //VALORES DOUBLE
+                        double.TryParse(item[prop.Name].ToString(), out double result);
+                        prop.SetValue(Tdr, result);
+                    }
+                    else
+                    {
+                        if (int.TryParse(item[prop.Name].ToString(), out int value))
+                        {
+                            //ENTEROS
+                            prop.SetValue(Tdr, value);
+                        }
+                        else if ((item[prop.Name].ToString().ToUpper() == "Y" || item[prop.Name].ToString().ToUpper() == "N"))
+                        {
+                            //BOOLEANO TIPO ALOHA
+                            prop.SetValue(Tdr, item[prop.Name].ToString().ToUpper() == "Y");
+                        }
+                        else
+                        {
+                            //CADENAS
+                            prop.SetValue(Tdr, item[prop.Name].ToString());
+                        }
+                    }
+                }
+                Lista.Add(Tdr);
             }
-
-            return lista;
+            return Lista;
         }
     }
 }

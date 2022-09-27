@@ -125,6 +125,7 @@
     <Compile Include="Models\Catalogos\PRTMobile.cs" />
     <Compile Include="Models\Catalogos\SUBmobile.cs" />
     <Compile Include="Models\Catalogos\TDRmobile.cs" />
+    <Compile Include="Models\Catalogos\VOIDMobile.cs" />
     <Compile Include="Models\Transacciones\BdInterna.cs" />
     <Compile Include="Utils\AlohaConnection.cs" />
     <Compile Include="Utils\AppConfig.cs" />

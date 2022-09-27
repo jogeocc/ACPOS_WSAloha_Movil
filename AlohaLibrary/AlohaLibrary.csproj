@@ -123,7 +123,7 @@
     <Compile Include="Modelos\PRO.cs" />
     <Compile Include="Modelos\PRT.cs" />
     <Compile Include="Modelos\QTYPRICE.cs" />
-    <Compile Include="Modelos\Rsn.cs" />
+    <Compile Include="Modelos\RSN.cs" />
     <Compile Include="Modelos\REV.cs" />
     <Compile Include="Modelos\SUB.cs" />
     <Compile Include="Modelos\TAB.cs" />

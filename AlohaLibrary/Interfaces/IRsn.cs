@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AlohaLibrary.Interfaces
 {
-    public interface IRsn : IServicioBaseALH<Rsn>
+    public interface IRsn : IServicioBaseALH<RSN>
     {
     }
 }
