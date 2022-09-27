@@ -63,11 +63,11 @@ namespace AlohaLibrary.Modelos
         public bool MGROVERBAL { get; set; }
         public double TIPREDUX { get; set; }
         public bool ALLOWNR { get; set; }
-        public bool USER1 { get; set; }
-        public bool USER2 { get; set; }
-        public bool USER3 { get; set; }
-        public bool USER4 { get; set; }
-        public bool USER5 { get; set; }
+        public string USER1 { get; set; }
+        public string USER2 { get; set; }
+        public string USER3 { get; set; }
+        public string USER4 { get; set; }
+        public string USER5 { get; set; }
         public bool PREAUTH { get; set; }
         public int CARDTYPE { get; set; }
         public string MAGONLY { get; set; }
