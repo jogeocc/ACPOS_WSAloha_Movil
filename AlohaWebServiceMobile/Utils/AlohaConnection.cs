@@ -59,7 +59,15 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error("Error al ingresar con el usuario tal", ex);
                 if (xFunction != null && !ex.Message.Contains("0xC0068007"))
                 {
-                    xFunction.LogOut(IdTerm);
+                    try
+                    {
+                        xFunction.LogOut(IdTerm);
+
+                    }
+                    catch (Exception ex2)
+                    {
+
+                    }
                 }
             }
             return responseAloha;
