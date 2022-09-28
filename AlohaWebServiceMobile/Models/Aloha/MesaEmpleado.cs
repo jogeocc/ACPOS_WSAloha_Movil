@@ -59,6 +59,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public string SpecialMessage { get; set; } = "";
         public List<Item> Mods { get; set; } = new List<Item>();
         public int ModCode { get; set; }
+        public string Modstring { get; set; }
         public bool IsAnulado
         {
             get
