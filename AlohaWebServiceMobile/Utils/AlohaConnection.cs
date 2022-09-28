@@ -57,10 +57,10 @@ namespace AlohaWebServiceMobile.Utils
             {
                 responseAloha.mensaje = $"Error al intentar ingresar con el usuario {IdEmpleado} - {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error("Error al ingresar con el usuario tal", ex);
-                //if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                //{
-                //    xFunction.LogOut(IdTerm);
-                //}
+                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                {
+                    xFunction.LogOut(IdTerm);
+                }
             }
             return responseAloha;
         }
