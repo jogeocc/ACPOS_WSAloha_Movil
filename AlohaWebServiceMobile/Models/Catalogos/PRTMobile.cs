@@ -8,6 +8,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
 {
     public class PRTMobile
     {
+        public int ID { get; set; }
         public string NAME { get; set; }
         public int TERMINAL { get; set; }
     }

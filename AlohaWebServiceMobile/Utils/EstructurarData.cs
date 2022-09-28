@@ -294,6 +294,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 Impresoras.Add(new PRTMobile
                 {
+                    ID = Printer.ID,
                     NAME = Printer.NAME,
                     TERMINAL = Printer.TERMINAL,
                 });
