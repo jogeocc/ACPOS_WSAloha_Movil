@@ -31,13 +31,13 @@ namespace AlohaWebServiceMobile.Utils
                 if (UserInSesion == null)
                 {
                     VerificarIber();
-                    xFunction.LogIn(IdTerm, IdEmpleado, "", "");
+                    int IdSistema = xFunction.LogIn(IdTerm, IdEmpleado, "", "");
                     responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-                    responseAloha.isClockIn = IsAlreadyClockIn(IdEmpleado);
+                    responseAloha.isClockIn = IsAlreadyClockIn(IdSistema);
                     responseAloha.mensaje = "Login realizado con exito";
-                    responseAloha.Nombre_Empleado = NombreEmpleado(IdEmpleado);
-                    responseAloha.idJobs = IdsJobsEmpleado(IdEmpleado);
-                    responseAloha.mesas_empleado = RecuperarMesas(IdEmpleado);
+                    responseAloha.Nombre_Empleado = NombreEmpleado(IdSistema);
+                    responseAloha.idJobs = IdsJobsEmpleado(IdSistema);
+                    responseAloha.mesas_empleado = RecuperarMesas(IdSistema);
                     LogoutInterno(IdTerm);
                     App.bdInterna.users.Add(new User
                     {
@@ -1046,7 +1046,6 @@ namespace AlohaWebServiceMobile.Utils
             depot = AlohaSdkFactory.GetIberDepotInstance();
             SdkFunctions = new SdkFunctions();
         }
-
         //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
 
         private void LogoutInterno(int Idterm)
