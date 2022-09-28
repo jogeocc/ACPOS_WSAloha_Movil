@@ -31,7 +31,7 @@ namespace AlohaWebServiceMobile.Utils
                 if (UserInSesion == null)
                 {
                     VerificarIber();
-                    int IdSistema = xFunction.LogIn(IdTerm, IdEmpleado, "", "");
+                    int IdSistema = xFunction.LogIn(IdTerm, IdEmpleado, IdEmpleado.ToString(), "");
                     responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                     responseAloha.isClockIn = IsAlreadyClockIn(IdSistema);
                     responseAloha.mensaje = "Login realizado con exito";
