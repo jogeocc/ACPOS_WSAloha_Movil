@@ -2,6 +2,7 @@
 using AlohaWebServiceMobile.CodigosErrorAloha;
 using AlohaWebServiceMobile.Enums;
 using AlohaWebServiceMobile.Models.Aloha;
+using AlohaWebServiceMobile.Models.Aloha.Desktop;
 using AlohaWebServiceMobile.Models.Transacciones;
 using LasaFOHLib;
 using System;
@@ -56,10 +57,10 @@ namespace AlohaWebServiceMobile.Utils
             {
                 responseAloha.mensaje = $"Error al intentar ingresar con el usuario {IdEmpleado} - {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error("Error al ingresar con el usuario tal", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    xFunction.LogOut(IdTerm);
-                }
+                //if (xFunction != null && !ex.Message.Contains("0xC0068007"))
+                //{
+                //    xFunction.LogOut(IdTerm);
+                //}
             }
             return responseAloha;
         }
@@ -948,14 +949,30 @@ namespace AlohaWebServiceMobile.Utils
             return App.bdInterna;
         }
 
-        public object ReleaseUser(int IdEmpleado)
+        public ResponseDesktop ReleaseUser(int IdEmpleado)
         {
-            User UserInSesion = App.bdInterna.users.Find(u => u.IdEmpleado == IdEmpleado);
-            if (UserInSesion != null)
+            ResponseDesktop responseDesktop = new ResponseDesktop();
+            try
             {
-                App.bdInterna.users.Remove(UserInSesion);
+                User UserInSesion = App.bdInterna.users.Find(u => u.IdEmpleado == IdEmpleado);
+                if (UserInSesion != null)
+                {
+                    App.bdInterna.users.Remove(UserInSesion);
+                    responseDesktop.Codigo = (int)CodigosError.NO_ERROR;
+                    responseDesktop.Mensaje = "Usuario liberado correctamente";
+                }
+                else
+                {
+
+                }
             }
-            return "Elimineado";
+            catch (Exception ex)
+            {
+                responseDesktop.Codigo = (int)CodigosError.ERROR;
+                responseDesktop.Mensaje = $"Error durante la liberacion del usuario con id {IdEmpleado}";
+            }
+
+            return responseDesktop;
         }
     }
 }

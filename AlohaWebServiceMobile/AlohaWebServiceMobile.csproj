@@ -101,6 +101,7 @@
     <Compile Include="Enums\CodigosError.cs" />
     <Compile Include="Enums\ModCodesAloha.cs" />
     <Compile Include="Models\Aloha\Desktop\RequestUser.cs" />
+    <Compile Include="Models\Aloha\Desktop\ResponseDesktop.cs" />
     <Compile Include="Models\Aloha\MesaEmpleado.cs" />
     <Compile Include="Models\Aloha\RequestAddItem.cs" />
     <Compile Include="Models\Aloha\RequestAplyPayment.cs" />
