@@ -963,11 +963,13 @@ namespace AlohaWebServiceMobile.Utils
                 }
                 else
                 {
-
+                    responseDesktop.Codigo = 0;
+                    responseDesktop.Mensaje = "El usuario no se encuentra bloqueado";
                 }
             }
             catch (Exception ex)
             {
+                App.logger.Error($"Error en la liberacion del empleado {IdEmpleado}", ex);
                 responseDesktop.Codigo = (int)CodigosError.ERROR;
                 responseDesktop.Mensaje = $"Error durante la liberacion del usuario con id {IdEmpleado}";
             }
