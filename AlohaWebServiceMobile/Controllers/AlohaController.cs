@@ -197,6 +197,15 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
+        [HttpPost]
+        [Route("VoidItem")]
+        public HttpResponseMessage VoidItem()
+        {
+            var response = App.AlohaConnection.VoidItem();
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+
         //CONTROLADORES PARA APLICACION DE ESCRITORIO
         [HttpGet]
         [Route("Users")]
