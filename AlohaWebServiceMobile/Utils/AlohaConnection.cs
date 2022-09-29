@@ -451,8 +451,8 @@ namespace AlohaWebServiceMobile.Utils
             {
                 VerificarIber();
                 LoginInterno(idTerm, IdEmpleado);
-                ReRoutePrinter(idTermImpresora);
-                xFunction.PrintCheck(idTermImpresora, idCheck);
+                xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_CHECKS, idCheck, "ID_RUTEO", idTermImpresora.ToString());
+                xFunction.PrintCheck(idTerm, idCheck);
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Enviando tarea de impresión";
