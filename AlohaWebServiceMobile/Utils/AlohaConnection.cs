@@ -451,6 +451,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 VerificarIber();
                 LoginInterno(idTerm, IdEmpleado);
+                ReRoutePrinter(idTermImpresora);
                 xFunction.PrintCheck(idTermImpresora, idCheck);
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
@@ -468,9 +469,9 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+
         public object VoidItem()
         {
-
             try
             {
                 VerificarIber();
@@ -890,6 +891,20 @@ namespace AlohaWebServiceMobile.Utils
             xFunction = AlohaSdkFactory.GetIberFuncs23Instance();
             depot = AlohaSdkFactory.GetIberDepotInstance();
             SdkFunctions = new SdkFunctions();
+
+        }
+
+        private void ReRoutePrinter(int impresora)
+        {
+            try
+            {
+                IIberPrinter iberPrinter = AlohaSdkFactory.GetIberPrinterInstance();
+                iberPrinter.PrintStream($"< PRINT >< PRINTER >{impresora}</ PRINTER >< COMMANDS >< PRINTLINE > Hello XML World </ PRINTLINE >< RED > 1 </ RED >< PRINTLEFTRIGHT >< LEFT > Hello </ LEFT >< RIGHT > World </ RIGHT ></ PRINTLEFTRIGHT >< RED > 0 </ RED >< PRINTFILLED > *</ PRINTFILLED >< LINEFEED > 3 </ LINEFEED >< BITMAP >< PATH > test.bmp </ PATH >< SIZE > 1 </ SIZE >< JUST > 0 </ JUST ></ BITMAP >< CUT > PARTIAL </ CUT ></ COMMANDS ></ PRINT > ");
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
         //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
 
