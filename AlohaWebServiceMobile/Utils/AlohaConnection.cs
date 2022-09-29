@@ -57,19 +57,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 responseAloha.mensaje = $"Error al intentar ingresar con el usuario {IdEmpleado} - {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error("Error al ingresar con el usuario tal", ex);
-
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
+                LogoutInterno(IdTerm);
             }
             return responseAloha;
         }
@@ -91,18 +79,7 @@ namespace AlohaWebServiceMobile.Utils
                 response.Codigo = (int)CodigosError.ERROR;
                 response.mensaje = $"Error al intentar registrarse con el usuario {idEmpleado} - {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error("Error al intentar registrarse con el usuario", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
+                LogoutInterno(IdTerm);
             }
             return response;
         }
@@ -127,18 +104,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.mensaje = $"Error abriendo mesa {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error($"Error al abrir mesa id = {idNumMesa}", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
+                LogoutInterno(IdTerm);
             }
             return responseAloha;
         }
@@ -164,18 +130,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Estado = false;
                 responseAloha.mensaje = $"Error abriendo mesa-cuenta {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error($"Error abriendo mesa-cuenta id = {idNumMesa}", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
+                LogoutInterno(IdTerm);
             }
             return responseAloha;
         }
@@ -200,18 +155,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Estado = false;
                 responseAloha.mensaje = $"Error al abrir cheque {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error($"Error al abrir cheque", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
+                LogoutInterno(IdTerm);
             }
             return responseAloha;
         }
@@ -234,18 +178,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Estado = false;
                 responseAloha.mensaje = $"Error al cerrar cheque {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error($"Error al cerrar cheque", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
+                LogoutInterno(IdTerm);
             }
             return responseAloha;
 
@@ -269,19 +202,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Estado = false;
                 responseAloha.mensaje = $"Error al cerrar mesa {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error($"Error al cerrar mesa", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
-
+                LogoutInterno(IdTerm);
             }
             return responseAloha;
         }
@@ -311,18 +232,6 @@ namespace AlohaWebServiceMobile.Utils
                 response.Estado = false;
                 response.mensaje = $"Error al salir de terminal {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error($"Error al salir de la terminal {IdTerm}", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
             }
             return response;
         }
@@ -342,18 +251,7 @@ namespace AlohaWebServiceMobile.Utils
                 response.Estado = false;
                 response.mensaje = $"Error al hacer salida {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error($"Error al hacer salida {IdTerm}", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
+                LogoutInterno(IdTerm);
             }
             return response;
         }
@@ -448,18 +346,7 @@ namespace AlohaWebServiceMobile.Utils
                     responseAloha.Estado = false;
                     responseAloha.mensaje = $"Error al agregar item {(ErroresAloha.MensajeMobile(ex.Message))}";
                     App.logger.Error("Error al agregar item", ex);
-                    if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                    {
-                        try
-                        {
-                            xFunction.LogOut(requestAddItem.IdTerm);
-
-                        }
-                        catch (Exception ex2)
-                        {
-
-                        }
-                    }
+                    LogoutInterno(requestAddItem.IdTerm);
                 };
             }
 
@@ -504,21 +391,11 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.mensaje = $"Error al confirmar pedido {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error("Error al confirmar pedido", ex);
 
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
+                LogoutInterno(IdTerm);
             };
             return responseAloha;
         }
+
         public ResponseAloha AplicarPago(int idEmpleado, int IdTerm, int IdCheckId, int IdTender, double Amount, double Tip, string Digitos = "", string Expiration = "", string Info = "", string authorization = "")
         {
             ResponseAloha responseAloha = new ResponseAloha();
@@ -538,18 +415,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.mensaje = $"Error al aplicar pago,{ErroresAloha.MensajeMobile(ex.Message)}";
                 App.logger.Error("Error al aplicar pago", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
+                LogoutInterno(IdTerm);
             }
             return responseAloha;
         }
@@ -573,18 +439,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.mensaje = $"Error al eliminar pago,{ErroresAloha.MensajeMobile(ex.Message)}";
                 App.logger.Error("Error al eliminar pago", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(IdTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
+                LogoutInterno(IdTerm);
             }
             return responseAloha;
         }
@@ -608,18 +463,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.mensaje = $"Error al imprimir,{ErroresAloha.MensajeMobile(ex.Message)}";
                 App.logger.Error("Error al imprimir", ex);
-                if (xFunction != null && !ex.Message.Contains("0xC0068007"))
-                {
-                    try
-                    {
-                        xFunction.LogOut(idTerm);
-
-                    }
-                    catch (Exception ex2)
-                    {
-
-                    }
-                }
+                LogoutInterno(idTerm);
             }
             return responseAloha;
         }
