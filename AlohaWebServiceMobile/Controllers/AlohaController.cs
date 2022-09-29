@@ -192,7 +192,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("Print")]
         public HttpResponseMessage Print(RequestPrint requestPrint)
         {
-            ResponseAloha response = App.AlohaConnection.Print(requestPrint.IdTerm, requestPrint.IdCheck, requestPrint.IdEmpleado);
+            ResponseAloha response = App.AlohaConnection.Print(requestPrint.IdTerm, requestPrint.IdCheck, requestPrint.IdEmpleado,requestPrint.IdTermImpresora);
 
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }

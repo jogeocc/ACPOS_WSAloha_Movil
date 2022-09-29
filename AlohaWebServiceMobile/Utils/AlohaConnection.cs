@@ -589,14 +589,14 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha Print(int idTerm, int idCheck, int IdEmpleado)
+        public ResponseAloha Print(int idTerm, int idCheck, int IdEmpleado, int idTermImpresora)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 VerificarIber();
                 LoginInterno(idTerm, IdEmpleado);
-                xFunction.PrintCheck(idTerm, idCheck);
+                xFunction.PrintCheck(idTermImpresora, idCheck);
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Enviando tarea de impresión";
