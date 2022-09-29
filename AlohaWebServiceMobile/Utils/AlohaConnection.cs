@@ -900,7 +900,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 IIberPrinter iberPrinter = AlohaSdkFactory.GetIberPrinterInstance();
                 string info = iberPrinter.GetAllPrinters();
-                iberPrinter.PrintStream($"< PRINT >< PRINTER >{impresora}</ PRINTER >< COMMANDS >< PRINTLINE > Hello XML World </ PRINTLINE >< RED > 1 </ RED >< PRINTLEFTRIGHT >< LEFT > Hello </ LEFT >< RIGHT > World </ RIGHT ></ PRINTLEFTRIGHT >< RED > 0 </ RED >< PRINTFILLED > *</ PRINTFILLED >< LINEFEED > 3 </ LINEFEED >< BITMAP >< PATH > test.bmp </ PATH >< SIZE > 1 </ SIZE >< JUST > 0 </ JUST ></ BITMAP >< CUT > PARTIAL </ CUT ></ COMMANDS ></ PRINT > ");
+                iberPrinter.PrintStream($"<PRINT><PRINTER>{impresora}</PRINTER><COMMANDS><PRINTLINE>Hello XML World</PRINTLINE><RED>1</RED><PRINTLEFTRIGHT><LEFT>Hello</LEFT><RIGHT>World</RIGHT></PRINTLEFTRIGHT><RED>0</RED><PRINTFILLED>*</PRINTFILLED><LINEFEED>3</LINEFEED><CUT>PARTIAL</CUT></COMMANDS></PRINT>");
             }
             catch (Exception ex)
             {
