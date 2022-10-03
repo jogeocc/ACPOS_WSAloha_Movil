@@ -160,8 +160,8 @@ namespace AlohaWebServiceMobile.Utils
                             if (ModsDbfs.Any(M => M.ID == mod.id_modificador))
                             {
                                 var modificador = ModsDbfs.First(M => M.ID == mod.id_modificador);
-                                mod.descripcion_corta = modificador.SHORTNAME;
-                                mod.descripcion_larga = modificador.LONGNAME;
+                                mod.descripcion_corta = DecodeToASCII(modificador.SHORTNAME);
+                                mod.descripcion_larga = DecodeToASCII(modificador.LONGNAME);
                                 mod.num_gratis = modificador.FREE;
                                 mod.num_max = modificador.MAXIMUM;
                                 mod.num_min = modificador.MINIMUM;
