@@ -324,6 +324,7 @@ namespace AlohaWebServiceMobile.Utils
 
                 VerificarIber();
                 Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
 
                 int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem.item.IdItem, "", requestAddItem.item.Amount);
