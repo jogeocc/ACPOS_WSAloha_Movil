@@ -262,9 +262,11 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
 
-                foreach (var item in requestAddItem.items)
+                foreach (var item in requestAddItem.item)
                 {
                     int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
                     #region modificadores
@@ -286,34 +288,25 @@ namespace AlohaWebServiceMobile.Utils
 
                         xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, Mensaje);
                     }
-                    responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-                    responseAloha.mensaje = "Producto insertado con exito";
                 }
 
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Producto insertado con exito";
                 LogoutInterno(requestAddItem.IdTerm);
-
+                App.IsBusy = false;
             }
             catch (Exception ex)
             {
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+                responseAloha.Estado = false;
+                responseAloha.mensaje = $"Error al agregar item {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error("Error al agregar item", ex);
+                LogoutInterno(requestAddItem.IdTerm);
+                App.IsBusy = false;
             };
 
             return responseAloha;
         }
-
-
-        //public ResponseAloha AddItem(RequestAddItem requestAddItem)
-        //{
-        //    ResponseAloha responseAloha = new ResponseAloha();
-
-        //    bool error = false;
-        //    while (!error)
-        //    {
-        //    }
-
-
-        //    return responseAloha;
-        //}
 
         public ResponseAloha AddItem(RequestAddItem requestAddItem)
         {
@@ -327,23 +320,23 @@ namespace AlohaWebServiceMobile.Utils
                 App.IsBusy = true;
                 LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
 
-                int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem.item.IdItem, "", requestAddItem.item.Amount);
+                int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem._item.IdItem, "", requestAddItem._item.Amount);
                 #region modificadores
-                foreach (var mod in requestAddItem.item.Mods)
+                foreach (var mod in requestAddItem._item.Mods)
                 {
                     xFunction.ModItem(requestAddItem.IdTerm, idEntry, mod.IdMod, "", mod.Amount, mod.ModCode);
                 }
                 #endregion
                 xFunction.EndItem(requestAddItem.IdTerm);
-                if (!string.IsNullOrEmpty(requestAddItem.item.SpecialMessage) || !string.IsNullOrEmpty(requestAddItem.item.Unidad_Medida))
+                if (!string.IsNullOrEmpty(requestAddItem._item.SpecialMessage) || !string.IsNullOrEmpty(requestAddItem._item.Unidad_Medida))
                 {
                     string Mensaje = "";
 
-                    Mensaje += requestAddItem.item.Cantidad_Peso > 0 ? requestAddItem.item.Cantidad_Peso.ToString() : "";
+                    Mensaje += requestAddItem._item.Cantidad_Peso > 0 ? requestAddItem._item.Cantidad_Peso.ToString() : "";
 
-                    Mensaje += !string.IsNullOrEmpty(requestAddItem.item.Unidad_Medida) ? requestAddItem.item.Unidad_Medida : "";
+                    Mensaje += !string.IsNullOrEmpty(requestAddItem._item.Unidad_Medida) ? requestAddItem._item.Unidad_Medida : "";
 
-                    Mensaje += !string.IsNullOrEmpty(requestAddItem.item.SpecialMessage) ? $" {requestAddItem.item.SpecialMessage}" : "";
+                    Mensaje += !string.IsNullOrEmpty(requestAddItem._item.SpecialMessage) ? $" {requestAddItem._item.SpecialMessage}" : "";
 
                     xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, Mensaje);
                 }
