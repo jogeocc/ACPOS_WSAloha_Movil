@@ -118,7 +118,7 @@ namespace AlohaWebServiceMobile.Utils
                         {
                             var articulo = ItemsDbfs.First(I => I.ID == item.id);
                             item.descripcion_corta = articulo.SHORTNAME;
-                            item.descripcion_larga = articulo.LONGNAME;
+                            item.descripcion_larga = DecodeToASCII(articulo.LONGNAME);
                             item.item_precio = articulo.PRICE;
                             item.item_precio_ID = articulo.PRICE_ID;
 
@@ -319,6 +319,20 @@ namespace AlohaWebServiceMobile.Utils
                 });
             }
             return ListaVoids;
+        }
+
+        private string DecodeToASCII(string cadena)
+        {
+
+            Encoding extAscii = Encoding.GetEncoding(850);
+            Encoding win1252 = Encoding.GetEncoding(1252);
+
+            byte[] bytes1252 = extAscii.GetBytes(cadena);
+
+            byte[] output = Encoding.Convert(win1252, extAscii, bytes1252);//use of the objects
+
+            string CadenaLimpia = extAscii.GetString(output);
+            return CadenaLimpia;
         }
     }
 }

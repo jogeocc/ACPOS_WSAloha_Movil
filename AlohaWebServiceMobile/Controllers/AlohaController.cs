@@ -192,16 +192,21 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("Print")]
         public HttpResponseMessage Print(RequestPrint requestPrint)
         {
-            ResponseAloha response = App.AlohaConnection.Print(requestPrint.IdTerm, requestPrint.IdCheck, requestPrint.IdEmpleado,requestPrint.IdTermImpresora);
+            ResponseAloha response = App.AlohaConnection.Print(requestPrint.IdTerm, requestPrint.IdCheck, requestPrint.IdEmpleado, requestPrint.IdTermImpresora);
 
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpPost]
         [Route("VoidItem")]
-        public HttpResponseMessage VoidItem()
+        public HttpResponseMessage VoidItem(RequestVoidItem requestVoidItem)
         {
-            var response = App.AlohaConnection.VoidItem();
+            ResponseAloha response = App.AlohaConnection.VoidItem(
+                requestVoidItem.IdTerm,
+                requestVoidItem.IdEmpleado,
+                requestVoidItem.IdCheck,
+                requestVoidItem.IdEntry,
+                requestVoidItem.IdVoidReason);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 

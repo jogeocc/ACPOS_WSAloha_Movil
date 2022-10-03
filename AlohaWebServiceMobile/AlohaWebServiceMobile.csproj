@@ -98,6 +98,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CodigosErrorAloha\ErroresAloha.cs" />
+    <Compile Include="Models\Aloha\RequestVoidItem.cs" />
+    <Compile Include="Enums\AlohaActions.cs" />
     <Compile Include="Enums\CodigosError.cs" />
     <Compile Include="Enums\ModCodesAloha.cs" />
     <Compile Include="Models\Aloha\Desktop\RequestUser.cs" />

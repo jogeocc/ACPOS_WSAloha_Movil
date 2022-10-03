@@ -461,18 +461,29 @@ namespace AlohaWebServiceMobile.Utils
         }
 
 
-        public object VoidItem()
+        public ResponseAloha VoidItem(int idTerm, int idEmpleado, int idCheck, int idEntry, int idVoidReason)
         {
+            ResponseAloha responseAloha = new ResponseAloha();
             try
             {
                 VerificarIber();
-                //LoginInterno();
+                LoginInterno(idTerm, idEmpleado);
+                xFunction.VoidItem(idTerm, idCheck, idEntry, idVoidReason);
+                LogoutInterno(idTerm);
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Producto eliminado con éxito";
+                responseAloha.Estado = true;
             }
             catch (Exception ex)
             {
+                responseAloha.Estado = false;
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+                responseAloha.mensaje = $"Error al elimiar producto, {ErroresAloha.MensajeMobile(ex.Message)}";
+                App.logger.Error("Error al elimiar producto", ex);
+                LogoutInterno(idTerm);
 
             }
-            return new object();
+            return responseAloha;
         }
 
 
@@ -885,19 +896,6 @@ namespace AlohaWebServiceMobile.Utils
 
         }
 
-        private void ReRoutePrinter(int impresora)
-        {
-            try
-            {
-                IIberPrinter iberPrinter = AlohaSdkFactory.GetIberPrinterInstance();
-                string info = iberPrinter.GetAllPrinters();
-                iberPrinter.PrintStream($"<PRINT><PRINTER>{impresora}</PRINTER><COMMANDS><PRINTLINE>Hello XML World my name is ~*IberXML_KEYWORD EmpNickname ID*~</PRINTLINE><RED>1</RED><PRINTLEFTRIGHT><LEFT>Hello</LEFT><RIGHT>World</RIGHT></PRINTLEFTRIGHT><RED>0</RED><PRINTFILLED>*</PRINTFILLED><LINEFEED>3</LINEFEED><CUT>PARTIAL</CUT></COMMANDS></PRINT>");
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
         //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
 
         private void LogoutInterno(int Idterm)
@@ -924,6 +922,8 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"Error al LOGIN interno{ex.Message}");
             }
         }
+
+
 
 
         //ACCIONES PARA APLICACION DE ESCRITORIO
