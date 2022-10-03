@@ -144,7 +144,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("AddItem")]
         public HttpResponseMessage AddItem(RequestAddItem requestAddItem)
         {
-            ResponseAloha response = App.AlohaConnection.AddItem(requestAddItem); ;
+            ResponseAloha response = App.AlohaConnection.AddItems(requestAddItem); ;
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
