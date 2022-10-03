@@ -360,24 +360,6 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-
-        public ResponseAloha AddSpecialMessage(int IdTerm, int IdCheckId, int IdEntry, string Message)
-        {
-            ResponseAloha responseAloha = new ResponseAloha();
-            try
-            {
-                VerificarIber();
-                xFunction.ApplySpecialMessage(IdTerm, IdCheckId, IdEntry, Message);
-                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-                responseAloha.mensaje = "Producto insertado con exito";
-            }
-            catch (Exception ex)
-            {
-                App.logger.Error("Error al agregar item", ex);
-            };
-
-            return responseAloha;
-        }
         public ResponseAloha ConfirmOrderMode(int IdTerm, int IdMesa, int IdModoPedido, int idEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
