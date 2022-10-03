@@ -349,6 +349,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto insertado con exito";
                 LogoutInterno(requestAddItem.IdTerm);
+                App.IsBusy = false;
             }
             catch (Exception ex)
             {
@@ -357,6 +358,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.mensaje = $"Error al agregar item {(ErroresAloha.MensajeMobile(ex.Message))}";
                 App.logger.Error("Error al agregar item", ex);
                 LogoutInterno(requestAddItem.IdTerm);
+                App.IsBusy = false;
             };
             return responseAloha;
         }
