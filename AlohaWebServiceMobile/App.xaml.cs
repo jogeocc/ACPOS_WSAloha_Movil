@@ -32,6 +32,7 @@ namespace AlohaWebServiceMobile
         public static AppConfig appConfig = new AppConfig();
         public static BdInterna bdInterna = new BdInterna();
         public static FuncionesArchivo funcionesArchivo = new FuncionesArchivo();
+        public static bool IsBusy = false;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try

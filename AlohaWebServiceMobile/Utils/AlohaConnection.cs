@@ -323,6 +323,7 @@ namespace AlohaWebServiceMobile.Utils
             {
 
                 VerificarIber();
+                Encolamiento();
                 LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
 
                 int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem.item.IdItem, "", requestAddItem.item.Amount);
@@ -923,7 +924,16 @@ namespace AlohaWebServiceMobile.Utils
             }
         }
 
-
+        private void Encolamiento()
+        {
+            while (true)
+            {
+                if (!App.IsBusy)
+                {
+                    break;
+                }
+            }
+        }
 
 
         //ACCIONES PARA APLICACION DE ESCRITORIO
