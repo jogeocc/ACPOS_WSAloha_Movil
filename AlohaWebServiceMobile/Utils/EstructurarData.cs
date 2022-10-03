@@ -117,7 +117,7 @@ namespace AlohaWebServiceMobile.Utils
                         if (ItemsDbfs.Any(I => I.ID == item.id))
                         {
                             var articulo = ItemsDbfs.First(I => I.ID == item.id);
-                            item.descripcion_corta = articulo.SHORTNAME;
+                            item.descripcion_corta = DecodeToASCII(articulo.SHORTNAME);
                             item.descripcion_larga = DecodeToASCII(articulo.LONGNAME);
                             item.item_precio = articulo.PRICE;
                             item.item_precio_ID = articulo.PRICE_ID;
@@ -171,8 +171,8 @@ namespace AlohaWebServiceMobile.Utils
                                     {
                                         Item ItemMOD = new Item();
                                         ItemMOD.id = modificador.items[i];
-                                        ItemMOD.descripcion_corta = ItemsDbfs.Find(I => I.ID == ItemMOD.id).SHORTNAME;
-                                        ItemMOD.descripcion_larga = ItemsDbfs.Find(I => I.ID == ItemMOD.id).LONGNAME;
+                                        ItemMOD.descripcion_corta = DecodeToASCII(ItemsDbfs.Find(I => I.ID == ItemMOD.id).SHORTNAME);
+                                        ItemMOD.descripcion_larga = DecodeToASCII(ItemsDbfs.Find(I => I.ID == ItemMOD.id).LONGNAME);
                                         int condicion = int.Parse(modificador.methods[i].ToString());
                                         if (condicion == 0)
                                         {
