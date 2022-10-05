@@ -266,7 +266,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.IsBusy = true;
                 LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
 
-                foreach (var item in requestAddItem.item)
+                foreach (ItemAloha item in requestAddItem.item)
                 {
                     int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
                     #region modificadores
@@ -680,8 +680,11 @@ namespace AlohaWebServiceMobile.Utils
 
                 IberObject ChequeAbierto = depot.FindObjectFromId((int)COMEnums.INTERNAL_CHECKS, IdCheck).First();
                 //ITEMS
-                check.Amount = ChequeAbierto.GetDoubleVal("SUBTOTAL");
-                check.Tax = ChequeAbierto.GetDoubleVal("TAX");
+                double SubTotal = 0;
+                double tax = 0;
+                xFunction.GetCheckTotal(IdCheck, out SubTotal, out tax);
+                check.Amount = SubTotal;
+                check.Tax = tax;
                 try
                 {
                     IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
