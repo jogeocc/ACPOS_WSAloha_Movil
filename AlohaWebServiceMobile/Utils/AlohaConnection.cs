@@ -685,6 +685,7 @@ namespace AlohaWebServiceMobile.Utils
                 xFunction.GetCheckTotal(IdCheck, out SubTotal, out tax);
                 check.Amount = SubTotal;
                 check.Tax = tax;
+                double MontoTotal = ChequeAbierto.GetDoubleVal("SUBTOTAL");
                 try
                 {
                     IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
@@ -802,7 +803,7 @@ namespace AlohaWebServiceMobile.Utils
                         AmountPayed += Pago.Amount;
                     });
                 }
-                check.AmountDue = check.Amount - AmountPayed;
+                check.AmountDue = MontoTotal - AmountPayed;
 
             }
             catch (Exception ex)
