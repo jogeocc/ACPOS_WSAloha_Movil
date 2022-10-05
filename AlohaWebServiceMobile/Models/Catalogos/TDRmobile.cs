@@ -14,5 +14,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public bool acepta_propina { get; set; }
 
         public bool pin_pad { get; set; }
+        public int Etiqueta_min { get; set; }
+        public int Etiqueta_max { get; set; }
     }
 }
