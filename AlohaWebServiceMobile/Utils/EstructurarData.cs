@@ -232,7 +232,8 @@ namespace AlohaWebServiceMobile.Utils
                         status = tdr.ACTIVE,
                         pin_pad = tdr.IDENTIFY,
                         Etiqueta_min = tdr.IDMINDIGIT,
-                        Etiqueta_max=tdr.IDMAXDIGIT
+                        Etiqueta_max=tdr.IDMAXDIGIT,
+                        Etiqueta_nombre = tdr.IDENTNAME,
                     }); ;
                 }
             }

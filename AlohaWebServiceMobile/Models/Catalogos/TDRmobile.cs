@@ -16,5 +16,6 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public bool pin_pad { get; set; }
         public int Etiqueta_min { get; set; }
         public int Etiqueta_max { get; set; }
+        public string Etiqueta_nombre { get; internal set; }
     }
 }
