@@ -88,7 +88,7 @@ namespace AlohaLibrary.Modelos
         public int ARTPRNTFLD { get; set; }
         public bool FIRSTPOS { get; set; }
         public bool CASHCARD { get; set; }
-        public bool CSHCRDCHbG { get; set; }
+        public bool CSHCRDCHG { get; set; }
         public bool ISSAVEDCCI { get; set; }
         public double VARIANCE { get; set; }
         public bool RECONDET { get; set; }
