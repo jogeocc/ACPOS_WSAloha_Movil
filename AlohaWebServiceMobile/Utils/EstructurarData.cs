@@ -146,7 +146,39 @@ namespace AlohaWebServiceMobile.Utils
                                 item.unidad_medida = Cantidad.UNITNAME;
                                 item.unidad_decimales = Cantidad.DECIMALS;
                             }
+                            foreach (var mod in item.mods)
+                            {
+                                if (ModsDbfs.Any(M => M.ID == mod.id_modificador))
+                                {
+                                    var modificador = ModsDbfs.First(M => M.ID == mod.id_modificador);
+                                    mod.descripcion_corta = DecodeToASCII(modificador.SHORTNAME);
+                                    mod.descripcion_larga = DecodeToASCII(modificador.LONGNAME);
+                                    mod.num_gratis = modificador.FREE;
+                                    mod.num_max = modificador.MAXIMUM;
+                                    mod.num_min = modificador.MINIMUM;
+                                    for (int i = 0; i < modificador.items.Count; i++)
+                                    {
+                                        if (modificador.items[i] != 0)
+                                        {
+                                            Item ItemMOD = new Item();
+                                            ItemMOD.id = modificador.items[i];
+                                            ItemMOD.descripcion_corta = DecodeToASCII(ItemsDbfs.Find(I => I.ID == ItemMOD.id).SHORTNAME);
+                                            ItemMOD.descripcion_larga = DecodeToASCII(ItemsDbfs.Find(I => I.ID == ItemMOD.id).LONGNAME);
+                                            int condicion = int.Parse(modificador.methods[i].ToString());
+                                            if (condicion == 0)
+                                            {
+                                                ItemMOD.item_precio = modificador.precios[i];
+                                            }
+                                            else
+                                            {
+                                                ItemMOD.item_precio = ItemsDbfs.First(I => I.ID == ItemMOD.id).PRICE;
+                                            }
 
+                                            mod.item_mod.Add(ItemMOD);
+                                        }
+                                    }
+                                }
+                            }
 
                         }
                     }
@@ -155,48 +187,48 @@ namespace AlohaWebServiceMobile.Utils
 
             //recolectar paso 4 Grupos de modificadores
 
-            foreach (var menu in Menus)
-            {
-                foreach (var sub in menu.subMenus)
-                {
-                    foreach (var item in sub.items)
-                    {
-                        foreach (var mod in item.mods)
-                        {
-                            if (ModsDbfs.Any(M => M.ID == mod.id_modificador))
-                            {
-                                var modificador = ModsDbfs.First(M => M.ID == mod.id_modificador);
-                                mod.descripcion_corta = DecodeToASCII(modificador.SHORTNAME);
-                                mod.descripcion_larga = DecodeToASCII(modificador.LONGNAME);
-                                mod.num_gratis = modificador.FREE;
-                                mod.num_max = modificador.MAXIMUM;
-                                mod.num_min = modificador.MINIMUM;
-                                for (int i = 0; i < modificador.items.Count; i++)
-                                {
-                                    if (modificador.items[i] != 0)
-                                    {
-                                        Item ItemMOD = new Item();
-                                        ItemMOD.id = modificador.items[i];
-                                        ItemMOD.descripcion_corta = DecodeToASCII(ItemsDbfs.Find(I => I.ID == ItemMOD.id).SHORTNAME);
-                                        ItemMOD.descripcion_larga = DecodeToASCII(ItemsDbfs.Find(I => I.ID == ItemMOD.id).LONGNAME);
-                                        int condicion = int.Parse(modificador.methods[i].ToString());
-                                        if (condicion == 0)
-                                        {
-                                            ItemMOD.item_precio = modificador.precios[i];
-                                        }
-                                        else
-                                        {
-                                            ItemMOD.item_precio = ItemsDbfs.First(I => I.ID == ItemMOD.id).PRICE;
-                                        }
+            //foreach (var menu in Menus)
+            //{
+            //    foreach (var sub in menu.subMenus)
+            //    {
+            //        foreach (var item in sub.items)
+            //        {
+            //            foreach (var mod in item.mods)
+            //            {
+            //                if (ModsDbfs.Any(M => M.ID == mod.id_modificador))
+            //                {
+            //                    var modificador = ModsDbfs.First(M => M.ID == mod.id_modificador);
+            //                    mod.descripcion_corta = DecodeToASCII(modificador.SHORTNAME);
+            //                    mod.descripcion_larga = DecodeToASCII(modificador.LONGNAME);
+            //                    mod.num_gratis = modificador.FREE;
+            //                    mod.num_max = modificador.MAXIMUM;
+            //                    mod.num_min = modificador.MINIMUM;
+            //                    for (int i = 0; i < modificador.items.Count; i++)
+            //                    {
+            //                        if (modificador.items[i] != 0)
+            //                        {
+            //                            Item ItemMOD = new Item();
+            //                            ItemMOD.id = modificador.items[i];
+            //                            ItemMOD.descripcion_corta = DecodeToASCII(ItemsDbfs.Find(I => I.ID == ItemMOD.id).SHORTNAME);
+            //                            ItemMOD.descripcion_larga = DecodeToASCII(ItemsDbfs.Find(I => I.ID == ItemMOD.id).LONGNAME);
+            //                            int condicion = int.Parse(modificador.methods[i].ToString());
+            //                            if (condicion == 0)
+            //                            {
+            //                                ItemMOD.item_precio = modificador.precios[i];
+            //                            }
+            //                            else
+            //                            {
+            //                                ItemMOD.item_precio = ItemsDbfs.First(I => I.ID == ItemMOD.id).PRICE;
+            //                            }
 
-                                        mod.item_mod.Add(ItemMOD);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            //                            mod.item_mod.Add(ItemMOD);
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
 
 
