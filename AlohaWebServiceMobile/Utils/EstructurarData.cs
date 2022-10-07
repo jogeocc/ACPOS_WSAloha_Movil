@@ -149,7 +149,7 @@ namespace AlohaWebServiceMobile.Utils
                                 item.unidad_medida = Cantidad.UNITNAME;
                                 item.unidad_decimales = Cantidad.DECIMALS;
                             }
-                            foreach (var mod in item.mods)
+                            foreach (var mod in item.mods.ToList())
                             {
                                 if (ModsDbfs.Any(M => M.ID == mod.id_modificador))
                                 {
