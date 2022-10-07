@@ -139,6 +139,9 @@ namespace AlohaWebServiceMobile.Utils
                             if (articulo.MOD9 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD9, });
                             if (articulo.MOD10 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD10 });
 
+
+
+
                             if (Qtyprices.Any(I => I.ITEMID == item.id))
                             {
                                 var Cantidad = Qtyprices.First(I => I.ID == item.id);
@@ -162,8 +165,10 @@ namespace AlohaWebServiceMobile.Utils
                                         {
                                             Item ItemMOD = new Item();
                                             ItemMOD.id = modificador.items[i];
-                                            ItemMOD.descripcion_corta = DecodeToASCII(ItemsDbfs.Find(I => I.ID == ItemMOD.id).SHORTNAME);
-                                            ItemMOD.descripcion_larga = DecodeToASCII(ItemsDbfs.Find(I => I.ID == ItemMOD.id).LONGNAME);
+
+                                            var itemDBF = ItemsDbfs.Find(I => I.ID == ItemMOD.id);
+                                            ItemMOD.descripcion_corta = DecodeToASCII(itemDBF.SHORTNAME);
+                                            ItemMOD.descripcion_larga = DecodeToASCII(itemDBF.LONGNAME);
                                             int condicion = int.Parse(modificador.methods[i].ToString());
                                             if (condicion == 0)
                                             {
@@ -174,12 +179,21 @@ namespace AlohaWebServiceMobile.Utils
                                                 ItemMOD.item_precio = ItemsDbfs.First(I => I.ID == ItemMOD.id).PRICE;
                                             }
 
+                                            if (itemDBF.MOD1 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD1, });
+                                            if (itemDBF.MOD2 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD2, });
+                                            if (itemDBF.MOD3 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD3, });
+                                            if (itemDBF.MOD4 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD4, });
+                                            if (itemDBF.MOD5 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD5, });
+                                            if (itemDBF.MOD6 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD6, });
+                                            if (itemDBF.MOD7 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD7, });
+                                            if (itemDBF.MOD8 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD8, });
+                                            if (itemDBF.MOD9 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD9, });
+                                            if (itemDBF.MOD10 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD10 });
                                             mod.item_mod.Add(ItemMOD);
                                         }
                                     }
                                 }
                             }
-
                         }
                     }
                 }
