@@ -205,7 +205,7 @@ namespace AlohaWebServiceMobile.Controllers
                 requestVoidItem.IdTerm,
                 requestVoidItem.IdEmpleado,
                 requestVoidItem.IdCheck,
-                requestVoidItem.IdEntry,
+                requestVoidItem.ItemAnulados,
                 requestVoidItem.IdVoidReason);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }

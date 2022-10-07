@@ -1,5 +1,6 @@
 ﻿using Aloha.SDK.Common;
 using AlohaWebServiceMobile.CodigosErrorAloha;
+using AlohaWebServiceMobile.Controllers;
 using AlohaWebServiceMobile.Enums;
 using AlohaWebServiceMobile.Models.Aloha;
 using AlohaWebServiceMobile.Models.Aloha.Desktop;
@@ -458,14 +459,18 @@ namespace AlohaWebServiceMobile.Utils
         }
 
 
-        public ResponseAloha VoidItem(int idTerm, int idEmpleado, int idCheck, int idEntry, int idVoidReason)
+        public ResponseAloha VoidItem(int idTerm, int idEmpleado, int idCheck, List<ItemAnulado> itemAnulados, int idVoidReason)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
+
             {
                 VerificarIber();
                 LoginInterno(idTerm, idEmpleado);
-                xFunction.VoidItem(idTerm, idCheck, idEntry, idVoidReason);
+                foreach (var itemAnulado in itemAnulados)
+                {
+                    xFunction.VoidItem(idTerm, idCheck, itemAnulado.IdEntry, idVoidReason);
+                }
                 LogoutInterno(idTerm);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto eliminado con éxito";
