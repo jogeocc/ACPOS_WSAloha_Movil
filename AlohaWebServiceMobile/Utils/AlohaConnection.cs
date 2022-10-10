@@ -269,11 +269,20 @@ namespace AlohaWebServiceMobile.Utils
 
                 foreach (ItemAloha item in requestAddItem.item)
                 {
-                    int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
+                    int IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
                     #region modificadores
+                    //int NivelMod = 1;
+                    int IdEntryModNivel = 0;
                     foreach (var mod in item.Mods)
                     {
-                        xFunction.ModItem(requestAddItem.IdTerm, idEntry, mod.IdMod, "", mod.Amount, mod.ModCode);
+                        if (mod.LevelMode > 1)
+                        {
+                            xFunction.ModItem(requestAddItem.IdTerm, IdEntryModNivel, mod.IdMod, "", mod.Amount, mod.ModCode);
+                        }
+                        else
+                        {
+                            IdEntryModNivel = xFunction.ModItem(requestAddItem.IdTerm, IdEntryBase, mod.IdMod, "", mod.Amount, mod.ModCode);
+                        }
                     }
                     #endregion
                     xFunction.EndItem(requestAddItem.IdTerm);
@@ -287,7 +296,7 @@ namespace AlohaWebServiceMobile.Utils
 
                         Mensaje += !string.IsNullOrEmpty(item.SpecialMessage) ? $" {item.SpecialMessage}" : "";
 
-                        xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, Mensaje);
+                        xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, IdEntryBase, Mensaje);
                     }
                 }
 
