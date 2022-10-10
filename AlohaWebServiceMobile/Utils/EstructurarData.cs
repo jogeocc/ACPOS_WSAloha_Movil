@@ -342,17 +342,22 @@ namespace AlohaWebServiceMobile.Utils
                                     {
                                         ItemMOD.item_precio = ItemsDbfs.First(I => I.ID == ItemMOD.id).PRICE;
                                     }
+                                    List<Mod> AuxList = new List<Mod>();
+                                    if (itemDBF.MOD1 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD1, });
+                                    if (itemDBF.MOD2 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD2, });
+                                    if (itemDBF.MOD3 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD3, });
+                                    if (itemDBF.MOD4 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD4, });
+                                    if (itemDBF.MOD5 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD5, });
+                                    if (itemDBF.MOD6 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD6, });
+                                    if (itemDBF.MOD7 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD7, });
+                                    if (itemDBF.MOD8 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD8, });
+                                    if (itemDBF.MOD9 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD9, });
+                                    if (itemDBF.MOD10 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD10 });
+                                    if (AuxList.Count > 0)
+                                    {
+                                        ItemMOD = RecursividadItems(ItemMOD);
+                                    }
 
-                                    //if (itemDBF.MOD1 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD1, });
-                                    //if (itemDBF.MOD2 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD2, });
-                                    //if (itemDBF.MOD3 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD3, });
-                                    //if (itemDBF.MOD4 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD4, });
-                                    //if (itemDBF.MOD5 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD5, });
-                                    //if (itemDBF.MOD6 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD6, });
-                                    //if (itemDBF.MOD7 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD7, });
-                                    //if (itemDBF.MOD8 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD8, });
-                                    //if (itemDBF.MOD9 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD9, });
-                                    //if (itemDBF.MOD10 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD10 });
                                     mod.item_mod.Add(ItemMOD);
 
                                 }
