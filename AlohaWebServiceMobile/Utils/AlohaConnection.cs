@@ -272,16 +272,16 @@ namespace AlohaWebServiceMobile.Utils
                     int IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
                     #region modificadores
                     //int NivelMod = 1;
-                    int IdEntryModNivel = 0;
+                    List<int> EntrysLevels = new List<int>();
                     foreach (var mod in item.Mods)
                     {
                         if (mod.LevelMode > 1)
                         {
-                            xFunction.ModItem(requestAddItem.IdTerm, IdEntryModNivel, mod.IdMod, "", mod.Amount, mod.ModCode);
+                            EntrysLevels.Add(xFunction.ModItem(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdMod, "", mod.Amount, mod.ModCode));
                         }
                         else
                         {
-                            IdEntryModNivel = xFunction.ModItem(requestAddItem.IdTerm, IdEntryBase, mod.IdMod, "", mod.Amount, mod.ModCode);
+                            EntrysLevels.Add(xFunction.ModItem(requestAddItem.IdTerm, IdEntryBase, mod.IdMod, "", mod.Amount, mod.ModCode));
                         }
                     }
                     #endregion
