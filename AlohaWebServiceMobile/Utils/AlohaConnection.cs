@@ -284,7 +284,7 @@ namespace AlohaWebServiceMobile.Utils
                             }
                             else if (mod.LevelMode < item.Mods[i - 1].LevelMode)
                             {
-                                EntrysLevels.Remove(EntrysLevels.Count);
+                                EntrysLevels.RemoveAt(EntrysLevels.Count - 1);
                             }
                         }
                         else
