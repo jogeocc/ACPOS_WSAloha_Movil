@@ -273,11 +273,19 @@ namespace AlohaWebServiceMobile.Utils
                     #region modificadores
                     //int NivelMod = 1;
                     List<int> EntrysLevels = new List<int>();
-                    foreach (var mod in item.Mods)
+                    for (int i = 0; i < item.Mods.Count; i++)
                     {
+                        var mod = item.Mods[i];
                         if (mod.LevelMode > 1)
                         {
-                            EntrysLevels.Add(xFunction.ModItem(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdMod, "", mod.Amount, mod.ModCode));
+                            if (mod.LevelMode > item.Mods[i - 1].LevelMode)
+                            {
+                                EntrysLevels.Add(xFunction.ModItem(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdMod, "", mod.Amount, mod.ModCode));
+                            }
+                            else if (mod.LevelMode < item.Mods[i - 1].LevelMode)
+                            {
+                                EntrysLevels.Remove(EntrysLevels.Count);
+                            }
                         }
                         else
                         {
