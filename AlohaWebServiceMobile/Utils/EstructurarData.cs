@@ -24,7 +24,8 @@ namespace AlohaWebServiceMobile.Utils
         private int BotonPlu = 999999;
         public EstructurarData()
         {
-            pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+            //pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+            pathALoha = @"D:\PROYECTOS\Aloha_mobile\Data";
         }
 
         public List<MNUmobile> ObtenerMenuMovil()
@@ -279,7 +280,6 @@ namespace AlohaWebServiceMobile.Utils
 
         public Item RecursividadItems(Item item)
         {
-            Item NewItem = new Item();
             try
             {
                 if (ItemsDbfs.Any(I => I.ID == item.id))
@@ -372,7 +372,7 @@ namespace AlohaWebServiceMobile.Utils
             {
 
             }
-            return NewItem;
+            return item;
         }
 
     }
