@@ -152,6 +152,7 @@ namespace AlohaWebServiceMobile.Utils
                                 item.unidad_medida = Cantidad.UNITNAME;
                                 item.unidad_decimales = Cantidad.DECIMALS;
                             }
+
                             foreach (var mod in item.mods.ToList())
                             {
                                 if (ModsDbfs.Any(M => M.ID == mod.id_modificador))
@@ -183,17 +184,18 @@ namespace AlohaWebServiceMobile.Utils
                                                 ItemMOD.item_precio = ItemsDbfs.First(I => I.ID == ItemMOD.id).PRICE;
                                             }
 
-                                            if (itemDBF.MOD1 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD1, });
-                                            if (itemDBF.MOD2 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD2, });
-                                            if (itemDBF.MOD3 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD3, });
-                                            if (itemDBF.MOD4 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD4, });
-                                            if (itemDBF.MOD5 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD5, });
-                                            if (itemDBF.MOD6 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD6, });
-                                            if (itemDBF.MOD7 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD7, });
-                                            if (itemDBF.MOD8 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD8, });
-                                            if (itemDBF.MOD9 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD9, });
-                                            if (itemDBF.MOD10 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD10 });
+                                            //if (itemDBF.MOD1 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD1, });
+                                            //if (itemDBF.MOD2 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD2, });
+                                            //if (itemDBF.MOD3 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD3, });
+                                            //if (itemDBF.MOD4 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD4, });
+                                            //if (itemDBF.MOD5 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD5, });
+                                            //if (itemDBF.MOD6 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD6, });
+                                            //if (itemDBF.MOD7 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD7, });
+                                            //if (itemDBF.MOD8 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD8, });
+                                            //if (itemDBF.MOD9 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD9, });
+                                            //if (itemDBF.MOD10 != 0) item.mods.Add(new Mod { id_modificador = itemDBF.MOD10 });
                                             mod.item_mod.Add(ItemMOD);
+
                                         }
                                     }
 
