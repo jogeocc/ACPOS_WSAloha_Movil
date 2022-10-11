@@ -43,7 +43,7 @@ namespace AlohaWebServiceMobile.CodigosErrorAloha
             {"0xC006801F","Cajon de empleado no esta en terminal local" },
             {"0xC0068020","Mesa ocupada en otra terminal" },
             {"0xC0068021","Articulo invalido" },
-            {"0xC0068022","Error en id entry*********" },
+            {"0xC0068022","EntryId no encontrado" },
             {"0xC0068023","Modo de orden invalido" },
             {"0xC0068024","Razon de anulación invalida" },
             {"0xC0068025","Id entry invalido*********" },
@@ -181,7 +181,7 @@ namespace AlohaWebServiceMobile.CodigosErrorAloha
             {
                 var messaje = Errores.FirstOrDefault(K => K.Key.Contains(CodigoError.Substring(CodigoError.Length - K.Key.Length)));
                 if (messaje.Key != null)
-                { 
+                {
                     Mensaje = String.Format(Mensaje, messaje.Key.Trim(), messaje.Value.Trim());
                 }
                 else

@@ -19,7 +19,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
     {
         public int IdItem { get; set; }
         public double Amount { get; set; }
-        public List<ListsMods> Mods { get; set; }
+        public List<ListsMods> Mods { get; set; } = new List<ListsMods>();
         public string SpecialMessage { get; set; } = "";
         //13/09/2022 CAMPOS ADICIONALES PARA OBTENCION DE PRODUCTOS DE PESO KG,LT, LB
         public string Unidad_Medida { get; set; }

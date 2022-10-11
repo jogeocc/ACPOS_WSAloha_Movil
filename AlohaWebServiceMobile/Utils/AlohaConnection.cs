@@ -275,20 +275,36 @@ namespace AlohaWebServiceMobile.Utils
                     List<int> EntrysLevels = new List<int>();
                     for (int i = 0; i < item.Mods.Count; i++)
                     {
-                        var mod = item.Mods[i];
+                        ListsMods mod = item.Mods[i];
+
+                        ListsMods modSiguientes = new ListsMods();
+                        if (i == item.Mods.Count - 1)
+                        {
+
+                        }
+                        else
+                        {
+                            modSiguientes = item.Mods[i + 1];
+                        }
+
                         if (mod.LevelMode > 1)
                         {
-                            if (mod.LevelMode > item.Mods[i - 1].LevelMode)
+                            if (mod.LevelMode < modSiguientes.LevelMode)
                             {
                                 EntrysLevels.Add(xFunction.ModItem(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdMod, "", mod.Amount, mod.ModCode));
                             }
-                            else if (mod.LevelMode < item.Mods[i - 1].LevelMode)
+                            else if (mod.LevelMode == modSiguientes.LevelMode)
                             {
-                                EntrysLevels.RemoveAt(EntrysLevels.Count - 1);
+                                xFunction.ModItem(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdMod, "", mod.Amount, mod.ModCode);
+                            }
+                            else
+                            {
+                                xFunction.ModItem(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdMod, "", mod.Amount, mod.ModCode);
                             }
                         }
                         else
                         {
+                            EntrysLevels = new List<int>();
                             EntrysLevels.Add(xFunction.ModItem(requestAddItem.IdTerm, IdEntryBase, mod.IdMod, "", mod.Amount, mod.ModCode));
                         }
                     }
