@@ -227,5 +227,15 @@ namespace AlohaWebServiceMobile.Controllers
             var response = App.AlohaConnection.ReleaseUser(requestUser.IdUser);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
+
+
+        [HttpGet]
+        [Route("AddItemNiveles")]
+        public HttpResponseMessage AddItemNiveles()
+        {
+            ResponseAloha response = App.AlohaConnection.AddItemNivelesPruebas();
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
     }
 }
