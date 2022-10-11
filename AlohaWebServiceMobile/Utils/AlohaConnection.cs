@@ -362,6 +362,7 @@ namespace AlohaWebServiceMobile.Utils
                 xFunction.ModItem(idterm, IdEntryBase, 2124, "", 111, 0);
                 xFunction.ModItem(idterm, IdEntryBase, 16001, "", 111, 0);
                 //nivel 0
+                xFunction.EndItem(idterm);
                 //nivel 0
 
                 responseAloha.Estado = true;
