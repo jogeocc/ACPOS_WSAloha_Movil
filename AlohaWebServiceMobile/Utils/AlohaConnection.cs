@@ -349,22 +349,21 @@ namespace AlohaWebServiceMobile.Utils
             {
                 VerificarIber();
                 int idterm = 3;
-                int IdCheck = 3145731;
+                int IdCheck = 3145733;
                 //nivel 0
                 int IdEntryBase = xFunction.BeginItem(idterm, IdCheck, 9100, "", 0);
                 //nivel 1
-                int IdNivel1 = xFunction.ModItem(idterm, IdEntryBase, 9100, "", 111, 0);
+                int IdNivel1 = xFunction.ModItem(idterm, IdEntryBase, 19004, "", 111, 0);
                 //nivel 2
                 int IdNivel2 = xFunction.ModItem(idterm, IdNivel1, 2123, "", 222, 0);
-                //nivel 2
+                //nivel 3
                 int IdNivel3 = xFunction.ModItem(idterm, IdNivel2, 2059, "", 333, 0);
-
+                //nivel 1
                 xFunction.ModItem(idterm, IdEntryBase, 2124, "", 111, 0);
+                //nivel 1
                 xFunction.ModItem(idterm, IdEntryBase, 16001, "", 111, 0);
-                //nivel 0
+                //TRANSFERIR EL BUFFER DE MEMORIA AL POS PARA REFLEJAR PRODUCTO
                 xFunction.EndItem(idterm);
-                //nivel 0
-
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto insertado con exito";
