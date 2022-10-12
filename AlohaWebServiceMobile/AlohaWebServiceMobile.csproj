@@ -200,7 +200,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resource\Design\Design_Library.dll" />
-    <Resource Include="Resource\Design\Style.txt" />
+    <Content Include="Resource\Design\Style.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resource\DLLS\Aloha.SDK.Common.dll" />
     <Content Include="Resource\DLLS\LasaActivity.dll" />
     <Content Include="Resource\DLLS\LasaFOHLib.dll" />
