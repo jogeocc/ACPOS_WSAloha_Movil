@@ -32,6 +32,8 @@ namespace AlohaWebServiceMobile.Utils
                 if (UserInSesion == null)
                 {
                     VerificarIber();
+                    Encolamiento();
+                    App.IsBusy = true;
                     int IdSistema = xFunction.LogIn(IdTerm, IdEmpleado, IdEmpleado.ToString(), "");
                     responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                     responseAloha.isClockIn = IsAlreadyClockIn(IdSistema);
@@ -60,6 +62,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error("Error al ingresar con el usuario tal", ex);
                 LogoutInterno(IdTerm);
             }
+            App.IsBusy = false;
             return responseAloha;
         }
 
