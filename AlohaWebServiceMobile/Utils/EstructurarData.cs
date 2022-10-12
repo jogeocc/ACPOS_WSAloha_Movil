@@ -3,6 +3,7 @@ using AlohaLibrary.Enums;
 using AlohaLibrary.Implementaciones;
 using AlohaLibrary.Modelos;
 using AlohaWebServiceMobile.Models.Catalogos;
+using Design_Library;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -130,6 +131,8 @@ namespace AlohaWebServiceMobile.Utils
 
             return Menus;
         }
+
+
 
         public List<ODRmobile> ObtenerModosDePedido()
         {
@@ -375,6 +378,22 @@ namespace AlohaWebServiceMobile.Utils
             return item;
         }
 
+        public string ObtenerDesign()
+        {
+            string DesignJson = "";
+
+            try
+            {
+                Desing_Library Desing = new Desing_Library();
+                DesignJson = Desing.ObtenerDisenio();
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error al obtener diseños", ex);
+            }
+
+            return DesignJson;
+        }
     }
 }
 

@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Resource\DLLS\Aloha.SDK.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Design_Library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resource\Design\Design_Library.dll</HintPath>
+    </Reference>
     <Reference Include="LasaActivity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -195,6 +199,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resource\Design\Design_Library.dll" />
+    <Resource Include="Resource\Design\Style.txt" />
     <Content Include="Resource\DLLS\Aloha.SDK.Common.dll" />
     <Content Include="Resource\DLLS\LasaActivity.dll" />
     <Content Include="Resource\DLLS\LasaFOHLib.dll" />
