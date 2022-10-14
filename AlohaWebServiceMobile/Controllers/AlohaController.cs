@@ -1,6 +1,7 @@
 ﻿using AlohaWebServiceMobile.Models.Aloha;
 using AlohaWebServiceMobile.Models.Aloha.Desktop;
 using AlohaWebServiceMobile.Models.Transacciones;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,7 +83,8 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage Design()
         {
             string Design = App.Catalogos.ObtenerDesign();
-            return Request.CreateResponse(HttpStatusCode.OK, Design, Configuration.Formatters.JsonFormatter);
+            var obj = JsonConvert.DeserializeObject(Design);
+            return Request.CreateResponse(HttpStatusCode.OK, obj, Configuration.Formatters.JsonFormatter);
         }
         //ACCIONES DE ALOHA CONNECTION
         [HttpPost]

@@ -200,7 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resource\Design\Design_Library.dll" />
-    <Content Include="Resource\Design\Style.txt">
+    <Content Include="Style.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resource\DLLS\Aloha.SDK.Common.dll" />
