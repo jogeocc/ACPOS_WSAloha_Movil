@@ -72,6 +72,8 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 xFunction.ClockIn(IdTerm, IdJobCode);
                 response.Estado = true;
@@ -85,6 +87,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error("Error al intentar registrarse con el usuario", ex);
                 LogoutInterno(IdTerm);
             }
+            App.IsBusy = false;
             return response;
         }
 
@@ -94,6 +97,8 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
@@ -110,6 +115,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"Error al abrir mesa id = {idNumMesa}", ex);
                 LogoutInterno(IdTerm);
             }
+            App.IsBusy = false;
             return responseAloha;
         }
 
@@ -120,6 +126,8 @@ namespace AlohaWebServiceMobile.Utils
             {
                 //Para abrir un tab, por defecto debe de ser el numero de mesa en 0
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
@@ -136,6 +144,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"Error abriendo mesa-cuenta id = {idNumMesa}", ex);
                 LogoutInterno(IdTerm);
             }
+            App.IsBusy = false;
             return responseAloha;
         }
 
@@ -146,6 +155,8 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 int idChequeInterno = xFunction.AddCheck(IdTerm, IdMesaInterno);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
@@ -161,6 +172,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"Error al abrir cheque", ex);
                 LogoutInterno(IdTerm);
             }
+            App.IsBusy = false;
             return responseAloha;
         }
 
@@ -342,7 +354,7 @@ namespace AlohaWebServiceMobile.Utils
                 LogoutInterno(requestAddItem.IdTerm);
                 App.IsBusy = false;
             };
-
+            App.IsBusy = false;
             return responseAloha;
         }
 
@@ -436,6 +448,8 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 xFunction.OrderItems(IdTerm, IdMesa, IdModoPedido);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
@@ -451,6 +465,7 @@ namespace AlohaWebServiceMobile.Utils
 
                 LogoutInterno(IdTerm);
             };
+            App.IsBusy = false;
             return responseAloha;
         }
 
@@ -460,6 +475,8 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 responseAloha.idPago = xFunction.ApplyPayment(IdTerm, IdCheckId, IdTender, Amount, Tip, Digitos, Expiration, Info, authorization);
                 responseAloha.Estado = true;
@@ -475,6 +492,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error("Error al aplicar pago", ex);
                 LogoutInterno(IdTerm);
             }
+            App.IsBusy = false;
             return responseAloha;
         }
 
@@ -484,6 +502,8 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 xFunction.DeletePayment(IdTerm, IdCheckId, IdPayment);
                 responseAloha.Estado = true;
@@ -499,6 +519,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error("Error al eliminar pago", ex);
                 LogoutInterno(IdTerm);
             }
+            App.IsBusy = false;
             return responseAloha;
         }
 
@@ -508,6 +529,8 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(idTerm, IdEmpleado);
                 if (idTerm == idTermImpresora)
                 {
@@ -527,6 +550,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error("Error al imprimir", ex);
                 LogoutInterno(idTerm);
             }
+            App.IsBusy = false;
             return responseAloha;
         }
 
@@ -538,6 +562,8 @@ namespace AlohaWebServiceMobile.Utils
 
             {
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(idTerm, idEmpleado);
                 foreach (var itemAnulado in itemAnulados)
                 {
@@ -557,6 +583,7 @@ namespace AlohaWebServiceMobile.Utils
                 LogoutInterno(idTerm);
 
             }
+            App.IsBusy = false;
             return responseAloha;
         }
 
