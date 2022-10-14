@@ -129,6 +129,7 @@ namespace AlohaWebServiceMobile.Utils
                 VerificarIber();
                 Encolamiento();
                 App.IsBusy = true;
+                App.logger.Info($"Creando mesa {idNumMesa} de usuario {idEmpleado}");
                 LoginInterno(IdTerm, idEmpleado);
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
@@ -164,7 +165,7 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     var Mesa = Mesas.Find(M => M.Id == IdMesaInterno);
                     var id = Mesa.Checks.First().Id;
-                    responseAloha.idMesa =id;
+                    responseAloha.idMesa = id;
                 }
                 else
                 {
@@ -212,7 +213,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"Error al cerrar cheque", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy =false;
+            App.IsBusy = false;
             return responseAloha;
 
         }
