@@ -105,6 +105,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Mesa abierta con exito";
                 responseAloha.NombreMesa = GetTabTableName(IdMesaInterno);
+                int idChequeInterno = xFunction.AddCheck(IdTerm, IdMesaInterno);
                 //LogoutInterno(IdTerm);
             }
             catch (Exception ex)
