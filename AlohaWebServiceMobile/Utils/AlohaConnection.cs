@@ -260,6 +260,7 @@ namespace AlohaWebServiceMobile.Utils
             return response;
         }
 
+        //VERSION 
         public ResponseAloha AddItems(RequestAddItem requestAddItem)
         {
             ResponseAloha responseAloha = new ResponseAloha();
