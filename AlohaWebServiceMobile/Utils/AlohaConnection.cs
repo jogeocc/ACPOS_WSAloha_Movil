@@ -162,7 +162,9 @@ namespace AlohaWebServiceMobile.Utils
                 var Mesas = RecuperarMesas(idEmpleado);
                 if (Mesas.Exists(M => M.Id == IdMesaInterno))
                 {
-                    responseAloha.idMesa = Mesas.Find(M => M.IdMesa == IdMesaInterno).Checks[0].Id;
+                    var Mesa = Mesas.Find(M => M.Id == IdMesaInterno);
+                    var id = Mesa.Checks.First().Id;
+                    responseAloha.idMesa =id;
                 }
                 else
                 {
@@ -210,7 +212,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"Error al cerrar cheque", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy= false;  
+            App.IsBusy =false;
             return responseAloha;
 
         }
