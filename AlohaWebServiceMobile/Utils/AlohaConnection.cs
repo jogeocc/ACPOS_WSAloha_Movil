@@ -159,10 +159,20 @@ namespace AlohaWebServiceMobile.Utils
                 Encolamiento();
                 App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
-                int idChequeInterno = xFunction.AddCheck(IdTerm, IdMesaInterno);
+                var Mesas = RecuperarMesas(idEmpleado);
+                if (Mesas.Exists(M => M.Id == IdMesaInterno))
+                {
+                    responseAloha.idMesa = Mesas.Find(M => M.IdMesa == IdMesaInterno).Checks[0].Id;
+                }
+                else
+                {
+                    responseAloha.idMesa = xFunction.AddCheck(IdTerm, IdMesaInterno);
+                }
+
+                int idChequeInterno =
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = $"Cuenta abierda con id {idChequeInterno}";
-                responseAloha.idMesa = idChequeInterno;
+                //responseAloha.idMesa = idChequeInterno;
                 LogoutInterno(IdTerm);
             }
             catch (Exception ex)
