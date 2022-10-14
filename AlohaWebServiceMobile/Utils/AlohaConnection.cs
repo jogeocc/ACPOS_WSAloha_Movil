@@ -195,6 +195,9 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
+                VerificarIber();
                 LoginInterno(IdTerm, idEmpleado);
                 xFunction.CloseCheck(IdTerm, IdCheckInterno);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
@@ -209,6 +212,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"Error al cerrar cheque", ex);
                 LogoutInterno(IdTerm);
             }
+            App.IsBusy
             return responseAloha;
 
         }
@@ -219,6 +223,8 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                Encolamiento();
+                App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 xFunction.CloseTable(IdTerm, IdMesaInterno);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
@@ -233,6 +239,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"Error al cerrar mesa", ex);
                 LogoutInterno(IdTerm);
             }
+            App.IsBusy = false;
             return responseAloha;
         }
 
