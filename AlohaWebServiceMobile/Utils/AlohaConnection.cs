@@ -210,7 +210,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"Error al cerrar cheque", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy
+            App.IsBusy= false;  
             return responseAloha;
 
         }
