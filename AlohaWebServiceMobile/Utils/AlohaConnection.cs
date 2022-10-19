@@ -137,7 +137,8 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Cuenta abierta";
                 responseAloha.NombreMesa = GetTabTableName(IdMesaInterno);
-
+                int idChequeInterno = xFunction.AddCheck(IdTerm, IdMesaInterno);
+                LogoutInterno(IdTerm);
             }
             catch (Exception ex)
             {
