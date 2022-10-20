@@ -1051,11 +1051,11 @@ namespace AlohaWebServiceMobile.Utils
                 detallePedido.Total = decimal.Parse(check.Amount.ToString());
                 foreach (var item in check.Items)
                 {
-                    detallePedido.Articulos.Add(new Articulo
+                    detallePedido.Articulos = new List<Articulo> {new Articulo
                     {
                         Nombre = item.Name,
                         Importe = decimal.Parse(item.Price.ToString())
-                    });
+                    }};
                 }
             }
             catch (Exception ex)
