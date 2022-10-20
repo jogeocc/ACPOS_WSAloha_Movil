@@ -1049,13 +1049,15 @@ namespace AlohaWebServiceMobile.Utils
                 detallePedido.NombreTerminal = "INTERFAZ TERMINAL 01";
                 detallePedido.NumeroOrden = check.ChceckNumber;
                 detallePedido.Total = decimal.Parse(check.Amount.ToString());
+                detallePedido.Articulos = new List<Articulo>();
                 foreach (var item in check.Items)
-                {
-                    detallePedido.Articulos = new List<Articulo> {new Articulo
-                    {
-                        Nombre = item.Name,
-                        Importe = decimal.Parse(item.Price.ToString())
-                    }};
+                { 
+                    detallePedido.Articulos.Add(
+                        new Articulo
+                        {
+                            Nombre = item.Name,
+                            Importe = decimal.Parse(item.Price.ToString())
+                        });
                 }
             }
             catch (Exception ex)
