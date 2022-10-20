@@ -249,8 +249,12 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public object PrintBluetooth()
+        public object PrintBluetooth(int idCheck)
         {
+
+
+            DetallePedido detallePedido1 = GetDetallePedidoTicket(RecuperarCheque(idCheck));
+
             DetallePedido detallePedido = new DetallePedido
             {
                 Fecha = DateTime.Now,
@@ -281,6 +285,8 @@ namespace AlohaWebServiceMobile.Utils
 
             return ticket;
         }
+
+
 
         public ResponseAloha logout(int IdTerm, int idEmpleado)
         {
@@ -1056,6 +1062,34 @@ namespace AlohaWebServiceMobile.Utils
             depot = AlohaSdkFactory.GetIberDepotInstance();
             SdkFunctions = new SdkFunctions();
 
+        }
+
+        private DetallePedido GetDetallePedidoTicket(Check check)
+        {
+            DetallePedido detallePedido = new DetallePedido();
+            try
+            {
+                detallePedido.Fecha = DateTime.Now;
+                //TODO CAMBIAR POR VALORES REALES
+                detallePedido.Invitados = 1;
+                detallePedido.NombreTerminal = "INTERFAZ TERMINAL 01";
+                detallePedido.NumeroOrden = check.ChceckNumber;
+                detallePedido.Total = decimal.Parse(check.Amount.ToString());
+                foreach (var item in check.Items)
+                {
+                    detallePedido.Articulos.Add(new Articulo
+                    {
+                        Nombre = item.Name,
+                        Importe = decimal.Parse(item.Price.ToString())
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al recuperar detalle de ticket", ex);
+            }
+
+            return detallePedido;
         }
 
         //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
