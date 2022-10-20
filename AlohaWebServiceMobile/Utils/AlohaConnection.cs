@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketGenerateAloha;
+using TicketGenerateAloha.Models;
 
 namespace AlohaWebServiceMobile.Utils
 {
@@ -247,7 +249,38 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+        public object PrintBluetooth()
+        {
+            DetallePedido detallePedido = new DetallePedido
+            {
+                Fecha = DateTime.Now,
+                Invitados = 1,
+                NombreTerminal = "POS01",
+                NumeroOrden = 10001,
+                Total = 50,
+                Articulos = new List<Articulo>
+                {
+                    new Articulo
+                    {
+                        Nombre = "Hamburguesa",
+                        //Cantidad = 1,
+                        Importe = 50,
+                        SubArticulos = new List<Articulo>
+                        {
+                            new Articulo
+                            {
+                                Nombre = "Papas",
+                                //Cantidad = 1,
+                                //Importe = 25,
+                            }
+                        }
+                    }
+                }
+            };
+            Ticket ticket = new Ticket(@"Design\config-ticket.txt", detallePedido);
 
+            return ticket;
+        }
 
         public ResponseAloha logout(int IdTerm, int idEmpleado)
         {

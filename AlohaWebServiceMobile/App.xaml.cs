@@ -22,7 +22,7 @@ namespace AlohaWebServiceMobile
 
     public partial class App : Application
     {
-        public static string Version = "Version 1.0.0";
+        public static string Version = "Version 1.0.1";
         public static readonly ILog logger = LogManager.GetLogger("Aloha_vapiano");
         public bool iniciar = false;
         public bool IsError = false;

@@ -92,6 +92,10 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="TicketGenerateAloha, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resource\DLLS\TicketGenerateAloha.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -199,7 +203,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Design\config-ticket.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resource\Design\Design_Library.dll" />
+    <Content Include="Resource\DLLS\TicketGenerateAloha.dll" />
     <Content Include="Style.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

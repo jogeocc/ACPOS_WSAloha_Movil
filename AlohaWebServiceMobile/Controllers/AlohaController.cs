@@ -219,7 +219,13 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
-
+        [HttpGet]
+        [Route("PrintBluetooth")]
+        public HttpResponseMessage PrintBluetooth()
+        {
+            var response = App.AlohaConnection.PrintBluetooth();
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
         //CONTROLADORES PARA APLICACION DE ESCRITORIO
         [HttpGet]
         [Route("Users")]
