@@ -3,6 +3,7 @@ using AlohaWebServiceMobile.CodigosErrorAloha;
 using AlohaWebServiceMobile.Controllers;
 using AlohaWebServiceMobile.Enums;
 using AlohaWebServiceMobile.Models.Aloha;
+using AlohaWebServiceMobile.Models.Aloha.BlueTooth;
 using AlohaWebServiceMobile.Models.Aloha.Desktop;
 using AlohaWebServiceMobile.Models.Transacciones;
 using LasaFOHLib;
@@ -249,15 +250,15 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public object PrintBluetooth(int idCheck)
+        public ResponsePrinter PrintBluetooth(int idCheck)
         {
+            ResponsePrinter response = new ResponsePrinter();
 
-            var cheque = RecuperarCheque(idCheck);
-            DetallePedido detallePedido = GetDetallePedidoTicket(cheque);
+            DetallePedido detallePedido = GetDetallePedidoTicket(RecuperarCheque(idCheck));
 
-            Ticket ticket = new Ticket(@"Design\config-ticket.txt", detallePedido);
-
-            return ticket;
+            response.ticket_precuenta = new Ticket(@"Design\config-ticket.txt", detallePedido);
+            response.mensaje = "OK";
+            return response;
         }
 
 
