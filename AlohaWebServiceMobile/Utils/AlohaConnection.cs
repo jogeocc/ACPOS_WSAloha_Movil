@@ -252,8 +252,8 @@ namespace AlohaWebServiceMobile.Utils
         public object PrintBluetooth(int idCheck)
         {
 
-
-            DetallePedido detallePedido = GetDetallePedidoTicket(RecuperarCheque(idCheck));
+            var cheque = RecuperarCheque(idCheck);
+            DetallePedido detallePedido = GetDetallePedidoTicket(cheque);
 
             Ticket ticket = new Ticket(@"Design\config-ticket.txt", detallePedido);
 
@@ -1051,7 +1051,7 @@ namespace AlohaWebServiceMobile.Utils
                 detallePedido.Total = decimal.Parse(check.Amount.ToString());
                 detallePedido.Articulos = new List<Articulo>();
                 foreach (var item in check.Items)
-                { 
+                {
                     detallePedido.Articulos.Add(
                         new Articulo
                         {
