@@ -1046,19 +1046,30 @@ namespace AlohaWebServiceMobile.Utils
             {
                 detallePedido.Fecha = DateTime.Now;
                 //TODO CAMBIAR POR VALORES REALES
-                detallePedido.Invitados = 1;
+                detallePedido.Invitados = 0;
                 detallePedido.NombreTerminal = "INTERFAZ TERMINAL 01";
                 detallePedido.NumeroOrden = check.ChceckNumber;
                 detallePedido.Total = decimal.Parse(check.Amount.ToString());
                 detallePedido.Articulos = new List<Articulo>();
                 foreach (var item in check.Items)
                 {
-                    detallePedido.Articulos.Add(
-                        new Articulo
-                        {
-                            Nombre = item.Name,
-                            Importe = decimal.Parse(item.Price.ToString())
+                    var articulo = new Articulo
+                    {
+                        Nombre = item.Name,
+                        Importe = decimal.Parse(item.Price.ToString()),
+                    };
+
+                    articulo.SubArticulos = new List<Articulo>();
+                    foreach (var mod in item.Mods)
+                    {
+                        articulo.SubArticulos.Add(new Articulo {
+                            Nombre = mod.Name,
+                            Importe= decimal.Parse(mod.Price.ToString())
                         });
+
+                    }
+                    detallePedido.Articulos.Add(articulo);
+
                 }
             }
             catch (Exception ex)
