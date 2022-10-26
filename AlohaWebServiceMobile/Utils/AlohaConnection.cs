@@ -1078,7 +1078,7 @@ namespace AlohaWebServiceMobile.Utils
 
                 detallePedido.NumeroOrden = check.ChceckNumber;
                 detallePedido.Subtotal = decimal.Parse(check.Amount.ToString());
-                detallePedido.Impuestos = new List<Impuesto> { new Impuesto { Importe = decimal.Parse(check.Amount.ToString()) } };
+                detallePedido.Impuestos = new List<Impuesto> { new Impuesto { Importe = decimal.Parse(check.Tax.ToString()) } };
                 detallePedido.Total = decimal.Parse(check.TotalCheck.ToString());
                 detallePedido.TotalItems = detallePedido.Articulos.Count;
             }
