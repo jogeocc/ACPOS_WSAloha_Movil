@@ -253,6 +253,7 @@ namespace AlohaWebServiceMobile.Utils
         public ResponsePrinter PrintBluetooth(int idCheck)
         {
             ResponsePrinter response = new ResponsePrinter();
+            VerificarIber();
             Check cheque = RecuperarCheque(idCheck);
 
             DetallePedido detallePedido = GetDetallePedidoTicket(cheque);
