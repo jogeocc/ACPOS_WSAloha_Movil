@@ -253,8 +253,9 @@ namespace AlohaWebServiceMobile.Utils
         public ResponsePrinter PrintBluetooth(int idCheck)
         {
             ResponsePrinter response = new ResponsePrinter();
+            Check cheque = RecuperarCheque(idCheck);
 
-            DetallePedido detallePedido = GetDetallePedidoTicket(RecuperarCheque(idCheck));
+            DetallePedido detallePedido = GetDetallePedidoTicket(cheque);
 
             response.ticket_precuenta = new Ticket(@"Design\config-ticket.txt", detallePedido);
             response.mensaje = "OK";
@@ -819,7 +820,6 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 check.Id = IdCheck;
-
                 IberObject ChequeAbierto = depot.FindObjectFromId((int)COMEnums.INTERNAL_CHECKS, IdCheck).First();
                 //ITEMS
                 double SubTotal = 0;
@@ -828,6 +828,7 @@ namespace AlohaWebServiceMobile.Utils
                 check.Amount = SubTotal;
                 check.Tax = tax;
                 double MontoTotal = ChequeAbierto.GetDoubleVal("SUBTOTAL");
+
                 try
                 {
                     IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
@@ -947,6 +948,9 @@ namespace AlohaWebServiceMobile.Utils
                 }
                 check.AmountDue = MontoTotal - AmountPayed;
 
+                check.Guests = ChequeAbierto.GetLongVal("GUESTS");
+                check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
+
             }
             catch (Exception ex)
             {
@@ -1046,11 +1050,11 @@ namespace AlohaWebServiceMobile.Utils
             {
                 detallePedido.Fecha = DateTime.Now;
                 //TODO CAMBIAR POR VALORES REALES
-                detallePedido.Invitados = 0;
-                detallePedido.NombreTerminal = "INTERFAZ TERMINAL 01";
-                detallePedido.NumeroOrden = check.ChceckNumber;
-                detallePedido.Total = decimal.Parse(check.Amount.ToString());
+                detallePedido.Invitados = check.Guests;
+                detallePedido.NombreTerminal = "HARDCODEADO TERM DE PRUEBA";
+                detallePedido.Mesa = "HARDCODEADO MESA 1";
                 detallePedido.Articulos = new List<Articulo>();
+
                 foreach (var item in check.Items)
                 {
                     var articulo = new Articulo
@@ -1062,15 +1066,21 @@ namespace AlohaWebServiceMobile.Utils
                     articulo.SubArticulos = new List<Articulo>();
                     foreach (var mod in item.Mods)
                     {
-                        articulo.SubArticulos.Add(new Articulo {
+                        articulo.SubArticulos.Add(new Articulo
+                        {
                             Nombre = mod.Name,
-                            Importe= decimal.Parse(mod.Price.ToString())
+                            Importe = decimal.Parse(mod.Price.ToString())
                         });
 
                     }
                     detallePedido.Articulos.Add(articulo);
-
                 }
+
+                detallePedido.NumeroOrden = check.ChceckNumber;
+                detallePedido.Subtotal = decimal.Parse(check.Amount.ToString());
+                detallePedido.Impuestos = new List<Impuesto> { new Impuesto { Importe = decimal.Parse(check.Amount.ToString()) } };
+                detallePedido.Total = decimal.Parse(check.TotalCheck.ToString());
+                detallePedido.TotalItems = detallePedido.Articulos.Count;
             }
             catch (Exception ex)
             {
@@ -1080,6 +1090,19 @@ namespace AlohaWebServiceMobile.Utils
             return detallePedido;
         }
 
+        private string GetPosName()
+        {
+            string PosName = "";
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return PosName;
+        }
         //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
 
         private void LogoutInterno(int Idterm)

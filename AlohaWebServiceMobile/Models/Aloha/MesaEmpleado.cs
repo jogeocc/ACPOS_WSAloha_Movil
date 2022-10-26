@@ -1,5 +1,6 @@
 ﻿using Aloha.SDK.Common;
 using AlohaWebServiceMobile.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,10 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public List<Payment> Payments { get; set; } = new List<Payment>();
         public List<Promotion> Promotions { get; set; } = new List<Promotion>();
         public List<Comp> Comps { get; set; } = new List<Comp>();
+
+        [JsonIgnore]
+        public int Guests { get; set; }
+        public double TotalCheck { get; set; }
     }
 
     public class Comp

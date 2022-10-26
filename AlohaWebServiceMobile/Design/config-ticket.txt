@@ -5,9 +5,9 @@ TKT_ENCABEZADO_TIPO_LETRA=regular
 TKT_ENCABEZADO_ALINEACION=centrado 
 #moneda|entero|decimal|[vacio]
 TKT_ENCABEZADO_FORMATO= 
-TKT_ENCABEZADO_TEXTO_1="TEL:99 9999-9999"
-TKT_ENCABEZADO_TEXTO_2="Para obtener tu factura ingresa a:"
-TKT_ENCABEZADO_TEXTO_3="www.dominio.com.mx/facturacion"
+TKT_ENCABEZADO_TEXTO_1=TEL:99 9999-9999"
+TKT_ENCABEZADO_TEXTO_2=Para obtener tu factura ingresa a:
+TKT_ENCABEZADO_TEXTO_3=www.dominio.com.mx/facturacion
 TKT_ENCABEZADO_TEXTO_4=
 TKT_ENCABEZADO_TEXTO_5=
 TKT_ENCABEZADO_TEXTO_6=
@@ -16,8 +16,8 @@ TKT_ENCABEZADO_TEXTO_8=
 TKT_ENCABEZADO_TEXTO_9=
 TKT_ENCABEZADO_TEXTO_10=
 
-TKT_ETIQUETA_SERVER="Server:"
-TKT_ETIQUETA_GUESTS="Guests:"
+TKT_ETIQUETA_SERVER=Server:
+TKT_ETIQUETA_GUESTS=Guests:
 
 TKT_ARTICULO_COL_1_ANCHO=50
 TKT_ARTICULO_COL_1_TAMANO_LETRA=12
@@ -47,7 +47,10 @@ TKT_ARTICULO_COL_3_ALINEACION=derecha
 #moneda|entero|decimal|[vacio]
 TKT_ARTICULO_COL_3_FORMATO=moneda 
 
-TKT_ETIQUETA_TOTAL="Total:"
+TKT_ETIQUETA_TOTAL_ITEMS=Items
+TKT_ETIQUETA_SUBTOTAL=Subtotal
+TKT_ETIQUETA_IMPUESTO=Impuesto [INDICE]
+TKT_ETIQUETA_TOTAL=Total
 
 TKT_PIE_TAMANO_LETRA=12
 #regular|negritas|cursiva
@@ -56,11 +59,11 @@ TKT_PIE_TIPO_LETRA=regular
 TKT_PIE_ALINEACION=centrado 
 #moneda|entero|decimal|[vacio]
 TKT_PIE_FORMATO= 
-TKT_PIE_TEXTO_1="Gracias por su visita, vuelva pronto!!"
-TKT_PIE_TEXTO_2="----------Expedido en:----------"
-TKT_PIE_TEXTO_3="Mérida Yucatán"
-TKT_PIE_TEXTO_4="Calle 999 #99 x 99 y 99"
-TKT_PIE_TEXTO_5="Col. Centro CP 99999"
+TKT_PIE_TEXTO_1=Gracias por su visita, vuelva pronto!!
+TKT_PIE_TEXTO_2=----------Expedido en:----------
+TKT_PIE_TEXTO_3=Mérida Yucatán"
+TKT_PIE_TEXTO_4=Calle 999 #99 x 99 y 99
+TKT_PIE_TEXTO_5=Col. Centro CP 99999
 TKT_PIE_TEXTO_6=
 TKT_PIE_TEXTO_7=
 TKT_PIE_TEXTO_8=
