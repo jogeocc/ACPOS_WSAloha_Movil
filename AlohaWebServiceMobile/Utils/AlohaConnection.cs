@@ -1070,7 +1070,7 @@ namespace AlohaWebServiceMobile.Utils
                     {
                         articulo.SubArticulos.Add(new Articulo
                         {
-                            Nombre = mod.Name.Trim()),
+                            Nombre = mod.Name.Trim(),
                             Importe = decimal.Parse(mod.Price.ToString())
                         });
 
