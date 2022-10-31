@@ -28,7 +28,7 @@ namespace AlohaWebServiceMobile.Utils
         private int BotonPlu = 999999;
         public EstructurarData()
         {
-            //pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+            pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
             //pathALoha = @"D:\PROYECTOS\Aloha_mobile\Data";
         }
 
@@ -290,6 +290,7 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 mods = ModsDbfs15.FindAll(MOD => MOD.MODGRPID == IdGrupo);
+                mods.OrderBy(MOD => MOD.SEQUENCE);
             }
             catch (Exception ex)
             {
