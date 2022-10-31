@@ -290,7 +290,7 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 mods = ModsDbfs15.FindAll(MOD => MOD.MODGRPID == IdGrupo);
-                mods.OrderBy(MOD => MOD.SEQUENCE);
+                mods = mods.OrderBy(MOD => MOD.SEQUENCE).ToList();
             }
             catch (Exception ex)
             {
