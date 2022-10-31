@@ -44,7 +44,7 @@ namespace AlohaWebServiceMobile.Utils
                     string password = "";
                     if (digits >= App.Aloha.MinNumLenghtEmployee)
                     {
-                        empleado = int.Parse(NumPassword.Substring(0, NumPassword.Length - digits));
+                        empleado = int.Parse(NumPassword.Substring(0, NumPassword.Length - App.Aloha.MinNumLenghtEmployee));
                         password = NumPassword.Substring(App.Aloha.MinNumLenghtEmployee);
                     }
                     else
