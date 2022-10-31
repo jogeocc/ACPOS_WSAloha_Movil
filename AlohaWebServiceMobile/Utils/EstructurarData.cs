@@ -6,6 +6,7 @@ using AlohaWebServiceMobile.Models.Catalogos;
 using Design_Library;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,21 +15,24 @@ namespace AlohaWebServiceMobile.Utils
 {
     public class EstructurarData
     {
-        string pathALoha = @"D:\PROYECTOS\VAPIANO\reforma\Data";
+        string pathALoha = @"D:\PROYECTOS\Aloha_mobile\VERSION 15\DATA";
 
         private List<MNU> MenusDbfs = new List<MNU>();
         private List<SUB> SubMenusDBFS = new List<SUB>();
         private List<ITM> ItemsDbfs = new List<ITM>();
         private List<MOD> ModsDbfs = new List<MOD>();
+        private List<MODEXT> ModsDbfs15 = new List<MODEXT>();
+
         private List<QTYPRICE> Qtyprices = new List<QTYPRICE>();
 
         private int BotonPlu = 999999;
         public EstructurarData()
         {
-            pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+            //pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
             //pathALoha = @"D:\PROYECTOS\Aloha_mobile\Data";
         }
 
+        #region OBTENER MENU
         public List<MNUmobile> ObtenerMenuMovil()
         {
             List<MNUmobile> Menus = new List<MNUmobile>();
@@ -40,6 +44,11 @@ namespace AlohaWebServiceMobile.Utils
                 SubMenusDBFS = new SUBServicio(contextoAlh).GetAll();
                 ItemsDbfs = new ITMServicio(contextoAlh).GetAll();
                 ModsDbfs = new MODServicio(contextoAlh).GetAll();
+                if (File.Exists(pathALoha + @"\MODEXT.dbf"))
+                {
+                    ModsDbfs15 = new MODEXTServicio(contextoAlh).GetAll();
+                }
+
                 Qtyprices = new QTYPRICEServicio(contextoAlh).GetAll();
             }
 
@@ -131,6 +140,164 @@ namespace AlohaWebServiceMobile.Utils
 
             return Menus;
         }
+
+        public Item RecursividadItems(Item item)
+        {
+            try
+            {
+                if (ItemsDbfs.Any(I => I.ID == item.id))
+                {
+                    var articulo = ItemsDbfs.First(I => I.ID == item.id);
+                    item.descripcion_corta = DecodeToASCII(articulo.SHORTNAME);
+                    item.descripcion_larga = DecodeToASCII(articulo.LONGNAME);
+                    item.item_precio = articulo.PRICE;
+                    item.item_precio_ID = articulo.PRICE_ID;
+
+
+                    if (articulo.MOD1 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD1, });
+                    if (articulo.MOD2 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD2, });
+                    if (articulo.MOD3 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD3, });
+                    if (articulo.MOD4 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD4, });
+                    if (articulo.MOD5 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD5, });
+                    if (articulo.MOD6 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD6, });
+                    if (articulo.MOD7 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD7, });
+                    if (articulo.MOD8 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD8, });
+                    if (articulo.MOD9 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD9, });
+                    if (articulo.MOD10 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD10 });
+
+
+
+
+                    if (Qtyprices.Any(I => I.ITEMID == item.id))
+                    {
+                        var Cantidad = Qtyprices.First(I => I.ID == item.id);
+                        item.is_cantidad = true;
+                        item.unidad_medida = Cantidad.UNITNAME;
+                        item.unidad_decimales = Cantidad.DECIMALS;
+                    }
+
+                    foreach (var mod in item.mods.ToList())
+                    {
+                        if (ModsDbfs.Any(M => M.ID == mod.id_modificador))
+                        {
+                            var modificador = ModsDbfs.First(M => M.ID == mod.id_modificador);
+                            mod.descripcion_corta = DecodeToASCII(modificador.SHORTNAME);
+                            mod.descripcion_larga = DecodeToASCII(modificador.LONGNAME);
+                            mod.num_gratis = modificador.FREE;
+                            mod.num_max = modificador.MAXIMUM;
+                            mod.num_min = modificador.MINIMUM;
+
+                            if (ModsDbfs15.Count > 0)
+                            {
+                                var ListaMods = GetMods(mod.id_modificador);
+                                for (int i = 0; i < ListaMods.Count; i++)
+                                {
+                                    Item ItemMOD = new Item();
+                                    ItemMOD.id = ListaMods[i].ITEMID;
+
+                                    var itemDBF = ItemsDbfs.Find(I => I.ID == ItemMOD.id);
+                                    ItemMOD.descripcion_corta = DecodeToASCII(itemDBF.SHORTNAME);
+                                    ItemMOD.descripcion_larga = DecodeToASCII(itemDBF.LONGNAME);
+                                    int condicion = ListaMods[i].PRMETHOD;
+                                    if (condicion == 0)
+                                    {
+                                        ItemMOD.item_precio = decimal.Parse(ListaMods[i].PRICE.ToString());
+                                    }
+                                    else
+                                    {
+                                        ItemMOD.item_precio = ItemsDbfs.First(I => I.ID == ItemMOD.id).PRICE;
+                                    }
+                                    List<Mod> AuxList = new List<Mod>();
+
+                                    if (itemDBF.MOD1 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD1, });
+                                    if (itemDBF.MOD2 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD2, });
+                                    if (itemDBF.MOD3 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD3, });
+                                    if (itemDBF.MOD4 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD4, });
+                                    if (itemDBF.MOD5 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD5, });
+                                    if (itemDBF.MOD6 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD6, });
+                                    if (itemDBF.MOD7 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD7, });
+                                    if (itemDBF.MOD8 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD8, });
+                                    if (itemDBF.MOD9 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD9, });
+                                    if (itemDBF.MOD10 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD10 });
+
+                                    if (AuxList.Count > 0)
+                                    {
+                                        ItemMOD = RecursividadItems(ItemMOD);
+                                    }
+
+                                    mod.item_mod.Add(ItemMOD);
+                                }
+                            }
+                            else
+                            {
+                                for (int j = 0; j < modificador.items.Count; j++)
+                                {
+                                    if (modificador.items[j] != 0)
+                                    {
+                                        Item ItemMOD = new Item();
+                                        ItemMOD.id = modificador.items[j];
+
+                                        var itemDBF = ItemsDbfs.Find(I => I.ID == ItemMOD.id);
+                                        ItemMOD.descripcion_corta = DecodeToASCII(itemDBF.SHORTNAME);
+                                        ItemMOD.descripcion_larga = DecodeToASCII(itemDBF.LONGNAME);
+                                        int condicion = int.Parse(modificador.methods[j].ToString());
+                                        if (condicion == 0)
+                                        {
+                                            ItemMOD.item_precio = modificador.precios[j];
+                                        }
+                                        else
+                                        {
+                                            ItemMOD.item_precio = ItemsDbfs.First(I => I.ID == ItemMOD.id).PRICE;
+                                        }
+                                        List<Mod> AuxList = new List<Mod>();
+
+                                        if (itemDBF.MOD1 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD1, });
+                                        if (itemDBF.MOD2 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD2, });
+                                        if (itemDBF.MOD3 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD3, });
+                                        if (itemDBF.MOD4 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD4, });
+                                        if (itemDBF.MOD5 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD5, });
+                                        if (itemDBF.MOD6 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD6, });
+                                        if (itemDBF.MOD7 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD7, });
+                                        if (itemDBF.MOD8 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD8, });
+                                        if (itemDBF.MOD9 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD9, });
+                                        if (itemDBF.MOD10 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD10 });
+
+                                        if (AuxList.Count > 0)
+                                        {
+                                            ItemMOD = RecursividadItems(ItemMOD);
+                                        }
+
+                                        mod.item_mod.Add(ItemMOD);
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return item;
+        }
+
+        private List<MODEXT> GetMods(int IdGrupo)
+        {
+            List<MODEXT> mods = new List<MODEXT>();
+            try
+            {
+                mods = ModsDbfs15.FindAll(MOD => MOD.MODGRPID == IdGrupo);
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error("Error al obtener MODS", ex);
+            }
+            return mods;
+        }
+        #endregion
 
         public List<ODRmobile> ObtenerModosDePedido()
         {
@@ -279,102 +446,6 @@ namespace AlohaWebServiceMobile.Utils
             return CadenaLimpia;
         }
 
-        public Item RecursividadItems(Item item)
-        {
-            try
-            {
-                if (ItemsDbfs.Any(I => I.ID == item.id))
-                {
-                    var articulo = ItemsDbfs.First(I => I.ID == item.id);
-                    item.descripcion_corta = DecodeToASCII(articulo.SHORTNAME);
-                    item.descripcion_larga = DecodeToASCII(articulo.LONGNAME);
-                    item.item_precio = articulo.PRICE;
-                    item.item_precio_ID = articulo.PRICE_ID;
-
-                    if (articulo.MOD1 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD1, });
-                    if (articulo.MOD2 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD2, });
-                    if (articulo.MOD3 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD3, });
-                    if (articulo.MOD4 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD4, });
-                    if (articulo.MOD5 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD5, });
-                    if (articulo.MOD6 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD6, });
-                    if (articulo.MOD7 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD7, });
-                    if (articulo.MOD8 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD8, });
-                    if (articulo.MOD9 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD9, });
-                    if (articulo.MOD10 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD10 });
-
-
-
-
-                    if (Qtyprices.Any(I => I.ITEMID == item.id))
-                    {
-                        var Cantidad = Qtyprices.First(I => I.ID == item.id);
-                        item.is_cantidad = true;
-                        item.unidad_medida = Cantidad.UNITNAME;
-                        item.unidad_decimales = Cantidad.DECIMALS;
-                    }
-
-                    foreach (var mod in item.mods.ToList())
-                    {
-                        if (ModsDbfs.Any(M => M.ID == mod.id_modificador))
-                        {
-                            var modificador = ModsDbfs.First(M => M.ID == mod.id_modificador);
-                            mod.descripcion_corta = DecodeToASCII(modificador.SHORTNAME);
-                            mod.descripcion_larga = DecodeToASCII(modificador.LONGNAME);
-                            mod.num_gratis = modificador.FREE;
-                            mod.num_max = modificador.MAXIMUM;
-                            mod.num_min = modificador.MINIMUM;
-
-                            for (int j = 0; j < modificador.items.Count; j++)
-                            {
-                                if (modificador.items[j] != 0)
-                                {
-                                    Item ItemMOD = new Item();
-                                    ItemMOD.id = modificador.items[j];
-
-                                    var itemDBF = ItemsDbfs.Find(I => I.ID == ItemMOD.id);
-                                    ItemMOD.descripcion_corta = DecodeToASCII(itemDBF.SHORTNAME);
-                                    ItemMOD.descripcion_larga = DecodeToASCII(itemDBF.LONGNAME);
-                                    int condicion = int.Parse(modificador.methods[j].ToString());
-                                    if (condicion == 0)
-                                    {
-                                        ItemMOD.item_precio = modificador.precios[j];
-                                    }
-                                    else
-                                    {
-                                        ItemMOD.item_precio = ItemsDbfs.First(I => I.ID == ItemMOD.id).PRICE;
-                                    }
-                                    List<Mod> AuxList = new List<Mod>();
-                                    if (itemDBF.MOD1 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD1, });
-                                    if (itemDBF.MOD2 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD2, });
-                                    if (itemDBF.MOD3 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD3, });
-                                    if (itemDBF.MOD4 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD4, });
-                                    if (itemDBF.MOD5 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD5, });
-                                    if (itemDBF.MOD6 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD6, });
-                                    if (itemDBF.MOD7 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD7, });
-                                    if (itemDBF.MOD8 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD8, });
-                                    if (itemDBF.MOD9 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD9, });
-                                    if (itemDBF.MOD10 != 0) AuxList.Add(new Mod { id_modificador = itemDBF.MOD10 });
-                                    if (AuxList.Count > 0)
-                                    {
-                                        ItemMOD = RecursividadItems(ItemMOD);
-                                    }
-
-                                    mod.item_mod.Add(ItemMOD);
-
-                                }
-                            }
-
-                        }
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return item;
-        }
 
         public string ObtenerDesign()
         {
@@ -392,6 +463,8 @@ namespace AlohaWebServiceMobile.Utils
 
             return DesignJson;
         }
+
+
     }
 }
 
