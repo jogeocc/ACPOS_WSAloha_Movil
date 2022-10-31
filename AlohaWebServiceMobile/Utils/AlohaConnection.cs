@@ -572,11 +572,13 @@ namespace AlohaWebServiceMobile.Utils
                 Encolamiento();
                 App.IsBusy = true;
                 LoginInterno(idTerm, IdEmpleado);
-                if (idTerm == idTermImpresora)
-                {
-                    xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_CHECKS, idCheck, "ID_RUTEO", idTermImpresora.ToString());
-                }
+
+                #region Seccion que cambia el ruteo de impresoras
+                xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_CHECKS, idCheck, "ID_RUTEO", idTermImpresora.ToString());
+
                 xFunction.PrintCheck(idTerm, idCheck);
+                #endregion
+
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Enviando tarea de impresión";
