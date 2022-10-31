@@ -33,7 +33,8 @@ namespace AlohaWebServiceMobile
         public static BdInterna bdInterna = new BdInterna();
         public static FuncionesArchivo funcionesArchivo = new FuncionesArchivo();
         public static bool IsBusy = false;
-        public static LecturaINI iniAloha = new LecturaINI(AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder() + @"\aloha.ini"); 
+        public static LecturaINI iniAloha = new LecturaINI(AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder() + @"\aloha.ini");
+        public static InfoAloha Aloha = new InfoAloha();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
@@ -50,6 +51,7 @@ namespace AlohaWebServiceMobile
                     {
                         IniciarWebService();
                         bdInterna.users = funcionesArchivo.ReadTrans();
+                        CargarInfoAlohaIni();
                     }
                     catch (Exception ex)
                     {
@@ -65,6 +67,7 @@ namespace AlohaWebServiceMobile
                     }
 
                     CargaIcono();
+
                     //splash.Hide();
                 }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
 
@@ -89,6 +92,11 @@ namespace AlohaWebServiceMobile
             var server = new HttpSelfHostServer(config_server);
             var task = server.OpenAsync();
             task.Wait();
+        }
+        private void CargarInfoAlohaIni()
+        {
+            int.TryParse(iniAloha.Read("NUMEMPDIGITS", "Ibertech"), out int NumMinEmp);
+            Aloha.MinNumLenghtEmployee = NumMinEmp;
         }
     }
 }
