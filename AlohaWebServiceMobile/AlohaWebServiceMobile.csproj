@@ -146,6 +146,7 @@
     <Compile Include="Utils\EstructurarData.cs" />
     <Compile Include="Utils\FuncionesArchivo.cs" />
     <Compile Include="Utils\IconoNotificacion.cs" />
+    <Compile Include="Utils\LecturaINI.cs" />
     <Compile Include="Views\Modals\ViewLoading.xaml.cs">
       <DependentUpon>ViewLoading.xaml</DependentUpon>
     </Compile>
