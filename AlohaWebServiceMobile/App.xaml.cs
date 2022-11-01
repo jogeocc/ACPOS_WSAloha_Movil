@@ -97,6 +97,9 @@ namespace AlohaWebServiceMobile
         {
             int.TryParse(iniAloha.Read("NUMEMPDIGITS", "Ibertech"), out int NumMinEmp);
             Aloha.MinNumLenghtEmployee = NumMinEmp;
+            int.TryParse(iniAloha.Read("MAXPASSWORD", "Ibertech"), out int NumMaxPassEmp);
+            Aloha.MinNumLenghtEmployee = NumMaxPassEmp;
+
         }
     }
 }

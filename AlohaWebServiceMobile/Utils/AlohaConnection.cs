@@ -38,22 +38,22 @@ namespace AlohaWebServiceMobile.Utils
                     Encolamiento();
                     App.IsBusy = true;
 
-                    string NumPassword = IdEmpleado.ToString();
-                    int digits = NumPassword.Length;
-                    int empleado = 0;
-                    string password = "";
-                    if (digits >= App.Aloha.MinNumLenghtEmployee)
-                    {
-                        empleado = int.Parse(NumPassword.Substring(0, NumPassword.Length - App.Aloha.MinNumLenghtEmployee));
-                        password = NumPassword.Substring(App.Aloha.MinNumLenghtEmployee);
-                    }
-                    else
-                    {
-                        empleado = digits;
-                        password = "";
-                    }
+                    //string NumPassword = IdEmpleado.ToString();
+                    //int digits = NumPassword.Length;
+                    //int empleado = 0;
+                    //string password = "";
+                    //if (digits >= App.Aloha.MinNumLenghtEmployee)
+                    //{
+                    //    empleado = int.Parse(NumPassword.Substring(0, NumPassword.Length - App.Aloha.MinNumLenghtEmployee));
+                    //    password = NumPassword.Substring(App.Aloha.MinNumLenghtEmployee);
+                    //}
+                    //else
+                    //{
+                    //    empleado = digits;
+                    //    password = "";
+                    //}
 
-                    int IdSistema = xFunction.LogIn(IdTerm, empleado, password.ToString(), "");
+                    int IdSistema = xFunction.LogIn(IdTerm, IdEmpleado, "", "");
                     responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                     responseAloha.isClockIn = IsAlreadyClockIn(IdSistema);
                     responseAloha.mensaje = "Login realizado con exito";

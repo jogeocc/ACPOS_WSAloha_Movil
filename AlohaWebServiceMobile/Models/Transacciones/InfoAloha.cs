@@ -9,5 +9,6 @@ namespace AlohaWebServiceMobile.Models.Transacciones
     public class InfoAloha
     {
         public int MinNumLenghtEmployee { get; set; }
+        public int MaxPassLenghtEmployee { get; set; }
     }
 }
