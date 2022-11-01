@@ -100,7 +100,7 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage login(RequestLogin requestLogin)
         {
             ResponseAloha response = App.AlohaConnection.login(requestLogin.TermId, requestLogin.IdEmpleado);
-            return Request.CreateResponse(HttpStatusCode.OK, "", Configuration.Formatters.JsonFormatter);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpPost]
