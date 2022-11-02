@@ -28,8 +28,10 @@ namespace AlohaWebServiceMobile.Utils
                 Text = $"Agente {App.Version}",
             };
             ContextMenu contextMenu = new ContextMenu();
+            ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
             contextMenu.MenuItems.Add("Información", Informacion);
             contextMenu.MenuItems.Add("Salir", Salir);
+            contextMenu.MenuItems.Add("Configuración", Configuration);
             notifyIcon.ContextMenu = contextMenu;
             DesplegarNotificacion("Agente", $"Funcionando con exito {App.Version}");
             App.logger.Info("Icono contextual creado correctamente");
@@ -48,6 +50,12 @@ namespace AlohaWebServiceMobile.Utils
         public static void DesplegarNotificacion(string titulo, string mensaje)
         {
             notifyIcon.ShowBalloonTip(3000, titulo, mensaje, ToolTipIcon.Info);
+        }
+
+        private static void Configuration(object sender, EventArgs e)
+        {
+            ContextMenu contextMenu = new ContextMenu();
+            contextMenu.MenuItems.Add("Hola",Informacion);
         }
     }
 }
