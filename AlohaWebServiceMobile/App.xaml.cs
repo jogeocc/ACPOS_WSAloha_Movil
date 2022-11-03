@@ -51,7 +51,7 @@ namespace AlohaWebServiceMobile
                     {
                         IniciarWebService();
                         bdInterna.users = funcionesArchivo.ReadTrans();
-                        CargarInfoAlohaIni();
+                        //CargarInfoAlohaIni();
                     }
                     catch (Exception ex)
                     {

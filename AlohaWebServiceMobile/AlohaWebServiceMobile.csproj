@@ -142,6 +142,9 @@
     <Compile Include="Models\Catalogos\VOIDMobile.cs" />
     <Compile Include="Models\Transacciones\BdInterna.cs" />
     <Compile Include="Models\Transacciones\InfoAloha.cs" />
+    <Compile Include="UcComponents\ListaMapeoDePagos.xaml.cs">
+      <DependentUpon>ListaMapeoDePagos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\AlohaConnection.cs" />
     <Compile Include="Utils\AppConfig.cs" />
     <Compile Include="Utils\EstructurarData.cs" />
@@ -164,6 +167,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resource\Design\Styles\Components\FondoPantalla.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UcComponents\ListaMapeoDePagos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Modals\ViewLoading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -226,5 +237,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
