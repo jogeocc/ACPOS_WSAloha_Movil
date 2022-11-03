@@ -35,6 +35,7 @@ namespace AlohaWebServiceMobile
         public static bool IsBusy = false;
         public static LecturaINI iniAloha = new LecturaINI(AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder() + @"\aloha.ini");
         public static InfoAloha Aloha = new InfoAloha();
+        public static MainWindow VentanaPrincipal = new MainWindow();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
@@ -100,6 +101,14 @@ namespace AlohaWebServiceMobile
             int.TryParse(iniAloha.Read("MAXPASSWORD", "Ibertech"), out int NumMaxPassEmp);
             Aloha.MinNumLenghtEmployee = NumMaxPassEmp;
 
+        }
+
+        public static void CambiarPantalla(int index)
+        {
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                VentanaPrincipal.TbcNavegacion.SelectedIndex = index;
+            }));
         }
     }
 }

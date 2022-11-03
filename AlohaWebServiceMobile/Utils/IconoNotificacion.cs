@@ -54,8 +54,7 @@ namespace AlohaWebServiceMobile.Utils
 
         private static void Configuration(object sender, EventArgs e)
         {
-            ContextMenu contextMenu = new ContextMenu();
-            contextMenu.MenuItems.Add("Hola",Informacion);
+            App.VentanaPrincipal.Show();
         }
     }
 }

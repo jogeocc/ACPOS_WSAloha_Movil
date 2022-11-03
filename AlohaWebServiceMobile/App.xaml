@@ -7,7 +7,16 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resource/Design/Styles/Components/Botones.xaml"/>
+                <ResourceDictionary Source="/Resource/Design/Styles/Components/Color.xaml"/>
+                <ResourceDictionary Source="/Resource/Design/Styles/Components/DataGrid.xaml"/>
                 <ResourceDictionary Source="/Resource/Design/Styles/Components/FondoPantalla.xaml"/>
+                <ResourceDictionary Source="/Resource/Design/Styles/Components/FuentesLetras.xaml"/>
+                <ResourceDictionary Source="/Resource/Design/Styles/Components/Label.xaml"/>
+                <ResourceDictionary Source="/Resource/Design/Styles/Components/TextBlock.xaml"/>
+                <ResourceDictionary Source="/Resource/Design/Styles/Components/TextBox.xaml"/>
+                <ResourceDictionary Source="/Resource/Design/Styles/Components/Textos.xaml"/>
+                <ResourceDictionary Source="/Resource/Design/Styles/Components/Thickness.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

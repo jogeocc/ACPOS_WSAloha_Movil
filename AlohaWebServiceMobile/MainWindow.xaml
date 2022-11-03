@@ -3,10 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AlohaWebServiceMobile"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        WindowState="Maximized"
+        Title="MainWindow" Height="450" Width="800"
+        xmlns:componentes="clr-namespace:AlohaWebServiceMobile.UcComponents"
+        >
     <Grid>
-        
+        <TabControl
+            x:Name="TbcNavegacion"
+            BorderThickness="0"
+            >
+            <!--0-->
+            <TabItem Header="ListaMapeo">
+                <componentes:ListaMapeoDePagos x:Name="UcComponenteLista"/>
+            </TabItem>
+            <!--1-->
+            <TabItem Header="EditNewMapeo">
+                <!--<componentes:EditNewMapeoPago x:Name="UcEditMapeo"/>-->
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

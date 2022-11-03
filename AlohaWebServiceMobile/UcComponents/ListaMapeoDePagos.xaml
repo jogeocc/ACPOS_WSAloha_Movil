@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <TextBlock Text="{DynamicResource TextoMapeoPagos}" Foreground="{DynamicResource FondoLetras}" Style="{DynamicResource EstiloConfirmacionCancelar}"/>
+            <TextBlock Text="{DynamicResource TextoMapeoPagos}" Style="{DynamicResource TBTitulos}"/>
         </Grid>
 
         <Grid Grid.Row="1">
