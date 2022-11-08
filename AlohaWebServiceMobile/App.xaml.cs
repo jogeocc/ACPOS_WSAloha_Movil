@@ -35,7 +35,7 @@ namespace AlohaWebServiceMobile
         public static bool IsBusy = false;
         public static LecturaINI iniAloha = new LecturaINI(AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder() + @"\aloha.ini");
         public static InfoAloha Aloha = new InfoAloha();
-        public static MainWindow VentanaPrincipal = new MainWindow();
+        public static MainWindow VentanaPrincipal;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
@@ -53,6 +53,7 @@ namespace AlohaWebServiceMobile
                         IniciarWebService();
                         bdInterna.users = funcionesArchivo.ReadTrans();
                         //CargarInfoAlohaIni();
+                        
                     }
                     catch (Exception ex)
                     {
@@ -68,7 +69,7 @@ namespace AlohaWebServiceMobile
                     }
 
                     CargaIcono();
-
+                    VentanaPrincipal = new MainWindow();
                     //splash.Hide();
                 }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
 

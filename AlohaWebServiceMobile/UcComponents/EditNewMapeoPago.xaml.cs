@@ -20,18 +20,29 @@ namespace AlohaWebServiceMobile.UcComponents
     /// <summary>
     /// Interaction logic for EditNewMapeoPago.xaml
     /// </summary>
-    public partial class EditNewMapeoPago : UserControl
+    public partial class EditNewMapeoPago : Window
     {
         public VMMapeoPagos vMMapeoPagos { get; set; }
 
         public bool Editar { get; set; }
-        public EditNewMapeoPago(VMMapeoPagos mapeoPagos)
+
+        public EditNewMapeoPago(VMMapeoPagos modeloMapeoEdit)
         {
             InitializeComponent();
 
-            vMMapeoPagos = mapeoPagos;
+            vMMapeoPagos = modeloMapeoEdit;
 
             Editar = vMMapeoPagos.Editar;
+
+            if (Editar)
+            {
+                Title = "Editar dispositivo";
+            }
+            else
+            {
+
+            }
+
 
             DataContext = vMMapeoPagos;
 
@@ -39,7 +50,7 @@ namespace AlohaWebServiceMobile.UcComponents
 
         private void BtnCancelarMapeo(object sender, RoutedEventArgs e)
         {
-            //Close();
+            Close();
         }
 
 
@@ -67,7 +78,7 @@ namespace AlohaWebServiceMobile.UcComponents
 
             if (respuesta == TipoRespuesta.HECHO)
             {
-                //Close();
+                Close();
             }
             else if (respuesta == TipoRespuesta.ERROR_SISTEMA)
             {

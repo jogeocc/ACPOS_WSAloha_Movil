@@ -6,7 +6,6 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        WindowState="Maximized"
         Title="MainWindow" Height="450" Width="800"
         xmlns:componentes="clr-namespace:AlohaWebServiceMobile.UcComponents"
         >
@@ -16,13 +15,11 @@
             BorderThickness="0"
             >
             <!--0-->
-            <TabItem Header="ListaMapeo">
-                <componentes:ListaMapeoDePagos x:Name="UcComponenteLista"/>
+            <TabItem Header="LisatdoMapeo">
+                <componentes:ListaMapeoDePagos/>
             </TabItem>
             <!--1-->
-            <TabItem Header="EditNewMapeo">
-                <!--<componentes:EditNewMapeoPago x:Name="UcEditMapeo"/>-->
-            </TabItem>
+            
         </TabControl>
     </Grid>
 </Window>

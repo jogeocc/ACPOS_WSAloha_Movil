@@ -34,13 +34,28 @@ namespace AlohaWebServiceMobile.UcComponents
 
         private void BtnCancelarMapeo(object sender, RoutedEventArgs e)
         {
-            //App.CambiarPantalla((int)EnumPantalla.ListaMapeo);
             App.VentanaPrincipal.Hide();
         }
 
         private void BtnAgregarMapeo(object sender, RoutedEventArgs e)
         {
             AbrirVentanaFormulario();
+        }
+
+        private void AbrirVentanaFormulario(bool editar = false)
+        {
+            IsEnabled = false;
+
+            vMMapeoPagos.InicializarFormulario(editar);
+
+            EditNewMapeoPago nuevoEdit = new EditNewMapeoPago(vMMapeoPagos);
+            nuevoEdit.Closed += Form_Closed;
+            nuevoEdit.Show();
+        }
+
+        private void Form_Closed(object sender, EventArgs e)
+        {
+            IsEnabled = true;
         }
 
         private void BtnEliminar_Click(object sender, RoutedEventArgs e)
@@ -86,28 +101,10 @@ namespace AlohaWebServiceMobile.UcComponents
             }
         }
 
-        private void AbrirVentanaFormulario(bool editar = false)
-        {
-            IsEnabled = false;
-
-            vMMapeoPagos.InicializarFormulario(editar);
-            App.CambiarPantalla((int)EnumPantalla.EditMapeo);
-
-            //NuevoEditMap nuevoEdit = new NuevoEditMap(vMMapeoPagos);
-            //nuevoEdit.Closed += Form_Closed;
-            //nuevoEdit.Show();
-        }
-
-        private void Form_Closed(object sender, EventArgs e)
-        {
-            IsEnabled = true;
-        }
-
         private void BtnEditar_Click(object sender, RoutedEventArgs e)
         {
             AbrirVentanaFormulario(true);
         }
     }
-   
 
 }
