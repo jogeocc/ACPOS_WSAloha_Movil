@@ -13,5 +13,6 @@ namespace AlohaLibrary.Modelos
         public string NAME { get; set; }
         public bool Seleccionado { get; set; }
         public TipoLogicoALH ACTIVE { get; set; }
+        public TipoLogicoALH ALLITEMS { get; set; }
     }
 }

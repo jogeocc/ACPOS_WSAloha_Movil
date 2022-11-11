@@ -36,8 +36,11 @@ namespace AlohaLibrary.Implementaciones
                     NAME = item["NAME"].ToString(),
                     ACTIVE = item["ACTIVE"].ToString().ToUpper().Equals("Y")
                             ? TipoLogicoALH.Y
+                            : TipoLogicoALH.N,
+                    ALLITEMS = item["ALLITEMS"].ToString().ToUpper().Equals("Y")
+                            ? TipoLogicoALH.Y
                             : TipoLogicoALH.N
-            });
+                });
             }
 
             return ordenes;

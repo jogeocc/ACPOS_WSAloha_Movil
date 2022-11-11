@@ -306,14 +306,15 @@ namespace AlohaWebServiceMobile.Utils
 
             using (AplicacionBdContextoALH contextoALH = new AplicacionBdContextoALH(pathALoha))
             {
-                var ordenALHs = new OrdenServicioALH(contextoALH).GetAll();
+                List<OrdenALH> ordenALHs = new OrdenServicioALH(contextoALH).GetAll();
                 foreach (var odr in ordenALHs)
                 {
                     OrderModMobile.Add(new ODRmobile
                     {
                         ID = odr.ID,
                         NAME = odr.NAME,
-                        ACTIVE = odr.ACTIVE == TipoLogicoALH.Y
+                        ACTIVE = odr.ACTIVE == TipoLogicoALH.Y,
+                        ALLITEMS = odr.ALLITEMS == TipoLogicoALH.Y,
                     });
                 }
             }
