@@ -22,7 +22,7 @@ namespace AlohaLibrary.Implementaciones
         {
             List<OrdenALH> ordenes = new List<OrdenALH>();
 
-            string query = $"SELECT ID, NAME, ACTIVE FROM ODR";
+            string query = $"SELECT ID, NAME, ACTIVE,ALLITEMS FROM ODR";
 
             DataSet ds = new DataSet();
             EjecutarConsulta(query).Fill(ds, "ODR");
