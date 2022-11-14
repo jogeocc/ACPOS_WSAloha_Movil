@@ -15,7 +15,7 @@ namespace AlohaWebServiceMobile.Utils
 {
     public class EstructurarData
     {
-        string pathALoha = @"D:\PROYECTOS\Aloha_mobile\VERSION 15\DATA";
+        string pathALoha = @"D:\PROYECTOS\Aloha_mobile\SS_DATA\DATA";
 
         private List<MNU> MenusDbfs = new List<MNU>();
         private List<SUB> SubMenusDBFS = new List<SUB>();
@@ -92,6 +92,7 @@ namespace AlohaWebServiceMobile.Utils
                         var SubMenu = SubMenusDBFS.First(S => S.ID == sub.id);
                         sub.descripcion_corta = SubMenu.SHORTNAME;
                         sub.descripcion_larga = SubMenu.LONGNAME;
+                        sub.panel_id = SubMenu.PANEL_ID;
                         #region iterar propiedades de submenu para obtener los items
                         var Props = SubMenu.GetType().GetProperties().ToList();
                         string AuxPrice = "PRICE";
@@ -140,6 +141,8 @@ namespace AlohaWebServiceMobile.Utils
 
             return Menus;
         }
+
+
 
         public Item RecursividadItems(Item item)
         {
@@ -432,6 +435,10 @@ namespace AlohaWebServiceMobile.Utils
                 });
             }
             return ListaVoids;
+        }
+        public List<> ObtenerPaneles()
+        {
+            throw new NotImplementedException();
         }
 
         private string DecodeToASCII(string cadena)

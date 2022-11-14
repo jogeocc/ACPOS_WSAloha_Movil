@@ -86,6 +86,21 @@ namespace AlohaWebServiceMobile.Controllers
             var obj = JsonConvert.DeserializeObject(Design);
             return Request.CreateResponse(HttpStatusCode.OK, obj, Configuration.Formatters.JsonFormatter);
         }
+
+        [HttpGet]
+        [Route("Panels")]
+        public HttpResponseMessage Panels()
+        {
+            var Paneles = App.Catalogos.ObtenerPaneles();
+            return Request.CreateResponse(HttpStatusCode.OK, Paneles, Configuration.Formatters.JsonFormatter);
+        }
+        [HttpGet]
+        [Route("Btns")]
+        public HttpResponseMessage Btns()
+        {
+
+        }
+
         //ACCIONES DE ALOHA CONNECTION
         [HttpPost]
         [Route("clockin")]

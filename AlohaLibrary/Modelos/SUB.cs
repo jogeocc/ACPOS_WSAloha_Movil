@@ -212,7 +212,8 @@ namespace AlohaLibrary.Modelos
         public int PRICELVL46 { get; set; }
         public int PRICELVL47 { get; set; }
         public int PRICELVL48 { get; set; }
-
-
+        public int SLAVETOSUB { get; set; }
+        public bool AMOWRITE { get; set; }
+        public int PANEL_ID { get; set; }
     }
 }

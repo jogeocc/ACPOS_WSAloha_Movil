@@ -23,7 +23,14 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public string descripcion_corta { get; set; }
         public string descripcion_larga { get; set; }
 
-        public List<Item> items { get; set; } = new List<Item>();
+        public int panel_id { get; set; }
+        public bool UsePanels
+        {
+            get { return panel_id > 0; }
+        }
+
+        public List<Item> items
+        { get; set; } = new List<Item>();
     }
 
     public class Item
