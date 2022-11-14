@@ -59,7 +59,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public double Price { get; set; }
         public string DisplayPrice { get; set; }
         public bool Ordered { get; set; }
-        public int Ordered1 { get; set; }
+        public int OrderMode { get; set; }
         public int NivelMod { get; set; }
         public string SpecialMessage { get; set; } = "";
         public List<Item> Mods { get; set; } = new List<Item>();

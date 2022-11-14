@@ -15,7 +15,7 @@ namespace AlohaWebServiceMobile.Utils
 {
     public class EstructurarData
     {
-        string pathALoha = @"D:\PROYECTOS\Aloha_mobile\SS_DATA\DATA";
+        string pathALoha = @"D:\PROYECTOS\Aloha_mobile\Archivos Aloha TGIF Uptown\DATA";
 
         private List<MNU> MenusDbfs = new List<MNU>();
         private List<SUB> SubMenusDBFS = new List<SUB>();
@@ -28,7 +28,7 @@ namespace AlohaWebServiceMobile.Utils
         private int BotonPlu = 999999;
         public EstructurarData()
         {
-            pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+            //pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
             //pathALoha = @"D:\PROYECTOS\Aloha_mobile\Data";
         }
 
@@ -132,7 +132,6 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     for (int i = 0; i < sub.items.Count; i++)
                     {
-
                         var item = sub.items[i];
                         item = RecursividadItems(item);
                     }
@@ -316,6 +315,7 @@ namespace AlohaWebServiceMobile.Utils
                     {
                         ID = odr.ID,
                         NAME = odr.NAME,
+                        INDICATOR = odr.INDICATOR,
                         ACTIVE = odr.ACTIVE == TipoLogicoALH.Y,
                         ALLITEMS = odr.ALLITEMS == TipoLogicoALH.Y,
                     });
@@ -458,6 +458,39 @@ namespace AlohaWebServiceMobile.Utils
             }
 
             return ListaPaneles;
+        }
+
+        public List<BTNMobile> ObtenerBotones()
+        {
+
+            List<BTNMobile> ListaPaneles = new List<BTNMobile>();
+            List<BTN> ListDBFS = new List<BTN>();
+
+            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
+            {
+                ListDBFS = new BTNServicio(contextoAlh).GetAll();
+            }
+            foreach (var Boton in ListDBFS)
+            {
+                ListaPaneles.Add(new BTNMobile()
+                {
+                    ALOHAMOBLE = Boton.ALOHAMOBLE,
+                    TEXT = Boton.TEXT,
+                    BKBLUE = Boton.BKBLUE,
+                    BKGREEN = Boton.BKGREEN,
+                    BKRED = Boton.BKRED,
+                    RED = Boton.RED,
+                    GREEN = Boton.GREEN,
+                    BLUE = Boton.BLUE,
+                    FUNC = Boton.FUNC,
+                    PARAMS = Boton.PARAMS,
+                    PANELID = Boton.PANELID,
+                    ID = Boton.ID
+                });
+            }
+
+            return ListaPaneles;
+
         }
 
         private string DecodeToASCII(string cadena)

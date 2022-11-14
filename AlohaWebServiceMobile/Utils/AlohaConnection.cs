@@ -865,7 +865,7 @@ namespace AlohaWebServiceMobile.Utils
                         item.NivelMod = ItemAbierto.GetLongVal("LEVEL");
                         int IsMessage = ItemAbierto.GetLongVal("TYPE");
                         item.Ordered = ItemAbierto.GetBoolVal("SELECTED") > 0;
-                        item.Ordered1 = ItemAbierto.GetLongVal("MODE");
+                        item.OrderMode = ItemAbierto.GetLongVal("MODE");
                         item.Modstring = ItemAbierto.GetStringVal("MOD_STRING");
 
                         if (IsMessage == 0)

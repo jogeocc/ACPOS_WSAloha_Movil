@@ -29,8 +29,8 @@ namespace AlohaWebServiceMobile.Models.Catalogos
             get { return panel_id > 0; }
         }
 
-        public List<Item> items
-        { get; set; } = new List<Item>();
+        public List<Item> items { get; set; } = new List<Item>();
+        public List<Item> Btns { get; set; } = new List<Item>();
     }
 
     public class Item
