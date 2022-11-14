@@ -98,7 +98,8 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("Btns")]
         public HttpResponseMessage Btns()
         {
-
+            var Paneles = App.Catalogos.ObtenerPaneles();
+            return Request.CreateResponse(HttpStatusCode.OK, Paneles, Configuration.Formatters.JsonFormatter);
         }
 
         //ACCIONES DE ALOHA CONNECTION

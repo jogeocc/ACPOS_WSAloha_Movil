@@ -436,9 +436,28 @@ namespace AlohaWebServiceMobile.Utils
             }
             return ListaVoids;
         }
-        public List<> ObtenerPaneles()
+        public List<PNLMobile> ObtenerPaneles()
         {
-            throw new NotImplementedException();
+            List<PNLMobile> ListaPaneles = new List<PNLMobile>();
+            List<PNL> ListDBFS = new List<PNL>();
+
+            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
+            {
+                ListDBFS = new PNLServicio(contextoAlh).GetAll();
+            }
+            foreach (var Panel in ListDBFS)
+            {
+                ListaPaneles.Add(new PNLMobile()
+                {
+                    NAME = Panel.NAME,
+                    ID = Panel.ID,
+                    QSTSMODE = Panel.QSTSMODE,
+                    TITLE = Panel.TITLE,
+                    ALOHAMOBLE = Panel.ALOHAMOBLE,
+                });
+            }
+
+            return ListaPaneles;
         }
 
         private string DecodeToASCII(string cadena)
