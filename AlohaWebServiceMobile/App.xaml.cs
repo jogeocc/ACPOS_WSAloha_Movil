@@ -88,6 +88,7 @@ namespace AlohaWebServiceMobile
 
             string url_base = String.Format(appConfig.URL_BASE, appConfig.IP, appConfig.PORT);
             HttpSelfHostConfiguration config_server = new HttpSelfHostConfiguration(url_base);
+            config_server.MaxReceivedMessageSize = 2147483647;
             config_server.MapHttpAttributeRoutes();
             var server = new HttpSelfHostServer(config_server);
             var task = server.OpenAsync();

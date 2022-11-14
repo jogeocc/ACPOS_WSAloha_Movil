@@ -2,6 +2,7 @@
 using AlohaLibrary.Enums;
 using AlohaLibrary.Implementaciones;
 using AlohaLibrary.Modelos;
+using AlohaWebServiceMobile.Enums;
 using AlohaWebServiceMobile.Models.Catalogos;
 using Design_Library;
 using System;
@@ -22,6 +23,8 @@ namespace AlohaWebServiceMobile.Utils
         private List<ITM> ItemsDbfs = new List<ITM>();
         private List<MOD> ModsDbfs = new List<MOD>();
         private List<MODEXT> ModsDbfs15 = new List<MODEXT>();
+        private List<BTN> BtnsDbfs = new List<BTN>();
+        private List<PNL> PNLSDbfs = new List<PNL>();
 
         private List<QTYPRICE> Qtyprices = new List<QTYPRICE>();
 
@@ -44,6 +47,10 @@ namespace AlohaWebServiceMobile.Utils
                 SubMenusDBFS = new SUBServicio(contextoAlh).GetAll();
                 ItemsDbfs = new ITMServicio(contextoAlh).GetAll();
                 ModsDbfs = new MODServicio(contextoAlh).GetAll();
+                BtnsDbfs = new BTNServicio(contextoAlh).GetAll();
+                PNLSDbfs = new PNLServicio(contextoAlh).GetAll();
+
+
                 if (File.Exists(pathALoha + @"\MODEXT.dbf"))
                 {
                     ModsDbfs15 = new MODEXTServicio(contextoAlh).GetAll();
@@ -130,11 +137,49 @@ namespace AlohaWebServiceMobile.Utils
             {
                 foreach (var sub in menu.subMenus)
                 {
-                    for (int i = 0; i < sub.items.Count; i++)
+                    if (!sub.UsePanels)
                     {
-                        var item = sub.items[i];
-                        item = RecursividadItems(item);
+                        for (int i = 0; i < sub.items.Count; i++)
+                        {
+                            Item item = sub.items[i];
+                            item = RecursividadItems(item);
+                        }
                     }
+                    else
+                    {
+                        List<BTN> Btns = BtnsDbfs.FindAll(B => B.PANELID == sub.panel_id && (B.FUNC == (int)AlohaPanelCodes.BOTON_PANEL || B.FUNC == (int)AlohaPanelCodes.BOTON_ITEM));
+                        foreach (var btn in Btns)
+                        {
+                            if (btn.FUNC == (int)AlohaPanelCodes.BOTON_PANEL)
+                            {
+
+                                Item Boton_panel = new Item();
+                                int.TryParse(btn.PARAMS, out int IdPanel);
+                                Boton_panel.id_panel = IdPanel;
+                                Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+                                Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+
+                                sub.Btns.Add(Boton_panel);
+                            }
+                            else
+                            {
+                                Item Boton_item = new Item();
+
+                                List<string> Params = btn.PARAMS.Split(',').ToList();
+                                int IdProducto = int.Parse(Params[0]);
+                                double PrecioBoton = double.Parse(Params[1]);
+                                int Desconocido = int.Parse(Params[2]);
+                                int Metodo = int.Parse(Params[3]);
+
+
+                                Boton_item.id = IdProducto;
+                                Boton_item = RecursividadItems(Boton_item);
+                                sub.Btns.Add(Boton_item);
+
+                            }
+                        }
+                    }
+
                 }
             }
 

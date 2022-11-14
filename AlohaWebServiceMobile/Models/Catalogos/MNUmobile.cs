@@ -48,6 +48,10 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public bool is_cantidad { get; set; }
         public string unidad_medida { get; set; } = "";
         public int unidad_decimales { get; set; }
+
+        //CAMPOS PARA USO DE PANELES 
+        public int id_panel { get; set; }
+        public bool is_boton_panel { get { return id_panel > 0; } }
     }
 
     public class Mod
