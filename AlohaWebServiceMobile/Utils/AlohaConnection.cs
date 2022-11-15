@@ -266,13 +266,14 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponsePrinter PrintBluetooth(int idCheck)
+        public ResponsePrinter PrintBluetooth(int idCheck, int idMesa)
         {
             ResponsePrinter response = new ResponsePrinter();
             VerificarIber();
             Check cheque = RecuperarCheque(idCheck);
+            MesaEmpleado mesa = RecuperarMesa(idMesa);
 
-            DetallePedido detallePedido = GetDetallePedidoTicket(cheque);
+            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa);
 
             response.ticket_precuenta = new Ticket(@"Design\config-ticket.txt", detallePedido);
             response.mensaje = "OK";
@@ -813,6 +814,23 @@ namespace AlohaWebServiceMobile.Utils
             }
             return ListaMesas;
         }
+        private MesaEmpleado RecuperarMesa(int idMesa)
+        {
+            MesaEmpleado mesaEmpleado = new MesaEmpleado();
+
+            try
+            {
+                var mesa = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES, idMesa).First();
+                mesaEmpleado.Guests = mesa.GetLongVal("NUM_GUESTS");
+                mesaEmpleado.Name = mesa.GetStringVal("NAME");
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al recuperar mesa");
+            }
+
+            return mesaEmpleado;
+        }
 
         public ResponseAloha GetCheck(int idCheck)
         {
@@ -1063,16 +1081,16 @@ namespace AlohaWebServiceMobile.Utils
 
         }
 
-        private DetallePedido GetDetallePedidoTicket(Check check)
+        private DetallePedido GetDetallePedidoTicket(Check check, MesaEmpleado mesa)
         {
             DetallePedido detallePedido = new DetallePedido();
             try
             {
                 detallePedido.Fecha = DateTime.Now;
                 //TODO CAMBIAR POR VALORES REALES
-                detallePedido.Invitados = check.Guests;
+                detallePedido.Invitados = mesa.Guests;
                 detallePedido.NombreTerminal = "HARDCODEADO TERM DE PRUEBA";
-                detallePedido.Mesa = "HARDCODEADO MESA 1";
+                detallePedido.Mesa = mesa.Name;
                 detallePedido.Articulos = new List<Articulo>();
 
                 foreach (var item in check.Items)
@@ -1123,6 +1141,7 @@ namespace AlohaWebServiceMobile.Utils
             }
             return PosName;
         }
+
         //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
 
         private void LogoutInterno(int Idterm)

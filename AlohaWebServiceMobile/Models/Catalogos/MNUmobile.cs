@@ -52,6 +52,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         //CAMPOS PARA USO DE PANELES 
         public int id_panel { get; set; }
         public bool is_boton_panel { get { return id_panel > 0; } }
+        public SubMenu PanelTransicion { get; set; } = new SubMenu();
     }
 
     public class Mod

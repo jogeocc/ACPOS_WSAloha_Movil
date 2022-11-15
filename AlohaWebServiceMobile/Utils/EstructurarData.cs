@@ -16,7 +16,7 @@ namespace AlohaWebServiceMobile.Utils
 {
     public class EstructurarData
     {
-        string pathALoha = @"D:\PROYECTOS\Aloha_mobile\Archivos Aloha TGIF Uptown\DATA";
+        string pathALoha = @"D:\PROYECTOS\Aloha_mobile\SS_DATA\DATA";
 
         private List<MNU> MenusDbfs = new List<MNU>();
         private List<SUB> SubMenusDBFS = new List<SUB>();
@@ -158,8 +158,12 @@ namespace AlohaWebServiceMobile.Utils
                                 Boton_panel.id_panel = IdPanel;
                                 Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
                                 Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
-
-                                sub.Btns.Add(Boton_panel);
+                                IdsPaneles.Clear();
+                                Boton_panel = RecursividadPaneles(Boton_panel);
+                                if (Boton_panel != null)
+                                {
+                                    sub.Btns.Add(Boton_panel);
+                                }
                             }
                             else
                             {
@@ -173,23 +177,30 @@ namespace AlohaWebServiceMobile.Utils
 
 
                                 Boton_item.id = IdProducto;
+                                producto = IdProducto;
+                                profundidad = 0;
                                 Boton_item = RecursividadItems(Boton_item);
-                                sub.Btns.Add(Boton_item);
+                                if (Boton_item != null)
+                                {
+                                    sub.Btns.Add(Boton_item);
+                                }
 
                             }
                         }
                     }
-
                 }
             }
 
             return Menus;
         }
 
-
+        public int profundidad;
+        public int producto;
+        public List<int> IdsPaneles = new List<int>();
 
         public Item RecursividadItems(Item item)
         {
+            profundidad++;
             try
             {
                 if (ItemsDbfs.Any(I => I.ID == item.id))
@@ -327,6 +338,66 @@ namespace AlohaWebServiceMobile.Utils
             catch (Exception ex)
             {
 
+            }
+            return item;
+        }
+
+        public Item RecursividadPaneles(Item Panel)
+        {
+            Item item = new Item();
+            item.id_panel = Panel.id_panel;
+            item.descripcion_larga = Panel.descripcion_larga;
+            item.descripcion_corta = Panel.descripcion_corta;
+
+            item.PanelTransicion.descripcion_larga = Panel.descripcion_larga;
+            item.PanelTransicion.descripcion_corta = Panel.descripcion_corta;
+
+            if (IdsPaneles.Contains(Panel.id_panel))
+            {
+                return null;
+            }
+
+            IdsPaneles.Add(Panel.id_panel);
+
+            List<BTN> Btns = BtnsDbfs.FindAll(B => B.PANELID == Panel.id_panel && (B.FUNC == (int)AlohaPanelCodes.BOTON_PANEL || B.FUNC == (int)AlohaPanelCodes.BOTON_ITEM));
+
+            foreach (var btn in Btns)
+            {
+                if (btn.FUNC == (int)AlohaPanelCodes.BOTON_PANEL)
+                {
+
+
+
+                    Item Boton_panel = new Item();
+                    int.TryParse(btn.PARAMS, out int IdPanel);
+                    Boton_panel.id_panel = IdPanel;
+                    Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+                    Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+                    Boton_panel = RecursividadPaneles(Boton_panel);
+                    if (Boton_panel != null)
+                    {
+                        item.PanelTransicion.Btns.Add(Boton_panel);
+                    }
+                }
+                else
+                {
+                    Item Boton_item = new Item();
+                    List<string> Params = btn.PARAMS.Split(',').ToList();
+                    int IdProducto = int.Parse(Params[0]);
+                    double PrecioBoton = double.Parse(Params[1]);
+                    int Desconocido = int.Parse(Params[2]);
+                    int Metodo = int.Parse(Params[3]);
+
+
+                    Boton_item.id = IdProducto;
+                    producto = IdProducto;
+                    profundidad = 0;
+                    Boton_item = RecursividadItems(Boton_item);
+                    if (Boton_item != null)
+                    {
+                        item.PanelTransicion.Btns.Add(Boton_item);
+                    }
+                }
             }
             return item;
         }
