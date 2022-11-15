@@ -31,7 +31,7 @@ namespace AlohaWebServiceMobile.Utils
         private int BotonPlu = 999999;
         public EstructurarData()
         {
-            //pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+            pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
             //pathALoha = @"D:\PROYECTOS\Aloha_mobile\Data";
         }
 
