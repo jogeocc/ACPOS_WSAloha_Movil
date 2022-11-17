@@ -266,14 +266,14 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponsePrinter PrintBluetooth(int idCheck, int idMesa)
+        public ResponsePrinter PrintBluetooth(int idCheck, int idMesa, int idTerm)
         {
             ResponsePrinter response = new ResponsePrinter();
             VerificarIber();
             Check cheque = RecuperarCheque(idCheck);
             MesaEmpleado mesa = RecuperarMesa(idMesa);
 
-            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa);
+            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm);
 
             response.ticket_precuenta = new Ticket(@"Design\config-ticket.txt", detallePedido);
             response.mensaje = "OK";
@@ -1081,7 +1081,7 @@ namespace AlohaWebServiceMobile.Utils
 
         }
 
-        private DetallePedido GetDetallePedidoTicket(Check check, MesaEmpleado mesa)
+        private DetallePedido GetDetallePedidoTicket(Check check, MesaEmpleado mesa, int idTerm)
         {
             DetallePedido detallePedido = new DetallePedido();
             try
@@ -1089,7 +1089,7 @@ namespace AlohaWebServiceMobile.Utils
                 detallePedido.Fecha = DateTime.Now;
                 //TODO CAMBIAR POR VALORES REALES
                 detallePedido.Invitados = mesa.Guests;
-                detallePedido.NombreTerminal = "HARDCODEADO TERM DE PRUEBA";
+                detallePedido.NombreTerminal = GetPosName(idTerm);
                 detallePedido.Mesa = mesa.Name;
                 detallePedido.Articulos = new List<Articulo>();
 
@@ -1128,11 +1128,12 @@ namespace AlohaWebServiceMobile.Utils
             return detallePedido;
         }
 
-        private string GetPosName()
+        private string GetPosName(int idTerm)
         {
             string PosName = "";
             try
             {
+                var term = depot.FindObjectFromId((int)COMEnums.INTERNAL_TERMINALS, idTerm).First();
 
             }
             catch (Exception ex)
