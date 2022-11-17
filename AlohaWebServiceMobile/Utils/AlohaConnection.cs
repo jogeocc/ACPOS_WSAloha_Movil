@@ -425,10 +425,11 @@ namespace AlohaWebServiceMobile.Utils
                 int IdCheck = 1048579;
                 //nivel 0
                 int IdEntryBase = xFunction.BeginItem(idterm, IdCheck, 9104, "", 0);
+                var info = GetEntry(idterm);
                 //nivel 1
-                xFunction.ModItemEx(idterm, 16011, IdEntryBase, 2124, "", 111, 0);
+                xFunction.ModItemEx(idterm, IdEntryBase, 16011, 2124, "", 111, 0);
                 //nivel 1
-                xFunction.ModItemEx(idterm, 10007, IdEntryBase, 16001, "", 111, 0);
+                xFunction.ModItemEx(idterm, IdEntryBase, 10007, 16001, "", 111, 0);
                 //nivel 1
                 int IdNivel1 = xFunction.ModItemEx(idterm, IdEntryBase, 10001, 19004, "", 111, 0);
                 //nivel 2
@@ -449,6 +450,21 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.mensaje = $"Error al agregar item {(ErroresAloha.MensajeMobile(ex.Message))}";
             }
             return responseAloha;
+        }
+
+        public int GetEntry(int IdTerm)
+        {
+            int entry = 0;
+            try
+            {
+                var iber = depot.FindObjectFromId((int)COMEnums.INTERNAL_LOCALSTATE, IdTerm).First();
+
+            }
+            catch
+            {
+
+            }
+            return entry;
         }
 
         public ResponseAloha AddItem(RequestAddItem requestAddItem)
