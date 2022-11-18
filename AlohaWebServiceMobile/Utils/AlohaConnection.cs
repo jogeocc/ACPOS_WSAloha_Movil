@@ -372,13 +372,13 @@ namespace AlohaWebServiceMobile.Utils
                             }
                             else
                             {
-                                xFunction.ModItem(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdMod, "", mod.Amount, mod.ModCode);
+                                xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1],mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
                             }
                         }
                         else
                         {
                             EntrysLevels = new List<int>();
-                            EntrysLevels.Add(xFunction.ModItem(requestAddItem.IdTerm, IdEntryBase, mod.IdMod, "", mod.Amount, mod.ModCode));
+                            EntrysLevels.Add(xFunction.ModItemEx(requestAddItem.IdTerm, IdEntryBase,mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
                         }
                     }
                     #endregion
