@@ -32,7 +32,7 @@ namespace AlohaWebServiceMobile.Utils
         public EstructurarData()
         {
             pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
-            //pathALoha = @"D:\PROYECTOS\Aloha_mobile\Data";
+            //pathALoha = @"C:\BootDrv\SS_DATA\DATA";
         }
 
         #region OBTENER MENU
