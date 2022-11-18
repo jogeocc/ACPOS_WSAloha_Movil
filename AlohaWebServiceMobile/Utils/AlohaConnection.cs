@@ -266,14 +266,14 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponsePrinter PrintBluetooth(int idCheck, int idMesa)
+        public ResponsePrinter PrintBluetooth(int idCheck, int idMesa, int idTerm)
         {
             ResponsePrinter response = new ResponsePrinter();
             VerificarIber();
             Check cheque = RecuperarCheque(idCheck);
             MesaEmpleado mesa = RecuperarMesa(idMesa);
 
-            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa);
+            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm);
 
             response.ticket_precuenta = new Ticket(@"Design\config-ticket.txt", detallePedido);
             response.mensaje = "OK";
@@ -421,20 +421,22 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
-                int idterm = 3;
-                int IdCheck = 3145733;
+                int idterm = 4;
+                int IdCheck = 1048579;
                 //nivel 0
-                int IdEntryBase = xFunction.BeginItem(idterm, IdCheck, 9100, "", 0);
+                int IdEntryBase = xFunction.BeginItem(idterm, IdCheck, 9104, "", 0);
+                var info = GetEntry(idterm);
                 //nivel 1
-                int IdNivel1 = xFunction.ModItem(idterm, IdEntryBase, 19004, "", 111, 0);
+                xFunction.ModItemEx(idterm, IdEntryBase, 16011, 2124, "", 111, 0);
+                //nivel 1
+                xFunction.ModItemEx(idterm, IdEntryBase, 10007, 16001, "", 111, 0);
+                //nivel 1
+                int IdNivel1 = xFunction.ModItemEx(idterm, IdEntryBase, 10001, 19004, "", 111, 0);
                 //nivel 2
-                int IdNivel2 = xFunction.ModItem(idterm, IdNivel1, 2123, "", 222, 0);
+                int IdNivel2 = xFunction.ModItemEx(idterm, IdNivel1, 16011, 2123, "", 222, 0);
                 //nivel 3
-                int IdNivel3 = xFunction.ModItem(idterm, IdNivel2, 2059, "", 333, 0);
-                //nivel 1
-                xFunction.ModItem(idterm, IdEntryBase, 2124, "", 111, 0);
-                //nivel 1
-                xFunction.ModItem(idterm, IdEntryBase, 16001, "", 111, 0);
+                int IdNivel3 = xFunction.ModItemEx(idterm, IdNivel2, 16002, 2059, "", 333, 0);
+
                 //TRANSFERIR EL BUFFER DE MEMORIA AL POS PARA REFLEJAR PRODUCTO
                 xFunction.EndItem(idterm);
                 responseAloha.Estado = true;
@@ -448,6 +450,21 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.mensaje = $"Error al agregar item {(ErroresAloha.MensajeMobile(ex.Message))}";
             }
             return responseAloha;
+        }
+
+        public int GetEntry(int IdTerm)
+        {
+            int entry = 0;
+            try
+            {
+                var iber = depot.FindObjectFromId((int)COMEnums.INTERNAL_LOCALSTATE, IdTerm).First();
+
+            }
+            catch
+            {
+
+            }
+            return entry;
         }
 
         public ResponseAloha AddItem(RequestAddItem requestAddItem)
@@ -1081,7 +1098,7 @@ namespace AlohaWebServiceMobile.Utils
 
         }
 
-        private DetallePedido GetDetallePedidoTicket(Check check, MesaEmpleado mesa)
+        private DetallePedido GetDetallePedidoTicket(Check check, MesaEmpleado mesa, int idTerm)
         {
             DetallePedido detallePedido = new DetallePedido();
             try
@@ -1089,7 +1106,7 @@ namespace AlohaWebServiceMobile.Utils
                 detallePedido.Fecha = DateTime.Now;
                 //TODO CAMBIAR POR VALORES REALES
                 detallePedido.Invitados = mesa.Guests;
-                detallePedido.NombreTerminal = "HARDCODEADO TERM DE PRUEBA";
+                detallePedido.NombreTerminal = GetPosName(idTerm);
                 detallePedido.Mesa = mesa.Name;
                 detallePedido.Articulos = new List<Articulo>();
 
@@ -1128,11 +1145,12 @@ namespace AlohaWebServiceMobile.Utils
             return detallePedido;
         }
 
-        private string GetPosName()
+        private string GetPosName(int idTerm)
         {
             string PosName = "";
             try
             {
+                var term = depot.FindObjectFromId((int)COMEnums.INTERNAL_TERMINALS, idTerm).First();
 
             }
             catch (Exception ex)

@@ -16,6 +16,7 @@ namespace AlohaWebServiceMobile.Utils
 {
     public class EstructurarData
     {
+
         string pathALoha = @"D:\PROYECTOS\Aloha_mobile\SS_DATA\DATA";
 
         private List<MNU> MenusDbfs = new List<MNU>();
