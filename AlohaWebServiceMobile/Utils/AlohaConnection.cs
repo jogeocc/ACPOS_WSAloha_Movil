@@ -1104,7 +1104,6 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 detallePedido.Fecha = DateTime.Now;
-                //TODO CAMBIAR POR VALORES REALES
                 detallePedido.Invitados = mesa.Guests;
                 detallePedido.NombreTerminal = GetPosName(idTerm);
                 detallePedido.Mesa = mesa.Name;
