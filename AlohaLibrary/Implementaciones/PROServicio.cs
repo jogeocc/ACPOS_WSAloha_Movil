@@ -34,7 +34,6 @@ namespace AlohaLibrary.Implementaciones
                 promocion.ID = int.Parse(item["ID"].ToString());
                 promocion.KIND = int.Parse(item["KIND"].ToString());
 
-                //TODO TEMPORAL HASTA TENER TODAS LAS PROMOS
 
                 promocion.ACTIVE = item["ACTIVE"].ToString().ToUpper().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N;
                 bool success = DateTime.TryParse(item["STARTDATE"].ToString(), out DateTime fecha);

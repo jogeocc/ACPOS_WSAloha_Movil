@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlohaWebServiceMobile.Models.Catalogos
+namespace AlohaLibrary.Modelos
 {
-    public class ODRmobile
+    public class PNL
     {
         public int ID { get; set; }
+        public int QSTSMODE { get; set; }
         public string NAME { get; set; }
-        public string INDICATOR { get; set; }
-        public bool ACTIVE { get; set; }
-        public bool ALLITEMS { get; set; }
+        public string TITLE { get; set; }
+        public bool ALOHAMOBLE { get; set; }
     }
 }

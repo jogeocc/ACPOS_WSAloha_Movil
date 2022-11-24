@@ -86,6 +86,22 @@ namespace AlohaWebServiceMobile.Controllers
             var obj = JsonConvert.DeserializeObject(Design);
             return Request.CreateResponse(HttpStatusCode.OK, obj, Configuration.Formatters.JsonFormatter);
         }
+
+        [HttpGet]
+        [Route("Panels")]
+        public HttpResponseMessage Panels()
+        {
+            var Paneles = App.Catalogos.ObtenerPaneles();
+            return Request.CreateResponse(HttpStatusCode.OK, Paneles, Configuration.Formatters.JsonFormatter);
+        }
+        [HttpGet]
+        [Route("Btns")]
+        public HttpResponseMessage Btns()
+        {
+            var Paneles = App.Catalogos.ObtenerBotones();
+            return Request.CreateResponse(HttpStatusCode.OK, Paneles, Configuration.Formatters.JsonFormatter);
+        }
+
         //ACCIONES DE ALOHA CONNECTION
         [HttpPost]
         [Route("clockin")]
@@ -223,7 +239,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("PrintBluetooth")]
         public HttpResponseMessage PrintBluetooth(RequestPrintBluetooth requestPrintBluetooth)
         {
-            var response = App.AlohaConnection.PrintBluetooth(requestPrintBluetooth.IdCheck);
+            var response = App.AlohaConnection.PrintBluetooth(requestPrintBluetooth.IdCheck, requestPrintBluetooth.IdTable, requestPrintBluetooth.IdTerm);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
         //CONTROLADORES PARA APLICACION DE ESCRITORIO

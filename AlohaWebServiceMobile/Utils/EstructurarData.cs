@@ -2,6 +2,7 @@
 using AlohaLibrary.Enums;
 using AlohaLibrary.Implementaciones;
 using AlohaLibrary.Modelos;
+using AlohaWebServiceMobile.Enums;
 using AlohaWebServiceMobile.Models.Catalogos;
 using Design_Library;
 using System;
@@ -15,13 +16,16 @@ namespace AlohaWebServiceMobile.Utils
 {
     public class EstructurarData
     {
-        string pathALoha = @"D:\PROYECTOS\Aloha_mobile\VERSION 15\DATA";
+
+        string pathALoha = @"D:\PROYECTOS\Aloha_mobile\SS_DATA\DATA";
 
         private List<MNU> MenusDbfs = new List<MNU>();
         private List<SUB> SubMenusDBFS = new List<SUB>();
         private List<ITM> ItemsDbfs = new List<ITM>();
         private List<MOD> ModsDbfs = new List<MOD>();
         private List<MODEXT> ModsDbfs15 = new List<MODEXT>();
+        private List<BTN> BtnsDbfs = new List<BTN>();
+        private List<PNL> PNLSDbfs = new List<PNL>();
 
         private List<QTYPRICE> Qtyprices = new List<QTYPRICE>();
 
@@ -29,7 +33,7 @@ namespace AlohaWebServiceMobile.Utils
         public EstructurarData()
         {
             pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
-            //pathALoha = @"D:\PROYECTOS\Aloha_mobile\Data";
+            //pathALoha = @"C:\BootDrv\SS_DATA\DATA";
         }
 
         #region OBTENER MENU
@@ -44,6 +48,10 @@ namespace AlohaWebServiceMobile.Utils
                 SubMenusDBFS = new SUBServicio(contextoAlh).GetAll();
                 ItemsDbfs = new ITMServicio(contextoAlh).GetAll();
                 ModsDbfs = new MODServicio(contextoAlh).GetAll();
+                BtnsDbfs = new BTNServicio(contextoAlh).GetAll();
+                PNLSDbfs = new PNLServicio(contextoAlh).GetAll();
+
+
                 if (File.Exists(pathALoha + @"\MODEXT.dbf"))
                 {
                     ModsDbfs15 = new MODEXTServicio(contextoAlh).GetAll();
@@ -92,6 +100,7 @@ namespace AlohaWebServiceMobile.Utils
                         var SubMenu = SubMenusDBFS.First(S => S.ID == sub.id);
                         sub.descripcion_corta = SubMenu.SHORTNAME;
                         sub.descripcion_larga = SubMenu.LONGNAME;
+                        sub.panel_id = SubMenu.PANEL_ID;
                         #region iterar propiedades de submenu para obtener los items
                         var Props = SubMenu.GetType().GetProperties().ToList();
                         string AuxPrice = "PRICE";
@@ -129,11 +138,56 @@ namespace AlohaWebServiceMobile.Utils
             {
                 foreach (var sub in menu.subMenus)
                 {
-                    for (int i = 0; i < sub.items.Count; i++)
+                    if (!sub.UsePanels)
                     {
+                        for (int i = 0; i < sub.items.Count; i++)
+                        {
+                            Item item = sub.items[i];
+                            item = RecursividadItems(item);
+                        }
+                    }
+                    else
+                    {
+                        List<BTN> Btns = BtnsDbfs.FindAll(B => B.PANELID == sub.panel_id && (B.FUNC == (int)AlohaPanelCodes.BOTON_PANEL || B.FUNC == (int)AlohaPanelCodes.BOTON_ITEM));
+                        foreach (var btn in Btns)
+                        {
+                            if (btn.FUNC == (int)AlohaPanelCodes.BOTON_PANEL)
+                            {
 
-                        var item = sub.items[i];
-                        item = RecursividadItems(item);
+                                Item Boton_panel = new Item();
+                                int.TryParse(btn.PARAMS, out int IdPanel);
+                                Boton_panel.id_panel = IdPanel;
+                                Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+                                Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+                                IdsPaneles.Clear();
+                                Boton_panel = RecursividadPaneles(Boton_panel);
+                                if (Boton_panel != null)
+                                {
+                                    sub.Btns.Add(Boton_panel);
+                                }
+                            }
+                            else
+                            {
+                                Item Boton_item = new Item();
+
+                                List<string> Params = btn.PARAMS.Split(',').ToList();
+                                int IdProducto = int.Parse(Params[0]);
+                                double PrecioBoton = double.Parse(Params[1]);
+                                int Desconocido = int.Parse(Params[2]);
+                                int Metodo = int.Parse(Params[3]);
+
+
+                                Boton_item.id = IdProducto;
+                                producto = IdProducto;
+                                profundidad = 0;
+                                Boton_item = RecursividadItems(Boton_item);
+                                if (Boton_item != null)
+                                {
+                                    sub.Btns.Add(Boton_item);
+                                }
+
+                            }
+                        }
                     }
                 }
             }
@@ -141,8 +195,13 @@ namespace AlohaWebServiceMobile.Utils
             return Menus;
         }
 
+        public int profundidad;
+        public int producto;
+        public List<int> IdsPaneles = new List<int>();
+
         public Item RecursividadItems(Item item)
         {
+            profundidad++;
             try
             {
                 if (ItemsDbfs.Any(I => I.ID == item.id))
@@ -284,6 +343,66 @@ namespace AlohaWebServiceMobile.Utils
             return item;
         }
 
+        public Item RecursividadPaneles(Item Panel)
+        {
+            Item item = new Item();
+            item.id_panel = Panel.id_panel;
+            item.descripcion_larga = Panel.descripcion_larga;
+            item.descripcion_corta = Panel.descripcion_corta;
+
+            item.PanelTransicion.descripcion_larga = Panel.descripcion_larga;
+            item.PanelTransicion.descripcion_corta = Panel.descripcion_corta;
+
+            if (IdsPaneles.Contains(Panel.id_panel))
+            {
+                return null;
+            }
+
+            IdsPaneles.Add(Panel.id_panel);
+
+            List<BTN> Btns = BtnsDbfs.FindAll(B => B.PANELID == Panel.id_panel && (B.FUNC == (int)AlohaPanelCodes.BOTON_PANEL || B.FUNC == (int)AlohaPanelCodes.BOTON_ITEM));
+
+            foreach (var btn in Btns)
+            {
+                if (btn.FUNC == (int)AlohaPanelCodes.BOTON_PANEL)
+                {
+
+
+
+                    Item Boton_panel = new Item();
+                    int.TryParse(btn.PARAMS, out int IdPanel);
+                    Boton_panel.id_panel = IdPanel;
+                    Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+                    Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+                    Boton_panel = RecursividadPaneles(Boton_panel);
+                    if (Boton_panel != null)
+                    {
+                        item.PanelTransicion.Btns.Add(Boton_panel);
+                    }
+                }
+                else
+                {
+                    Item Boton_item = new Item();
+                    List<string> Params = btn.PARAMS.Split(',').ToList();
+                    int IdProducto = int.Parse(Params[0]);
+                    double PrecioBoton = double.Parse(Params[1]);
+                    int Desconocido = int.Parse(Params[2]);
+                    int Metodo = int.Parse(Params[3]);
+
+
+                    Boton_item.id = IdProducto;
+                    producto = IdProducto;
+                    profundidad = 0;
+                    Boton_item = RecursividadItems(Boton_item);
+                    if (Boton_item != null)
+                    {
+                        item.PanelTransicion.Btns.Add(Boton_item);
+                    }
+                }
+            }
+            return item;
+        }
+
         private List<MODEXT> GetMods(int IdGrupo)
         {
             List<MODEXT> mods = new List<MODEXT>();
@@ -306,14 +425,16 @@ namespace AlohaWebServiceMobile.Utils
 
             using (AplicacionBdContextoALH contextoALH = new AplicacionBdContextoALH(pathALoha))
             {
-                var ordenALHs = new OrdenServicioALH(contextoALH).GetAll();
+                List<OrdenALH> ordenALHs = new OrdenServicioALH(contextoALH).GetAll();
                 foreach (var odr in ordenALHs)
                 {
                     OrderModMobile.Add(new ODRmobile
                     {
                         ID = odr.ID,
                         NAME = odr.NAME,
-                        ACTIVE = odr.ACTIVE == TipoLogicoALH.Y
+                        INDICATOR = odr.INDICATOR,
+                        ACTIVE = odr.ACTIVE == TipoLogicoALH.Y,
+                        ALLITEMS = odr.ALLITEMS == TipoLogicoALH.Y,
                     });
                 }
             }
@@ -431,6 +552,62 @@ namespace AlohaWebServiceMobile.Utils
                 });
             }
             return ListaVoids;
+        }
+        public List<PNLMobile> ObtenerPaneles()
+        {
+            List<PNLMobile> ListaPaneles = new List<PNLMobile>();
+            List<PNL> ListDBFS = new List<PNL>();
+
+            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
+            {
+                ListDBFS = new PNLServicio(contextoAlh).GetAll();
+            }
+            foreach (var Panel in ListDBFS)
+            {
+                ListaPaneles.Add(new PNLMobile()
+                {
+                    NAME = Panel.NAME,
+                    ID = Panel.ID,
+                    QSTSMODE = Panel.QSTSMODE,
+                    TITLE = Panel.TITLE,
+                    ALOHAMOBLE = Panel.ALOHAMOBLE,
+                });
+            }
+
+            return ListaPaneles;
+        }
+
+        public List<BTNMobile> ObtenerBotones()
+        {
+
+            List<BTNMobile> ListaPaneles = new List<BTNMobile>();
+            List<BTN> ListDBFS = new List<BTN>();
+
+            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
+            {
+                ListDBFS = new BTNServicio(contextoAlh).GetAll();
+            }
+            foreach (var Boton in ListDBFS)
+            {
+                ListaPaneles.Add(new BTNMobile()
+                {
+                    ALOHAMOBLE = Boton.ALOHAMOBLE,
+                    TEXT = Boton.TEXT,
+                    BKBLUE = Boton.BKBLUE,
+                    BKGREEN = Boton.BKGREEN,
+                    BKRED = Boton.BKRED,
+                    RED = Boton.RED,
+                    GREEN = Boton.GREEN,
+                    BLUE = Boton.BLUE,
+                    FUNC = Boton.FUNC,
+                    PARAMS = Boton.PARAMS,
+                    PANELID = Boton.PANELID,
+                    ID = Boton.ID
+                });
+            }
+
+            return ListaPaneles;
+
         }
 
         private string DecodeToASCII(string cadena)

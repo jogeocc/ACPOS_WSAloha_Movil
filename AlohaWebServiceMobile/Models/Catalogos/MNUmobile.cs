@@ -23,7 +23,14 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public string descripcion_corta { get; set; }
         public string descripcion_larga { get; set; }
 
+        public int panel_id { get; set; }
+        public bool UsePanels
+        {
+            get { return panel_id > 0; }
+        }
+
         public List<Item> items { get; set; } = new List<Item>();
+        public List<Item> Btns { get; set; } = new List<Item>();
     }
 
     public class Item
@@ -41,6 +48,11 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public bool is_cantidad { get; set; }
         public string unidad_medida { get; set; } = "";
         public int unidad_decimales { get; set; }
+
+        //CAMPOS PARA USO DE PANELES 
+        public int id_panel { get; set; }
+        public bool is_boton_panel { get { return id_panel > 0; } }
+        public SubMenu PanelTransicion { get; set; } = new SubMenu();
     }
 
     public class Mod

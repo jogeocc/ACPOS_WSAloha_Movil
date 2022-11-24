@@ -46,6 +46,7 @@
     <Compile Include="Enums\TipoLogicoALH.cs" />
     <Compile Include="Helpers\DirectoriosAloha.cs" />
     <Compile Include="Implementaciones\ACCServicio.cs" />
+    <Compile Include="Implementaciones\BTNServicio.cs" />
     <Compile Include="Implementaciones\CITServicio.cs" />
     <Compile Include="Implementaciones\GCHKINFOServicio.cs" />
     <Compile Include="Implementaciones\JOBServicio.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Implementaciones\MODCODEServicio.cs" />
     <Compile Include="Implementaciones\MODEXTServicio.cs" />
     <Compile Include="Implementaciones\MODServicio.cs" />
+    <Compile Include="Implementaciones\PNLServicio.cs" />
     <Compile Include="Implementaciones\PRDServicio.cs" />
     <Compile Include="Implementaciones\PRLServicio.cs" />
     <Compile Include="Implementaciones\PROServicio.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Infraestructura\IBdContextoALH.cs" />
     <Compile Include="Infraestructura\IServicioBaseALH.cs" />
     <Compile Include="Interfaces\IACC.cs" />
+    <Compile Include="Interfaces\IBTN.cs" />
     <Compile Include="Interfaces\ICATServicio.cs" />
     <Compile Include="Interfaces\ICIT.cs" />
     <Compile Include="Interfaces\IGCHKINFOServicio.cs" />
@@ -90,6 +93,7 @@
     <Compile Include="Interfaces\IMOD.cs" />
     <Compile Include="Interfaces\IMODCODE.cs" />
     <Compile Include="Interfaces\IMODEXT.cs" />
+    <Compile Include="Interfaces\IPNL.cs" />
     <Compile Include="Interfaces\IPRDServicio.cs" />
     <Compile Include="Interfaces\IPRL.cs" />
     <Compile Include="Interfaces\IPROServicio.cs" />
@@ -115,6 +119,7 @@
     <Compile Include="ModelosPersonalizados\SaleDiscount.cs" />
     <Compile Include="ModelosPersonalizados\Tender.cs" />
     <Compile Include="Modelos\ACC.cs" />
+    <Compile Include="Modelos\BTN.cs" />
     <Compile Include="Modelos\CAT.cs" />
     <Compile Include="Modelos\CIT.cs" />
     <Compile Include="Modelos\GCHKINFO.cs" />
@@ -124,6 +129,7 @@
     <Compile Include="Modelos\MOD.cs" />
     <Compile Include="Modelos\MODCODE.cs" />
     <Compile Include="Modelos\MODEXT.cs" />
+    <Compile Include="Modelos\PNL.cs" />
     <Compile Include="Modelos\PRD.cs" />
     <Compile Include="Modelos\PRL.cs" />
     <Compile Include="Modelos\PRO.cs" />

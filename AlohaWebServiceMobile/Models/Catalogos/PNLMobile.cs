@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace AlohaWebServiceMobile.Models.Catalogos
 {
-    public class ODRmobile
+    public class PNLMobile
     {
         public int ID { get; set; }
+        public int QSTSMODE { get; set; }
         public string NAME { get; set; }
-        public string INDICATOR { get; set; }
-        public bool ACTIVE { get; set; }
-        public bool ALLITEMS { get; set; }
+        public string TITLE { get; set; }
+        public bool ALOHAMOBLE { get; set; }
     }
 }

@@ -228,6 +228,10 @@ namespace AlohaLibrary.Implementaciones
                     PRICELVL46 = int.Parse(item["PRICELVL46"].ToString()),
                     PRICELVL47 = int.Parse(item["PRICELVL47"].ToString()),
                     PRICELVL48 = int.Parse(item["PRICELVL48"].ToString()),
+
+                    //PANELES, SI EL VALOR AQUI ES DIFERENTE A CERO SIGNIFICA QUE SE USAN PANELES
+
+                    PANEL_ID = int.Parse(item["PANEL_ID"].ToString()),
                 });
             }
 

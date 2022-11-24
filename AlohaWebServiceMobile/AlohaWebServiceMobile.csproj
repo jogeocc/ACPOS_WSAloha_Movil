@@ -116,6 +116,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CodigosErrorAloha\ErroresAloha.cs" />
+    <Compile Include="Enums\AlohaPanelCodes.cs" />
     <Compile Include="EntityFrameWork\Context\ApplicationDbContext.cs" />
     <Compile Include="EntityFrameWork\Enums\TipoRespuesta.cs" />
     <Compile Include="EntityFrameWork\Implementaciones\Mapeo_pagoServicio.cs" />
@@ -158,12 +159,14 @@
     <Compile Include="Models\Aloha\RequestOrderMode.cs" />
     <Compile Include="Models\Aloha\RequestPrint.cs" />
     <Compile Include="Models\Aloha\ResponseAloha.cs" />
+    <Compile Include="Models\Catalogos\BTNMobile.cs" />
     <Compile Include="Models\Catalogos\ITMmobile.cs" />
     <Compile Include="Models\Catalogos\JOBmobile.cs" />
     <Compile Include="Models\Catalogos\MNUmobile.cs" />
     <Compile Include="Models\Catalogos\MODCODEmobile.cs" />
     <Compile Include="Models\Catalogos\MODmobile.cs" />
     <Compile Include="Models\Catalogos\ODRmobile.cs" />
+    <Compile Include="Models\Catalogos\PNLMobile.cs" />
     <Compile Include="Models\Catalogos\PRTMobile.cs" />
     <Compile Include="Models\Catalogos\SUBmobile.cs" />
     <Compile Include="Models\Catalogos\TDRmobile.cs" />

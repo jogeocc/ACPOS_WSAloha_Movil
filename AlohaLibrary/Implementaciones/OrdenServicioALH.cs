@@ -22,7 +22,7 @@ namespace AlohaLibrary.Implementaciones
         {
             List<OrdenALH> ordenes = new List<OrdenALH>();
 
-            string query = $"SELECT ID, NAME, ACTIVE FROM ODR";
+            string query = $"SELECT ID, NAME, ACTIVE, ALLITEMS, [INDICATOR] FROM ODR";
 
             DataSet ds = new DataSet();
             EjecutarConsulta(query).Fill(ds, "ODR");
@@ -34,10 +34,14 @@ namespace AlohaLibrary.Implementaciones
                 {
                     ID = int.Parse(item["ID"].ToString()),
                     NAME = item["NAME"].ToString(),
+                    INDICATOR = item["INDICATOR"].ToString(),
                     ACTIVE = item["ACTIVE"].ToString().ToUpper().Equals("Y")
                             ? TipoLogicoALH.Y
+                            : TipoLogicoALH.N,
+                    ALLITEMS = item["ALLITEMS"].ToString().ToUpper().Equals("Y")
+                            ? TipoLogicoALH.Y
                             : TipoLogicoALH.N
-            });
+                });
             }
 
             return ordenes;

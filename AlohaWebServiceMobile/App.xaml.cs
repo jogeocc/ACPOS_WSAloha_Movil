@@ -22,7 +22,7 @@ namespace AlohaWebServiceMobile
 
     public partial class App : Application
     {
-        public static string Version = "Versión 4";
+        public static string Version = "Versión 5";
         public static readonly ILog logger = LogManager.GetLogger("Aloha_vapiano");
         public bool iniciar = false;
         public bool IsError = false;
@@ -90,6 +90,7 @@ namespace AlohaWebServiceMobile
 
             string url_base = String.Format(appConfig.URL_BASE, appConfig.IP, appConfig.PORT);
             HttpSelfHostConfiguration config_server = new HttpSelfHostConfiguration(url_base);
+            config_server.MaxReceivedMessageSize = 2147483647;
             config_server.MapHttpAttributeRoutes();
             var server = new HttpSelfHostServer(config_server);
             var task = server.OpenAsync();
