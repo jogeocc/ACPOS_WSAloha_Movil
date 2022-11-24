@@ -2,6 +2,8 @@
 using AlohaLibrary.Enums;
 using AlohaLibrary.Implementaciones;
 using AlohaLibrary.Modelos;
+using AlohaWebServiceMobile.EntityFrameWork.Context;
+using AlohaWebServiceMobile.EntityFrameWork.Models;
 using AlohaWebServiceMobile.Enums;
 using AlohaWebServiceMobile.Models.Catalogos;
 using Design_Library;
@@ -194,6 +196,8 @@ namespace AlohaWebServiceMobile.Utils
 
             return Menus;
         }
+
+
 
         public int profundidad;
         public int producto;
@@ -642,6 +646,17 @@ namespace AlohaWebServiceMobile.Utils
             return DesignJson;
         }
 
+        public List<Mapeo_pagos> obtenerCodigosAlohaSmart()
+        {
+            List<Mapeo_pagos> MapeoPagosList = new List<Mapeo_pagos>();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                MapeoPagosList = db.Mapeo_Pagos.ToList();
+            }
+
+
+            return MapeoPagosList;
+        }
 
     }
 }

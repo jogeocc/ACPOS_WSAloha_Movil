@@ -101,6 +101,13 @@ namespace AlohaWebServiceMobile.Controllers
             var Paneles = App.Catalogos.ObtenerBotones();
             return Request.CreateResponse(HttpStatusCode.OK, Paneles, Configuration.Formatters.JsonFormatter);
         }
+        [HttpGet]
+        [Route("SMP")]
+        public HttpResponseMessage SMP()
+        {
+            var SmartAlohaCodigos = App.Catalogos.obtenerCodigosAlohaSmart();
+            return Request.CreateResponse(HttpStatusCode.OK, SmartAlohaCodigos, Configuration.Formatters.JsonFormatter);
+        }
 
         //ACCIONES DE ALOHA CONNECTION
         [HttpPost]
