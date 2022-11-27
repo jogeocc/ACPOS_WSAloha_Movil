@@ -275,5 +275,17 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
+
+        /// <summary>
+        /// Eods this instance.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("EOD")]
+        public HttpResponseMessage EOD()
+        {
+            App.AlohaConnection.ProcesarEOD();
+            return Request.CreateResponse(HttpStatusCode.OK, $"EOD detectado", Configuration.Formatters.JsonFormatter);
+        }
     }
 }

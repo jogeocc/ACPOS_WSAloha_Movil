@@ -309,6 +309,8 @@ namespace AlohaWebServiceMobile.Utils
             return response;
         }
 
+
+
         public ResponseAloha ClockOut(int IdTerm, double tips, double DeclaredCash)
         {
             ResponseAloha response = new ResponseAloha();
@@ -368,17 +370,17 @@ namespace AlohaWebServiceMobile.Utils
                             }
                             else if (mod.LevelMode == modSiguientes.LevelMode)
                             {
-                                xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1],mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
+                                xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
                             }
                             else
                             {
-                                xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1],mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
+                                xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
                             }
                         }
                         else
                         {
                             EntrysLevels = new List<int>();
-                            EntrysLevels.Add(xFunction.ModItemEx(requestAddItem.IdTerm, IdEntryBase,mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
+                            EntrysLevels.Add(xFunction.ModItemEx(requestAddItem.IdTerm, IdEntryBase, mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
                         }
                     }
                     #endregion
@@ -661,6 +663,18 @@ namespace AlohaWebServiceMobile.Utils
             }
             App.IsBusy = false;
             return responseAloha;
+        }
+
+        public void ProcesarEOD()
+        {
+            try
+            {
+                App.bdInterna.users.Clear();
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al liberar empleados del sistema", ex);
+            }
         }
 
 
