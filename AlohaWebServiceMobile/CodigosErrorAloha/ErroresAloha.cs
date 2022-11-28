@@ -64,7 +64,7 @@ namespace AlohaWebServiceMobile.CodigosErrorAloha
             {"0xC0068034","Empleado no puede pagar en efectivo" },
             {"0xC0068035","Cheque cuenta con items perdidos de las categorias requeridas" },
             {"0xC0068036","Cheque tiene pagos pendientes" },
-            {"0xC0068037","El cheque esta completo" },
+            {"0xC0068037","El cheque esta lleno" },
             {"0xC0068038","No podra ser posible imprimir el certificado de regalo en el back office" },
             {"0xC0068039","Demasiadas cuentas en la mesa" },
             {"0xC006803A","Entry ya esta seleccionado" },
