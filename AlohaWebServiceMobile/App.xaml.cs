@@ -96,6 +96,7 @@ namespace AlohaWebServiceMobile
             var task = server.OpenAsync();
             task.Wait();
         }
+
         private void CargarInfoAlohaIni()
         {
             int.TryParse(iniAloha.Read("NUMEMPDIGITS", "Ibertech"), out int NumMinEmp);
