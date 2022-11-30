@@ -670,11 +670,7 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 App.logger.Info($"LIMPIANDO A TODOS LOS USUARIOS DEL SISTEMA");
-
-                foreach(User user in App.bdInterna.users)
-                {
-                    App.bdInterna.users.Remove(user);
-                }
+                App.bdInterna.users.Clear();
             }
             catch (Exception ex)
             {
