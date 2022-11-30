@@ -42,5 +42,10 @@ namespace AlohaWebServiceMobile.Models.Transacciones
             App.funcionesArchivo.DeleteTrans(item as User);
 
         }
+        public new void Clear()
+        {
+            base.Clear();
+            App.funcionesArchivo.WriteTrans("");
+        }
     }
 }

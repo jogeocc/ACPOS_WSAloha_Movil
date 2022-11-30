@@ -70,6 +70,8 @@ namespace AlohaWebServiceMobile.Utils
             return Users;
         }
 
+
+
         public void WriteTrans(string json)
         {
             if (File.Exists(NombreArchivo))
