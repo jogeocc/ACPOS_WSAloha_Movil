@@ -366,7 +366,7 @@ namespace AlohaWebServiceMobile.Utils
                         {
                             if (mod.LevelMode < modSiguientes.LevelMode)
                             {
-                                EntrysLevels.Add(xFunction.ModItem(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdMod, "", mod.Amount, mod.ModCode));
+                                EntrysLevels.Add(xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1],mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
                             }
                             else if (mod.LevelMode == modSiguientes.LevelMode)
                             {
