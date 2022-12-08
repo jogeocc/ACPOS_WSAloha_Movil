@@ -42,6 +42,20 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public int submenu_precio_metodo { get; set; }
         public int submenu_precio_nivel { get; set; }
         public decimal item_precio { get; set; }
+        public string item_precio_str
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(item_precio.ToString()))
+                {
+                    return "0.00";
+                }
+                else
+                {
+                    return item_precio.ToString();
+                }
+            }
+        }
         public int item_precio_ID { get; set; }
         public List<Mod> mods { get; set; } = new List<Mod>();
         //13/09/2022 CAMPOS EXTRAS PARA IDENTIFICAR LOS RPODUCTOS DE TIPO KILOS
