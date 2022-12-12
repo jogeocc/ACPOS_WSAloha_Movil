@@ -284,6 +284,14 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
+        [HttpGet]
+        [Route("recuperarPagoPendiente")]
+        public HttpResponseMessage RecuperarPagoPendiente(RequestPagoPendiente requestPagoPendiente)
+        {
+            var response = App.AlohaConnection.RecuperarPagoPendiente();
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
         /// <summary>
         /// Eods this instance.
         /// </summary>
