@@ -2,6 +2,7 @@
 using AlohaWebServiceMobile.CodigosErrorAloha;
 using AlohaWebServiceMobile.Controllers;
 using AlohaWebServiceMobile.Enums;
+using AlohaWebServiceMobile.Models;
 using AlohaWebServiceMobile.Models.Aloha;
 using AlohaWebServiceMobile.Models.Aloha.BlueTooth;
 using AlohaWebServiceMobile.Models.Aloha.Desktop;
@@ -366,7 +367,7 @@ namespace AlohaWebServiceMobile.Utils
                         {
                             if (mod.LevelMode < modSiguientes.LevelMode)
                             {
-                                EntrysLevels.Add(xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1],mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
+                                EntrysLevels.Add(xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
                             }
                             else if (mod.LevelMode == modSiguientes.LevelMode)
                             {
@@ -1247,6 +1248,33 @@ namespace AlohaWebServiceMobile.Utils
             }
 
             return responseDesktop;
+        }
+
+
+
+        static RequestPagoPendiente temporal = new RequestPagoPendiente();
+        // FUNCIONES PARA GUARADR Y CONSUTLAR PAGOS PENDIENTES DE INTEGRACION SMARTPAYMENTS
+        public ResponseAloha GuardarPagoPendiente(RequestPagoPendiente requestPagoPendiente)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                temporal = requestPagoPendiente;
+                responseAloha.Estado = true;
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                responseAloha.mensaje = "Datos de pago pendiente guardados con exito";
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseAloha;
+
+        }
+
+        public RequestPagoPendiente RecuperarPagoPendiente()
+        {
+            return temporal;
         }
     }
 }

@@ -171,6 +171,7 @@
     <Compile Include="Models\Catalogos\SUBmobile.cs" />
     <Compile Include="Models\Catalogos\TDRmobile.cs" />
     <Compile Include="Models\Catalogos\VOIDMobile.cs" />
+    <Compile Include="Models\RequestPagoPendiente.cs" />
     <Compile Include="Models\Transacciones\BdInterna.cs" />
     <Compile Include="Models\Transacciones\InfoAloha.cs" />
     <Compile Include="UcComponents\EditNewMapeoPago.xaml.cs">

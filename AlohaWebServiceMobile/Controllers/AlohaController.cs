@@ -1,4 +1,5 @@
-﻿using AlohaWebServiceMobile.Models.Aloha;
+﻿using AlohaWebServiceMobile.Models;
+using AlohaWebServiceMobile.Models.Aloha;
 using AlohaWebServiceMobile.Models.Aloha.Desktop;
 using AlohaWebServiceMobile.Models.Transacciones;
 using Newtonsoft.Json;
@@ -275,6 +276,13 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
+        [HttpPost]
+        [Route("pagoPendiente")]
+        public HttpResponseMessage pagoPendiente(RequestPagoPendiente requestPagoPendiente)
+        {
+            var response = App.AlohaConnection.GuardarPagoPendiente(requestPagoPendiente);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
 
         /// <summary>
         /// Eods this instance.
