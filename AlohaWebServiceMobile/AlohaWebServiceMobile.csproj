@@ -116,6 +116,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CodigosErrorAloha\ErroresAloha.cs" />
+    <Compile Include="EntityFrameWork\Models\Pagos_pendientes.cs" />
     <Compile Include="Enums\AlohaPanelCodes.cs" />
     <Compile Include="EntityFrameWork\Context\ApplicationDbContext.cs" />
     <Compile Include="EntityFrameWork\Enums\TipoRespuesta.cs" />
@@ -171,7 +172,7 @@
     <Compile Include="Models\Catalogos\SUBmobile.cs" />
     <Compile Include="Models\Catalogos\TDRmobile.cs" />
     <Compile Include="Models\Catalogos\VOIDMobile.cs" />
-    <Compile Include="Models\RequestPagoPendiente.cs" />
+    <Compile Include="Models\Aloha\RequestPagoPendiente.cs" />
     <Compile Include="Models\Transacciones\BdInterna.cs" />
     <Compile Include="Models\Transacciones\InfoAloha.cs" />
     <Compile Include="UcComponents\EditNewMapeoPago.xaml.cs">
