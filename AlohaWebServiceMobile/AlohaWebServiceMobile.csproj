@@ -116,6 +116,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CodigosErrorAloha\ErroresAloha.cs" />
+    <Compile Include="EntityFrameWork\Implementaciones\Pagos_pendientesServicio.cs" />
+    <Compile Include="EntityFrameWork\Interface\IPagos_pendientes.cs" />
     <Compile Include="EntityFrameWork\Models\Pagos_pendientes.cs" />
     <Compile Include="Enums\AlohaPanelCodes.cs" />
     <Compile Include="EntityFrameWork\Context\ApplicationDbContext.cs" />

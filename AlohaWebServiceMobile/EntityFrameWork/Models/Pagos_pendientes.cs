@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
 {
     public class Pagos_pendientes
     {
+        [JsonIgnore]
         [Key]
         public int id { get; set; }
         public int infoPago { get; set; }

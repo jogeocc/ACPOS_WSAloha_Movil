@@ -11,10 +11,11 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Context
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Mapeo_pagos> Mapeo_Pagos { get; set; }
+        public DbSet<Pagos_pendientes> Pagos_pendientes { get; set; }
 
         public ApplicationDbContext() : base("Conexion")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext,Migrations.Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Migrations.Configuration>());
         }
 
         protected override void OnModelCreating(DbModelBuilder dbModelBuilder)

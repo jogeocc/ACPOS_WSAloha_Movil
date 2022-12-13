@@ -1,6 +1,8 @@
 ﻿using Aloha.SDK.Common;
 using AlohaWebServiceMobile.CodigosErrorAloha;
 using AlohaWebServiceMobile.Controllers;
+using AlohaWebServiceMobile.EntityFrameWork.Context;
+using AlohaWebServiceMobile.EntityFrameWork.Models;
 using AlohaWebServiceMobile.Enums;
 using AlohaWebServiceMobile.Models;
 using AlohaWebServiceMobile.Models.Aloha;
@@ -10,6 +12,7 @@ using AlohaWebServiceMobile.Models.Transacciones;
 using LasaFOHLib;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -1254,12 +1257,19 @@ namespace AlohaWebServiceMobile.Utils
 
         static RequestPagoPendiente temporal = new RequestPagoPendiente();
         // FUNCIONES PARA GUARADR Y CONSUTLAR PAGOS PENDIENTES DE INTEGRACION SMARTPAYMENTS
-        public ResponseAloha GuardarPagoPendiente(RequestPagoPendiente requestPagoPendiente)
+        public ResponseAloha GuardarPagoPendiente(Pagos_pendientes requestPagoPendiente)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                temporal = requestPagoPendiente;
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    db.Pagos_pendientes.Add(requestPagoPendiente);
+
+                    db.SaveChangesAsync();
+                }
+
+                //temporal = requestPagoPendiente;
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Datos de pago pendiente guardados con exito";

@@ -1,4 +1,5 @@
-﻿using AlohaWebServiceMobile.Models;
+﻿using AlohaWebServiceMobile.EntityFrameWork.Models;
+using AlohaWebServiceMobile.Models;
 using AlohaWebServiceMobile.Models.Aloha;
 using AlohaWebServiceMobile.Models.Aloha.Desktop;
 using AlohaWebServiceMobile.Models.Transacciones;
@@ -278,7 +279,7 @@ namespace AlohaWebServiceMobile.Controllers
 
         [HttpPost]
         [Route("pagoPendiente")]
-        public HttpResponseMessage pagoPendiente(RequestPagoPendiente requestPagoPendiente)
+        public HttpResponseMessage pagoPendiente(Pagos_pendientes requestPagoPendiente)
         {
             var response = App.AlohaConnection.GuardarPagoPendiente(requestPagoPendiente);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
