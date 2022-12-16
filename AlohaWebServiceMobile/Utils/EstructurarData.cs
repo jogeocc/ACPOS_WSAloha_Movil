@@ -34,8 +34,8 @@ namespace AlohaWebServiceMobile.Utils
         private int BotonPlu = 999999;
         public EstructurarData()
         {
-            pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
-            //pathALoha = @"C:\BootDrv\SS_DATA\DATA";
+            //pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+            pathALoha = @"C:\BootDrv\SS_DATA\DATA";
         }
 
         #region OBTENER MENU
@@ -162,10 +162,10 @@ namespace AlohaWebServiceMobile.Utils
                                 Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
                                 Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
                                 IdsPaneles.Clear();
+                                IdsPaneles.Add(sub.panel_id);
                                 Boton_panel = RecursividadPaneles(Boton_panel);
                                 if (Boton_panel != null)
                                 {
-                                    IdsPaneles.Add(IdPanel);
                                     sub.Btns.Add(Boton_panel);
                                 }
                             }
