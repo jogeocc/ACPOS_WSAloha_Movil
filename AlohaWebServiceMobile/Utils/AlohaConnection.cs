@@ -1268,9 +1268,9 @@ namespace AlohaWebServiceMobile.Utils
                     db.Pagos_pendientes.Add(requestPagoPendiente);
 
                     db.SaveChangesAsync();
+
                 }
 
-                //temporal = requestPagoPendiente;
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Datos de pago pendiente guardados en BD con exito";
