@@ -10,7 +10,6 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
 {
     public class Pagos_pendientes
     {
-        [JsonIgnore]
         [Key]
         public int id { get; set; }
         public int infoPago { get; set; }
