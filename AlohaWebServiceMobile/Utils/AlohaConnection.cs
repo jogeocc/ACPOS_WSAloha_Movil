@@ -1256,6 +1256,7 @@ namespace AlohaWebServiceMobile.Utils
 
 
         static RequestPagoPendiente temporal = new RequestPagoPendiente();
+
         // FUNCIONES PARA GUARADR Y CONSUTLAR PAGOS PENDIENTES DE INTEGRACION SMARTPAYMENTS
         public ResponseAloha GuardarPagoPendiente(Pagos_pendientes requestPagoPendiente)
         {
@@ -1282,18 +1283,23 @@ namespace AlohaWebServiceMobile.Utils
 
         }
 
-        public RequestPagoPendiente RecuperarPagoPendiente(int checkid)
+        public Pagos_pendientes RecuperarPagoPendiente(int Idempleado)
         {
+            Pagos_pendientes pendiente = new Pagos_pendientes();
             try
             {
 
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    pendiente = db.Pagos_pendientes.First(S => S.IdEmpleado == Idempleado && S.infoPago == 1);
+                }
             }
             catch (Exception ex)
             {
 
             }
 
-            return temporal;
+            return pendiente;
         }
     }
 }

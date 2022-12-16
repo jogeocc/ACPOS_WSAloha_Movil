@@ -286,10 +286,10 @@ namespace AlohaWebServiceMobile.Controllers
         }
 
         [HttpGet]
-        [Route("recuperarPagoPendiente/{Checkid}")]
-        public HttpResponseMessage RecuperarPagoPendiente(int Checkid)
+        [Route("recuperarPagoPendiente/{IdEmpleado}")]
+        public HttpResponseMessage RecuperarPagoPendiente(int IdEmpleado)
         {
-            var response = App.AlohaConnection.RecuperarPagoPendiente(Checkid);
+            var response = App.AlohaConnection.RecuperarPagoPendiente(IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
