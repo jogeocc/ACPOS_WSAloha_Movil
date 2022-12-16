@@ -162,6 +162,7 @@ namespace AlohaWebServiceMobile.Utils
                                 Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
                                 Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
                                 IdsPaneles.Clear();
+                                IdsPaneles.Add(IdPanel);
                                 Boton_panel = RecursividadPaneles(Boton_panel);
                                 if (Boton_panel != null)
                                 {

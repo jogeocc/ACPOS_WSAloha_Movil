@@ -1272,7 +1272,7 @@ namespace AlohaWebServiceMobile.Utils
                 //temporal = requestPagoPendiente;
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-                responseAloha.mensaje = "Datos de pago pendiente guardados con exito";
+                responseAloha.mensaje = "Datos de pago pendiente guardados en BD con exito";
             }
             catch (Exception ex)
             {
@@ -1282,8 +1282,17 @@ namespace AlohaWebServiceMobile.Utils
 
         }
 
-        public RequestPagoPendiente RecuperarPagoPendiente()
+        public RequestPagoPendiente RecuperarPagoPendiente(int checkid)
         {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
             return temporal;
         }
     }
