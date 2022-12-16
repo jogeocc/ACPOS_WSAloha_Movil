@@ -1265,7 +1265,15 @@ namespace AlohaWebServiceMobile.Utils
             {
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
-                    db.Pagos_pendientes.Add(requestPagoPendiente);
+                    if (requestPagoPendiente.id > 0)
+                    {
+                        db.Pagos_pendientes.Add(requestPagoPendiente);
+                    }
+                    else
+                    {
+                        Pagos_pendientes PagoPendiente = db.Pagos_pendientes.ToList().FindLast(PP => PP.id == requestPagoPendiente.id);
+                        PagoPendiente.infoPago = requestPagoPendiente.infoPago;
+                    }
 
                     db.SaveChanges();
 
@@ -1291,7 +1299,7 @@ namespace AlohaWebServiceMobile.Utils
 
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
-                    pendiente = db.Pagos_pendientes.First(S => S.IdEmpleado == Idempleado && S.infoPago == 1);
+                    pendiente = db.Pagos_pendientes.ToList().FindLast(S => S.IdEmpleado == Idempleado && S.infoPago == 1);
                 }
             }
             catch (Exception ex)
