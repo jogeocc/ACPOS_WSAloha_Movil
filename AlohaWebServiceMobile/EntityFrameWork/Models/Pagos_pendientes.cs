@@ -17,8 +17,8 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
         public string Fecha { get; set; }
         public int CheckID { get; set; }
         public string NombreMesa { get; set; }
-        public double Pago { get; set; }
-        public double Tip { get; set; }
+        public string Pago { get; set; }
+        public string Tip { get; set; }
         public string ReferenciaUnica { get; set; }
 
     }

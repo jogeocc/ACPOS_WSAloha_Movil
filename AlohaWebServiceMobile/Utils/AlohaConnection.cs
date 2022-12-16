@@ -1267,7 +1267,7 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     db.Pagos_pendientes.Add(requestPagoPendiente);
 
-                    db.SaveChangesAsync();
+                    db.SaveChanges();
 
                 }
 
