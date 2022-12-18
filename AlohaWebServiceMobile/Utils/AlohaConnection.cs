@@ -1274,7 +1274,6 @@ namespace AlohaWebServiceMobile.Utils
                         Pagos_pendientes PagoPendiente = db.Pagos_pendientes.ToList().FindLast(PP => PP.id == requestPagoPendiente.id);
                         PagoPendiente.infoPago = requestPagoPendiente.infoPago;
                     }
-
                     db.SaveChanges();
 
                 }
