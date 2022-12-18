@@ -1265,7 +1265,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
-                    if (requestPagoPendiente.id > 0)
+                    if (requestPagoPendiente.id == 0)
                     {
                         db.Pagos_pendientes.Add(requestPagoPendiente);
                         responseAloha.IdPagoPendiente = requestPagoPendiente.id;
