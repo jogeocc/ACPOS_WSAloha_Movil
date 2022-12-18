@@ -1268,11 +1268,14 @@ namespace AlohaWebServiceMobile.Utils
                     if (requestPagoPendiente.id > 0)
                     {
                         db.Pagos_pendientes.Add(requestPagoPendiente);
+                        responseAloha.IdPagoPendiente = requestPagoPendiente.id;
                     }
                     else
                     {
                         Pagos_pendientes PagoPendiente = db.Pagos_pendientes.ToList().FindLast(PP => PP.id == requestPagoPendiente.id);
                         PagoPendiente.infoPago = requestPagoPendiente.infoPago;
+                        responseAloha.IdPagoPendiente = PagoPendiente.id;
+
                     }
                     db.SaveChanges();
 

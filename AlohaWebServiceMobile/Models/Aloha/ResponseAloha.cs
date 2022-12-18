@@ -20,5 +20,6 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int idPago { get; set; }
 
         public string NombreMesa { get; set; }
+        public int IdPagoPendiente { get; set; }
     }
 }
