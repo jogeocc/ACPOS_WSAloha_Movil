@@ -1269,6 +1269,7 @@ namespace AlohaWebServiceMobile.Utils
                     if (requestPagoPendiente.id == 0)
                     {
                         var data = db.Pagos_pendientes.Add(requestPagoPendiente);
+                        db.SaveChanges();
                         responseAloha.IdPagoPendiente = data.id;
                     }
                     else
@@ -1278,7 +1279,6 @@ namespace AlohaWebServiceMobile.Utils
                         responseAloha.IdPagoPendiente = PagoPendiente.id;
 
                     }
-                    db.SaveChanges();
 
                 }
 
