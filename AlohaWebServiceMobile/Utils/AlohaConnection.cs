@@ -1261,14 +1261,15 @@ namespace AlohaWebServiceMobile.Utils
         public ResponseAloha GuardarPagoPendiente(Pagos_pendientes requestPagoPendiente)
         {
             ResponseAloha responseAloha = new ResponseAloha();
+            bool IsUpdadated;
             try
             {
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
                     if (requestPagoPendiente.id == 0)
                     {
-                        db.Pagos_pendientes.Add(requestPagoPendiente);
-                        responseAloha.IdPagoPendiente = requestPagoPendiente.id;
+                        var data = db.Pagos_pendientes.Add(requestPagoPendiente);
+                        responseAloha.IdPagoPendiente = data.id;
                     }
                     else
                     {
