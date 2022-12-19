@@ -10,8 +10,8 @@ namespace AlohaWebServiceMobile.Models.Catalogos
     {
         public int id_menu { get; set; }
         public string descripcion_corta { get; set; }
-        public string descripcion_larga { get; set; }
-        public string descripcion_personalizada { get; set; }
+        public string descripcion_larga { get; set; } = "";
+        public string descripcion_personalizada { get; set; } = "";
         public string imagen { get; set; }
         public byte status { get; set; } = 1;
 
@@ -20,8 +20,8 @@ namespace AlohaWebServiceMobile.Models.Catalogos
     public class SubMenu
     {
         public int id { get; set; }
-        public string descripcion_corta { get; set; }
-        public string descripcion_larga { get; set; }
+        public string descripcion_corta { get; set; } = "";
+        public string descripcion_larga { get; set; } = "";
 
         public int panel_id { get; set; }
         public bool UsePanels
@@ -36,8 +36,8 @@ namespace AlohaWebServiceMobile.Models.Catalogos
     public class Item
     {
         public int id { get; set; }
-        public string descripcion_corta { get; set; }
-        public string descripcion_larga { get; set; }
+        public string descripcion_corta { get; set; } = "";
+        public string descripcion_larga { get; set; } = "";
         public double submenu_precio_sub { get; set; }
         public int submenu_precio_metodo { get; set; }
         public int submenu_precio_nivel { get; set; }
@@ -72,8 +72,8 @@ namespace AlohaWebServiceMobile.Models.Catalogos
     public class Mod
     {
         public int id_modificador { get; set; }
-        public string descripcion_corta { get; set; }
-        public string descripcion_larga { get; set; }
+        public string descripcion_corta { get; set; } = "";
+        public string descripcion_larga { get; set; } = "";
         public int num_min { get; set; }
         public int num_max { get; set; }
         public int num_gratis { get; set; }
