@@ -21,7 +21,6 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
         public string Pago { get; set; }
         public string Tip { get; set; }
         public string ReferenciaUnica { get; set; }
-        [DefaultValue("")]
         public string SG_REFERENCE { get; set; } = "";
 
     }
