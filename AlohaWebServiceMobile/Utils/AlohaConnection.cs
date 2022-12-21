@@ -1271,12 +1271,14 @@ namespace AlohaWebServiceMobile.Utils
                         var data = db.Pagos_pendientes.Add(requestPagoPendiente);
                         db.SaveChanges();
                         responseAloha.IdPagoPendiente = data.id;
+                        responseAloha.SG_REFERENCE = data.SG_REFERENCE;
                     }
                     else
                     {
                         Pagos_pendientes PagoPendiente = db.Pagos_pendientes.ToList().FindLast(PP => PP.id == requestPagoPendiente.id);
                         PagoPendiente.infoPago = requestPagoPendiente.infoPago;
                         responseAloha.IdPagoPendiente = PagoPendiente.id;
+                        responseAloha.SG_REFERENCE = PagoPendiente.SG_REFERENCE;
                         db.SaveChanges();
 
                     }
