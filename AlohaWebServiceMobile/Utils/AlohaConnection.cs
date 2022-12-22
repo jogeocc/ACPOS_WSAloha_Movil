@@ -1337,9 +1337,9 @@ namespace AlohaWebServiceMobile.Utils
             return ResponsePagoPendiente;
         }
 
-        public Pagos_pendientes GETTicketSmart(int idEmpleado, int idCheck)
+        public Ticket_smart GETTicketSmart(int idEmpleado, int idCheck)
         {
-            Pagos_pendientes ResponsePagosPendiente = new Pagos_pendientes();
+            Ticket_smart ResponsePagosPendiente = new Ticket_smart();
             try
             {
                 using (ApplicationDbContext db = new ApplicationDbContext())
