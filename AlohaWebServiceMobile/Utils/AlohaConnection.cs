@@ -1344,7 +1344,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
-                    ResponsePagosPendiente = db.Pagos_pendientes.ToList().First(P => P.CheckID == idCheck && P.IdEmpleado == idEmpleado && P.FechaSistema == DateTime.Now.Date);
+                    ResponsePagosPendiente = db.Ticket_smart.ToList().First(P => P.CheckID == idCheck && P.IdEmpleado == idEmpleado && P.Fecha == DateTime.Now.Date.ToString("ddMMyyyy"));
                 }
             }
             catch (Exception ex)
