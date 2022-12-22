@@ -251,6 +251,13 @@ namespace AlohaWebServiceMobile.Controllers
             var response = App.AlohaConnection.PrintBluetooth(requestPrintBluetooth.IdCheck, requestPrintBluetooth.IdTable, requestPrintBluetooth.IdTerm);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
+        [HttpPost]
+        [Route("SaveTicketSmart")]
+        public HttpResponseMessage SaveTicketSmart()
+        {
+            var response = App.AlohaConnection.SaveTicketSmart();
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
         //CONTROLADORES PARA APLICACION DE ESCRITORIO
         [HttpGet]
         [Route("Users")]

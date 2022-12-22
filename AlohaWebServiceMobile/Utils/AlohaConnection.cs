@@ -1315,5 +1315,18 @@ namespace AlohaWebServiceMobile.Utils
 
             return pendiente;
         }
+
+        public object SaveTicketSmart()
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            throw new NotImplementedException();
+        }
     }
 }

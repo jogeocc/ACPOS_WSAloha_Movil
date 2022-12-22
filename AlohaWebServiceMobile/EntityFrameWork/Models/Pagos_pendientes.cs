@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,16 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
         public int infoPago { get; set; }
         public int IdEmpleado { get; set; }
         public string Fecha { get; set; }
+
+        [NotMapped]
+        [JsonIgnore]
+        public DateTime DateTime
+        {
+            get
+            {
+                return DateTime.Parse(Fecha);
+            }
+        }
         public int CheckID { get; set; }
         public string NombreMesa { get; set; }
         public string Pago { get; set; }
