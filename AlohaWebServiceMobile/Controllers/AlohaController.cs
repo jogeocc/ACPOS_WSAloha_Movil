@@ -302,6 +302,14 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
+        [HttpPost]
+        [Route("GETTicketSmart/{IdEmpleado}/{IdCheck}")]
+        public HttpResponseMessage GETTicketSmart(int IdEmpleado, int IdCheck)
+        {
+            var response = App.AlohaConnection.GETTicketSmart(IdEmpleado,IdCheck);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
         /// <summary>
         /// Eods this instance.
         /// </summary>

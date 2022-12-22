@@ -421,6 +421,8 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+
+
         public ResponseAloha AddItemNivelesPruebas()
         {
             ResponseAloha responseAloha = new ResponseAloha();
@@ -1330,9 +1332,26 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL GUARDAR TICKET SMART PARA REIMPRESION",ex);
+                App.logger.Error($"ERROR AL GUARDAR TICKET SMART PARA REIMPRESION", ex);
             }
             return ResponsePagoPendiente;
+        }
+
+        public Pagos_pendientes GETTicketSmart(int idEmpleado, int idCheck)
+        {
+            Pagos_pendientes ResponsePagosPendiente = new Pagos_pendientes();
+            try
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    ResponsePagosPendiente = db.Pagos_pendientes.ToList().First(P => P.CheckID == idCheck && P.IdEmpleado == idEmpleado && P.FechaSistema == DateTime.Now.Date);
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al obtener el ticket para reimpresion", ex);
+            }
+            return ResponsePagosPendiente;
         }
     }
 }

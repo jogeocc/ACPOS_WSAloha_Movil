@@ -20,7 +20,7 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
 
         [NotMapped]
         [JsonIgnore]
-        public DateTime DateTime
+        public DateTime FechaSistema
         {
             get
             {
