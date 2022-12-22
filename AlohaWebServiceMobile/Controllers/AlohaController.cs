@@ -296,7 +296,7 @@ namespace AlohaWebServiceMobile.Controllers
 
         [HttpPost]
         [Route("SaveTicketSmart")]
-        public HttpResponseMessage SaveTicketSmart(Pagos_pendientes requestPagoPendiente)
+        public HttpResponseMessage SaveTicketSmart(Ticket_smart requestPagoPendiente)
         {
             var response = App.AlohaConnection.SaveTicketSmart(requestPagoPendiente);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);

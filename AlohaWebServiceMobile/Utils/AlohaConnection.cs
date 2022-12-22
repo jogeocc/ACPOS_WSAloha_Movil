@@ -1318,14 +1318,14 @@ namespace AlohaWebServiceMobile.Utils
             return pendiente;
         }
 
-        public Pagos_pendientes SaveTicketSmart(Pagos_pendientes requestPagoPendiente)
+        public Ticket_smart SaveTicketSmart(Ticket_smart requestPagoPendiente)
         {
-            Pagos_pendientes ResponsePagoPendiente = new Pagos_pendientes();
+            Ticket_smart ResponsePagoPendiente = new Ticket_smart();
             try
             {
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
-                    var data = db.Pagos_pendientes.Add(requestPagoPendiente);
+                    var data = db.Ticket_smart.Add(requestPagoPendiente);
                     db.SaveChanges();
                     ResponsePagoPendiente = data;
                 }
