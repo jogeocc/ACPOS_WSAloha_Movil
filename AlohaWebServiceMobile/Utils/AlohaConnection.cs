@@ -1319,7 +1319,6 @@ namespace AlohaWebServiceMobile.Utils
         public Pagos_pendientes SaveTicketSmart(Pagos_pendientes requestPagoPendiente)
         {
             Pagos_pendientes ResponsePagoPendiente = new Pagos_pendientes();
-
             try
             {
                 using (ApplicationDbContext db = new ApplicationDbContext())
