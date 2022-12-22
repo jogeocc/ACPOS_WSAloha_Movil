@@ -251,13 +251,7 @@ namespace AlohaWebServiceMobile.Controllers
             var response = App.AlohaConnection.PrintBluetooth(requestPrintBluetooth.IdCheck, requestPrintBluetooth.IdTable, requestPrintBluetooth.IdTerm);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
-        [HttpPost]
-        [Route("SaveTicketSmart")]
-        public HttpResponseMessage SaveTicketSmart()
-        {
-            var response = App.AlohaConnection.SaveTicketSmart();
-            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
-        }
+
         //CONTROLADORES PARA APLICACION DE ESCRITORIO
         [HttpGet]
         [Route("Users")]
@@ -297,6 +291,14 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage RecuperarPagoPendiente(int IdEmpleado)
         {
             var response = App.AlohaConnection.RecuperarPagoPendiente(IdEmpleado);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+        [HttpPost]
+        [Route("SaveTicketSmart")]
+        public HttpResponseMessage SaveTicketSmart(Pagos_pendientes requestPagoPendiente)
+        {
+            var response = App.AlohaConnection.SaveTicketSmart(requestPagoPendiente);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 

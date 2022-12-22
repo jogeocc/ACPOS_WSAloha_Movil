@@ -1316,17 +1316,24 @@ namespace AlohaWebServiceMobile.Utils
             return pendiente;
         }
 
-        public object SaveTicketSmart()
+        public Pagos_pendientes SaveTicketSmart(Pagos_pendientes requestPagoPendiente)
         {
+            Pagos_pendientes ResponsePagoPendiente = new Pagos_pendientes();
+
             try
             {
-
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    var data = db.Pagos_pendientes.Add(requestPagoPendiente);
+                    db.SaveChanges();
+                    ResponsePagoPendiente = data;
+                }
             }
             catch (Exception ex)
             {
-
+                App.logger.Error($"ERROR AL GUARDAR TICKET SMART PARA REIMPRESION",ex);
             }
-            throw new NotImplementedException();
+            return ResponsePagoPendiente;
         }
     }
 }
