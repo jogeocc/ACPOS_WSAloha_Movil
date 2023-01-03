@@ -465,6 +465,7 @@ namespace AlohaWebServiceMobile.Utils
                         Etiqueta_min = tdr.IDMINDIGIT,
                         Etiqueta_max = tdr.IDMAXDIGIT,
                         Etiqueta_nombre = tdr.IDENTNAME,
+                        Monto_Defecto = tdr.DEFAULTAMT
                     }); ;
                 }
             }
