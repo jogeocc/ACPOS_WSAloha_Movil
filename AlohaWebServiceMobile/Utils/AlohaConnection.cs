@@ -286,9 +286,9 @@ namespace AlohaWebServiceMobile.Utils
             {
                 foreach (var columna in pie.columnas)
                 {
-                    columna.valor = columna.valor.Replace("[[10]]", $"{string.Format("N:2", double.Parse(detallePedido.Total.ToString()) * .10)}");
-                    columna.valor = columna.valor.Replace("[[15]]", $"{string.Format("N:2", double.Parse(detallePedido.Total.ToString()) * .15)}");
-                    columna.valor = columna.valor.Replace("[[20]]", $"{string.Format("N:2", double.Parse(detallePedido.Total.ToString()) * .20)}");
+                    columna.valor = columna.valor.Replace("[[10]]", $"{string.Format("0:N2", double.Parse(detallePedido.Total.ToString()) * .10)}");
+                    columna.valor = columna.valor.Replace("[[15]]", $"{string.Format("0:N2", double.Parse(detallePedido.Total.ToString()) * .15)}");
+                    columna.valor = columna.valor.Replace("[[20]]", $"{string.Format("0:N2", double.Parse(detallePedido.Total.ToString()) * .20)}");
                 }
             }
             response.mensaje = "OK";
