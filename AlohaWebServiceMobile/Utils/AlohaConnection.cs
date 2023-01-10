@@ -1307,7 +1307,10 @@ namespace AlohaWebServiceMobile.Utils
 
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
-                    pendiente = db.Pagos_pendientes.ToList().FindLast(S => S.IdEmpleado == Idempleado && S.infoPago == 1);
+                    string fecha = DateTime.Now.Date.ToString("ddMMyyyy");
+                    var pendientes = db.Pagos_pendientes.ToList();
+
+                    pendiente = pendientes.FindLast(S => S.IdEmpleado == Idempleado && S.infoPago == 1 && S.Fecha ==fecha);
                 }
             }
             catch (Exception ex)
