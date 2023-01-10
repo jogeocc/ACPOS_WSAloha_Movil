@@ -272,6 +272,7 @@ namespace AlohaWebServiceMobile.Utils
 
         public ResponsePrinter PrintBluetooth(int idCheck, int idMesa, int idTerm)
         {
+            //TODO PENSAR EN UN REEMPLAZO A FUTURO
             ResponsePrinter response = new ResponsePrinter();
             VerificarIber();
             Check cheque = RecuperarCheque(idCheck);
@@ -280,6 +281,16 @@ namespace AlohaWebServiceMobile.Utils
             DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm);
 
             response.ticket_precuenta = new Ticket(@"Design\config-ticket.txt", detallePedido);
+
+            foreach (var pie in response.ticket_precuenta.pie)
+            {
+                foreach (var columna in pie.columnas)
+                {
+                    columna.valor = columna.valor.Replace("[[10]]", $"{string.Format("N:2", double.Parse(detallePedido.Total.ToString()) * .10)}");
+                    columna.valor = columna.valor.Replace("[[15]]", $"{string.Format("N:2", double.Parse(detallePedido.Total.ToString()) * .15)}");
+                    columna.valor = columna.valor.Replace("[[20]]", $"{string.Format("N:2", double.Parse(detallePedido.Total.ToString()) * .20)}");
+                }
+            }
             response.mensaje = "OK";
             return response;
         }
@@ -1156,6 +1167,7 @@ namespace AlohaWebServiceMobile.Utils
                 detallePedido.Impuestos = new List<Impuesto> { new Impuesto { Importe = decimal.Parse(check.Tax.ToString()) } };
                 detallePedido.Total = decimal.Parse(check.TotalCheck.ToString());
                 detallePedido.TotalItems = detallePedido.Articulos.Count;
+
             }
             catch (Exception ex)
             {
@@ -1310,7 +1322,7 @@ namespace AlohaWebServiceMobile.Utils
                     string fecha = DateTime.Now.Date.ToString("ddMMyyyy");
                     var pendientes = db.Pagos_pendientes.ToList();
 
-                    pendiente = pendientes.FindLast(S => S.IdEmpleado == Idempleado && S.infoPago == 1 && S.Fecha ==fecha);
+                    pendiente = pendientes.FindLast(S => S.IdEmpleado == Idempleado && S.infoPago == 1 && S.Fecha == fecha);
                 }
             }
             catch (Exception ex)

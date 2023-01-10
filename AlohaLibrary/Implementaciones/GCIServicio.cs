@@ -21,10 +21,10 @@ namespace AlohaLibrary.Implementaciones
         public override List<GCI> GetAll()
         {
             List<GCI> List = new List<GCI>();
-            string query = $"SELECT * FROM QTYPRICE";
+            string query = $"SELECT * FROM GCI";
             DataSet ds = new DataSet();
-            EjecutarConsulta(query).Fill(ds, "QTYPRICE");
-            DataTable tabla = ds.Tables["QTYPRICE"];
+            EjecutarConsulta(query).Fill(ds, "GCI");
+            DataTable tabla = ds.Tables["GCI"];
             foreach (DataRow item in tabla.Rows)
             {
                 GCI MessageCheck = new GCI();

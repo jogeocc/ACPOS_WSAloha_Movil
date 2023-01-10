@@ -21,10 +21,10 @@ namespace AlohaLibrary.Implementaciones
         public override List<MULTCURR> GetAll()
         {
             List<MULTCURR> List = new List<MULTCURR>();
-            string query = $"SELECT * FROM QTYPRICE";
+            string query = $"SELECT * FROM MULTCURR";
             DataSet ds = new DataSet();
-            EjecutarConsulta(query).Fill(ds, "QTYPRICE");
-            DataTable tabla = ds.Tables["QTYPRICE"];
+            EjecutarConsulta(query).Fill(ds, "MULTCURR");
+            DataTable tabla = ds.Tables["MULTCURR"];
             foreach (DataRow item in tabla.Rows)
             {
                 MULTCURR Currency = new MULTCURR();
