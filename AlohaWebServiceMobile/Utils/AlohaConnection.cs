@@ -1463,7 +1463,7 @@ namespace AlohaWebServiceMobile.Utils
                 List<string> Valores = line.Split(' ').ToList();
                 EventsAloha evento = new EventsAloha
                 {
-                    HOUR = TimeSpan.ParseExact(Valores[0], "HH:mm", null),
+                    HOUR = TimeSpan.ParseExact(Valores[0], "h\:mm", null),
                     NameEvent = Valores[1],
                     TypeAlohaEvent = new FOOTERMSGBYTERMINAL
                     {
