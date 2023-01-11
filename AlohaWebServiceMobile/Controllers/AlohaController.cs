@@ -326,7 +326,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("PrintNewXML")]
         public HttpResponseMessage PrintNewXML(RequestPrintXML requestPrintXML)
         {
-            App.AlohaConnection.printXML(requestPrintXML.XML,500);
+            App.AlohaConnection.printXML(requestPrintXML.XML, requestPrintXML.IdCheck);
             return Request.CreateResponse(HttpStatusCode.OK, $"ARCHIVO XML RECIBIDO CORRECTAMENTE", Configuration.Formatters.JsonFormatter);
         }
     }

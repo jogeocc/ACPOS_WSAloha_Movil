@@ -1390,7 +1390,7 @@ namespace AlohaWebServiceMobile.Utils
 
 
 
-        public bool printXML(string XML, double total)
+        public bool printXML(string XML, int CheckId)
         {
             int IdServer = LACSystem.GetInt("ID_TERM_SERVER");
             bool IsSuccess = false;
@@ -1398,6 +1398,11 @@ namespace AlohaWebServiceMobile.Utils
             {
                 VerificarIber();
                 IIberPrinter iberPrinter = AlohaSdkFactory.GetIberPrinterInstance();
+
+                xFunction.GetCheckTotal(CheckId, out double subtotal, out double tax);
+                double total = subtotal + tax;
+
+
 
                 List<string> Eventos = GetEvents(AlohaEvents.FOOTERMSGBYTERMINAL);
                 List<EventsAloha> models = MakeModels(Eventos);

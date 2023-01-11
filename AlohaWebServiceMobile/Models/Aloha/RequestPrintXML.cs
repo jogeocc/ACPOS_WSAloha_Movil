@@ -9,5 +9,6 @@ namespace AlohaWebServiceMobile.Models.Aloha
     public class RequestPrintXML
     {
         public string XML { get; set; }
+        public int IdCheck { get; set; }
     }
 }
