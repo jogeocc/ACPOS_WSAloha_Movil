@@ -1402,7 +1402,7 @@ namespace AlohaWebServiceMobile.Utils
                 List<string> Eventos = GetEvents(AlohaEvents.FOOTERMSGBYTERMINAL);
                 List<EventsAloha> models = MakeModels(Eventos);
                 EventsAloha eventoImpresion = GetPrinterEvent(models, IdServer);
-                List<string> LineasMensajes = GetMsgs();
+                List<string> LineasMensajes = GetMsgs((eventoImpresion.TypeAlohaEvent as FOOTERMSGBYTERMINAL).IdGci);
 
                 List<string> LineasAgregar = new List<string>();
                 if (EventIsValid(IdServer, eventoImpresion))
@@ -1498,7 +1498,7 @@ namespace AlohaWebServiceMobile.Utils
             return EventosAloha;
         }
 
-        public List<string> GetMsgs()
+        public List<string> GetMsgs(int idMensaje)
         {
             List<string> Msgs = new List<string>();
             string Ruta = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
@@ -1507,7 +1507,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 GCI = new GCIServicio(contextoALH).GetAll();
             }
-            foreach (GCI gci in GCI)
+            foreach (GCI gci in GCI.Where(M => M.ID == idMensaje))
             {
                 Msgs.Add(gci.MESSAGE1);
                 Msgs.Add(gci.MESSAGE2);
