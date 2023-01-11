@@ -1407,7 +1407,7 @@ namespace AlohaWebServiceMobile.Utils
                 List<string> LineasAgregar = new List<string>();
                 if (EventIsValid(IdServer, eventoImpresion))
                 {
-                    foreach (var linea in LineasMensajes)
+                    foreach (var linea in LineasMensajes.Where(L => L.Length > 0))
                     {
                         if (linea.Contains('%'))
                         {
