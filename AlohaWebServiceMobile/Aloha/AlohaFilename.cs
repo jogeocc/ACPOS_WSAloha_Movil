@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlohaWebServiceMobile.Enums
+namespace AlohaWebServiceMobile.Aloha
 {
-    public enum AlohaEvents
+    public class AlohaFilename
     {
-        FOOTERMSGBYTERMINAL
+        public static string EventosAloha => "Events.Cfg";
     }
 }

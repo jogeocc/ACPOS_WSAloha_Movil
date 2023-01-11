@@ -1,4 +1,5 @@
 ﻿using Aloha.SDK.Common;
+using AlohaWebServiceMobile.Aloha;
 using AlohaWebServiceMobile.CodigosErrorAloha;
 using AlohaWebServiceMobile.Controllers;
 using AlohaWebServiceMobile.EntityFrameWork.Context;
@@ -8,12 +9,14 @@ using AlohaWebServiceMobile.Models;
 using AlohaWebServiceMobile.Models.Aloha;
 using AlohaWebServiceMobile.Models.Aloha.BlueTooth;
 using AlohaWebServiceMobile.Models.Aloha.Desktop;
+using AlohaWebServiceMobile.Models.Aloha.System;
 using AlohaWebServiceMobile.Models.Transacciones;
 using LasaFOHLib;
 using LecturaAppConfig;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -1391,6 +1394,12 @@ namespace AlohaWebServiceMobile.Utils
             {
                 VerificarIber();
                 IIberPrinter iberPrinter = AlohaSdkFactory.GetIberPrinterInstance();
+
+                List<string> Eventos = GetEvents(AlohaEvents.FOOTERMSGBYTERMINAL);
+
+
+
+
                 iberPrinter.PrintStream(XML);
                 App.logger.Info($"Iniciado proceso de impresión");
             }
@@ -1411,6 +1420,14 @@ namespace AlohaWebServiceMobile.Utils
             return IsValid;
         }
 
+
+        public List<string> GetEvents(AlohaEvents tipo)
+        {
+            string Ruta = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+            List<string> EventosAloha = File.ReadLines(Path.Combine(Ruta, AlohaFilename.EventosAloha)).ToList();
+            EventosAloha = EventosAloha.FindAll(L => L.Contains(tipo.ToString()));
+            return EventosAloha;
+        }
 
     }
 }

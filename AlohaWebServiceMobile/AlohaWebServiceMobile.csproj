@@ -115,6 +115,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Aloha\AlohaFilename.cs" />
     <Compile Include="CodigosErrorAloha\ErroresAloha.cs" />
     <Compile Include="EntityFrameWork\Implementaciones\Pagos_pendientesServicio.cs" />
     <Compile Include="EntityFrameWork\Interface\IPagos_pendientes.cs" />
