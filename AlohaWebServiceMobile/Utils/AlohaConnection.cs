@@ -1,4 +1,7 @@
 ﻿using Aloha.SDK.Common;
+using AlohaLibrary.Contexto;
+using AlohaLibrary.Implementaciones;
+using AlohaLibrary.Modelos;
 using AlohaWebServiceMobile.Aloha;
 using AlohaWebServiceMobile.CodigosErrorAloha;
 using AlohaWebServiceMobile.Controllers;
@@ -1396,8 +1399,8 @@ namespace AlohaWebServiceMobile.Utils
                 IIberPrinter iberPrinter = AlohaSdkFactory.GetIberPrinterInstance();
 
                 List<string> Eventos = GetEvents(AlohaEvents.FOOTERMSGBYTERMINAL);
-
-
+                var models = MakeModels(Eventos);
+                List<string> LineasMensajes = GetMsgs();
 
 
                 iberPrinter.PrintStream(XML);
@@ -1420,6 +1423,29 @@ namespace AlohaWebServiceMobile.Utils
             return IsValid;
         }
 
+        public List<EventsAloha> MakeModels(List<string> Lineas)
+        {
+            List<EventsAloha> models = new List<EventsAloha>();
+
+            foreach (string line in Lineas)
+            {
+                List<string> Valores = line.Split(' ').ToList();
+                EventsAloha evento = new EventsAloha
+                {
+                    HOUR = TimeSpan.ParseExact(Valores[0], "HH:mm", null),
+                    NameEvent = Valores[1],
+                    TypeAlohaEvent = new FOOTERMSGBYTERMINAL
+                    {
+                        IdTerminal = int.Parse(Valores[2]),
+                        IdGci = int.Parse(Valores[3])
+                    }
+                };
+                models.Add(evento);
+            }
+
+
+            return models;
+        }
 
         public List<string> GetEvents(AlohaEvents tipo)
         {
@@ -1429,5 +1455,31 @@ namespace AlohaWebServiceMobile.Utils
             return EventosAloha;
         }
 
+        public List<string> GetMsgs()
+        {
+            List<string> Msgs = new List<string>();
+            string Ruta = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+            List<GCI> GCI = new List<GCI>();
+            using (AplicacionBdContextoALH contextoALH = new AplicacionBdContextoALH(Ruta))
+            {
+                GCI = new GCIServicio(contextoALH).GetAll();
+            }
+            foreach (GCI gci in GCI)
+            {
+                Msgs.Add(gci.MESSAGE1);
+                Msgs.Add(gci.MESSAGE2);
+                Msgs.Add(gci.MESSAGE3);
+                Msgs.Add(gci.MESSAGE4);
+                Msgs.Add(gci.MESSAGE5);
+                Msgs.Add(gci.MESSAGE6);
+                Msgs.Add(gci.MESSAGE7);
+                Msgs.Add(gci.MESSAGE8);
+                Msgs.Add(gci.MESSAGE9);
+                Msgs.Add(gci.MESSAGE10);
+                Msgs.Add(gci.MESSAGE11);
+                Msgs.Add(gci.MESSAGE12);
+            }
+            return Msgs;
+        }
     }
 }
