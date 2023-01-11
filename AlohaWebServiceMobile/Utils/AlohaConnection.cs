@@ -22,6 +22,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TicketGenerateAloha;
 using TicketGenerateAloha.Models;
@@ -1389,7 +1390,7 @@ namespace AlohaWebServiceMobile.Utils
 
 
 
-        public bool printXML(string XML)
+        public bool printXML(string XML, double total)
         {
             int IdServer = LACSystem.GetInt("ID_TERM_SERVER");
             bool IsSuccess = false;
@@ -1399,12 +1400,44 @@ namespace AlohaWebServiceMobile.Utils
                 IIberPrinter iberPrinter = AlohaSdkFactory.GetIberPrinterInstance();
 
                 List<string> Eventos = GetEvents(AlohaEvents.FOOTERMSGBYTERMINAL);
-                var models = MakeModels(Eventos);
+                List<EventsAloha> models = MakeModels(Eventos);
+                EventsAloha eventoImpresion = GetPrinterEvent(models, IdServer);
                 List<string> LineasMensajes = GetMsgs();
 
+                List<string> LineasAgregar = new List<string>();
+                if (EventIsValid(IdServer, eventoImpresion))
+                {
+                    foreach (var linea in LineasMensajes)
+                    {
+                        if (linea.Contains('%'))
+                        {
+                            double PorcentajePropina = ExtractCharact(linea);
+                            string cadenaPropina = MensajePropina(linea);
 
-                iberPrinter.PrintStream(XML);
-                App.logger.Info($"Iniciado proceso de impresión");
+                            string NuevaCadenaPropina = $"{cadenaPropina} {string.Format("{0:C2}", PorcentajePropina * total)}";
+
+                            LineasAgregar.Add(NuevaCadenaPropina);
+                        }
+                        else
+                        {
+                            LineasAgregar.Add(linea);
+                        }
+                    }
+
+
+
+                    foreach (var linea in LineasAgregar)
+                    {
+                        XML = AddTextAtFinal(XML, linea);
+                    }
+
+
+
+
+                    iberPrinter.PrintStream(XML);
+                    App.logger.Info($"Iniciado proceso de impresión");
+                }
+
             }
             catch (Exception ex)
             {
@@ -1414,12 +1447,10 @@ namespace AlohaWebServiceMobile.Utils
         }
 
 
-        public bool EventIsValid(int IdServer)
+        public bool EventIsValid(int IdServer, EventsAloha evento)
         {
-            bool IsValid = false;
 
-
-
+            bool IsValid = (evento.TypeAlohaEvent as FOOTERMSGBYTERMINAL).IdTerminal == IdServer;
             return IsValid;
         }
 
@@ -1445,6 +1476,18 @@ namespace AlohaWebServiceMobile.Utils
 
 
             return models;
+        }
+
+        public EventsAloha GetPrinterEvent(List<EventsAloha> Eventos, int IdServer)
+        {
+            EventsAloha Event = null;
+
+
+            Event = Eventos.First(E => (E.TypeAlohaEvent as FOOTERMSGBYTERMINAL).IdTerminal == IdServer);
+
+
+            return Event;
+
         }
 
         public List<string> GetEvents(AlohaEvents tipo)
@@ -1480,6 +1523,49 @@ namespace AlohaWebServiceMobile.Utils
                 Msgs.Add(gci.MESSAGE12);
             }
             return Msgs;
+        }
+        public double ExtractCharact(string Cadena)
+        {
+            double GetNum = 0.0;
+            string Num;
+
+            Match StrNum = Regex.Match(Cadena, @"\*\d+.\d{1,2}\)");
+            if (StrNum.Success)
+            {
+                Num = StrNum.Value.Replace(")", "").Replace("*", "");
+                GetNum = Convert.ToDouble(Num);
+            }
+
+            return GetNum;
+        }
+
+        public string MensajePropina(string MensajeAloha)
+        {
+            Match Mensaje = Regex.Match(MensajeAloha, @"[\w*\s]*]*\d*%");
+            return Mensaje.Success ? Mensaje.Value : "";
+        }
+
+        public string AddTextAtFinal(string originalXml, string textLine)
+        {
+            string newXml = originalXml;
+            try
+            {
+                string printLine = "<STOPJOURNAL/>";
+                int pos = newXml.Trim().LastIndexOf(printLine);
+                if (pos == -1)
+                {
+                    printLine = "<STOPJOURNAL />";
+                    pos = newXml.LastIndexOf(printLine);
+                }
+                StringBuilder temp = new StringBuilder();
+                temp.Append(String.Format("<PRINTCENTERED>{0}</PRINTCENTERED>", textLine));
+                newXml = newXml.Insert(pos, temp.ToString());
+            }
+            catch
+            {
+                return originalXml;
+            }
+            return newXml;
         }
     }
 }
