@@ -321,5 +321,12 @@ namespace AlohaWebServiceMobile.Controllers
             App.AlohaConnection.ProcesarEOD();
             return Request.CreateResponse(HttpStatusCode.OK, $"EOD detectado", Configuration.Formatters.JsonFormatter);
         }
+        [HttpPost]
+        [Route("PrintNewXML")]
+        public HttpResponseMessage PrintNewXML()
+        {
+
+            return Request.CreateResponse(HttpStatusCode.OK, $"", Configuration.Formatters.JsonFormatter);
+        }
     }
 }
