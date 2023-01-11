@@ -10,6 +10,7 @@ using AlohaWebServiceMobile.Models.Aloha.BlueTooth;
 using AlohaWebServiceMobile.Models.Aloha.Desktop;
 using AlohaWebServiceMobile.Models.Transacciones;
 using LasaFOHLib;
+using LecturaAppConfig;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -348,6 +349,8 @@ namespace AlohaWebServiceMobile.Utils
             }
             return response;
         }
+
+
 
         //VERSION 
         public ResponseAloha AddItems(RequestAddItem requestAddItem)
@@ -1373,5 +1376,41 @@ namespace AlohaWebServiceMobile.Utils
             }
             return ResponsePagosPendiente;
         }
+
+
+
+
+
+
+
+        public bool printXML(string XML)
+        {
+            int IdServer = LACSystem.GetInt("ID_TERM_SERVER");
+            bool IsSuccess = false;
+            try
+            {
+                VerificarIber();
+                IIberPrinter iberPrinter = AlohaSdkFactory.GetIberPrinterInstance();
+                iberPrinter.PrintStream(XML);
+                App.logger.Info($"Iniciado proceso de impresión");
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al imprimir", ex);
+            }
+            return IsSuccess;
+        }
+
+
+        public bool EventIsValid(int IdServer)
+        {
+            bool IsValid = false;
+
+
+
+            return IsValid;
+        }
+
+
     }
 }

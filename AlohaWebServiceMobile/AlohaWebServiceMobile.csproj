@@ -120,6 +120,7 @@
     <Compile Include="EntityFrameWork\Interface\IPagos_pendientes.cs" />
     <Compile Include="EntityFrameWork\Models\Pagos_pendientes.cs" />
     <Compile Include="EntityFrameWork\Models\Ticket_smart.cs" />
+    <Compile Include="Enums\AlohaEvents.cs" />
     <Compile Include="Enums\AlohaPanelCodes.cs" />
     <Compile Include="EntityFrameWork\Context\ApplicationDbContext.cs" />
     <Compile Include="EntityFrameWork\Enums\TipoRespuesta.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Models\Aloha\BlueTooth\ResponsePrinter.cs" />
     <Compile Include="Models\Aloha\ModeloNuevo.cs" />
     <Compile Include="Models\Aloha\RequestPrintBluetooth.cs" />
+    <Compile Include="Models\Aloha\RequestPrintXML.cs" />
     <Compile Include="Models\Aloha\RequestVoidItem.cs" />
     <Compile Include="Enums\AlohaActions.cs" />
     <Compile Include="Enums\CodigosError.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="Models\Aloha\RequestOrderMode.cs" />
     <Compile Include="Models\Aloha\RequestPrint.cs" />
     <Compile Include="Models\Aloha\ResponseAloha.cs" />
+    <Compile Include="Models\Aloha\System\EventsAloha.cs" />
     <Compile Include="Models\Catalogos\BTNMobile.cs" />
     <Compile Include="Models\Catalogos\ITMmobile.cs" />
     <Compile Include="Models\Catalogos\JOBmobile.cs" />
