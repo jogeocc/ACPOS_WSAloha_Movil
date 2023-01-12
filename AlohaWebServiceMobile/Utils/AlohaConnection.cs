@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using TicketGenerateAloha;
 using TicketGenerateAloha.Models;
@@ -642,7 +643,11 @@ namespace AlohaWebServiceMobile.Utils
                 #region Seccion que cambia el ruteo de impresoras
                 xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_CHECKS, idCheck, "ID_RUTEO", idTermImpresora.ToString());
 
-                xFunction.PrintCheck(idTerm, idCheck);
+                Thread Impresion = new Thread(() =>
+                {
+                    xFunction.PrintCheck(idTerm, idCheck);
+                });
+                Impresion.Start();
                 #endregion
 
                 responseAloha.Estado = true;
