@@ -34,6 +34,16 @@ namespace AlohaWebServiceMobile.Controllers
             var menus = App.Catalogos.ObtenerMenuMovil();
             return Request.CreateResponse(HttpStatusCode.OK, menus, Configuration.Formatters.JsonFormatter);
         }
+        [HttpGet]
+        [Route("menus/{ID_MENU}")]
+        public HttpResponseMessage GETMenuSpecific(int ID_MENU)
+        {
+            var menus = App.Catalogos.ObtenerMenuMovil(ID_MENU);
+
+            return Request.CreateResponse(HttpStatusCode.OK, menus, Configuration.Formatters.JsonFormatter);
+        }
+
+
 
         [HttpGet]
         [Route("modos_pedidos")]

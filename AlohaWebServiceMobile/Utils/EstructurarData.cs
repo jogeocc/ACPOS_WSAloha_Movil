@@ -39,7 +39,7 @@ namespace AlohaWebServiceMobile.Utils
         }
 
         #region OBTENER MENU
-        public List<MNUmobile> ObtenerMenuMovil()
+        public List<MNUmobile> ObtenerMenuMovil(int IdMenu = 0)
         {
             List<MNUmobile> Menus = new List<MNUmobile>();
 
@@ -65,7 +65,18 @@ namespace AlohaWebServiceMobile.Utils
             //RELACIONAR TODO LA DATA DEL MENU -> SUBMENUS -> ITEMS -> MODS -> ITEMS
 
             //RECOLECTAR PRIMER PASO MENUS
-            foreach (MNU menu in MenusDbfs.Where(M => M.ID == App.appConfig.ID_MENU_MOVIL))
+            int Menu;
+            if (IdMenu == 0)
+            {
+                Menu = App.appConfig.ID_MENU_MOVIL;
+            }
+            else
+            {
+                Menu = IdMenu;
+            }
+
+
+            foreach (MNU menu in MenusDbfs.Where(M => M.ID == Menu))
             {
                 MNUmobile mNUmobile = new MNUmobile();
                 mNUmobile.id_menu = menu.ID;
