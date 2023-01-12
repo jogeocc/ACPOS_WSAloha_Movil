@@ -642,12 +642,7 @@ namespace AlohaWebServiceMobile.Utils
 
                 #region Seccion que cambia el ruteo de impresoras
                 xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_CHECKS, idCheck, "ID_RUTEO", idTermImpresora.ToString());
-
-                Thread Impresion = new Thread(() =>
-                {
-                    xFunction.PrintCheck(idTerm, idCheck);
-                });
-                Impresion.Start();
+                xFunction.PrintCheck(idTerm, idCheck);
                 #endregion
 
                 responseAloha.Estado = true;
