@@ -1529,6 +1529,8 @@ namespace AlohaWebServiceMobile.Utils
             }
             return Msgs;
         }
+
+
         public double ExtractCharact(string Cadena)
         {
             double GetNum = 0.0;
