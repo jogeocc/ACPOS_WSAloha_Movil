@@ -57,8 +57,14 @@ namespace AlohaWebServiceMobile.Utils
                     new BinaryReader(File.Open(NombreArchivo, FileMode.Open)))
                 {
                     json = binaryReader.ReadString();
+
                 }
-                Users = JsonConvert.DeserializeObject<MyOwnList<User>>(json);
+                if (!string.IsNullOrEmpty(json))
+                {
+                    App.logger.Info($"NO EXISTEN USUARIOS ACTUALES EN SISTEMA");
+                    Users = JsonConvert.DeserializeObject<MyOwnList<User>>(json);
+                }
+
 
             }
             catch (Exception ex)
