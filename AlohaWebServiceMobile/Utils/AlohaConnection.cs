@@ -430,6 +430,8 @@ namespace AlohaWebServiceMobile.Utils
 
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto insertado con exito";
+                responseAloha.check = RecuperarCheque(requestAddItem.IdCheck);
+
                 LogoutInterno(requestAddItem.IdTerm);
                 App.IsBusy = false;
             }

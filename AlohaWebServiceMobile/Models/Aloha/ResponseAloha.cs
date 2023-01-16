@@ -22,5 +22,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public string NombreMesa { get; set; }
         public int IdPagoPendiente { get; set; }
         public string SG_REFERENCE { get; set; } = "";
+
+        public 
     }
 }
