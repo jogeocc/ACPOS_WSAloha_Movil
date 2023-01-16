@@ -196,7 +196,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("OrderMode")]
         public HttpResponseMessage OrderMode(RequestOrderMode requestOrderMode)
         {
-            ResponseAloha response = App.AlohaConnection.ConfirmOrderMode(requestOrderMode.IdTerm, requestOrderMode.IdMesa, requestOrderMode.IdModoPedido, requestOrderMode.IdEmpleado);
+            ResponseAloha response = App.AlohaConnection.ConfirmOrderMode(requestOrderMode.IdTerm, requestOrderMode.IdMesa, requestOrderMode.IdModoPedido, requestOrderMode.IdEmpleado, requestOrderMode.SelectedEntries);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 

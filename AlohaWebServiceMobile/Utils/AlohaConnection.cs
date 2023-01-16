@@ -551,7 +551,7 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha ConfirmOrderMode(int IdTerm, int IdMesa, int IdModoPedido, int idEmpleado)
+        public ResponseAloha ConfirmOrderMode(int IdTerm, int IdMesa, int IdModoPedido, int idEmpleado, List<EntryesMode> selectedEntries)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
@@ -560,6 +560,18 @@ namespace AlohaWebServiceMobile.Utils
                 Encolamiento();
                 App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
+
+                if (selectedEntries.Count > 0)
+                {
+                    foreach (var entry in selectedEntries)
+                    {
+                        xFunction.SelectEntryAndChildren(IdTerm, IdMesa, entry.EntrieId);
+                    }
+                }
+
+
+
+
                 xFunction.OrderItems(IdTerm, IdMesa, IdModoPedido);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Productos ordenados con exito";
