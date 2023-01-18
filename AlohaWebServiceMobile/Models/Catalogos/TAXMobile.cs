@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlohaLibrary.Modelos
+namespace AlohaWebServiceMobile.Models.Catalogos
 {
-    public class TAX
+    public class TAXMobile
     {
         public int ID { get; set; }
         public int OWNERID { get; set; }

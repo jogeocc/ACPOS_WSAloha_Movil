@@ -177,6 +177,7 @@
     <Compile Include="Models\Catalogos\PNLMobile.cs" />
     <Compile Include="Models\Catalogos\PRTMobile.cs" />
     <Compile Include="Models\Catalogos\SUBmobile.cs" />
+    <Compile Include="Models\Catalogos\TAXMobile.cs" />
     <Compile Include="Models\Catalogos\TDRmobile.cs" />
     <Compile Include="Models\Catalogos\VOIDMobile.cs" />
     <Compile Include="Models\Aloha\RequestPagoPendiente.cs" />

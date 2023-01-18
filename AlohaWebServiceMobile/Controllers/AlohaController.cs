@@ -121,6 +121,14 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, SmartAlohaCodigos, Configuration.Formatters.JsonFormatter);
         }
 
+        [HttpGet]
+        [Route("TAX")]
+        public HttpResponseMessage TAX()
+        {
+            var SmartAlohaCodigos = App.Catalogos.ObtenerTaxSucursal();
+            return Request.CreateResponse(HttpStatusCode.OK, SmartAlohaCodigos, Configuration.Formatters.JsonFormatter);
+        }
+
         //ACCIONES DE ALOHA CONNECTION
         [HttpPost]
         [Route("clockin")]

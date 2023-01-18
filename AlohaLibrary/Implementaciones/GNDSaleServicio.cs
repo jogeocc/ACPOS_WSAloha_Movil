@@ -148,31 +148,31 @@ namespace AlohaLibrary.Implementaciones
             TAXServicio taxServicio = new TAXServicio(Contexto);
             var taxes = taxServicio.GetAll();
 
-            foreach (DataRow item in tabla.Rows)
-            {
-                int TAXID1 = int.Parse(item["TAXID"].ToString());
-                int TAXID2 = int.Parse(item["TAXID2"].ToString());
-                int VTAXID = int.Parse(item["VTAXID"].ToString());
+            //foreach (DataRow item in tabla.Rows)
+            //{
+            //    int TAXID1 = int.Parse(item["TAXID"].ToString());
+            //    int TAXID2 = int.Parse(item["TAXID2"].ToString());
+            //    int VTAXID = int.Parse(item["VTAXID"].ToString());
 
-                decimal tax1 = TAXID1 != 0 ? taxes.Find(t => t.ID == TAXID1).RATE : 0;
-                decimal tax2 = TAXID2 != 0 ? taxes.Find(t => t.ID == TAXID2).RATE : 0;
-                decimal vTax = VTAXID != 0 ? taxes.Find(t => t.ID == VTAXID).RATE : 0;
-                decimal amt = decimal.Parse(item["AMT"].ToString());
+            //    decimal tax1 = TAXID1 != 0 ? taxes.Find(t => t.ID == TAXID1).RATE : 0;
+            //    decimal tax2 = TAXID2 != 0 ? taxes.Find(t => t.ID == TAXID2).RATE : 0;
+            //    decimal vTax = VTAXID != 0 ? taxes.Find(t => t.ID == VTAXID).RATE : 0;
+            //    decimal amt = decimal.Parse(item["AMT"].ToString());
 
-                lista.Add(new SaleDiscount
-                {
-                    CHECK = int.Parse(item["CHECK"].ToString()),
-                    PERIOD = int.Parse(item["PERIOD"].ToString()),
-                    ITEMID = int.Parse(item["ITEMID"].ToString()),
-                    PRICE = decimal.Parse(item["PRICE"].ToString()),
-                    AMT = amt,
-                    Tax1 = tax1,
-                    Tax2 = tax2,
-                    VTax = vTax,
-                    TaxTotal = tax1 + tax2 + vTax,
-                    DescuentoSinIva = amt / (tax1 + tax2 + vTax + 1)
-                });
-            }
+            //    lista.Add(new SaleDiscount
+            //    {
+            //        CHECK = int.Parse(item["CHECK"].ToString()),
+            //        PERIOD = int.Parse(item["PERIOD"].ToString()),
+            //        ITEMID = int.Parse(item["ITEMID"].ToString()),
+            //        PRICE = decimal.Parse(item["PRICE"].ToString()),
+            //        AMT = amt,
+            //        Tax1 = tax1,
+            //        Tax2 = tax2,
+            //        VTax = vTax,
+            //        TaxTotal = tax1 + tax2 + vTax,
+            //        DescuentoSinIva = amt / (tax1 + tax2 + vTax + 1)
+            //    });
+            //}
 
             return lista;
         }

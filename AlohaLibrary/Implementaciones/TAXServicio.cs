@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using AlohaLibrary.Contexto;
@@ -19,33 +20,46 @@ namespace AlohaLibrary.Implementaciones
 
         public override List<TAX> GetAll()
         {
-            List<TAX> itms = new List<TAX>();
-
-            string query = $"SELECT ID ,OWNERID ,USERNUMBER ,NAME ,SUBSTITUTE ,EXCLUSIVE ,INCLUSIVE ,VENDOR ,RATE  FROM TAX";
-
+            List<TAX> List = new List<TAX>();
+            string query = $"SELECT * FROM QTYPRICE";
             DataSet ds = new DataSet();
-            EjecutarConsulta(query).Fill(ds, "TAX");
-            DataTable tabla = ds.Tables["TAX"];
-
+            EjecutarConsulta(query).Fill(ds, "QTYPRICE");
+            DataTable tabla = ds.Tables["QTYPRICE"];
             foreach (DataRow item in tabla.Rows)
             {
-                itms.Add(new TAX()
+                TAX priceItem = new TAX();
+
+                var Props = priceItem.GetType().GetProperties().ToList();
+                foreach (PropertyInfo prop in Props)
                 {
-                    ID = int.Parse(item["ID"].ToString()),
-                    OWNERID = int.Parse(item["OWNERID"].ToString()),
-                    USERNUMBER = int.Parse(item["USERNUMBER"].ToString()),
-                    NAME = (item["NAME"].ToString()),
-                    SUBSTITUTE = (item["SUBSTITUTE"].ToString()),
-                    EXCLUSIVE = (item["EXCLUSIVE"].ToString()),
-                    INCLUSIVE = (item["INCLUSIVE"].ToString()),
-                    VENDOR = (item["VENDOR"].ToString()),
-                    RATE = decimal.Parse(item["RATE"].ToString()),
-
-
-                });
+                    if (prop.PropertyType == typeof(double))
+                    {
+                        //VALORES DOUBLE
+                        double.TryParse(item[prop.Name].ToString(), out double result);
+                        prop.SetValue(priceItem, result);
+                    }
+                    else
+                    {
+                        if (int.TryParse(item[prop.Name].ToString(), out int value))
+                        {
+                            //ENTEROS
+                            prop.SetValue(priceItem, value);
+                        }
+                        else if ((item[prop.Name].ToString().ToUpper() == "Y" || item[prop.Name].ToString().ToUpper() == "N"))
+                        {
+                            //BOOLEANO TIPO ALOHA
+                            prop.SetValue(priceItem, item[prop.Name].ToString().ToUpper() == "Y");
+                        }
+                        else
+                        {
+                            //CADENAS
+                            prop.SetValue(priceItem, item[prop.Name].ToString());
+                        }
+                    }
+                }
+                List.Add(priceItem);
             }
-
-            return itms;
+            return List;
         }
     }
 }

@@ -670,6 +670,34 @@ namespace AlohaWebServiceMobile.Utils
 
             return MapeoPagosList;
         }
+        public List<TAXMobile> ObtenerTaxSucursal()
+        {
+            List<TAXMobile> TaxMobileList = new List<TAXMobile>();
+            List<TAX> ListDBFS = new List<TAX>();
+
+
+            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
+            {
+                ListDBFS = new TAXServicio(contextoAlh).GetAll();
+            }
+            foreach (var TaxDbf in ListDBFS)
+            {
+                TaxMobileList.Add(new TAXMobile
+                {
+                    ID = TaxDbf.ID,
+                    INCLUSIVE = TaxDbf.INCLUSIVE,
+                    NAME = TaxDbf.NAME,
+                    OWNERID = TaxDbf.OWNERID,
+                    RATE = TaxDbf.RATE,
+                    USERNUMBER = TaxDbf.USERNUMBER,
+                    SUBSTITUTE = TaxDbf.SUBSTITUTE,
+                    VENDOR = TaxDbf.VENDOR,
+                    EXCLUSIVE = TaxDbf.EXCLUSIVE,
+
+                });
+            }
+            return TaxMobileList;
+        }
 
     }
 }
