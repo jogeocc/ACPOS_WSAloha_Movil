@@ -21,10 +21,10 @@ namespace AlohaLibrary.Implementaciones
         public override List<TAX> GetAll()
         {
             List<TAX> List = new List<TAX>();
-            string query = $"SELECT * FROM QTYPRICE";
+            string query = $"SELECT * FROM TAX";
             DataSet ds = new DataSet();
-            EjecutarConsulta(query).Fill(ds, "QTYPRICE");
-            DataTable tabla = ds.Tables["QTYPRICE"];
+            EjecutarConsulta(query).Fill(ds, "TAX");
+            DataTable tabla = ds.Tables["TAX"];
             foreach (DataRow item in tabla.Rows)
             {
                 TAX priceItem = new TAX();
