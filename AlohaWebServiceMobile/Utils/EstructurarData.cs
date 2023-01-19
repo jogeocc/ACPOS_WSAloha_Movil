@@ -222,12 +222,14 @@ namespace AlohaWebServiceMobile.Utils
             {
                 if (ItemsDbfs.Any(I => I.ID == item.id))
                 {
-                    var articulo = ItemsDbfs.First(I => I.ID == item.id);
+                    ITM articulo = ItemsDbfs.First(I => I.ID == item.id);
                     item.descripcion_corta = DecodeToASCII(articulo.SHORTNAME);
                     item.descripcion_larga = DecodeToASCII(articulo.LONGNAME);
                     item.item_precio = articulo.PRICE;
                     item.item_precio_ID = articulo.PRICE_ID;
-
+                    item.Impuesto_1 = articulo.TAXID;
+                    item.Impuesto_2 = articulo.TAXID2;
+                    item.Impuesto_3 = articulo.VTAXID;
 
                     if (articulo.MOD1 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD1, });
                     if (articulo.MOD2 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD2, });
@@ -270,9 +272,12 @@ namespace AlohaWebServiceMobile.Utils
                                     Item ItemMOD = new Item();
                                     ItemMOD.id = ListaMods[i].ITEMID;
 
-                                    var itemDBF = ItemsDbfs.Find(I => I.ID == ItemMOD.id);
+                                    ITM itemDBF = ItemsDbfs.Find(I => I.ID == ItemMOD.id);
                                     ItemMOD.descripcion_corta = DecodeToASCII(itemDBF.SHORTNAME);
                                     ItemMOD.descripcion_larga = DecodeToASCII(itemDBF.LONGNAME);
+                                    ItemMOD.Impuesto_1 = itemDBF.TAXID;
+                                    ItemMOD.Impuesto_2 = itemDBF.TAXID2;
+                                    ItemMOD.Impuesto_3 = itemDBF.VTAXID;
                                     int condicion = ListaMods[i].PRMETHOD;
                                     if (condicion == 0)
                                     {
@@ -315,6 +320,9 @@ namespace AlohaWebServiceMobile.Utils
                                         var itemDBF = ItemsDbfs.Find(I => I.ID == ItemMOD.id);
                                         ItemMOD.descripcion_corta = DecodeToASCII(itemDBF.SHORTNAME);
                                         ItemMOD.descripcion_larga = DecodeToASCII(itemDBF.LONGNAME);
+                                        ItemMOD.Impuesto_1 = itemDBF.TAXID;
+                                        ItemMOD.Impuesto_2 = itemDBF.TAXID2;
+                                        ItemMOD.Impuesto_3 = itemDBF.VTAXID;
                                         int condicion = int.Parse(modificador.methods[j].ToString());
                                         if (condicion == 0)
                                         {

@@ -67,6 +67,11 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public int id_panel { get; set; }
         public bool is_boton_panel { get { return id_panel > 0; } }
         public SubMenu PanelTransicion { get; set; } = new SubMenu();
+
+        //CAMPOS NUEVOS PARA USO DE IMPUESTOS 19/01/2023
+        public int Impuesto_1 { get; set; }
+        public int Impuesto_2 { get; set; }
+        public int Impuesto_3 { get; set; }
     }
 
     public class Mod
