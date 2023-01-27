@@ -207,9 +207,8 @@ namespace AlohaWebServiceMobile.Utils
                     //responseAloha.idMesa = xFunction.AddCheck(IdTerm, IdMesaInterno);
                 }
 
-                int idChequeInterno =
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-                responseAloha.mensaje = $"Cuenta abierda con id {idChequeInterno}";
+                responseAloha.mensaje = $"Cuenta abierda con id {responseAloha.idMesa}";
                 //responseAloha.idMesa = idChequeInterno;
                 //LogoutInterno(IdTerm);
             }

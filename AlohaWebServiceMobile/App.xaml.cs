@@ -22,7 +22,7 @@ namespace AlohaWebServiceMobile
 
     public partial class App : Application
     {
-        public static string Version = "Versión 10";
+        public static string Version = "Versión 11";
         public static readonly ILog logger = LogManager.GetLogger("Aloha_vapiano");
         public bool iniciar = false;
         public bool IsError = false;
@@ -43,7 +43,8 @@ namespace AlohaWebServiceMobile
                 var thisProcess = Process.GetCurrentProcess();
                 if ((Process.GetProcessesByName(thisProcess.ProcessName).Count() > 1))
                     Environment.Exit(0);
-                logger.Info("Iniciando sistema...");
+                logger.Info("------------------------------------------------");
+                logger.Info($"Iniciando sistema {Version}");
                 splash.Show();
 
                 Task.Factory.StartNew(() =>
@@ -53,7 +54,7 @@ namespace AlohaWebServiceMobile
                         IniciarWebService();
                         bdInterna.users = funcionesArchivo.ReadTrans();
                         //CargarInfoAlohaIni();
-                        
+
                     }
                     catch (Exception ex)
                     {
@@ -70,6 +71,7 @@ namespace AlohaWebServiceMobile
 
                     CargaIcono();
                     VentanaPrincipal = new MainWindow();
+                    App.logger.Info($"SISTEMA CARGADO CON EXITO");
                     //splash.Hide();
                 }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
 
