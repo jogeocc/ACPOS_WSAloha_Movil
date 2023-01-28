@@ -369,10 +369,11 @@ namespace AlohaWebServiceMobile.Utils
                 Encolamiento();
                 App.IsBusy = true;
                 LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
-
+                List<int> IdsEntryes = new List<int>();
                 foreach (ItemAloha item in requestAddItem.item)
                 {
                     int IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
+                    IdsEntryes.Add(IdEntryBase);
                     #region modificadores
                     //int NivelMod = 1;
                     List<int> EntrysLevels = new List<int>();
@@ -429,7 +430,7 @@ namespace AlohaWebServiceMobile.Utils
 
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto insertado con exito";
-                responseAloha.check = RecuperarCheque(requestAddItem.IdCheck);
+                responseAloha.check = RecuperarCheque(requestAddItem.IdCheck, IdsEntryes);
 
                 LogoutInterno(requestAddItem.IdTerm);
                 App.IsBusy = false;
@@ -1064,6 +1065,168 @@ namespace AlohaWebServiceMobile.Utils
                 check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
                 check.TotalCheck = ChequeAbierto.GetDoubleVal("SUBTOTAL");
 
+            }
+            catch (Exception ex)
+            {
+                check = null;
+            }
+            return check;
+        }
+
+        private Check RecuperarCheque(int IdCheck, List<int> IdsEntrysInsertados)
+        {
+            Check check = new Check();
+            try
+            {
+                check.Id = IdCheck;
+                IberObject ChequeAbierto = depot.FindObjectFromId((int)COMEnums.INTERNAL_CHECKS, IdCheck).First();
+                //ITEMS
+                double SubTotal = 0;
+                double tax = 0;
+                xFunction.GetCheckTotal(IdCheck, out SubTotal, out tax);
+                check.Amount = SubTotal;
+                check.Tax = tax;
+                double MontoTotal = ChequeAbierto.GetDoubleVal("SUBTOTAL");
+
+                try
+                {
+                    IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
+                    IberObject ItemAbierto = ItemsEmpleado.First();
+                    int IdPadre = 0;
+                    while (ItemAbierto != null)
+                    {
+                        Item item = new Item();
+                        item.Id = ItemAbierto.GetLongVal("DATA");
+                        item.IdEntry = ItemAbierto.GetLongVal("ID");
+                        item.Name = ItemAbierto.GetStringVal("DISP_NAME");
+                        item.Price = ItemAbierto.GetDoubleVal("PRICE");
+                        item.DisplayPrice = ItemAbierto.GetStringVal("DISP_PRICE").Trim();
+                        item.ModCode = ItemAbierto.GetLongVal("MOD_CODE");
+                        item.NivelMod = ItemAbierto.GetLongVal("LEVEL");
+                        int IsMessage = ItemAbierto.GetLongVal("TYPE");
+                        item.Ordered = ItemAbierto.GetBoolVal("SELECTED") > 0;
+                        item.OrderMode = ItemAbierto.GetLongVal("MODE");
+                        item.Modstring = ItemAbierto.GetStringVal("MOD_STRING");
+
+                        if (IsMessage == 0)
+                        {
+                            if (item.NivelMod == 0)
+                            {
+                                IdPadre = item.IdEntry;
+                                check.Items.Add(item);
+                            }
+                            else
+                            {
+                                check.Items.First(I => I.IdEntry == IdPadre).Mods.Add(item);
+                            }
+                        }
+                        else
+                        {
+                            check.Items.First(I => I.IdEntry == IdPadre).SpecialMessage = item.Name;
+                        }
+                        ItemAbierto = ItemsEmpleado.Next();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+                //PAGOS APLICADOS A LA MESA
+                try
+                {
+                    IberEnum PagosEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_PAYMENTS);
+                    IberObject PagoAplicado = PagosEmpleado.First();
+                    while (PagoAplicado != null)
+                    {
+                        Payment payment = new Payment();
+                        payment.IdPayment = PagoAplicado.GetLongVal("ID");
+                        payment.IdTender = PagoAplicado.GetLongVal("TENDER_ID");
+                        payment.Tip = PagoAplicado.GetDoubleVal("TIP");
+                        payment.Amount = PagoAplicado.GetDoubleVal("AMOUNT");
+                        check.Payments.Add(payment);
+                        PagoAplicado = PagosEmpleado.Next();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    App.logger.Error($"Error al obtener pagos aplicados en la cuenta");
+                }
+
+                //Promociones aplicadas a la mesa
+                try
+                {
+                    IberEnum PromocionesEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_PROMOS);
+                    IberObject PromocionAbierto = PromocionesEmpleado.First();
+                    while (PromocionAbierto != null)
+                    {
+                        Promotion promotion = new Promotion();
+                        promotion.Id = PromocionAbierto.GetLongVal("ID");
+                        promotion.IdPromo = PromocionAbierto.GetLongVal("PROMOTION_ID");
+                        promotion.Name = PromocionAbierto.GetStringVal("IDENT");
+                        promotion.AmountDiscount = PromocionAbierto.GetDoubleVal("AMOUNT");
+                        check.Promotions.Add(promotion);
+                        PromocionAbierto = PromocionesEmpleado.Next();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+                //Cortesias aplicadas a la mesa
+                try
+                {
+                    IberEnum CortesiasEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_COMPS);
+                    IberObject CortesiaAbierta = CortesiasEmpleado.First();
+                    while (CortesiaAbierta != null)
+                    {
+                        Comp Comp = new Comp();
+                        Comp.Id = CortesiaAbierta.GetLongVal("ID");
+                        Comp.IdComp = CortesiaAbierta.GetLongVal("COMPTYPE_ID");
+                        Comp.Unit = CortesiaAbierta.GetStringVal("UNIT");
+                        Comp.Name = CortesiaAbierta.GetStringVal("NAME");
+                        Comp.AmountDiscount = CortesiaAbierta.GetDoubleVal("AMOUNT");
+                        check.Comps.Add(Comp);
+                        CortesiaAbierta = CortesiasEmpleado.Next();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+                double AmountPayed = 0;
+                //Aritmetica para Monto pendiente de pagar
+                if (check.Payments.Count > 0)
+                {
+
+                    check.Payments.ForEach((Pago) =>
+                    {
+                        AmountPayed += Pago.Amount;
+                    });
+                }
+                check.AmountDue = MontoTotal - AmountPayed;
+
+                check.Guests = ChequeAbierto.GetLongVal("GUESTS");
+                check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
+                check.TotalCheck = ChequeAbierto.GetDoubleVal("SUBTOTAL");
+                if (IdsEntrysInsertados.Count > 0)
+                {
+                    List<Item> NewItemList = new List<Item>();
+
+                    check.Items.ForEach((Item) =>
+                    {
+                        foreach (var id in IdsEntrysInsertados)
+                        {
+                            if (Item.IdEntry == id)
+                            {
+                                NewItemList.Add(Item);
+                            }
+                        }
+                    });
+
+                    check.Items = NewItemList;
+                }
             }
             catch (Exception ex)
             {
