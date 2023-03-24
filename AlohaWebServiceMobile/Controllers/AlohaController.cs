@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -349,6 +350,15 @@ namespace AlohaWebServiceMobile.Controllers
             string XML = Encoding.UTF8.GetString(base64EncodedBytes);
             App.AlohaConnection.printXML(XML, requestPrintXML.IdCheck);
             return Request.CreateResponse(HttpStatusCode.OK, $"ARCHIVO XML RECIBIDO CORRECTAMENTE", Configuration.Formatters.JsonFormatter);
+        }
+        [HttpPost]
+        [Route("DividirCuentas")]
+        public HttpResponseMessage DividirCuentas(RequestDividirCuenta requestDividirCuenta)
+        {
+
+            App.AlohaConnection.DividirCuentas(requestDividirCuenta);
+
+            return Request.CreateResponse(HttpStatusCode.OK, $"División realizada correctamente", Configuration.Formatters.JsonFormatter);
         }
     }
 }

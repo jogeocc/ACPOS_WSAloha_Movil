@@ -722,6 +722,29 @@ namespace AlohaWebServiceMobile.Utils
             }
         }
 
+        public void DividirCuentas(RequestDividirCuenta requestDividirCuenta)
+        {
+            try
+            {
+                VerificarIber();
+
+                foreach (CheckOpen Cuentas in requestDividirCuenta.cheksOpen)
+                {
+                    int CheckId = xFunction.AddCheck(requestDividirCuenta.IdTerm, requestDividirCuenta.IdTable);
+                    foreach (var entry in Cuentas.ListIdEntrys)
+                    {
+                        xFunction.SelectEntryAndChildren(requestDividirCuenta.IdTerm, requestDividirCuenta.IdCheck, entry);
+                    }
+                    xFunction.MoveSelectedEntries(requestDividirCuenta.IdTerm, requestDividirCuenta.IdManager, requestDividirCuenta.IdCheck, CheckId);
+                }
+                xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al dividir cuentas", ex);
+            }
+        }
+
 
         //FUNCIONES DE CONTROL DE DATOS
 

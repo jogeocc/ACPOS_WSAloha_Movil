@@ -142,6 +142,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aloha\BlueTooth\ResponsePrinter.cs" />
     <Compile Include="Models\Aloha\ModeloNuevo.cs" />
+    <Compile Include="Models\Aloha\RequestDividirCuenta.cs" />
     <Compile Include="Models\Aloha\RequestPrintBluetooth.cs" />
     <Compile Include="Models\Aloha\RequestPrintXML.cs" />
     <Compile Include="Models\Aloha\RequestVoidItem.cs" />
