@@ -184,6 +184,14 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+        /// <summary>
+        /// Para crear una nueva orden enviar el <paramref name="IdMesaInterno"/> con valor cero.
+        /// 
+        /// </summary>
+        /// <param name="IdTerm"></param>
+        /// <param name="IdMesaInterno"></param>
+        /// <param name="idEmpleado"></param>
+        /// <returns></returns>
         public ResponseAloha OpenCheck(int IdTerm, int IdMesaInterno, int idEmpleado)
         {
             ResponseAloha responseAloha = new ResponseAloha();
@@ -203,8 +211,8 @@ namespace AlohaWebServiceMobile.Utils
                 }
                 else
                 {
-                    App.logger.Info($"Cheque no creado, creando otra vez");
-                    //responseAloha.idMesa = xFunction.AddCheck(IdTerm, IdMesaInterno);
+                    App.logger.Info($"CHEQUE NO ENCONTRADO, CREANDO NUEVO CHEQUE");
+                    responseAloha.idMesa = xFunction.AddCheck(IdTerm, IdMesaInterno);
                 }
 
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
