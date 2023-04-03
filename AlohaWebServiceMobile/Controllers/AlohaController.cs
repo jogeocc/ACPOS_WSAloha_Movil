@@ -351,6 +351,7 @@ namespace AlohaWebServiceMobile.Controllers
             App.AlohaConnection.printXML(XML, requestPrintXML.IdCheck);
             return Request.CreateResponse(HttpStatusCode.OK, $"ARCHIVO XML RECIBIDO CORRECTAMENTE", Configuration.Formatters.JsonFormatter);
         }
+
         [HttpPost]
         [Route("DividirCuentas")]
         public HttpResponseMessage DividirCuentas(RequestDividirCuenta requestDividirCuenta)
@@ -359,6 +360,14 @@ namespace AlohaWebServiceMobile.Controllers
             App.AlohaConnection.DividirCuentas(requestDividirCuenta);
 
             return Request.CreateResponse(HttpStatusCode.OK, $"División realizada correctamente", Configuration.Formatters.JsonFormatter);
+        }
+
+
+        [HttpPost]
+        [Route("CombineTables")]
+        public HttpResponseMessage CombineTables()
+        {
+
         }
     }
 }

@@ -184,6 +184,7 @@
     <Compile Include="Models\Aloha\RequestPagoPendiente.cs" />
     <Compile Include="Models\Transacciones\BdInterna.cs" />
     <Compile Include="Models\Transacciones\InfoAloha.cs" />
+    <Compile Include="Rest\RestSAP.cs" />
     <Compile Include="UcComponents\EditNewMapeoPago.xaml.cs">
       <DependentUpon>EditNewMapeoPago.xaml</DependentUpon>
     </Compile>
