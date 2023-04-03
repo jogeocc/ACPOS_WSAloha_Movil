@@ -368,6 +368,17 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage CombineTables()
         {
 
+
+            return Request.CreateResponse(HttpStatusCode.OK, $"mesas unidas correctamente", Configuration.Formatters.JsonFormatter);
+        }
+
+        [HttpPost]
+        [Route("CloseCheck")]
+
+        public HttpResponseMessage CloseCheck()
+        {
+
+            return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }
     }
 }

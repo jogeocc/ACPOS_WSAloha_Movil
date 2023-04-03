@@ -735,7 +735,7 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
-
+                LoginInterno(requestDividirCuenta.IdTerm, requestDividirCuenta.IdEmpleado);
                 foreach (CheckOpen Cuentas in requestDividirCuenta.cheksOpen)
                 {
                     int CheckId = xFunction.AddCheck(requestDividirCuenta.IdTerm, requestDividirCuenta.IdTable);
@@ -751,6 +751,13 @@ namespace AlohaWebServiceMobile.Utils
             {
                 App.logger.Error($"Error al dividir cuentas", ex);
             }
+        }
+
+
+
+        public void CombineTables()
+        {
+
         }
 
 
