@@ -365,19 +365,18 @@ namespace AlohaWebServiceMobile.Controllers
 
         [HttpPost]
         [Route("CombineTables")]
-        public HttpResponseMessage CombineTables()
+        public HttpResponseMessage CombineTables(RequestCombineTables requestCombineTables)
         {
-
-
+            App.AlohaConnection.CombineTables(requestCombineTables);
             return Request.CreateResponse(HttpStatusCode.OK, $"mesas unidas correctamente", Configuration.Formatters.JsonFormatter);
         }
 
         [HttpPost]
-        [Route("CloseCheck")]
+        [Route("SendCloseCheckSAP")]
 
         public HttpResponseMessage CloseCheck()
         {
-
+            App.AlohaConnection.SendCloseCheckSAP();
             return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }
     }

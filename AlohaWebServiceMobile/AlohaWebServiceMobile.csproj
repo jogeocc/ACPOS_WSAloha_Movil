@@ -141,7 +141,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aloha\BlueTooth\ResponsePrinter.cs" />
+    <Compile Include="Models\Aloha\ModelCombineTables.cs" />
     <Compile Include="Models\Aloha\ModeloNuevo.cs" />
+    <Compile Include="Models\Aloha\RequestCombineTables.cs" />
     <Compile Include="Models\Aloha\RequestDividirCuenta.cs" />
     <Compile Include="Models\Aloha\RequestPrintBluetooth.cs" />
     <Compile Include="Models\Aloha\RequestPrintXML.cs" />
@@ -337,7 +339,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AlohaExtractInfo\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

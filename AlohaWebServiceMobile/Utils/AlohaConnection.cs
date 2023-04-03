@@ -756,11 +756,38 @@ namespace AlohaWebServiceMobile.Utils
 
 
 
-        public void CombineTables()
+        public void CombineTables(RequestCombineTables requestCombineTables)
         {
+            try
+            {
+                VerificarIber();
+                LoginInterno(requestCombineTables.IdTerm, requestCombineTables.IdEmpleado);
+                //OBTENER TODOS LOS ENTRYES A MOVER DE LA MESA 1
+                List<ModelCombineTables> MesaChequesTransferir = GetTableAndChecks(requestCombineTables.IdTableOne, requestCombineTables.IdTerm);
+                List<ModelCombineTables> MesaDestino = GetTableAndChecks(requestCombineTables.IdTableTwo, requestCombineTables.IdTerm);
 
+                //MOVER TODOS LOS ENTRYES RECUPERADOS A LA MESA DESTINO O LA MESA 2 POR DEFECTO
+                foreach (var cheque in MesaChequesTransferir)
+                {
+                    foreach (var entry in cheque.ListIdEntrys)
+                    {
+                        xFunction.SelectEntryAndChildren(requestCombineTables.IdTerm, cheque.IdCheck, entry);
+                    }
+                    xFunction.MoveSelectedEntries(requestCombineTables.IdTerm, requestCombineTables.IdEmpleado, cheque.IdCheck,, MesaDestino[0].IdCheck);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                App.logger.Error($"ERROR AL COMBINAR MESAS DEL SISTEMA", ex);
+            }
+            LogoutInterno(requestCombineTables.IdTerm);
         }
-
+        public void SendCloseCheckSAP()
+        {
+            throw new NotImplementedException();
+        }
 
         //FUNCIONES DE CONTROL DE DATOS
 
@@ -1420,6 +1447,36 @@ namespace AlohaWebServiceMobile.Utils
             return PosName;
         }
 
+        private List<ModelCombineTables> GetTableAndChecks(int idTableTab, int IdTerm)
+        {
+            List<ModelCombineTables> List = new List<ModelCombineTables>();
+            try
+            {
+                IberEnum EnumMesasChecks = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES_OPEN_CHECKS, idTableTab);
+                IberObject Cheque = EnumMesasChecks.First();
+                ModelCombineTables modelCombineTables = new ModelCombineTables();
+                int CheckId = Cheque.GetLongVal("ID");
+                modelCombineTables.IdCheck = CheckId;
+
+                App.logger.Info($"mesas del empleado {EnumMesasChecks.Count}");
+                for (int i = 0; i < EnumMesasChecks.Count; i++)
+                {
+                    ICheckEntryNewEx[] Entryes = xFunction.GetCheckEntriesNewEx(IdTerm, CheckId);
+                    foreach (ICheckEntryNewEx entry in Entryes)
+                    {
+                        modelCombineTables.ListIdEntrys.Add(entry.entryIdEx);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR NO SE PUDO RECUPERAR CHEQUES DE LA MESA", ex);
+            }
+
+            return List;
+        }
+
+
         //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
 
         private void LogoutInterno(int Idterm)
@@ -1789,5 +1846,7 @@ namespace AlohaWebServiceMobile.Utils
             }
             return newXml;
         }
+
+
     }
 }
