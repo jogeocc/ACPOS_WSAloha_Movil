@@ -751,6 +751,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 App.logger.Error($"Error al dividir cuentas", ex);
             }
+            LogoutInterno(requestDividirCuenta.IdTerm);
         }
 
 
