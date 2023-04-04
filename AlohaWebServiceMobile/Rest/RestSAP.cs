@@ -13,5 +13,12 @@ namespace AlohaWebServiceMobile.Rest
     /// </summary>
     public class RestSAP
     {
+        /// <summary>
+        /// CONSTRUCTOR DE SAP
+        /// </summary>
+        RestSAP()
+        {
+
+        }
     }
 }
