@@ -374,9 +374,9 @@ namespace AlohaWebServiceMobile.Controllers
         [HttpPost]
         [Route("SendCloseCheckSAP")]
 
-        public HttpResponseMessage CloseCheck()
+        public HttpResponseMessage CloseCheck(RequestCloseCheckSAP requestCloseCheckSAP)
         {
-            App.AlohaConnection.SendCloseCheckSAP();
+            App.AlohaConnection.SendCloseCheckSAP(requestCloseCheckSAP);
             return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }
     }

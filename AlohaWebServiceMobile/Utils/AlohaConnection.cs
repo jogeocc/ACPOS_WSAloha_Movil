@@ -784,9 +784,9 @@ namespace AlohaWebServiceMobile.Utils
             }
             LogoutInterno(requestCombineTables.IdTerm);
         }
-        public void SendCloseCheckSAP()
+        public void SendCloseCheckSAP(RequestCloseCheckSAP requestCloseCheckSAP)
         {
-            throw new NotImplementedException();
+
         }
 
         //FUNCIONES DE CONTROL DE DATOS
