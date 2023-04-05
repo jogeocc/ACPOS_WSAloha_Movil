@@ -12,5 +12,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int QueueId { get; set; }
         public int TableId { get; set; }
         public int CheckId { get; set; }
+
+        public string SAP_XML { get; set; }
     }
 }

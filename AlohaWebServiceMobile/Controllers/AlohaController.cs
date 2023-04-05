@@ -371,12 +371,26 @@ namespace AlohaWebServiceMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, $"mesas unidas correctamente", Configuration.Formatters.JsonFormatter);
         }
 
+
+
+
         [HttpPost]
         [Route("SendCloseCheckSAP")]
-
         public HttpResponseMessage CloseCheck(RequestCloseCheckSAP requestCloseCheckSAP)
         {
-            App.AlohaConnection.SendCloseCheckSAP(requestCloseCheckSAP);
+            if (!string.IsNullOrEmpty(requestCloseCheckSAP.SAP_XML))
+            {
+                //Si viene con info se manda al servicio de SAP
+                App.AlohaConnection.SendCloseCheckSAP(requestCloseCheckSAP);
+
+            }
+            else {
+                //si esta vacio solo se registra variable para realizar la impresion y que se reporte 
+                App.AlohaConnection.RegistrarVariableALOHA(requestCloseCheckSAP);
+            }
+
+
+
             return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }
     }

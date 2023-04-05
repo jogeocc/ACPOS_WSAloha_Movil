@@ -766,6 +766,7 @@ namespace AlohaWebServiceMobile.Utils
                 List<ModelCombineTables> MesaChequesTransferir = GetTableAndChecks(requestCombineTables.IdTableOne, requestCombineTables.IdTerm);
                 List<ModelCombineTables> MesaDestino = GetTableAndChecks(requestCombineTables.IdTableTwo, requestCombineTables.IdTerm);
 
+                //TODO CORREGIR ESTOS CASOS
                 //MOVER TODOS LOS ENTRYES RECUPERADOS A LA MESA DESTINO O LA MESA 2 POR DEFECTO
                 foreach (var cheque in MesaChequesTransferir)
                 {
@@ -773,7 +774,7 @@ namespace AlohaWebServiceMobile.Utils
                     {
                         xFunction.SelectEntryAndChildren(requestCombineTables.IdTerm, cheque.IdCheck, entry);
                     }
-                    xFunction.MoveSelectedEntries(requestCombineTables.IdTerm, requestCombineTables.IdEmpleado, cheque.IdCheck,, MesaDestino[0].IdCheck);
+                    xFunction.MoveSelectedEntries(requestCombineTables.IdTerm, requestCombineTables.IdEmpleado, cheque.IdCheck, MesaDestino[0].IdCheck);
                 }
 
             }
@@ -1476,6 +1477,19 @@ namespace AlohaWebServiceMobile.Utils
             return List;
         }
 
+
+        public void RegistrarVariableALOHA(RequestCloseCheckSAP requestCloseCheckSAP)
+        {
+            try
+            {
+                VerificarIber();
+                xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_CHECKS, requestCloseCheckSAP.CheckId, "SAP", ((int)ActivadorSAP.ENVIAR_SAP).ToString());
+                //xFunction.PrintCheck(idTerm, idCheck);
+            }catch(Exception ex)
+            {
+                App.logger.Error($"ERROR REGISTRAR VARIABLE DE ALOHA EN SISTEMA",ex);
+            }
+        }
 
         //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
 
