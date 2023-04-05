@@ -382,8 +382,8 @@ namespace AlohaWebServiceMobile.Controllers
             if (!string.IsNullOrEmpty(requestCloseCheckSAP.SAP_XML))
             {
                 //Si viene con info se manda al servicio de SAP
-
-                File.WriteAllText(@".\XMLSAP.txt", requestCloseCheckSAP.SAP_XML);
+                App.logger.Info($"XML SAP:\r\n {requestCloseCheckSAP.SAP_XML}");
+                //File.WriteAllText(@".\XMLSAP.txt", requestCloseCheckSAP.SAP_XML);
                 App.AlohaConnection.SendCloseCheckSAP(requestCloseCheckSAP);
 
             }

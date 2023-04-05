@@ -1484,10 +1484,11 @@ namespace AlohaWebServiceMobile.Utils
             {
                 VerificarIber();
                 xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_CHECKS, requestCloseCheckSAP.CheckId, "SAP", ((int)ActivadorSAP.ENVIAR_SAP).ToString());
-                //xFunction.PrintCheck(idTerm, idCheck);
-            }catch(Exception ex)
+                //xFunction.PrintCheck(idTerm, requestCloseCheckSAP.CheckId);
+            }
+            catch (Exception ex)
             {
-                App.logger.Error($"ERROR REGISTRAR VARIABLE DE ALOHA EN SISTEMA",ex);
+                App.logger.Error($"ERROR REGISTRAR VARIABLE DE ALOHA EN SISTEMA", ex);
             }
         }
 
