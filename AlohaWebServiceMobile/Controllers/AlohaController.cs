@@ -6,6 +6,7 @@ using AlohaWebServiceMobile.Models.Transacciones;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -381,10 +382,13 @@ namespace AlohaWebServiceMobile.Controllers
             if (!string.IsNullOrEmpty(requestCloseCheckSAP.SAP_XML))
             {
                 //Si viene con info se manda al servicio de SAP
+
+                File.WriteAllText(@".\XMLSAP.txt", requestCloseCheckSAP.SAP_XML);
                 App.AlohaConnection.SendCloseCheckSAP(requestCloseCheckSAP);
 
             }
-            else {
+            else
+            {
                 //si esta vacio solo se registra variable para realizar la impresion y que se reporte 
                 App.AlohaConnection.RegistrarVariableALOHA(requestCloseCheckSAP);
             }
