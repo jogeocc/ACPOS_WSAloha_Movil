@@ -192,7 +192,7 @@ namespace AlohaWebServiceMobile.Utils
         /// <param name="IdMesaInterno"></param>
         /// <param name="idEmpleado"></param>
         /// <returns></returns>
-        public ResponseAloha OpenCheck(int IdTerm, int IdMesaInterno, int idEmpleado)
+        public ResponseAloha OpenCheck(int IdTerm, int IdMesaInterno, int idEmpleado, bool isNewCheck)
         {
             ResponseAloha responseAloha = new ResponseAloha();
 
@@ -207,6 +207,10 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     var Mesa = Mesas.Find(M => M.Id == IdMesaInterno);
                     var id = Mesa.Checks.First().Id;
+                    if (isNewCheck)
+                    {
+                        id = xFunction.AddCheck(IdTerm, IdMesaInterno);
+                    }
                     responseAloha.idMesa = id;
                 }
                 else

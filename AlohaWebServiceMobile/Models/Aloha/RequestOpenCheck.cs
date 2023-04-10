@@ -12,5 +12,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
 
         public int IdTerm { get; set; }
         public int IdMesaInterno { get; set; }
+
+        public bool IsNewCheck { get; set; }
     }
 }

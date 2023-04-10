@@ -182,7 +182,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("OpenCheck")]
         public HttpResponseMessage OpenCheck(RequestOpenCheck requestOpenCheck)
         {
-            ResponseAloha response = App.AlohaConnection.OpenCheck(requestOpenCheck.IdTerm, requestOpenCheck.IdMesaInterno, requestOpenCheck.IdEmpleado);
+            ResponseAloha response = App.AlohaConnection.OpenCheck(requestOpenCheck.IdTerm, requestOpenCheck.IdMesaInterno, requestOpenCheck.IdEmpleado,requestOpenCheck.IsNewCheck);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
