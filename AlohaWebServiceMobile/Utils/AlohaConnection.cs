@@ -201,7 +201,7 @@ namespace AlohaWebServiceMobile.Utils
                 VerificarIber();
                 Encolamiento();
                 App.IsBusy = true;
-                //LoginInterno(IdTerm, idEmpleado);
+                LoginInterno(IdTerm, idEmpleado);
                 var Mesas = RecuperarMesas(idEmpleado);
                 if (Mesas.Exists(M => M.Id == IdMesaInterno))
                 {
@@ -222,7 +222,7 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = $"Cuenta abierda con id {responseAloha.idMesa}";
                 //responseAloha.idMesa = idChequeInterno;
-                //LogoutInterno(IdTerm);
+                LogoutInterno(IdTerm);
             }
             catch (Exception ex)
             {
