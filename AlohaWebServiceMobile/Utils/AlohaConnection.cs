@@ -736,36 +736,31 @@ namespace AlohaWebServiceMobile.Utils
 
         public void DividirCuentas(RequestDividirCuenta requestDividirCuenta)
         {
+            int iteracion = 0;
+
             try
             {
                 VerificarIber();
                 LoginInterno(requestDividirCuenta.IdTerm, requestDividirCuenta.IdEmpleado);
+                
                 xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
                 foreach (CheckOpen Cuentas in requestDividirCuenta.cheksOpen)
                 {
-                    foreach (var CheckFinal in Cuentas.ListIdEntrys)
-                    {
-                        int CheckId = 0;
-                        if (Cuentas.IdCheck == 0)
-                        {
-                            CheckId = xFunction.AddCheck(requestDividirCuenta.IdTerm, requestDividirCuenta.IdTable);
-                        }
-                        else
-                        {
-                            CheckId = Cuentas.IdCheck;
-                        }
-
-                        xFunction.SelectEntryAndChildren(requestDividirCuenta.IdTerm, requestDividirCuenta.IdCheck, CheckFinal.IdEntry);
-                        xFunction.MoveSelectedEntries(requestDividirCuenta.IdTerm, requestDividirCuenta.IdManager, requestDividirCuenta.IdCheck, CheckId);
-                    }
-
+                    if (Cuentas.IdCheckDestino == Cuentas.IdCheckOrigen) continue;
+                    var checs = RecuperarCheque(Cuentas.IdCheckOrigen);
+                    xFunction.SelectEntryAndChildren(requestDividirCuenta.IdTerm,Cuentas.IdCheckOrigen,Cuentas.IdEntry);
+                    xFunction.MoveSelectedEntries(requestDividirCuenta.IdTerm,requestDividirCuenta.IdManager,Cuentas.IdCheckOrigen,Cuentas.IdCheckDestino);
+                    xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
+                    iteracion++;
                 }
-                xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
             }
             catch (Exception ex)
             {
                 App.logger.Error($"Error al dividir cuentas", ex);
+
             }
+             //var xchecs = RecuperarCheque(1048586);
+
             LogoutInterno(requestDividirCuenta.IdTerm);
         }
 

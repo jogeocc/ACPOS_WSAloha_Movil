@@ -9,7 +9,6 @@ namespace AlohaWebServiceMobile.Models.Aloha
     public class RequestDividirCuenta
     {
         public int IdEmpleado { get; set; }
-        public int IdCheck { get; set; }
         public int IdTable { get; set; }
         public int IdTerm { get; set; }
         public int IdManager { get; set; }
@@ -19,12 +18,8 @@ namespace AlohaWebServiceMobile.Models.Aloha
 
     public class CheckOpen
     {
-        public int IdCheck { get; set; }
-        public List<ChecksCuentas> ListIdEntrys { get; set; }
-    }
-
-    public class ChecksCuentas
-    {
+        public int IdCheckOrigen { get; set; }
+        public int IdCheckDestino { get; set; }
         public int IdEntry { get; set; }
     }
 }
