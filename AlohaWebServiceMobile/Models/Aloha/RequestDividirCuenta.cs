@@ -19,12 +19,12 @@ namespace AlohaWebServiceMobile.Models.Aloha
 
     public class CheckOpen
     {
+        public int IdCheck { get; set; }
         public List<ChecksCuentas> ListIdEntrys { get; set; }
     }
 
     public class ChecksCuentas
     {
-        public int IdCheck { get; set; }
         public int IdEntry { get; set; }
     }
 }

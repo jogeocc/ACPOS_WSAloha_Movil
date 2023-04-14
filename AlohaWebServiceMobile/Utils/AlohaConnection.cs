@@ -740,18 +740,19 @@ namespace AlohaWebServiceMobile.Utils
             {
                 VerificarIber();
                 LoginInterno(requestDividirCuenta.IdTerm, requestDividirCuenta.IdEmpleado);
+                xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
                 foreach (CheckOpen Cuentas in requestDividirCuenta.cheksOpen)
                 {
                     foreach (var CheckFinal in Cuentas.ListIdEntrys)
                     {
                         int CheckId = 0;
-                        if (CheckFinal.IdCheck == 0)
+                        if (Cuentas.IdCheck == 0)
                         {
                             CheckId = xFunction.AddCheck(requestDividirCuenta.IdTerm, requestDividirCuenta.IdTable);
                         }
                         else
                         {
-                            CheckId = CheckFinal.IdCheck;
+                            CheckId = Cuentas.IdCheck;
                         }
 
                         xFunction.SelectEntryAndChildren(requestDividirCuenta.IdTerm, requestDividirCuenta.IdCheck, CheckFinal.IdEntry);
@@ -1145,6 +1146,7 @@ namespace AlohaWebServiceMobile.Utils
                 check.Guests = ChequeAbierto.GetLongVal("GUESTS");
                 check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
                 check.TotalCheck = ChequeAbierto.GetDoubleVal("SUBTOTAL");
+                check.NumCheck = ChequeAbierto.GetLongVal($"NUMBER");
 
             }
             catch (Exception ex)
