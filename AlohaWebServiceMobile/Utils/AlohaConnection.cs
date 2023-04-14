@@ -742,12 +742,22 @@ namespace AlohaWebServiceMobile.Utils
                 LoginInterno(requestDividirCuenta.IdTerm, requestDividirCuenta.IdEmpleado);
                 foreach (CheckOpen Cuentas in requestDividirCuenta.cheksOpen)
                 {
-                    int CheckId = xFunction.AddCheck(requestDividirCuenta.IdTerm, requestDividirCuenta.IdTable);
-                    foreach (var entry in Cuentas.ListIdEntrys)
+                    foreach (var CheckFinal in Cuentas.ListIdEntrys)
                     {
-                        xFunction.SelectEntryAndChildren(requestDividirCuenta.IdTerm, requestDividirCuenta.IdCheck, entry);
+                        int CheckId = 0;
+                        if (CheckFinal.IdCheck == 0)
+                        {
+                            CheckId = xFunction.AddCheck(requestDividirCuenta.IdTerm, requestDividirCuenta.IdTable);
+                        }
+                        else
+                        {
+                            CheckId = CheckFinal.IdCheck;
+                        }
+
+                        xFunction.SelectEntryAndChildren(requestDividirCuenta.IdTerm, requestDividirCuenta.IdCheck, CheckFinal.IdEntry);
+                        xFunction.MoveSelectedEntries(requestDividirCuenta.IdTerm, requestDividirCuenta.IdManager, requestDividirCuenta.IdCheck, CheckId);
                     }
-                    xFunction.MoveSelectedEntries(requestDividirCuenta.IdTerm, requestDividirCuenta.IdManager, requestDividirCuenta.IdCheck, CheckId);
+
                 }
                 xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
             }
