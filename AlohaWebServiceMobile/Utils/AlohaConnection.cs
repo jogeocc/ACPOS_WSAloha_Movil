@@ -298,7 +298,7 @@ namespace AlohaWebServiceMobile.Utils
             Check cheque = RecuperarCheque(idCheck);
             MesaEmpleado mesa = RecuperarMesa(idMesa);
 
-            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm);
+            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm,idMesa);
 
             response.ticket_precuenta = new Ticket(@"Design\config-ticket.txt", detallePedido);
 
@@ -742,14 +742,14 @@ namespace AlohaWebServiceMobile.Utils
             {
                 VerificarIber();
                 LoginInterno(requestDividirCuenta.IdTerm, requestDividirCuenta.IdEmpleado);
-                
+
                 xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
                 foreach (CheckOpen Cuentas in requestDividirCuenta.cheksOpen)
                 {
                     if (Cuentas.IdCheckDestino == Cuentas.IdCheckOrigen) continue;
                     var checs = RecuperarCheque(Cuentas.IdCheckOrigen);
-                    xFunction.SelectEntryAndChildren(requestDividirCuenta.IdTerm,Cuentas.IdCheckOrigen,Cuentas.IdEntry);
-                    xFunction.MoveSelectedEntries(requestDividirCuenta.IdTerm,requestDividirCuenta.IdManager,Cuentas.IdCheckOrigen,Cuentas.IdCheckDestino);
+                    xFunction.SelectEntryAndChildren(requestDividirCuenta.IdTerm, Cuentas.IdCheckOrigen, Cuentas.IdEntry);
+                    xFunction.MoveSelectedEntries(requestDividirCuenta.IdTerm, requestDividirCuenta.IdManager, Cuentas.IdCheckOrigen, Cuentas.IdCheckDestino);
                     xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
                     iteracion++;
                 }
@@ -759,7 +759,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"Error al dividir cuentas", ex);
 
             }
-             //var xchecs = RecuperarCheque(1048586);
+            //var xchecs = RecuperarCheque(1048586);
 
             LogoutInterno(requestDividirCuenta.IdTerm);
         }
@@ -979,7 +979,7 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al recuperar mesa");
+                App.logger.Error($"Error al recuperar mesa",ex);
             }
 
             return mesaEmpleado;
@@ -1397,14 +1397,14 @@ namespace AlohaWebServiceMobile.Utils
 
         }
 
-        private DetallePedido GetDetallePedidoTicket(Check check, MesaEmpleado mesa, int idTerm)
+        private DetallePedido GetDetallePedidoTicket(Check check, MesaEmpleado mesa, int idTerm, int idMesa)
         {
             DetallePedido detallePedido = new DetallePedido();
             try
             {
                 detallePedido.Fecha = DateTime.Now;
                 detallePedido.Invitados = mesa.Guests;
-                detallePedido.NombreTerminal = GetPosName(idTerm);
+                detallePedido.NombreTerminal = GetEmployeeNameByTableId(idMesa);
                 detallePedido.Mesa = mesa.Name;
                 detallePedido.Articulos = new List<Articulo>();
 
@@ -1419,12 +1419,19 @@ namespace AlohaWebServiceMobile.Utils
                     articulo.SubArticulos = new List<Articulo>();
                     foreach (var mod in item.Mods)
                     {
-                        articulo.SubArticulos.Add(new Articulo
+                        var dato = new Articulo
                         {
                             Nombre = mod.Name.Trim(),
-                            Importe = decimal.Parse(mod.Price.ToString())
-                        });
-
+                        };
+                        if (mod.Price == 0)
+                        {
+                            dato.Importe = null;
+                        }
+                        else
+                        {
+                            dato.Importe = decimal.Parse(mod.Price.ToString());
+                        }
+                        articulo.SubArticulos.Add(dato);
                     }
                     detallePedido.Articulos.Add(articulo);
                 }
@@ -1444,17 +1451,22 @@ namespace AlohaWebServiceMobile.Utils
             return detallePedido;
         }
 
-        private string GetPosName(int idTerm)
+        private string GetEmployeeNameByTableId(int IdMesa)
         {
-            string PosName = "";
+            string PosName = "Mesero";
             try
             {
-                var term = depot.FindObjectFromId((int)COMEnums.INTERNAL_TERMINALS, idTerm).First();
-
+                IberObject term = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES, IdMesa).First();
+                var idemp = term.GetLongVal("SOURCE_TABLE_ID");
+                var ideXSmp = term.GetStringVal("NAME");
+                IberEnum EnumEmpleados = term.GetEnum((int)COMEnums.INTERNAL_TABLES_OWNER_EMP);
+                App.logger.Info($"PASO 2 PARA RECUPERAR EL NOMBRE DEL EMPLEADO POR LA MESA ID");
+                IberObject ObjectEmpleado = EnumEmpleados.First();
+                PosName = ObjectEmpleado.GetStringVal($"NICKNAME");
             }
             catch (Exception ex)
             {
-
+                App.logger.Error($"ERROR AL RECUPERAR NOMBRE DE MESERO",ex);
             }
             return PosName;
         }
