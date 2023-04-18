@@ -46,6 +46,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Resource\Design\Design_Library.dll</HintPath>
     </Reference>
+    <Reference Include="EncryptDataJson, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resource\DLLS\EncryptDataJson.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -326,6 +330,7 @@
     <Content Include="Design\config-ticket.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resource\DLLS\EncryptDataJson.dll" />
     <Content Include="Resource\DLLS\TicketGenerateAloha.dll" />
     <Content Include="Style.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
