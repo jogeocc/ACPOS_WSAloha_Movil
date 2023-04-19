@@ -248,7 +248,7 @@ namespace AlohaWebServiceMobile.Utils
                 LoginInterno(IdTerm, idEmpleado);
                 xFunction.CloseCheck(IdTerm, IdCheckInterno);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-                responseAloha.mensaje = $"Cuenta Cerrada con id ";
+                responseAloha.mensaje = $"Cuenta Cerrada con id {IdCheckInterno}";
                 LogoutInterno(IdTerm);
             }
             catch (Exception ex)
