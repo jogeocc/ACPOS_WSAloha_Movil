@@ -16,6 +16,7 @@ using AlohaWebServiceMobile.Models.Aloha.System;
 using AlohaWebServiceMobile.Models.Transacciones;
 using LasaFOHLib;
 using LecturaAppConfig;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -298,7 +299,7 @@ namespace AlohaWebServiceMobile.Utils
             Check cheque = RecuperarCheque(idCheck);
             MesaEmpleado mesa = RecuperarMesa(idMesa);
 
-            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm,idMesa);
+            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm, idMesa);
 
             response.ticket_precuenta = new Ticket(@"Design\config-ticket.txt", detallePedido);
 
@@ -797,7 +798,8 @@ namespace AlohaWebServiceMobile.Utils
         }
         public void SendCloseCheckSAP(RequestCloseCheckSAP requestCloseCheckSAP)
         {
-            
+            App.logger.Info($"POR ENVIAR INFO HACIA SAP");
+            App.logger.Info($"{JsonConvert.SerializeObject(requestCloseCheckSAP)}");
         }
 
         //FUNCIONES DE CONTROL DE DATOS
@@ -979,7 +981,7 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al recuperar mesa",ex);
+                App.logger.Error($"Error al recuperar mesa", ex);
             }
 
             return mesaEmpleado;
@@ -1466,7 +1468,7 @@ namespace AlohaWebServiceMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL RECUPERAR NOMBRE DE MESERO",ex);
+                App.logger.Error($"ERROR AL RECUPERAR NOMBRE DE MESERO", ex);
             }
             return PosName;
         }
