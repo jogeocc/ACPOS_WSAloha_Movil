@@ -800,6 +800,8 @@ namespace AlohaWebServiceMobile.Utils
         {
             App.logger.Info($"POR ENVIAR INFO HACIA SAP");
             App.logger.Info($"{JsonConvert.SerializeObject(requestCloseCheckSAP)}");
+            App.restSAP.SendXmlSAP(requestCloseCheckSAP.SAP_XML);
+
         }
 
         //FUNCIONES DE CONTROL DE DATOS

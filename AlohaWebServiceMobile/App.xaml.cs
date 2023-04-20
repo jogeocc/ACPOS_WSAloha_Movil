@@ -1,4 +1,5 @@
 ﻿using AlohaWebServiceMobile.Models.Transacciones;
+using AlohaWebServiceMobile.Rest;
 using AlohaWebServiceMobile.Utils;
 using AlohaWebServiceMobile.Views.Modals;
 using EncryptDataJson;
@@ -23,7 +24,7 @@ namespace AlohaWebServiceMobile
 
     public partial class App : Application
     {
-        public static string Version = "Versión 14";
+        public static string Version = "Versión 15.2";
         public static readonly ILog logger = LogManager.GetLogger("Aloha_vapiano");
         public bool iniciar = false;
         public bool IsError = false;
@@ -38,6 +39,7 @@ namespace AlohaWebServiceMobile
         public static InfoAloha Aloha = new InfoAloha();
         public static MainWindow VentanaPrincipal;
         public static EncryptJSON EncryptDataJson = new EncryptJSON();
+        public static RestSAP restSAP = new RestSAP();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try

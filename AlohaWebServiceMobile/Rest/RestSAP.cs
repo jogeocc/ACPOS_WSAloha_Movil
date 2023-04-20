@@ -1,5 +1,7 @@
 ﻿using AlohaWebServiceMobile.Endpoints;
 using AlohaWebServiceMobile.Models.SAP;
+using EncryptDataJson.Modelos;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -21,7 +23,7 @@ namespace AlohaWebServiceMobile.Rest
         /// <summary>
         /// CONSTRUCTOR DE SAP
         /// </summary>
-        RestSAP()
+        public RestSAP()
         {
             ClientSap = new RestClient(App.appConfig.DIRECCION_SAP);
         }
@@ -33,19 +35,21 @@ namespace AlohaWebServiceMobile.Rest
                 RestRequest restRequest = new RestRequest(SapEndpoints.TicketSAP, Method.Post);
                 TicketSapModel ticketSapModel = new TicketSapModel()
                 {
-                    XML = xml
+                    Xml = xml
                 };
-                var EncriptInfo = App.EncryptDataJson.EncryptDataJSON(ticketSapModel);
-
+                DataEncrypt EncriptInfo = App.EncryptDataJson.EncryptDataJSON(ticketSapModel);
+                App.logger.Info($"JSON: \r\n {JsonConvert.SerializeObject(EncriptInfo)}");
                 restRequest.AddJsonBody(EncriptInfo);
-                RestResponse response = ClientSap.Execute(restRequest);
+                RestResponse<DataEncrypt> response = ClientSap.Execute<DataEncrypt>(restRequest);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     App.logger.Info($"INFORMACION ENVIADA CON EXITO A SAP");
+                    App.logger.Info($"{response.Content}");
                 }
                 else
                 {
                     App.logger.Info($"ERROR AL MANDAR XML DE TICKET");
+                    App.logger.Info($"{response.Content}");
                 }
             }
             catch (Exception ex)

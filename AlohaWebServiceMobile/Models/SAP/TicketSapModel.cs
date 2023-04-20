@@ -8,6 +8,6 @@ namespace AlohaWebServiceMobile.Models.SAP
 {
     public class TicketSapModel
     {
-        public string XML { get; set; }
+        public string Xml { get; set; }
     }
 }
