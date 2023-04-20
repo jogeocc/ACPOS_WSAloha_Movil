@@ -797,7 +797,7 @@ namespace AlohaWebServiceMobile.Utils
         }
         public void SendCloseCheckSAP(RequestCloseCheckSAP requestCloseCheckSAP)
         {
-            App.
+            
         }
 
         //FUNCIONES DE CONTROL DE DATOS

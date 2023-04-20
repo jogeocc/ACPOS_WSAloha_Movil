@@ -1,6 +1,7 @@
 ﻿using AlohaWebServiceMobile.Models.Transacciones;
 using AlohaWebServiceMobile.Utils;
 using AlohaWebServiceMobile.Views.Modals;
+using EncryptDataJson;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,7 @@ namespace AlohaWebServiceMobile
         public static LecturaINI iniAloha = new LecturaINI(AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder() + @"\aloha.ini");
         public static InfoAloha Aloha = new InfoAloha();
         public static MainWindow VentanaPrincipal;
+        public static EncryptJSON EncryptDataJson = new EncryptJSON();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
