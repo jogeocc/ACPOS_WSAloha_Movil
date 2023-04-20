@@ -382,6 +382,7 @@ namespace AlohaWebServiceMobile.Controllers
             if (!string.IsNullOrEmpty(requestCloseCheckSAP.SAP_XML))
             {
                 //Si viene con info se manda al servicio de SAP
+                App.logger.Info($"INFORMACION SAP RECIBIDA");
                 App.logger.Info($"XML SAP:\r\n {requestCloseCheckSAP.SAP_XML}");
                 //File.WriteAllText(@".\XMLSAP.txt", requestCloseCheckSAP.SAP_XML);
                 App.AlohaConnection.SendCloseCheckSAP(requestCloseCheckSAP);
@@ -392,9 +393,6 @@ namespace AlohaWebServiceMobile.Controllers
                 //si esta vacio solo se registra variable para realizar la impresion y que se reporte 
                 App.AlohaConnection.RegistrarVariableALOHA(requestCloseCheckSAP);
             }
-
-
-
             return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }
     }
