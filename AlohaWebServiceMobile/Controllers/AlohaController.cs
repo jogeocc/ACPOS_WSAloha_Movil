@@ -182,7 +182,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("OpenCheck")]
         public HttpResponseMessage OpenCheck(RequestOpenCheck requestOpenCheck)
         {
-            ResponseAloha response = App.AlohaConnection.OpenCheck(requestOpenCheck.IdTerm, requestOpenCheck.IdMesaInterno, requestOpenCheck.IdEmpleado,requestOpenCheck.IsNewCheck);
+            ResponseAloha response = App.AlohaConnection.OpenCheck(requestOpenCheck.IdTerm, requestOpenCheck.IdMesaInterno, requestOpenCheck.IdEmpleado, requestOpenCheck.IsNewCheck);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -389,6 +389,8 @@ namespace AlohaWebServiceMobile.Controllers
             }
             else
             {
+                App.logger.Info($"REGISTRANDO VARIABLE TIPO SAP PARA ENVIO");
+
                 //si esta vacio solo se registra variable para realizar la impresion y que se reporte 
                 App.AlohaConnection.RegistrarVariableALOHA(requestCloseCheckSAP);
             }

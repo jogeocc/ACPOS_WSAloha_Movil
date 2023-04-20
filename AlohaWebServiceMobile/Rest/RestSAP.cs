@@ -20,5 +20,10 @@ namespace AlohaWebServiceMobile.Rest
         {
 
         }
+
+        public void SendXmlSAP(string xml)
+        {
+
+        }
     }
 }
