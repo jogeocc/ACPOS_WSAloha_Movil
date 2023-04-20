@@ -1508,8 +1508,9 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
+                xFunction.PrintCheck(3, requestCloseCheckSAP.CheckId);
+
                 xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_CHECKS, requestCloseCheckSAP.CheckId, "SAP", ((int)ActivadorSAP.ENVIAR_SAP).ToString());
-                //xFunction.PrintCheck(idTerm, requestCloseCheckSAP.CheckId);
             }
             catch (Exception ex)
             {
