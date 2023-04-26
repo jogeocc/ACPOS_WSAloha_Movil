@@ -395,14 +395,18 @@ namespace AlohaWebServiceMobile.Utils
 
                     Item Boton_panel = new Item();
                     int.TryParse(btn.PARAMS, out int IdPanel);
-                    Boton_panel.id_panel = IdPanel;
-                    Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
-                    Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
-                    Boton_panel = RecursividadPaneles(Boton_panel);
-                    if (Boton_panel != null)
+                    if (IdPanel != 0)
                     {
-                        item.PanelTransicion.Btns.Add(Boton_panel);
+                        Boton_panel.id_panel = IdPanel;
+                        Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+                        Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+                        Boton_panel = RecursividadPaneles(Boton_panel);
+                        if (Boton_panel != null)
+                        {
+                            item.PanelTransicion.Btns.Add(Boton_panel);
+                        }
                     }
+
                 }
                 else
                 {
