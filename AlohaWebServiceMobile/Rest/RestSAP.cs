@@ -28,14 +28,16 @@ namespace AlohaWebServiceMobile.Rest
             ClientSap = new RestClient(App.appConfig.DIRECCION_SAP);
         }
 
-        public void SendXmlSAP(string xml)
+        public void SendXmlSAP(string xml, List<DetallePago> detallePagos)
         {
             try
             {
                 RestRequest restRequest = new RestRequest(SapEndpoints.TicketSAP, Method.Post);
                 TicketSapModel ticketSapModel = new TicketSapModel()
                 {
-                    Xml = xml
+                    Xml = xml,
+                    socios = detallePagos
+
                 };
                 DataEncrypt EncriptInfo = App.EncryptDataJson.EncryptDataJSON(ticketSapModel);
                 App.logger.Info($"JSON: \r\n {JsonConvert.SerializeObject(EncriptInfo)}");

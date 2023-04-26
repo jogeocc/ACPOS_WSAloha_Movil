@@ -13,6 +13,8 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int TableId { get; set; }
         public int CheckId { get; set; }
 
+        //BELLAVISTA SAP
         public string SAP_XML { get; set; }
+        public int CheckIdSap { get; set; }
     }
 }

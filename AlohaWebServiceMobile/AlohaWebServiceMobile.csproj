@@ -151,6 +151,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AlohaExtractInfo\ExtraccionCuenta.cs" />
     <Compile Include="Aloha\AlohaFilename.cs" />
     <Compile Include="CodigosErrorAloha\ErroresAloha.cs" />
     <Compile Include="Endpoints\SapEndpoints.cs" />
@@ -380,9 +381,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AlohaExtractInfo\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

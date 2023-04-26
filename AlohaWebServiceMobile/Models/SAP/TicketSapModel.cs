@@ -9,5 +9,15 @@ namespace AlohaWebServiceMobile.Models.SAP
     public class TicketSapModel
     {
         public string Xml { get; set; }
+
+        public List<DetallePago> socios { get; set; }
+
+    }
+
+    public class DetallePago
+    {
+        public string CardCode { get; set; }
+
+        public double Amount { get; set; }
     }
 }

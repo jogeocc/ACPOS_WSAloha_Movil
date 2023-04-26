@@ -1,7 +1,9 @@
-﻿using AlohaWebServiceMobile.EntityFrameWork.Models;
+﻿using AlohaWebServiceMobile.AlohaExtractInfo;
+using AlohaWebServiceMobile.EntityFrameWork.Models;
 using AlohaWebServiceMobile.Models;
 using AlohaWebServiceMobile.Models.Aloha;
 using AlohaWebServiceMobile.Models.Aloha.Desktop;
+using AlohaWebServiceMobile.Models.SAP;
 using AlohaWebServiceMobile.Models.Transacciones;
 using Newtonsoft.Json;
 using System;
@@ -385,6 +387,7 @@ namespace AlohaWebServiceMobile.Controllers
                 App.logger.Info($"INFORMACION SAP RECIBIDA");
                 App.logger.Info($"XML SAP:\r\n {requestCloseCheckSAP.SAP_XML}");
                 //File.WriteAllText(@".\XMLSAP.txt", requestCloseCheckSAP.SAP_XML);
+
                 App.AlohaConnection.SendCloseCheckSAP(requestCloseCheckSAP);
 
             }

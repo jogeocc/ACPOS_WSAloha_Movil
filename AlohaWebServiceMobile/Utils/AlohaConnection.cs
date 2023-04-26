@@ -3,6 +3,7 @@ using AlohaLibrary.Contexto;
 using AlohaLibrary.Implementaciones;
 using AlohaLibrary.Modelos;
 using AlohaWebServiceMobile.Aloha;
+using AlohaWebServiceMobile.AlohaExtractInfo;
 using AlohaWebServiceMobile.CodigosErrorAloha;
 using AlohaWebServiceMobile.Controllers;
 using AlohaWebServiceMobile.EntityFrameWork.Context;
@@ -13,6 +14,7 @@ using AlohaWebServiceMobile.Models.Aloha;
 using AlohaWebServiceMobile.Models.Aloha.BlueTooth;
 using AlohaWebServiceMobile.Models.Aloha.Desktop;
 using AlohaWebServiceMobile.Models.Aloha.System;
+using AlohaWebServiceMobile.Models.SAP;
 using AlohaWebServiceMobile.Models.Transacciones;
 using LasaFOHLib;
 using LecturaAppConfig;
@@ -800,7 +802,10 @@ namespace AlohaWebServiceMobile.Utils
         {
             App.logger.Info($"POR ENVIAR INFO HACIA SAP");
             App.logger.Info($"{JsonConvert.SerializeObject(requestCloseCheckSAP)}");
-            App.restSAP.SendXmlSAP(requestCloseCheckSAP.SAP_XML);
+            var detallePago = new ExtraccionCuenta().MonitoreoCuenta(requestCloseCheckSAP.CheckIdSap);
+            App.logger.Info($"POR ENVIAR INFO HACIA SAP PAGOS");
+            App.logger.Info($"{JsonConvert.SerializeObject(detallePago)}");
+            App.restSAP.SendXmlSAP(requestCloseCheckSAP.SAP_XML, detallePago);
 
         }
 
