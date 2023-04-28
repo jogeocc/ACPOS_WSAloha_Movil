@@ -405,7 +405,7 @@ namespace AlohaWebServiceMobile.Controllers
         public HttpResponseMessage CloseCheckSap(RequestCloseCheckSap requestCloseCheckSap)
         {
             App.logger.Info($"EVENTO CIERRE DE CHEQUE RECIBIDO, INICIADO");
-            App.AlohaConnection.sGetPagosTicketSap(requestCloseCheckSap.CheckId);
+            App.AlohaConnection.GetPagosTicketSap(requestCloseCheckSap.CheckId);
             App.logger.Info($"EVENTO CIERRE DE CHEQUE RECIBIDO, FIN");
 
             return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
