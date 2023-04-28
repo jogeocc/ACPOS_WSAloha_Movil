@@ -802,9 +802,6 @@ namespace AlohaWebServiceMobile.Utils
         {
             App.logger.Info($"POR ENVIAR INFO HACIA SAP");
             App.logger.Info($"{JsonConvert.SerializeObject(requestCloseCheckSAP)}");
-            var detallePago = new ExtraccionCuenta().MonitoreoCuenta(requestCloseCheckSAP.CheckId);
-            App.logger.Info($"POR ENVIAR INFO HACIA SAP PAGOS");
-            App.logger.Info($"{JsonConvert.SerializeObject(detallePago)}");
             App.restSAP.SendXmlSAP(requestCloseCheckSAP.SAP_XML);
 
         }
