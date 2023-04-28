@@ -9,5 +9,6 @@ namespace AlohaWebServiceMobile.Endpoints
     public static class SapEndpoints
     {
         public static string TicketSAP => "notificacion_consumo_socio";
+        public static string PagosSocioSAP => "cierre_de_cheque";
     }
 }

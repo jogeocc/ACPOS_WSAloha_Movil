@@ -798,14 +798,21 @@ namespace AlohaWebServiceMobile.Utils
             }
             LogoutInterno(requestCombineTables.IdTerm);
         }
-        public void SendCloseCheckSAP(RequestCloseCheckSAP requestCloseCheckSAP)
+        public void PrintTicketSap(RequestPrintCheckSap requestCloseCheckSAP)
         {
             App.logger.Info($"POR ENVIAR INFO HACIA SAP");
             App.logger.Info($"{JsonConvert.SerializeObject(requestCloseCheckSAP)}");
-            var detallePago = new ExtraccionCuenta().MonitoreoCuenta(requestCloseCheckSAP.CheckIdSap);
+            var detallePago = new ExtraccionCuenta().MonitoreoCuenta(requestCloseCheckSAP.CheckId);
             App.logger.Info($"POR ENVIAR INFO HACIA SAP PAGOS");
             App.logger.Info($"{JsonConvert.SerializeObject(detallePago)}");
-            App.restSAP.SendXmlSAP(requestCloseCheckSAP.SAP_XML, detallePago);
+            App.restSAP.SendXmlSAP(requestCloseCheckSAP.SAP_XML);
+
+        }
+
+        public void GetPagosTicketSap(int checkId)
+        {
+            List<DetallePago> detallePago = new ExtraccionCuenta().MonitoreoCuenta(checkId);
+            App.restSAP.SendPagosSocioSap(detallePago);
 
         }
 
@@ -1510,7 +1517,7 @@ namespace AlohaWebServiceMobile.Utils
         }
 
 
-        public void RegistrarVariableALOHA(RequestCloseCheckSAP requestCloseCheckSAP)
+        public void RegistrarVariableALOHA(RequestPrintCheckSap requestCloseCheckSAP)
         {
             try
             {

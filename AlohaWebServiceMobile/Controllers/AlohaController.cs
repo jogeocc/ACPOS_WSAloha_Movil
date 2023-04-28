@@ -378,8 +378,8 @@ namespace AlohaWebServiceMobile.Controllers
 
 
         [HttpPost]
-        [Route("SendCloseCheckSAP")]
-        public HttpResponseMessage CloseCheck(RequestCloseCheckSAP requestCloseCheckSAP)
+        [Route("PrintTicketSap")]
+        public HttpResponseMessage PrintTicketSap(RequestPrintCheckSap requestCloseCheckSAP)
         {
             if (!string.IsNullOrEmpty(requestCloseCheckSAP.SAP_XML))
             {
@@ -388,7 +388,7 @@ namespace AlohaWebServiceMobile.Controllers
                 App.logger.Info($"XML SAP:\r\n {requestCloseCheckSAP.SAP_XML}");
                 //File.WriteAllText(@".\XMLSAP.txt", requestCloseCheckSAP.SAP_XML);
 
-                App.AlohaConnection.SendCloseCheckSAP(requestCloseCheckSAP);
+                App.AlohaConnection.PrintTicketSap(requestCloseCheckSAP);
 
             }
             else
@@ -398,6 +398,16 @@ namespace AlohaWebServiceMobile.Controllers
                 //si esta vacio solo se registra variable para realizar la impresion y que se reporte 
                 App.AlohaConnection.RegistrarVariableALOHA(requestCloseCheckSAP);
             }
+            return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
+        }
+        [HttpPost]
+        [Route("CloseCheckSap")]
+        public HttpResponseMessage CloseCheckSap(RequestCloseCheckSap requestCloseCheckSap)
+        {
+            App.logger.Info($"EVENTO CIERRE DE CHEQUE RECIBIDO, INICIADO");
+            App.AlohaConnection.sGetPagosTicketSap(requestCloseCheckSap.CheckId);
+            App.logger.Info($"EVENTO CIERRE DE CHEQUE RECIBIDO, FIN");
+
             return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }
     }

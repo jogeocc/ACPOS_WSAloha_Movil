@@ -182,7 +182,8 @@
     <Compile Include="Models\Aloha\BlueTooth\ResponsePrinter.cs" />
     <Compile Include="Models\Aloha\ModelCombineTables.cs" />
     <Compile Include="Models\Aloha\ModeloNuevo.cs" />
-    <Compile Include="Models\Aloha\RequestCloseCheckSAP.cs" />
+    <Compile Include="Models\Aloha\RequestCloseCheckSap.cs" />
+    <Compile Include="Models\Aloha\RequestPrintCheckSap.cs" />
     <Compile Include="Models\Aloha\RequestCombineTables.cs" />
     <Compile Include="Models\Aloha\RequestDividirCuenta.cs" />
     <Compile Include="Models\Aloha\RequestPrintBluetooth.cs" />
