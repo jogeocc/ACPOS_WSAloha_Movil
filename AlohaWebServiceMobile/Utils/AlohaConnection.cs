@@ -812,7 +812,12 @@ namespace AlohaWebServiceMobile.Utils
             App.restSAP.SendPagosSocioSap(detallePago);
 
         }
+        public void SetHoldItemsSelected(int idEmpleado, int idTerm, int idCheck)
+        {
+            VerificarIber();
+            xFunction.HoldUnorderedEntriesOnCheck(idTerm,idCheck,0);
 
+        }
         //FUNCIONES DE CONTROL DE DATOS
 
         public ResponseAloha ListTables(int IdEmpleado)

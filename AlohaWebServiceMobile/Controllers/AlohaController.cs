@@ -410,5 +410,15 @@ namespace AlohaWebServiceMobile.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }
+
+        [HttpPost]
+        [Route("HoldCheck")]
+        public HttpResponseMessage HoldCheck(RequestHoldCheck requestHoldCheck)
+        {
+            App.logger.Info($"EVENTO ESPERA DE PRODUCTOS DEL CHEQUE, INICIO");
+            App.AlohaConnection.SetHoldItemsSelected(requestHoldCheck.IdEmpleado,requestHoldCheck.IdTerm,requestHoldCheck.IdCheck);
+            App.logger.Info($"EVENTO ESPERA DE PRODUCTOS DEL CHEQUE, FIN");
+            return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
+        }
     }
 }

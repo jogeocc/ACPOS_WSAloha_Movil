@@ -183,6 +183,7 @@
     <Compile Include="Models\Aloha\ModelCombineTables.cs" />
     <Compile Include="Models\Aloha\ModeloNuevo.cs" />
     <Compile Include="Models\Aloha\RequestCloseCheckSap.cs" />
+    <Compile Include="Models\Aloha\RequestHoldCheck.cs" />
     <Compile Include="Models\Aloha\RequestPrintCheckSap.cs" />
     <Compile Include="Models\Aloha\RequestCombineTables.cs" />
     <Compile Include="Models\Aloha\RequestDividirCuenta.cs" />
