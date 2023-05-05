@@ -19,7 +19,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
-                    int secondsHold = requestHoldCheck.HoldEnd.Seconds;
+                    double secondsHold = requestHoldCheck.HoldEnd.TotalSeconds;
                     foreach (var item in requestHoldCheck.item)
                     {
                         Producto_Pedido_Espera ProductoEspera = new Producto_Pedido_Espera();
