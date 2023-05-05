@@ -27,6 +27,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -435,13 +436,9 @@ namespace AlohaWebServiceMobile.Utils
                     if (!string.IsNullOrEmpty(item.SpecialMessage) || !string.IsNullOrEmpty(item.Unidad_Medida))
                     {
                         string Mensaje = "";
-
                         Mensaje += item.Cantidad_Peso > 0 ? item.Cantidad_Peso.ToString() : "";
-
                         Mensaje += !string.IsNullOrEmpty(item.Unidad_Medida) ? item.Unidad_Medida : "";
-
                         Mensaje += !string.IsNullOrEmpty(item.SpecialMessage) ? $" {item.SpecialMessage}" : "";
-
                         xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, IdEntryBase, Mensaje);
                     }
                 }
@@ -815,17 +812,90 @@ namespace AlohaWebServiceMobile.Utils
             App.restSAP.SendPagosSocioSap(detallePago);
 
         }
-        public void SetHoldItemsSelected(int idEmpleado, int idTerm, int idCheck, List<int> selectedEntries, int time)
+
+        /// <summary>
+        /// La funcion realiza el agregar los items y ademas ponerlos en la tabla de espera para mantenerlos en espera.
+        /// </summary>
+        /// <param name="idEmpleado"></param>
+        /// <param name="idTerm"></param>
+        /// <param name="idCheck"></param>
+        /// <param name="selectedEntries"></param>
+        /// <param name="time"></param>
+        public void SetHoldItemsSelected(RequestHoldCheck requestHoldCheck)
         {
             try
             {
                 VerificarIber();
-                xFunction.HoldUnorderedEntriesOnCheck(idTerm, idCheck, 0);
+                LoginInterno(requestHoldCheck.IdTerm, requestHoldCheck.IdEmpleado);
+                List<int> IdsEntryes = new List<int>();
+                foreach (ItemAloha item in requestHoldCheck.item)
+                {
+                    int IdEntryBase = xFunction.BeginItem(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, item.IdItem, "", item.Amount);
+                    IdsEntryes.Add(IdEntryBase);
+                    #region SECCION DE MODIFICADORES.
+                    List<int> EntrysLevels = new List<int>();
+                    for (int i = 0; i < item.Mods.Count; i++)
+                    {
+                        ListsMods mod = item.Mods[i];
+
+                        ListsMods modSiguientes = new ListsMods();
+                        if (i == item.Mods.Count - 1)
+                        {
+
+                        }
+                        else
+                        {
+                            modSiguientes = item.Mods[i + 1];
+                        }
+
+                        if (mod.LevelMode > 1)
+                        {
+                            if (mod.LevelMode < modSiguientes.LevelMode)
+                            {
+                                EntrysLevels.Add(xFunction.ModItemEx(requestHoldCheck.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
+                            }
+                            else if (mod.LevelMode == modSiguientes.LevelMode)
+                            {
+                                xFunction.ModItemEx(requestHoldCheck.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
+                            }
+                            else
+                            {
+                                xFunction.ModItemEx(requestHoldCheck.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
+                            }
+                        }
+                        else
+                        {
+                            EntrysLevels = new List<int>();
+                            EntrysLevels.Add(xFunction.ModItemEx(requestHoldCheck.IdTerm, IdEntryBase, mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
+                        }
+                    }
+                    #endregion
+                    xFunction.EndItem(requestHoldCheck.IdTerm);
+                    if (!string.IsNullOrEmpty(item.SpecialMessage) || !string.IsNullOrEmpty(item.Unidad_Medida))
+                    {
+                        string Mensaje = "";
+                        Mensaje += item.Cantidad_Peso > 0 ? item.Cantidad_Peso.ToString() : "";
+                        Mensaje += !string.IsNullOrEmpty(item.Unidad_Medida) ? item.Unidad_Medida : "";
+                        Mensaje += !string.IsNullOrEmpty(item.SpecialMessage) ? $" {item.SpecialMessage}" : "";
+                        xFunction.ApplySpecialMessage(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, IdEntryBase, Mensaje);
+                    }
+                    item.IdEntry = IdEntryBase;
+                    #region HOLD ENTRY
+                    xFunction.DeselectAllEntries(requestHoldCheck.IdTerm);
+                    xFunction.SelectEntryAndChildren(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, IdEntryBase);
+                    xFunction.HoldUnorderedEntriesOnCheck(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, 1);
+                    xFunction.DeselectAllEntries(requestHoldCheck.IdTerm);
+                    #endregion
+                    #region GUARDAR EN BD
+                    #endregion
+                }
             }
             catch (Exception ex)
             {
                 App.logger.Error($"ERROR AL COLOCAR PRODUCTOS EN HOLD", ex);
             }
+            App.DbManager.AddProductoEspera(requestHoldCheck);
+            LogoutInterno(requestHoldCheck.IdTerm);
 
         }
         //FUNCIONES DE CONTROL DE DATOS
@@ -1923,7 +1993,7 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 bytes = BmpManager.ObtenerFotoSocio($"{LACSystem.GetString("DIR_BMP_ALOHA")}");
-               
+
 
                 // Asignar los bytes de la imagen BMP al contenido de la respuesta
                 response.Content = new ByteArrayContent(bytes);
@@ -1933,7 +2003,7 @@ namespace AlohaWebServiceMobile.Utils
                 response.Content.Headers.ContentLength = bytes.Length;
 
                 // Devolver la respuesta HTTP
-              
+
             }
             catch
             {

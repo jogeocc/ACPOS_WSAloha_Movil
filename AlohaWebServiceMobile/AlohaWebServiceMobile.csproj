@@ -156,7 +156,9 @@
     <Compile Include="CodigosErrorAloha\ErroresAloha.cs" />
     <Compile Include="Endpoints\SapEndpoints.cs" />
     <Compile Include="EntityFrameWork\Implementaciones\Pagos_pendientesServicio.cs" />
+    <Compile Include="EntityFrameWork\Implementaciones\Producto_pedido_esperaServicio.cs" />
     <Compile Include="EntityFrameWork\Interface\IPagos_pendientes.cs" />
+    <Compile Include="EntityFrameWork\Interface\IProducto_pedido_espera.cs" />
     <Compile Include="EntityFrameWork\Models\Pagos_pendientes.cs" />
     <Compile Include="EntityFrameWork\Models\Producto_Pedido_Espera.cs" />
     <Compile Include="EntityFrameWork\Models\Ticket_smart.cs" />
@@ -240,6 +242,7 @@
     <Compile Include="Utils\AlohaConnection.cs" />
     <Compile Include="Utils\AppConfig.cs" />
     <Compile Include="Utils\BmpManager.cs" />
+    <Compile Include="Utils\DbManager.cs" />
     <Compile Include="Utils\EstructurarData.cs" />
     <Compile Include="Utils\FuncionesArchivo.cs" />
     <Compile Include="Utils\IconoNotificacion.cs" />

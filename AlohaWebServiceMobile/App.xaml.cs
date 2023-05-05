@@ -40,6 +40,7 @@ namespace AlohaWebServiceMobile
         public static MainWindow VentanaPrincipal;
         public static EncryptJSON EncryptDataJson = new EncryptJSON();
         public static RestSAP restSAP = new RestSAP();
+        public static DbManager DbManager = new DbManager();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try

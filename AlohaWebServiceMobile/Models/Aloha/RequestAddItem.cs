@@ -18,6 +18,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
     public class ItemAloha
     {
         public int IdItem { get; set; }
+        public int IdEntry { get; set; }
         public double Amount { get; set; }
         public List<ListsMods> Mods { get; set; } = new List<ListsMods>();
         public string SpecialMessage { get; set; } = "";

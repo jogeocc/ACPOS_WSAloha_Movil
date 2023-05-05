@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace AlohaWebServiceMobile.Models.Aloha
 {
-    public class RequestHoldCheck
+    public class RequestHoldCheck : RequestAddItem
     {
-        public int IdEmpleado { get; set; }
-        public int IdTerm { get; set; }
-        public int IdCheck { get; set; }
-        public List<int> SelectedEntries { get; set; }
-        public int Time { get; set; }
+        public int IdOrderMode { get; set; }
+        public DateTime HoldStart { get; set; }
+        public TimeSpan HoldEnd { get; set; }
+
     }
 }

@@ -8,6 +8,15 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
 {
     public class Producto_Pedido_Espera
     {
-
+        public int IdTerminal { get; set; }
+        public int IdEmpleado { get; set; }
+        public int NumberCheck { get; set; }
+        public int IdCheck { get; set; }
+        public int IdProducto { get; set; }
+        public int IdEntry { get; set; }
+        public int IdOrderMode { get; set; }
+        public DateTime HoldStart { get; set; }
+        public DateTime HoldEnd { get; set; }
+        public string HoldMinutes { get; set; } 
     }
 }
