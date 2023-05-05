@@ -420,5 +420,20 @@ namespace AlohaWebServiceMobile.Controllers
             App.logger.Info($"EVENTO ESPERA DE PRODUCTOS DEL CHEQUE, FIN");
             return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }
+
+
+
+        [HttpGet]
+        [Route("LogoACPOS")]
+        public HttpResponseMessage LogoACPOS()
+        {
+            App.logger.Info($"EVENTO PARA RECUPERAR LOGO DE ALOHA, INICIO");
+
+            var response = App.AlohaConnection.RecuperarBMPLogoALoha();
+
+            App.logger.Info($"EVENTO PARA RECUPERAR LOGO DE ALOHA, FIN");
+            return response;
+        }
+
     }
 }

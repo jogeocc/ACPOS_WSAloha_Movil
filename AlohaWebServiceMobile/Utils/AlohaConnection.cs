@@ -24,6 +24,9 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -1909,6 +1912,34 @@ namespace AlohaWebServiceMobile.Utils
                 return originalXml;
             }
             return newXml;
+        }
+
+
+        public HttpResponseMessage RecuperarBMPLogoALoha()
+        {
+            byte[] bytes;
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+
+            try
+            {
+                bytes = BmpManager.ObtenerFotoSocio($"{LACSystem.GetString("DIR_BMP_ALOHA")}");
+               
+
+                // Asignar los bytes de la imagen BMP al contenido de la respuesta
+                response.Content = new ByteArrayContent(bytes);
+
+                // Establecer el tipo de contenido y la longitud de la respuesta
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+                response.Content.Headers.ContentLength = bytes.Length;
+
+                // Devolver la respuesta HTTP
+              
+            }
+            catch
+            {
+                return response;
+            }
+            return response;
         }
 
 

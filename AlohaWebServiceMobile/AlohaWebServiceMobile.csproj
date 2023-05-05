@@ -238,6 +238,7 @@
     </Compile>
     <Compile Include="Utils\AlohaConnection.cs" />
     <Compile Include="Utils\AppConfig.cs" />
+    <Compile Include="Utils\BmpManager.cs" />
     <Compile Include="Utils\EstructurarData.cs" />
     <Compile Include="Utils\FuncionesArchivo.cs" />
     <Compile Include="Utils\IconoNotificacion.cs" />
