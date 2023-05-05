@@ -21,5 +21,6 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
         public DateTime HoldStart { get; set; }
         public DateTime HoldEnd { get; set; }
         public string HoldMinutes { get; set; }
+        public byte IsOrdered { get; set; }
     }
 }
