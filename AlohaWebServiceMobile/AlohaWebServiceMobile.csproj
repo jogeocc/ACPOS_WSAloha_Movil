@@ -177,11 +177,11 @@
     <Compile Include="EntityFrameWork\Models\Mapeo_pagos.cs" />
     <Compile Include="Enums\EnumPantalla.cs" />
     <Compile Include="Enums\TipoRespuesta.cs" />
-    <Compile Include="Migrations\202211032220510_MapeoDePagosV1.cs" />
-    <Compile Include="Migrations\202211032220510_MapeoDePagosV1.designer.cs">
+    <Compile Include="EntityFrameWork\Migrations\202211032220510_MapeoDePagosV1.cs" />
+    <Compile Include="EntityFrameWork\Migrations\202211032220510_MapeoDePagosV1.designer.cs">
       <DependentUpon>202211032220510_MapeoDePagosV1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="EntityFrameWork\Migrations\Configuration.cs" />
     <Compile Include="Models\Aloha\BlueTooth\ResponsePrinter.cs" />
     <Compile Include="Models\Aloha\ModelCombineTables.cs" />
     <Compile Include="Models\Aloha\ModeloNuevo.cs" />
@@ -342,7 +342,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\202211032220510_MapeoDePagosV1.resx">
+    <EmbeddedResource Include="EntityFrameWork\Migrations\202211032220510_MapeoDePagosV1.resx">
       <DependentUpon>202211032220510_MapeoDePagosV1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
