@@ -812,10 +812,17 @@ namespace AlohaWebServiceMobile.Utils
             App.restSAP.SendPagosSocioSap(detallePago);
 
         }
-        public void SetHoldItemsSelected(int idEmpleado, int idTerm, int idCheck)
+        public void SetHoldItemsSelected(int idEmpleado, int idTerm, int idCheck, List<int> selectedEntries, int time)
         {
-            VerificarIber();
-            xFunction.HoldUnorderedEntriesOnCheck(idTerm,idCheck,0);
+            try
+            {
+                VerificarIber();
+                xFunction.HoldUnorderedEntriesOnCheck(idTerm, idCheck, 0);
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR AL COLOCAR PRODUCTOS EN HOLD", ex);
+            }
 
         }
         //FUNCIONES DE CONTROL DE DATOS
