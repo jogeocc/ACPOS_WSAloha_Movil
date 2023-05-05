@@ -158,6 +158,7 @@
     <Compile Include="EntityFrameWork\Implementaciones\Pagos_pendientesServicio.cs" />
     <Compile Include="EntityFrameWork\Interface\IPagos_pendientes.cs" />
     <Compile Include="EntityFrameWork\Models\Pagos_pendientes.cs" />
+    <Compile Include="EntityFrameWork\Models\Producto_Pedido_Espera.cs" />
     <Compile Include="EntityFrameWork\Models\Ticket_smart.cs" />
     <Compile Include="Enums\ActivadorSAP.cs" />
     <Compile Include="Enums\AlohaEvents.cs" />
