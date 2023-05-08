@@ -270,7 +270,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("PrintBluetooth")]
         public HttpResponseMessage PrintBluetooth(RequestPrintBluetooth requestPrintBluetooth)
         {
-            var response = App.AlohaConnection.PrintBluetooth(requestPrintBluetooth.IdCheck, requestPrintBluetooth.IdTable, requestPrintBluetooth.IdTerm);
+            var response = App.AlohaConnection.PrintBluetooth(requestPrintBluetooth.IdCheck, requestPrintBluetooth.IdTable, requestPrintBluetooth.IdTerm, requestPrintBluetooth.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 

@@ -302,7 +302,7 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponsePrinter PrintBluetooth(int idCheck, int idMesa, int idTerm)
+        public ResponsePrinter PrintBluetooth(int idCheck, int idMesa, int idTerm, int idEmpleado)
         {
             //TODO PENSAR EN UN REEMPLAZO A FUTURO
             ResponsePrinter response = new ResponsePrinter();
@@ -310,7 +310,7 @@ namespace AlohaWebServiceMobile.Utils
             Check cheque = RecuperarCheque(idCheck);
             MesaEmpleado mesa = RecuperarMesa(idMesa);
 
-            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm, idMesa);
+            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm, idMesa,idEmpleado);
 
             response.ticket_precuenta = new Ticket(@"Design\config-ticket.txt", detallePedido);
 
@@ -1501,14 +1501,14 @@ namespace AlohaWebServiceMobile.Utils
 
         }
 
-        private DetallePedido GetDetallePedidoTicket(Check check, MesaEmpleado mesa, int idTerm, int idMesa)
+        private DetallePedido GetDetallePedidoTicket(Check check, MesaEmpleado mesa, int idTerm, int idMesa, int idEmpleado)
         {
             DetallePedido detallePedido = new DetallePedido();
             try
             {
                 detallePedido.Fecha = DateTime.Now;
                 detallePedido.Invitados = mesa.Guests;
-                detallePedido.NombreTerminal = GetEmployeeNameByTableId(idMesa);
+                detallePedido.NombreTerminal = GetEmployeeNameByEmpId(idEmpleado);
                 detallePedido.Mesa = mesa.Name;
                 detallePedido.Articulos = new List<Articulo>();
 
@@ -1555,18 +1555,14 @@ namespace AlohaWebServiceMobile.Utils
             return detallePedido;
         }
 
-        private string GetEmployeeNameByTableId(int IdMesa)
+        private string GetEmployeeNameByEmpId(int idEmpleado)
         {
             string PosName = "Mesero";
             try
             {
-                IberObject term = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES, IdMesa).First();
-                var idemp = term.GetLongVal("SOURCE_TABLE_ID");
-                var ideXSmp = term.GetStringVal("NAME");
-                IberEnum EnumEmpleados = term.GetEnum((int)COMEnums.INTERNAL_TABLES_OWNER_EMP);
-                App.logger.Info($"PASO 2 PARA RECUPERAR EL NOMBRE DEL EMPLEADO POR LA MESA ID");
-                IberObject ObjectEmpleado = EnumEmpleados.First();
-                PosName = ObjectEmpleado.GetStringVal($"NICKNAME");
+                IberObject IObjectEmployee = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, idEmpleado).First();
+                string EmployeeNick = IObjectEmployee.GetStringVal("NICKNAME");
+                PosName += $" {EmployeeNick}";
             }
             catch (Exception ex)
             {
@@ -2069,7 +2065,7 @@ namespace AlohaWebServiceMobile.Utils
                     var terminal = InstanciaTerminal.GetLongVal("TERMINAL_NUM");
                     var terminalIdentificador = InstanciaTerminal.GetLongVal("TERMINAL_ID");
                     bool isloggedin = InstanciaTerminal.GetBoolVal("LOGGED_IN") == 1;
-                    var Curr_Emp = InstanciaTerminal.GetEnum((int)COMEnums.INTERNAL_LOCALSTATE_CUR_CHECK);
+                    var Curr_Emp = InstanciaTerminal.GetEnum((int)COMEnums.INTERNAL_LOCALSTATE_CUR_EMP);
                     int idemp = InstanciaTerminal.GetLongVal("CURRENT_EMPLOYEE");
                     if (i < cantidad - 1)
                     {
