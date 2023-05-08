@@ -2069,7 +2069,7 @@ namespace AlohaWebServiceMobile.Utils
 
                     if (i < cantidad)
                     {
-                        EnumTerminales.Next();
+                        InstanciaTerminal = EnumTerminales.Next();
                     }
                 }
             }
