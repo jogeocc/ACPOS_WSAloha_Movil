@@ -2012,7 +2012,7 @@ namespace AlohaWebServiceMobile.Utils
                 return response;
             }
             return response;
-        }
+        }   
 
         //FUNCIONES DE PROCESOS EN SEGUNDO PLANO
 
@@ -2023,13 +2023,13 @@ namespace AlohaWebServiceMobile.Utils
 
             foreach (Producto_Pedido_Espera producto in lista)
             {
-                try
+                try 
                 {
-                    var user = App.bdInterna.users.Find(u => u.IdEmpleado == producto.IdEmpleado);
-                    if (user == null)
-                    {
-                        LoginInterno(producto.IdTerminal, producto.IdEmpleado);
-                    }
+                    //var user = App.bdInterna.users.Find(u => u.IdEmpleado == producto.IdEmpleado);
+                    //if (user == null)
+                    //{
+                    //}
+                    LoginInterno(producto.IdTerminal, producto.IdEmpleado);
 
                     xFunction.DeselectAllEntries(producto.IdTerminal);
                     xFunction.SelectEntryAndChildren(producto.IdTerminal, producto.IdCheck, producto.IdEntry);
