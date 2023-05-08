@@ -1562,7 +1562,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 IberObject IObjectEmployee = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, idEmpleado).First();
                 string EmployeeNick = IObjectEmployee.GetStringVal("NICKNAME");
-                PosName += $" {EmployeeNick}";
+                PosName = $"{EmployeeNick}";
             }
             catch (Exception ex)
             {
