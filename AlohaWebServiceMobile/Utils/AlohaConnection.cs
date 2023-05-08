@@ -1984,7 +1984,7 @@ namespace AlohaWebServiceMobile.Utils
             return newXml;
         }
 
-
+        //FUNCIONES DE IMAGENES
         public HttpResponseMessage RecuperarBMPLogoALoha()
         {
             byte[] bytes;
@@ -2012,6 +2012,27 @@ namespace AlohaWebServiceMobile.Utils
             return response;
         }
 
+        //FUNCIONES DE PROCESOS EN SEGUNDO PLANO
 
+        public void ProcesarProductosEnEspera()
+        {
+            VerificarIber();
+            var lista = App.DbManager.GETProductosEnEspera();
+
+            foreach (Producto_Pedido_Espera producto in lista)
+            {
+                try
+                {
+                    LoginInterno(producto.IdTerminal, producto.IdEmpleado);
+                    xFunction.OrderItems(producto.IdTerminal, producto.IdCheck, producto.IdOrderMode);
+                }
+                catch (Exception ex)
+                {
+                    App.logger.Error($"ERROR AL ENVIAR PRODUCTO EN ESPERA A ORDENAR", ex);
+                }
+            }
+            lista = lista.Where(P => P.IsOrdered == 1).ToList();
+            App.DbManager.UpdateProductosEnEspera(lista);
+        }
     }
 }
