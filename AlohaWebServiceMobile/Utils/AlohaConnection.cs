@@ -1665,9 +1665,13 @@ namespace AlohaWebServiceMobile.Utils
                 IberObject Mesa = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES, IdTable).First();
                 var EnumCheques = Mesa.GetEnum((int)COMEnums.INTERNAL_TABLES_CHECKS);
                 IberObject ChequeActual = EnumCheques.First();
-                for (int i = 0; i < EnumCheques.Count - 1; i++)
+                for (int i = 0; i < EnumCheques.Count; i++)
                 {
                     ListaCheques.Add(ChequeActual.GetLongVal("ID"));
+                    if (i < EnumCheques.Count - 1)
+                    {
+                        break;
+                    }
                 }
             }
             catch (Exception ex)
