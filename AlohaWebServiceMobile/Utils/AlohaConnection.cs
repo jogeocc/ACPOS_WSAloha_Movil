@@ -2067,7 +2067,7 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     var terminal = InstanciaTerminal.GetLongVal("TERMINAL_NUM");
 
-                    if (i < cantidad)
+                    if (i < cantidad - 1)
                     {
                         InstanciaTerminal = EnumTerminales.Next();
                     }
