@@ -2061,7 +2061,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 VerificarIber();
                 var @enum = depot.GetEnum((int)COMEnums.INTERNAL_LOCALSTATE);
-
+                var cantidad = @enum.Count;
             }
             catch (Exception ex)
             {
