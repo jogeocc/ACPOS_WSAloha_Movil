@@ -2060,8 +2060,18 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
-                var @enum = depot.GetEnum((int)COMEnums.INTERNAL_LOCALSTATE);
-                var cantidad = @enum.Count;
+                var EnumTerminales = depot.GetEnum((int)COMEnums.INTERNAL_LOCALSTATE);
+                var cantidad = EnumTerminales.Count;
+                IberObject InstanciaTerminal = EnumTerminales.First();
+                for (int i = 0; i < cantidad; i++)
+                {
+                    var terminal = InstanciaTerminal.GetLongVal("TERMINAL_NUM");
+
+                    if (i < cantidad)
+                    {
+                        EnumTerminales.Next();
+                    }
+                }
             }
             catch (Exception ex)
             {
