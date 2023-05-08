@@ -3,6 +3,7 @@ using AlohaWebServiceMobile.EntityFrameWork.Models;
 using AlohaWebServiceMobile.Models.Aloha;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -79,7 +80,7 @@ namespace AlohaWebServiceMobile.Utils
                     {
                         Producto_Pedido_Espera dbProducto = db.Productos_Espera.Find(producto.ID);
                         dbProducto.IsOrdered = 1;
-                        db.SaveChanges();
+                        db.Productos_Espera.AddOrUpdate(dbProducto);
                     }
                 }
             }
