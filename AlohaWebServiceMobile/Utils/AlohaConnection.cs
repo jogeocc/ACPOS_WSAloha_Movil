@@ -310,7 +310,7 @@ namespace AlohaWebServiceMobile.Utils
             Check cheque = RecuperarCheque(idCheck);
             MesaEmpleado mesa = RecuperarMesa(idMesa);
 
-            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm, idMesa,idEmpleado);
+            DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm, idMesa, idEmpleado);
 
             response.ticket_precuenta = new Ticket(@"Design\config-ticket.txt", detallePedido);
 
@@ -1122,7 +1122,8 @@ namespace AlohaWebServiceMobile.Utils
                 check.Amount = SubTotal;
                 check.Tax = tax;
                 double MontoTotal = ChequeAbierto.GetDoubleVal("SUBTOTAL");
-
+                //ITEMS DEL CHEQUE
+                List<Producto_Pedido_Espera> ListaPedidos = App.DbManager.GetProductosTiempoEspera(IdCheck);
                 try
                 {
                     IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
@@ -1142,7 +1143,14 @@ namespace AlohaWebServiceMobile.Utils
                         item.Ordered = ItemAbierto.GetBoolVal("SELECTED") > 0;
                         item.OrderMode = ItemAbierto.GetLongVal("MODE");
                         item.Modstring = ItemAbierto.GetStringVal("MOD_STRING");
-
+                        foreach (var ProductoEspera in ListaPedidos)
+                        {
+                            if (item.IdEntry == ProductoEspera.IdEntry)
+                            {
+                                item.HoldTime = ProductoEspera.HoldEnd.ToString("HH:mm:ss");
+                                break;
+                            }
+                        }
                         if (IsMessage == 0)
                         {
                             if (item.NivelMod == 0)

@@ -15,7 +15,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public string Name { get; set; }
         public int Id { get; set; }
         public int IdMesa { get; set; }
-        
+
         [JsonIgnore]
         public int Guests { get; set; }
         public List<Check> Checks { get; set; } = new List<Check>();
@@ -79,6 +79,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
                     ModCode == (int)ModCodes.MOD_DELETED;
             }
         }
+        public string HoldTime { get; set; } = "";
     }
     public class Payment
     {

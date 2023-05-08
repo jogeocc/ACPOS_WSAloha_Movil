@@ -91,5 +91,23 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"ERROR AL ACTUALIZAR PRODUCTOS EN ESPERA", ex);
             }
         }
+
+        public List<Producto_Pedido_Espera> GetProductosTiempoEspera(int IdCheck)
+        {
+            List<Producto_Pedido_Espera> ListaProductos = new List<Producto_Pedido_Espera>();
+            try
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    var productos = db.Productos_Espera.Where(P => P.IsOrdered == 0 && P.HoldEnd.Date == DateTime.Now.Date && P.IdCheck == IdCheck);
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR AL RECUPERAR PRODUCTOS PARA APPLICACION MOVIL", ex);
+            }
+            return ListaProductos;
+        }
+        //
     }
 }
