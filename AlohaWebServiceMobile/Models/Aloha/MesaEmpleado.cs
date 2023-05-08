@@ -19,6 +19,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         [JsonIgnore]
         public int Guests { get; set; }
         public List<Check> Checks { get; set; } = new List<Check>();
+        public bool IsHold { get; set; }
     }
     public class Check
     {

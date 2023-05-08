@@ -224,7 +224,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("ListTables")]
         public HttpResponseMessage ListTables(RequestListTables requestListTables)
         {
-            ResponseAloha response = App.AlohaConnection.ListTables(requestListTables.IdEmpleado);
+            ResponseAloha response = App.AlohaConnection.ListTables(requestListTables.IdEmpleado, requestListTables.IdTerm);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
         [HttpPost]

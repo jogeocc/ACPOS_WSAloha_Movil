@@ -36,6 +36,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.ExceptionHandling;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using TicketGenerateAloha;
 using TicketGenerateAloha.Models;
@@ -84,7 +86,7 @@ namespace AlohaWebServiceMobile.Utils
                     responseAloha.mensaje = "Login realizado con exito";
                     responseAloha.Nombre_Empleado = NombreEmpleado(IdSistema);
                     responseAloha.idJobs = IdsJobsEmpleado(IdSistema);
-                    responseAloha.mesas_empleado = RecuperarMesas(IdSistema);
+                    responseAloha.mesas_empleado = RecuperarMesas(IdSistema, IdTerm);
                     LogoutInterno(IdTerm);
                     App.bdInterna.users.Add(new User
                     {
@@ -214,7 +216,7 @@ namespace AlohaWebServiceMobile.Utils
                 Encolamiento();
                 App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
-                var Mesas = RecuperarMesas(idEmpleado);
+                var Mesas = RecuperarMesas(idEmpleado, IdTerm);
                 if (Mesas.Exists(M => M.Id == IdMesaInterno))
                 {
                     var Mesa = Mesas.Find(M => M.Id == IdMesaInterno);
@@ -906,18 +908,18 @@ namespace AlohaWebServiceMobile.Utils
         }
         //FUNCIONES DE CONTROL DE DATOS
 
-        public ResponseAloha ListTables(int IdEmpleado)
+        public ResponseAloha ListTables(int IdEmpleado, int idTerm)
         {
             VerificarIber();
             ResponseAloha responseAloha = new ResponseAloha();
             responseAloha.Codigo = (int)CodigosError.NO_ERROR;
             responseAloha.mensaje = "Mesas recuperadas con exito";
             responseAloha.Nombre_Empleado = NombreEmpleado(IdEmpleado);
-            responseAloha.mesas_empleado = RecuperarMesas(IdEmpleado);
+            responseAloha.mesas_empleado = RecuperarMesas(IdEmpleado, idTerm);
             return responseAloha;
         }
 
-        private List<MesaEmpleado> RecuperarMesas(int IdEmpleado)
+        private List<MesaEmpleado> RecuperarMesas(int IdEmpleado, int idTerm)
         {
             List<MesaEmpleado> ListaMesas = new List<MesaEmpleado>();
             try
@@ -934,7 +936,7 @@ namespace AlohaWebServiceMobile.Utils
                     mesaEmpleado.Name = MesaAbierta.GetStringVal("NAME");
                     mesaEmpleado.IsTable = MesaAbierta.GetBoolVal("TYPE") == 0 ? false : true;
                     mesaEmpleado.IdMesa = MesaAbierta.GetLongVal("TABLEDEF_ID");
-
+                    mesaEmpleado.IsHold = IsAnyCheckHold(mesaEmpleado.Id, idTerm);
 
                     IberEnum ChequesEmpleado = MesaAbierta.GetEnum((int)COMEnums.INTERNAL_TABLES_CHECKS);
                     IberObject ChequeAbierto = ChequesEmpleado.First();
@@ -1622,6 +1624,57 @@ namespace AlohaWebServiceMobile.Utils
             {
                 App.logger.Error($"ERROR REGISTRAR VARIABLE DE ALOHA EN SISTEMA", ex);
             }
+        }
+
+        public bool IsAnyCheckHold(int IdTable, int idTerm)
+        {
+            bool isHold = false;
+            List<int> ChecksInTable = GetChecksFromTable(IdTable);
+            try
+            {
+                foreach (var IdCheck in ChecksInTable)
+                {
+                    var Entrys = xFunction.GetCheckEntriesNewEx(idTerm, IdCheck);
+                    foreach (var entry in Entrys)
+                    {
+                        if (entry.modeEx == 82)
+                        {
+                            isHold = true;
+                            break;
+                        }
+                    }
+                    if (isHold)
+                    {
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR FUNCION 34, RECUPERANDO ALGUN HOLD DE LOS CHEQUES DE LA MESA", ex);
+            }
+            return isHold;
+        }
+
+        public List<int> GetChecksFromTable(int IdTable)
+        {
+            List<int> ListaCheques = new List<int>();
+            try
+            {
+                VerificarIber();
+                IberObject Mesa = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES, IdTable).First();
+                var EnumCheques = Mesa.GetEnum((int)COMEnums.INTERNAL_TABLES_CHECKS);
+                IberObject ChequeActual = EnumCheques.First();
+                for (int i = 0; i < EnumCheques.Count - 1; i++)
+                {
+                    ListaCheques.Add(ChequeActual.GetLongVal("ID"));
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR OBTENIENDO LOS CHEQUES DE LA MESA", ex);
+            }
+            return ListaCheques;
         }
 
         //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
