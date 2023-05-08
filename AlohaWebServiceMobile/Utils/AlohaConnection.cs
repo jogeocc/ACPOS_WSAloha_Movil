@@ -2068,10 +2068,9 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     var terminal = InstanciaTerminal.GetLongVal("TERMINAL_NUM");
                     var terminalIdentificador = InstanciaTerminal.GetLongVal("TERMINAL_ID");
-                    int idemp = InstanciaTerminal.GetLongVal("CURRENT_EMPLOYEE");
-                    xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_LOCALSTATE, terminalIdentificador, "CURRENT_EMPLOYEE", "999");
                     bool isloggedin = InstanciaTerminal.GetBoolVal("LOGGED_IN") == 1;
-
+                    var Curr_Emp = InstanciaTerminal.GetEnum((int)COMEnums.INTERNAL_LOCALSTATE_CUR_CHECK);
+                    int idemp = InstanciaTerminal.GetLongVal("CURRENT_EMPLOYEE");
                     if (i < cantidad - 1)
                     {
                         InstanciaTerminal = EnumTerminales.Next();
