@@ -99,7 +99,7 @@ namespace AlohaWebServiceMobile.Utils
             {
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
-                    var productos = db.Productos_Espera.Where(P => P.IsOrdered == 0 && P.HoldEnd.Date == DateTime.Now.Date && P.IdCheck == IdCheck);
+                    ListaProductos = db.Productos_Espera.Where(P => P.IsOrdered == 0 && P.HoldEnd.Date == DateTime.Now.Date && P.IdCheck == IdCheck).ToList();
                 }
             }
             catch (Exception ex)
