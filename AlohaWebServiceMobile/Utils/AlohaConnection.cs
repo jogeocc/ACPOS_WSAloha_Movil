@@ -887,15 +887,16 @@ namespace AlohaWebServiceMobile.Utils
                     xFunction.HoldUnorderedEntriesOnCheck(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, 1);
                     xFunction.DeselectAllEntries(requestHoldCheck.IdTerm);
                     #endregion
-                    #region GUARDAR EN BD
-                    #endregion
+
                 }
             }
             catch (Exception ex)
             {
                 App.logger.Error($"ERROR AL COLOCAR PRODUCTOS EN HOLD", ex);
             }
+            #region GUARDAR EN BD
             App.DbManager.AddProductoEspera(requestHoldCheck);
+            #endregion
             LogoutInterno(requestHoldCheck.IdTerm);
 
         }
