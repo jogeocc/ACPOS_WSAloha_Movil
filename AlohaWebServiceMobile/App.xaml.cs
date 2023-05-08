@@ -41,6 +41,7 @@ namespace AlohaWebServiceMobile
         public static EncryptJSON EncryptDataJson = new EncryptJSON();
         public static RestSAP restSAP = new RestSAP();
         public static DbManager DbManager = new DbManager();
+        public static Thread HiloProductoPendiente;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
@@ -76,6 +77,8 @@ namespace AlohaWebServiceMobile
 
                     CargaIcono();
                     VentanaPrincipal = new MainWindow();
+                    App.logger.Info($"CARGANDO SUBPROCESOS");
+                    ProcesarOrdenPendiente();
                     App.logger.Info($"SISTEMA CARGADO CON EXITO");
                     //splash.Hide();
                 }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
@@ -119,6 +122,19 @@ namespace AlohaWebServiceMobile
             {
                 VentanaPrincipal.TbcNavegacion.SelectedIndex = index;
             }));
+        }
+
+        public static void ProcesarOrdenPendiente()
+        {
+            HiloProductoPendiente = new Thread(() =>
+            {
+                while (true)
+                {
+                    AlohaConnection.ProcesarProductosEnEspera();
+                    Thread.Sleep(1000);
+                }
+            });
+            HiloProductoPendiente.Start();
         }
     }
 }

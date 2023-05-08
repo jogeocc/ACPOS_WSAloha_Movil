@@ -21,9 +21,12 @@ using LecturaAppConfig;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Management.Instrumentation;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -32,6 +35,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http.ExceptionHandling;
+using System.Windows.Media.Animation;
 using TicketGenerateAloha;
 using TicketGenerateAloha.Models;
 
@@ -886,15 +891,16 @@ namespace AlohaWebServiceMobile.Utils
                     xFunction.HoldUnorderedEntriesOnCheck(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, 1);
                     xFunction.DeselectAllEntries(requestHoldCheck.IdTerm);
                     #endregion
-                    #region GUARDAR EN BD
-                    #endregion
+
                 }
             }
             catch (Exception ex)
             {
                 App.logger.Error($"ERROR AL COLOCAR PRODUCTOS EN HOLD", ex);
             }
+            #region GUARDAR EN BD
             App.DbManager.AddProductoEspera(requestHoldCheck);
+            #endregion
             LogoutInterno(requestHoldCheck.IdTerm);
 
         }
@@ -1984,7 +1990,7 @@ namespace AlohaWebServiceMobile.Utils
             return newXml;
         }
 
-
+        //FUNCIONES DE IMAGENES
         public HttpResponseMessage RecuperarBMPLogoALoha()
         {
             byte[] bytes;
@@ -2012,6 +2018,70 @@ namespace AlohaWebServiceMobile.Utils
             return response;
         }
 
+        //FUNCIONES DE PROCESOS EN SEGUNDO PLANO
 
+        public void ProcesarProductosEnEspera()
+        {
+            VerificarIber();
+            var lista = App.DbManager.GETProductosEnEspera();
+
+            foreach (Producto_Pedido_Espera producto in lista)
+            {
+                try
+                {
+                    //var user = App.bdInterna.users.Find(u => u.IdEmpleado == producto.IdEmpleado);
+                    //if (user == null)
+                    //{
+                    //}
+                    LoginInterno(producto.IdTerminal, producto.IdEmpleado);
+
+                    xFunction.DeselectAllEntries(producto.IdTerminal);
+                    xFunction.SelectEntryAndChildren(producto.IdTerminal, producto.IdCheck, producto.IdEntry);
+                    xFunction.OrderItems(producto.IdTerminal, producto.IdCheck, producto.IdOrderMode);
+                    xFunction.DeselectAllEntries(producto.IdTerminal);
+                    producto.IsOrdered = 1;
+                }
+                catch (Exception ex)
+                {
+                    App.logger.Error($"ERROR AL ENVIAR PRODUCTO EN ESPERA A ORDENAR", ex);
+                }
+            }
+            lista = lista.Where(P => P.IsOrdered == 1).ToList();
+            if (lista.Count > 0)
+            {
+                App.DbManager.UpdateProductosEnEspera(lista);
+
+            }
+        }
+
+
+        //FUNCION DE RECUPERAR ESTADO DE LA TERMINAL SOLICITADA.
+        public void GetLocalState()
+        {
+            try
+            {
+                VerificarIber();
+                var EnumTerminales = depot.GetEnum((int)COMEnums.INTERNAL_LOCALSTATE);
+                var cantidad = EnumTerminales.Count;
+                IberObject InstanciaTerminal = EnumTerminales.First();
+                for (int i = 0; i < cantidad; i++)
+                {
+                    var terminal = InstanciaTerminal.GetLongVal("TERMINAL_NUM");
+                    var terminalIdentificador = InstanciaTerminal.GetLongVal("TERMINAL_ID");
+                    int idemp = InstanciaTerminal.GetLongVal("CURRENT_EMPLOYEE");
+                    xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_LOCALSTATE, terminalIdentificador, "CURRENT_EMPLOYEE", "999");
+                    bool isloggedin = InstanciaTerminal.GetBoolVal("LOGGED_IN") == 1;
+
+                    if (i < cantidad - 1)
+                    {
+                        InstanciaTerminal = EnumTerminales.Next();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR RECUPERANDO LOCALSTATE", ex);
+            }
+        }
     }
 }

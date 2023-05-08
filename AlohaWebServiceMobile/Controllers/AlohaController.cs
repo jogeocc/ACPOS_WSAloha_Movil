@@ -436,5 +436,13 @@ namespace AlohaWebServiceMobile.Controllers
             return response;
         }
 
+        [HttpGet]
+        [Route("LOCALSTATE")]
+        public HttpResponseMessage LOCALSTATE()
+        {
+            App.AlohaConnection.GetLocalState();
+
+            return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
+        }
     }
 }
