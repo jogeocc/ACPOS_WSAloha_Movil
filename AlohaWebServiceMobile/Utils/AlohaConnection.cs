@@ -21,6 +21,7 @@ using LecturaAppConfig;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -2035,7 +2036,11 @@ namespace AlohaWebServiceMobile.Utils
                 }
             }
             lista = lista.Where(P => P.IsOrdered == 1).ToList();
-            App.DbManager.UpdateProductosEnEspera(lista);
+            if (lista.Count > 0)
+            {
+                App.DbManager.UpdateProductosEnEspera(lista);
+
+            }
         }
     }
 }
