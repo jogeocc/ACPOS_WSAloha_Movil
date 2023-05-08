@@ -77,6 +77,8 @@ namespace AlohaWebServiceMobile
 
                     CargaIcono();
                     VentanaPrincipal = new MainWindow();
+                    App.logger.Info($"CARGANDO SUBPROCESOS");
+                    ProcesarOrdenPendiente();
                     App.logger.Info($"SISTEMA CARGADO CON EXITO");
                     //splash.Hide();
                 }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
