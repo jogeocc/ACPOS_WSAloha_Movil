@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -33,6 +34,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http.ExceptionHandling;
+using System.Windows.Media.Animation;
 using TicketGenerateAloha;
 using TicketGenerateAloha.Models;
 
@@ -2047,6 +2050,22 @@ namespace AlohaWebServiceMobile.Utils
             {
                 App.DbManager.UpdateProductosEnEspera(lista);
 
+            }
+        }
+
+
+        //FUNCION DE RECUPERAR ESTADO DE LA TERMINAL SOLICITADA.
+        public void GetLocalState()
+        {
+            try
+            {
+                VerificarIber();
+                var @enum = depot.GetEnum((int)COMEnums.INTERNAL_LOCALSTATE);
+
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR RECUPERANDO LOCALSTATE", ex);
             }
         }
     }
