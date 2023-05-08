@@ -59,7 +59,8 @@ namespace AlohaWebServiceMobile.Utils
                     ListaProductosEspera = db.Productos_Espera.Where(P => P.IsOrdered == 0).ToList();
 
                     //OBTENER PRODUCTOS DEL DOB Y QUE YA ESTEN LISTOS PARA ORDENAR
-                    ListaProductosEspera = ListaProductosEspera.Where(P => P.HoldStart.Date == DateTime.Now.Date && P.HoldEnd >= DateTime.Now).ToList();
+                    ListaProductosEspera = ListaProductosEspera.Where(P => P.HoldStart.Date == DateTime.Now.Date
+                    && DateTime.Now >= P.HoldEnd).ToList();
                 }
             }
             catch (Exception ex)
