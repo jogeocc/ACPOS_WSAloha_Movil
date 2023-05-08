@@ -2024,7 +2024,10 @@ namespace AlohaWebServiceMobile.Utils
                 try
                 {
                     LoginInterno(producto.IdTerminal, producto.IdEmpleado);
+                    xFunction.DeselectAllEntries(13);
+                    xFunction.SelectEntryAndChildren(producto.IdTerminal, producto.IdCheck, producto.IdEntry);
                     xFunction.OrderItems(producto.IdTerminal, producto.IdCheck, producto.IdOrderMode);
+                    xFunction.DeselectAllEntries(13);
                 }
                 catch (Exception ex)
                 {
