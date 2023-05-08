@@ -26,6 +26,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Management.Instrumentation;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -2066,7 +2067,7 @@ namespace AlohaWebServiceMobile.Utils
                 for (int i = 0; i < cantidad; i++)
                 {
                     var terminal = InstanciaTerminal.GetLongVal("TERMINAL_NUM");
-
+                    bool isloggedin = InstanciaTerminal.GetBoolVal("LOGGED_IN") == 1;
                     if (i < cantidad - 1)
                     {
                         InstanciaTerminal = EnumTerminales.Next();
