@@ -20,7 +20,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int Guests { get; set; }
         public List<Check> Checks { get; set; } = new List<Check>();
         public bool IsHold { get; set; }
-        public bool IsHoldVERSION2 { get; set; }
+        public string IsHoldVERSION2 { get; set; }
     }
     public class Check
     {

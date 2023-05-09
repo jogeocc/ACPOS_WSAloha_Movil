@@ -937,7 +937,7 @@ namespace AlohaWebServiceMobile.Utils
                     mesaEmpleado.IsTable = MesaAbierta.GetBoolVal("TYPE") == 0 ? false : true;
                     mesaEmpleado.IdMesa = MesaAbierta.GetLongVal("TABLEDEF_ID");
                     mesaEmpleado.IsHold = IsAnyCheckHold(mesaEmpleado.Id, idTerm);
-                    mesaEmpleado.IsHoldVERSION2 = mesaEmpleado.IsHold;
+                    mesaEmpleado.IsHoldVERSION2 = mesaEmpleado.IsHold ? "SI" : "NO";
                     IberEnum ChequesEmpleado = MesaAbierta.GetEnum((int)COMEnums.INTERNAL_TABLES_CHECKS);
                     IberObject ChequeAbierto = ChequesEmpleado.First();
                     //CHEQUES ABIERTOS DE LA MESA
