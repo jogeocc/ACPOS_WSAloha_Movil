@@ -1162,6 +1162,7 @@ namespace AlohaWebServiceMobile.Utils
                                 else
                                 {
                                     item.HoldTime = ProductoEspera.HoldEnd.ToString("HH:mm:ss");
+                                    item.HoldOrderMode = ProductoEspera.IdOrderMode;
                                 }
 
                                 break;
@@ -1212,7 +1213,6 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     App.logger.Error($"Error al obtener pagos aplicados en la cuenta");
                 }
-
                 //Promociones aplicadas a la mesa
                 try
                 {
