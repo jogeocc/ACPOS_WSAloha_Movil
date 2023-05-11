@@ -2134,7 +2134,7 @@ namespace AlohaWebServiceMobile.Utils
 
                     xFunction.DeselectAllEntries(producto.IdTerminal);
                     xFunction.SelectEntryAndChildren(producto.IdTerminal, producto.IdCheck, producto.IdEntry);
-                    xFunction.OrderItems(producto.IdTerminal, producto.IdCheck, producto.IdOrderMode);
+                    xFunction.OrderItems(producto.IdTerminal, producto.IdTable, producto.IdOrderMode);
                     xFunction.DeselectAllEntries(producto.IdTerminal);
                     producto.IsOrdered = 1;
                 }
@@ -2178,5 +2178,7 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"ERROR RECUPERANDO LOCALSTATE", ex);
             }
         }
+
+
     }
 }

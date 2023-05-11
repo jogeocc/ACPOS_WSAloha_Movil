@@ -33,6 +33,7 @@ namespace AlohaWebServiceMobile.Utils
                         ProductoEspera.IdProducto = item.IdItem;
                         ProductoEspera.IdEntry = item.IdEntry;
                         ProductoEspera.IdOrderMode = requestHoldCheck.IdOrderMode;
+                        ProductoEspera.IdTable = requestHoldCheck.IdTable;
                         ProductoEspera.HoldStart = DateTime.Now;
                         ProductoEspera.HoldEnd = ProductoEspera.HoldStart.AddSeconds(secondsHold);
                         ProductoEspera.HoldMinutes = requestHoldCheck.HoldEnd.ToString();

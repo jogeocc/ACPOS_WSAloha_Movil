@@ -15,6 +15,7 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
         public int IdEmpleado { get; set; }
         public int NumberCheck { get; set; }
         public int IdCheck { get; set; }
+        public int IdTable { get; set; }
         public int IdProducto { get; set; }
         public int IdEntry { get; set; }
         public int IdOrderMode { get; set; }
