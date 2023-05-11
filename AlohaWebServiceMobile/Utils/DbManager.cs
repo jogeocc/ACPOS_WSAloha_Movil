@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
@@ -128,6 +129,38 @@ namespace AlohaWebServiceMobile.Utils
             catch (Exception ex)
             {
                 App.logger.Error($"ERROR AL ACTUALIZAR REGISTRO", ex);
+            }
+        }
+
+        public void UpdateProductosEnEspera(List<EntryesMode> selectedEntries, int idMesa, int idTerm)
+        {
+            try
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    var DbProducto = db.Productos_Espera.Where(P => P.IdTable == idMesa && P.IdTerminal == idTerm).ToList();
+                    List<Producto_Pedido_Espera> ListaProductos = DbProducto.Where(P => P.HoldStart.Date == DateTime.Now.Date).ToList();
+
+                    foreach (var entry in selectedEntries)
+                    {
+                        bool IsMatch = false;
+                        foreach (var producto in ListaProductos)
+                        {
+                            if (producto.IdEntry == entry.EntrieId)
+                            {
+                                producto.IsOrdered = 1;
+                                db.Productos_Espera.AddOrUpdate(producto);
+                                db.SaveChanges();
+                                break;
+                            }
+                        }
+                        if (IsMatch) { break; }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR AL ACTUALIZAR TABLA DE PRODUCTOS EN ESPERA", ex);
             }
         }
         //

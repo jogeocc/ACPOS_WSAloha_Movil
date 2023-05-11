@@ -582,12 +582,14 @@ namespace AlohaWebServiceMobile.Utils
                 Encolamiento();
                 App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
+                bool isSelectedEntryes = false;
 
                 if (selectedEntries.Count > 0)
                 {
                     foreach (var entry in selectedEntries)
                     {
                         xFunction.SelectEntryAndChildren(IdTerm, IdMesa, entry.EntrieId);
+                        isSelectedEntryes = true;
                     }
                 }
 
@@ -598,6 +600,11 @@ namespace AlohaWebServiceMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Productos ordenados con exito";
                 LogoutInterno(IdTerm);
+
+                if (isSelectedEntryes)
+                {
+                    App.DbManager.UpdateProductosEnEspera(selectedEntries, IdMesa, IdTerm);
+                }
             }
             catch (Exception ex)
             {
