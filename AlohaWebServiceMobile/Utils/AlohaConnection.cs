@@ -2142,6 +2142,7 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     App.logger.Error($"ERROR AL ENVIAR PRODUCTO EN ESPERA A ORDENAR", ex);
                 }
+                LogoutInterno(producto.IdTerminal);
             }
             lista = lista.Where(P => P.IsOrdered == 1).ToList();
             if (lista.Count > 0)
