@@ -80,7 +80,7 @@ namespace AlohaWebServiceMobile.Utils
                     foreach (Producto_Pedido_Espera producto in ListProductosEspera)
                     {
                         Producto_Pedido_Espera dbProducto = db.Productos_Espera.Find(producto.ID);
-                        dbProducto.IsOrdered = 1;
+                        //dbProducto.IsOrdered = 1;
                         db.Productos_Espera.AddOrUpdate(dbProducto);
                         db.SaveChanges();
                     }
@@ -108,6 +108,26 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"ERROR AL RECUPERAR PRODUCTOS PARA APPLICACION MOVIL", ex);
             }
             return ListaProductos;
+        }
+
+        //FUNCION PARA ACTUALIZAR EL REGISTRO DURANTE UN MOVIMIENTO ENTRE CUENTAS.
+        public void UpdateProductosEnEspera(int idCheckOrigen, int idCheckDestino, int idEntry)
+        {
+            try
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    var DbProducto = db.Productos_Espera.Where(P => P.IdCheck == idCheckOrigen && P.IdEntry == idEntry).ToList();
+                    Producto_Pedido_Espera producto = DbProducto.Where(P => P.HoldStart.Date == DateTime.Now.Date).First();
+                    producto.IdCheck = idCheckDestino;
+                    db.Productos_Espera.AddOrUpdate(producto);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR AL ACTUALIZAR REGISTRO", ex);
+            }
         }
         //
     }

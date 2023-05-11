@@ -754,13 +754,18 @@ namespace AlohaWebServiceMobile.Utils
                 LoginInterno(requestDividirCuenta.IdTerm, requestDividirCuenta.IdEmpleado);
 
                 xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
-                foreach (CheckOpen Cuentas in requestDividirCuenta.cheksOpen)
+                foreach (CheckOpen Cuenta in requestDividirCuenta.cheksOpen)
                 {
-                    if (Cuentas.IdCheckDestino == Cuentas.IdCheckOrigen) continue;
-                    var checs = RecuperarCheque(Cuentas.IdCheckOrigen);
-                    xFunction.SelectEntryAndChildren(requestDividirCuenta.IdTerm, Cuentas.IdCheckOrigen, Cuentas.IdEntry);
-                    xFunction.MoveSelectedEntries(requestDividirCuenta.IdTerm, requestDividirCuenta.IdManager, Cuentas.IdCheckOrigen, Cuentas.IdCheckDestino);
+                    if (Cuenta.IdCheckDestino == Cuenta.IdCheckOrigen) continue;
+                    //var checs = RecuperarCheque(Cuenta.IdCheckOrigen);
+                    bool IsHold = IsEntryInHold(requestDividirCuenta.IdTerm, Cuenta.IdCheckOrigen, Cuenta.IdEntry);
+                    xFunction.SelectEntryAndChildren(requestDividirCuenta.IdTerm, Cuenta.IdCheckOrigen, Cuenta.IdEntry);
+                    xFunction.MoveSelectedEntries(requestDividirCuenta.IdTerm, requestDividirCuenta.IdManager, Cuenta.IdCheckOrigen, Cuenta.IdCheckDestino);
                     xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
+                    if (IsHold)
+                    {
+                        App.DbManager.UpdateProductosEnEspera(Cuenta.IdCheckOrigen, Cuenta.IdCheckDestino, Cuenta.IdEntry);
+                    }
                     iteracion++;
                 }
             }
@@ -1149,7 +1154,16 @@ namespace AlohaWebServiceMobile.Utils
                         {
                             if (item.IdEntry == ProductoEspera.IdEntry)
                             {
-                                item.HoldTime = ProductoEspera.HoldEnd.ToString("HH:mm:ss");
+                                if (item.Ordered)
+                                {
+                                    //TODO AGREGAR NUEVOS DATOS AL SISTEMA
+                                    //App.DbManager.UpdateProductosEnEspera();
+                                }
+                                else
+                                {
+                                    item.HoldTime = ProductoEspera.HoldEnd.ToString("HH:mm:ss");
+                                }
+
                                 break;
                             }
                         }
@@ -1637,7 +1651,7 @@ namespace AlohaWebServiceMobile.Utils
                     var Entrys = xFunction.GetCheckEntriesNewEx(idTerm, IdCheck);
                     foreach (var entry in Entrys)
                     {
-                        if (entry.modeEx == 82)
+                        if (entry.modeEx == (int)OrderModesAloha.HOLD)
                         {
                             isHold = true;
                             break;
@@ -1679,6 +1693,28 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"ERROR OBTENIENDO LOS CHEQUES DE LA MESA", ex);
             }
             return ListaCheques;
+        }
+
+        public bool IsEntryInHold(int idTerm, int idCheckOrigen, int idEntry)
+        {
+            bool isHold = false;
+            try
+            {
+                var items = xFunction.GetCheckEntriesNewEx(idTerm, idCheckOrigen);
+                foreach (var item in items)
+                {
+                    if (item.modeEx == (int)OrderModesAloha.HOLD && item.entryIdEx == idEntry)
+                    {
+                        isHold = true;
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR AL DETERMINAR QUE EL PRODUCTO ES HOLD", ex);
+            }
+            return isHold;
         }
 
         //FUNCIONES DE ENCOLAMIENTO DE UN SOLO IBER
@@ -1863,7 +1899,7 @@ namespace AlohaWebServiceMobile.Utils
 
 
 
-
+        //FUNCIONES DE IMPRESION INTELIGENTE CON EVENTOS DE ALOHA
 
 
         public bool printXML(string XML, int CheckId)
@@ -2114,7 +2150,6 @@ namespace AlohaWebServiceMobile.Utils
 
             }
         }
-
 
         //FUNCION DE RECUPERAR ESTADO DE LA TERMINAL SOLICITADA.
         public void GetLocalState()

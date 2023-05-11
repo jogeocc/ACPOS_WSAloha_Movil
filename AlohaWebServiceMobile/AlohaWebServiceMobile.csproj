@@ -176,6 +176,7 @@
     <Compile Include="EntityFrameWork\Interface\IMapeo_pagos.cs" />
     <Compile Include="EntityFrameWork\Models\Mapeo_pagos.cs" />
     <Compile Include="Enums\EnumPantalla.cs" />
+    <Compile Include="Enums\OrderModesAloha.cs" />
     <Compile Include="Enums\TipoRespuesta.cs" />
     <Compile Include="EntityFrameWork\Migrations\202211032220510_MapeoDePagosV1.cs" />
     <Compile Include="EntityFrameWork\Migrations\202211032220510_MapeoDePagosV1.designer.cs">
