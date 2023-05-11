@@ -81,7 +81,7 @@ namespace AlohaWebServiceMobile.Utils
                     foreach (Producto_Pedido_Espera producto in ListProductosEspera)
                     {
                         Producto_Pedido_Espera dbProducto = db.Productos_Espera.Find(producto.ID);
-                        //dbProducto.IsOrdered = 1;
+                        dbProducto.IsOrdered = 1;
                         db.Productos_Espera.AddOrUpdate(dbProducto);
                         db.SaveChanges();
                     }
