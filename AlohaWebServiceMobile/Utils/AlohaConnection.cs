@@ -583,24 +583,20 @@ namespace AlohaWebServiceMobile.Utils
                 App.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 bool isSelectedEntryes = false;
-
                 if (selectedEntries.Count > 0)
                 {
                     foreach (var entry in selectedEntries)
                     {
+                        xFunction.DeselectAllEntries(IdTerm);
                         xFunction.SelectEntryAndChildren(IdTerm, idCheck, entry.EntrieId);
                         isSelectedEntryes = true;
                     }
                 }
-
-
-
-
                 xFunction.OrderItems(IdTerm, IdMesa, IdModoPedido);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Productos ordenados con exito";
                 LogoutInterno(IdTerm);
-
+                xFunction.DeselectAllEntries(IdTerm);
                 if (isSelectedEntryes)
                 {
                     App.DbManager.UpdateProductosEnEspera(selectedEntries, IdMesa, IdTerm);
