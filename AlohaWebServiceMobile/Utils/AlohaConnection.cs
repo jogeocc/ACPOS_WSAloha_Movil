@@ -573,7 +573,7 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha ConfirmOrderMode(int IdTerm, int IdMesa, int IdModoPedido, int idEmpleado, List<EntryesMode> selectedEntries)
+        public ResponseAloha ConfirmOrderMode(int IdTerm, int IdMesa, int IdModoPedido, int idEmpleado, List<EntryesMode> selectedEntries, int idCheck)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
@@ -588,7 +588,7 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     foreach (var entry in selectedEntries)
                     {
-                        xFunction.SelectEntryAndChildren(IdTerm, IdMesa, entry.EntrieId);
+                        xFunction.SelectEntryAndChildren(IdTerm, idCheck, entry.EntrieId);
                         isSelectedEntryes = true;
                     }
                 }
