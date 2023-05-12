@@ -956,6 +956,8 @@ namespace AlohaWebServiceMobile.Utils
                             Check check = new Check();
                             check.Id = ChequeAbierto.GetLongVal("ID");
                             check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
+                            check.NumCheck = ChequeAbierto.GetLongVal($"NUMBER") + 1;
+
                             ////ITEMS
                             //try
                             //{
