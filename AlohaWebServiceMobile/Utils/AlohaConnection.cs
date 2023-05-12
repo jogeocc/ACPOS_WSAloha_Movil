@@ -1272,7 +1272,8 @@ namespace AlohaWebServiceMobile.Utils
                 check.Guests = ChequeAbierto.GetLongVal("GUESTS");
                 check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
                 check.TotalCheck = ChequeAbierto.GetDoubleVal("SUBTOTAL");
-                check.NumCheck = ChequeAbierto.GetLongVal($"NUMBER");
+                //se agrega un mas 1, ya que empieza a contar a partir del cero 0
+                check.NumCheck = ChequeAbierto.GetLongVal($"NUMBER") + 1;
 
             }
             catch (Exception ex)
