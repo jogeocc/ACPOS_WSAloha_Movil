@@ -224,7 +224,7 @@ namespace AlohaWebServiceMobile.Utils
                     if (isNewCheck)
                     {
                         id = xFunction.AddCheck(IdTerm, IdMesaInterno);
-                        responseAloha.NumCheck
+                        responseAloha.NumCheck = RecuperarCheque(id).NumCheck;
                     }
                     responseAloha.idMesa = id;
                 }
