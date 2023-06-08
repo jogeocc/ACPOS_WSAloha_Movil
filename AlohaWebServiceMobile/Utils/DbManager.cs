@@ -188,7 +188,7 @@ namespace AlohaWebServiceMobile.Utils
             return IdPago;
 
         }
-        public bool UpdatePagoPendiente(int IdPagoBd, int EntryId)
+        public bool UpdatePagoPendiente(int IdPagoBd, int EntryId, int infoPago)
         {
             bool ISsuccess = false;
             try
@@ -197,6 +197,7 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     Pagos_pendientes PagoPendiente = db.Pagos_pendientes.Where(P => P.id == IdPagoBd).First();
                     PagoPendiente.EntryId = EntryId;
+                    PagoPendiente.infoPago = infoPago;
                     db.Pagos_pendientes.AddOrUpdate(PagoPendiente);
                     db.SaveChanges();
                     ISsuccess = true;
