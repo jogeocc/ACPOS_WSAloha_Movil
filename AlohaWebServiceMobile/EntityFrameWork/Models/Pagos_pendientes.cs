@@ -24,7 +24,9 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
         public string ReferenciaUnica { get; set; }
         public string SG_REFERENCE { get; set; } = "";
 
+        //CAMPOS NUEVOS
         public int TipoPago { get; set; }
-
+        //08-06-2023
+        public int EntryId { get; set; }
     }
 }

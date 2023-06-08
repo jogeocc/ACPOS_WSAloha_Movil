@@ -45,8 +45,8 @@ namespace AlohaWebServiceMobile.Controllers
             var menus = App.Catalogos.ObtenerMenuMovil(ID_MENU);
 
             return Request.CreateResponse(HttpStatusCode.OK, menus, Configuration.Formatters.JsonFormatter);
-         }
-         
+        }
+
 
 
         [HttpGet]
@@ -208,7 +208,7 @@ namespace AlohaWebServiceMobile.Controllers
         [Route("OrderMode")]
         public HttpResponseMessage OrderMode(RequestOrderMode requestOrderMode)
         {
-            ResponseAloha response = App.AlohaConnection.ConfirmOrderMode(requestOrderMode.IdTerm, requestOrderMode.IdMesa, requestOrderMode.IdModoPedido, requestOrderMode.IdEmpleado, requestOrderMode.SelectedEntries,requestOrderMode.IdCheck);
+            ResponseAloha response = App.AlohaConnection.ConfirmOrderMode(requestOrderMode.IdTerm, requestOrderMode.IdMesa, requestOrderMode.IdModoPedido, requestOrderMode.IdEmpleado, requestOrderMode.SelectedEntries, requestOrderMode.IdCheck);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
@@ -273,7 +273,27 @@ namespace AlohaWebServiceMobile.Controllers
             var response = App.AlohaConnection.PrintBluetooth(requestPrintBluetooth.IdCheck, requestPrintBluetooth.IdTable, requestPrintBluetooth.IdTerm, requestPrintBluetooth.IdEmpleado);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
+        [HttpPut]
+        [Route("UpdatePayment")]
+        public HttpResponseMessage UpdatePayment(Pagos_pendientes requestPagoPendiente)
+        {
+            var response = App.AlohaConnection.UpdatePayment(requestPagoPendiente);
 
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+        [HttpPost]
+        [Route("ValidarPagoPendiente")]
+        public HttpResponseMessage ValidarPagoPendiente(Pagos_pendientes requestPagoPendiente)
+        {
+            var response = App.AlohaConnection.ValidarPagoPendiente(requestPagoPendiente);
+
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+        #region Desktop mobile
+
+        #endregion
         //CONTROLADORES PARA APLICACION DE ESCRITORIO
         [HttpGet]
         [Route("Users")]
@@ -400,6 +420,8 @@ namespace AlohaWebServiceMobile.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }
+
+
         [HttpPost]
         [Route("CloseCheckSap")]
         public HttpResponseMessage CloseCheckSap(RequestCloseCheckSap requestCloseCheckSap)

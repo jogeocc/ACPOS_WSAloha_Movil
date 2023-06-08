@@ -2187,6 +2187,60 @@ namespace AlohaWebServiceMobile.Utils
             }
         }
 
+        public ResponseAloha UpdatePayment(Pagos_pendientes requestPagoPendiente)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                bool IsSuccess = App.DbManager.UpdatePagoPendiente(requestPagoPendiente.id, requestPagoPendiente.EntryId);
+                if (IsSuccess)
+                {
+                    responseAloha.Estado = true;
+                    responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                    responseAloha.mensaje = "REGISTRO VALIDO Y ACTUALIZADO";
+                }
+                else
+                {
+                    responseAloha.Estado = false;
+                    responseAloha.Codigo = (int)CodigosError.ERROR;
+                    responseAloha.mensaje = "REGISTRO INVALIDO, NO INSERTADO, NO EXISTE EN BD";
+                }
 
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR AL ACTUALIZADO ENTRY ID", ex);
+            }
+            return responseAloha;
+        }
+
+        public ResponseAloha ValidarPagoPendiente(Pagos_pendientes requestPagoPendiente)
+        {
+            ResponseAloha responseAloha = new ResponseAloha();
+            try
+            {
+                int IdPago = App.DbManager.ValidarPagoPendiente(requestPagoPendiente.id);
+                if (IdPago != 0)
+                {
+                    responseAloha.IdPagoPendiente = IdPago;
+                    responseAloha.Estado = true;
+                    responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                    responseAloha.mensaje = "REGISTRO VALIDO";
+                }
+                else
+                {
+                    responseAloha.IdPagoPendiente = IdPago;
+                    responseAloha.Estado = false;
+                    responseAloha.Codigo = (int)CodigosError.ERROR;
+                    responseAloha.mensaje = "REGISTRO INVALIDO, NO EXISTE EN BD";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR AL VALIDAR PAGO PENDIENTE", ex);
+            }
+            return responseAloha;
+        }
     }
 }

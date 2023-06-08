@@ -163,6 +163,50 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"ERROR AL ACTUALIZAR TABLA DE PRODUCTOS EN ESPERA", ex);
             }
         }
-        //
+
+
+
+        //FUNCIONES PARA TABLA DE PAGOS PENDIENTES
+
+        //retorna 0 si no existe, cualquier otro numero > 0 si existe.
+        public int ValidarPagoPendiente(int IdPagoBd)
+        {
+            int IdPago = 0;
+
+            try
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    Pagos_pendientes PagoPendiente = db.Pagos_pendientes.Where(P => P.id == IdPagoBd).First();
+                    IdPago = PagoPendiente.id;
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR AL VALIDAR EXISTENCIA DE PAGO PENDIENTE", ex);
+            }
+            return IdPago;
+
+        }
+        public bool UpdatePagoPendiente(int IdPagoBd, int EntryId)
+        {
+            bool ISsuccess = false;
+            try
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    Pagos_pendientes PagoPendiente = db.Pagos_pendientes.Where(P => P.id == IdPagoBd).First();
+                    PagoPendiente.EntryId = EntryId;
+                    db.Pagos_pendientes.AddOrUpdate(PagoPendiente);
+                    db.SaveChanges();
+                    ISsuccess = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"ERROR AL VALIDAR EXISTENCIA DE PAGO PENDIENTE", ex);
+            }
+            return ISsuccess;
+        }
     }
 }
