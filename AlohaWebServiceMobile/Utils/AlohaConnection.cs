@@ -2192,7 +2192,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                bool IsSuccess = App.DbManager.UpdatePagoPendiente(requestPagoPendiente.id, requestPagoPendiente.EntryId, requestPagoPendiente.infoPago);
+                bool IsSuccess = App.DbManager.UpdatePagoPendiente(requestPagoPendiente.id, requestPagoPendiente.EntryId, requestPagoPendiente.infoPago,requestPagoPendiente.TransactionNumber, requestPagoPendiente.TransactionAuth);
                 if (IsSuccess)
                 {
                     responseAloha.Estado = true;

@@ -30,5 +30,8 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
         public int EntryId { get; set; }
         //09-06-2023
         public int TableId { get; set; }
+
+        public string TransactionNumber { get; set; }
+        public string TransactionAuth { get; set; }
     }
 }

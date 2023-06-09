@@ -187,7 +187,7 @@ namespace AlohaWebServiceMobile.Utils
             return PagoPendiente;
 
         }
-        public bool UpdatePagoPendiente(int IdPagoBd, int EntryId, int infoPago)
+        public bool UpdatePagoPendiente(int IdPagoBd, int EntryId, int infoPago, string transactionNumber, string transactionAuth)
         {
             bool ISsuccess = false;
             try
@@ -197,6 +197,8 @@ namespace AlohaWebServiceMobile.Utils
                     Pagos_pendientes PagoPendiente = db.Pagos_pendientes.Where(P => P.id == IdPagoBd).First();
                     PagoPendiente.EntryId = EntryId;
                     PagoPendiente.infoPago = infoPago;
+                    PagoPendiente.TransactionNumber = transactionNumber;
+                    PagoPendiente.TransactionAuth = transactionAuth;
                     db.Pagos_pendientes.AddOrUpdate(PagoPendiente);
                     db.SaveChanges();
                     ISsuccess = true;
