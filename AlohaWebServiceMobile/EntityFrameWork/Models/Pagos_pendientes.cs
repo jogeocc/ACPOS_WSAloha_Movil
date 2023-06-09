@@ -28,5 +28,7 @@ namespace AlohaWebServiceMobile.EntityFrameWork.Models
         public int TipoPago { get; set; }
         //08-06-2023
         public int EntryId { get; set; }
+        //09-06-2023
+        public int TableId { get; set; }
     }
 }

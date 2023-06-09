@@ -169,23 +169,22 @@ namespace AlohaWebServiceMobile.Utils
         //FUNCIONES PARA TABLA DE PAGOS PENDIENTES
 
         //retorna 0 si no existe, cualquier otro numero > 0 si existe.
-        public int ValidarPagoPendiente(int IdPagoBd)
+        public Pagos_pendientes ValidarPagoPendiente(int EntryId)
         {
-            int IdPago = 0;
+            Pagos_pendientes PagoPendiente = null;
 
             try
             {
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
-                    Pagos_pendientes PagoPendiente = db.Pagos_pendientes.Where(P => P.id == IdPagoBd).First();
-                    IdPago = PagoPendiente.id;
+                     PagoPendiente = db.Pagos_pendientes.Where(P => P.EntryId == EntryId).First();
                 }
             }
             catch (Exception ex)
             {
                 App.logger.Error($"ERROR AL VALIDAR EXISTENCIA DE PAGO PENDIENTE", ex);
             }
-            return IdPago;
+            return PagoPendiente;
 
         }
         public bool UpdatePagoPendiente(int IdPagoBd, int EntryId, int infoPago)

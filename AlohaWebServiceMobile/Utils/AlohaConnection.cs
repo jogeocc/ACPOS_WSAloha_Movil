@@ -2192,7 +2192,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                bool IsSuccess = App.DbManager.UpdatePagoPendiente(requestPagoPendiente.id, requestPagoPendiente.EntryId,requestPagoPendiente.infoPago);
+                bool IsSuccess = App.DbManager.UpdatePagoPendiente(requestPagoPendiente.id, requestPagoPendiente.EntryId, requestPagoPendiente.infoPago);
                 if (IsSuccess)
                 {
                     responseAloha.Estado = true;
@@ -2214,22 +2214,22 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha ValidarPagoPendiente(Pagos_pendientes requestPagoPendiente)
+        public ResponseAloha s(Pagos_pendientes requestPagoPendiente)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                int IdPago = App.DbManager.ValidarPagoPendiente(requestPagoPendiente.id);
-                if (IdPago != 0)
+                Pagos_pendientes pagos_Pendientes = App.DbManager.ValidarPagoPendiente(requestPagoPendiente.id);
+                if (pagos_Pendientes != null)
                 {
-                    responseAloha.IdPagoPendiente = IdPago;
+                    responseAloha.pago_Pendiente = pagos_Pendientes;
                     responseAloha.Estado = true;
                     responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                     responseAloha.mensaje = "REGISTRO VALIDO";
                 }
                 else
                 {
-                    responseAloha.IdPagoPendiente = IdPago;
+                    responseAloha.pago_Pendiente = null;
                     responseAloha.Estado = false;
                     responseAloha.Codigo = (int)CodigosError.ERROR;
                     responseAloha.mensaje = "REGISTRO INVALIDO, NO EXISTE EN BD";

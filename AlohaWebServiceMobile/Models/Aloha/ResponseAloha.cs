@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlohaWebServiceMobile.EntityFrameWork.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,5 +26,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
 
         //CAMPO PARA EL NUMCHECK CONSECUTIVO EN CUENTAS MULTIPLES
         public int NumCheck { get; set; }
+        //CAMPO PAGO PENDIENTE 09-06-2023
+        public Pagos_pendientes pago_Pendiente { get; set; }
     }
 }
