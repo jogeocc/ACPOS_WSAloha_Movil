@@ -2214,7 +2214,7 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public ResponseAloha s(Pagos_pendientes requestPagoPendiente)
+        public ResponseAloha ValidarPagoPendiente(Pagos_pendientes requestPagoPendiente)
         {
             ResponseAloha responseAloha = new ResponseAloha();
             try
