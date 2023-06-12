@@ -1210,6 +1210,7 @@ namespace AlohaWebServiceMobile.Utils
                         payment.IdTender = PagoAplicado.GetLongVal("TENDER_ID");
                         payment.Tip = PagoAplicado.GetDoubleVal("TIP");
                         payment.Amount = PagoAplicado.GetDoubleVal("AMOUNT");
+                        payment.LabelPayment = PagoAplicado.GetStringVal("IDENT");
                         check.Payments.Add(payment);
                         PagoAplicado = PagosEmpleado.Next();
                     }
@@ -1570,6 +1571,24 @@ namespace AlohaWebServiceMobile.Utils
                     }
                     detallePedido.Articulos.Add(articulo);
                 }
+
+               
+                foreach(var pago in check.Payments)
+                {
+                    FormaPago formaPago = new FormaPago();
+
+
+                    formaPago.Propina = (decimal)pago.Tip;
+                    formaPago.Total = (decimal)pago.Amount;
+                    formaPago.Nombre = pago.LabelPayment;
+                    formaPago.MostrarTotal = true;
+                    formaPago.MostrarPropina = true;
+                    formaPago.Importe = (decimal)pago.Amount;
+
+
+                    detallePedido.FormasPago.Add(formaPago);
+                }
+
 
                 detallePedido.NumeroOrden = check.ChceckNumber;
                 detallePedido.Subtotal = decimal.Parse(check.Amount.ToString());
@@ -2219,7 +2238,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                Pagos_pendientes pagos_Pendientes = App.DbManager.ValidarPagoPendiente(requestPagoPendiente.id);
+                Pagos_pendientes pagos_Pendientes = App.DbManager.ValidarPagoPendiente(requestPagoPendiente.EntryId);
                 if (pagos_Pendientes != null)
                 {
                     responseAloha.pago_Pendiente = pagos_Pendientes;
