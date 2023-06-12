@@ -711,6 +711,29 @@ namespace AlohaWebServiceMobile.Utils
             return TaxMobileList;
         }
 
+
+
+
+        // FUNCIONES EXTRA 12-06-2023
+
+        public string NombreTender(int IdTender)
+        {
+            string Name = "SIN_NOMBRE";
+            try
+            {
+                using (AplicacionBdContextoALH contextoALH = new AplicacionBdContextoALH(pathALoha))
+                {
+                    var TendersAloha = new TDRServicio(contextoALH).GetAll();
+                    Name=TendersAloha.Find(ID => ID.ID == IdTender).NAME;
+                }
+            }
+            catch(Exception ex)
+            {
+                App.logger.Error($"ERROR AL RECUPERAR NOMBRE DEL TENDER",ex);
+            }
+
+            return Name;
+        }
     }
 }
 

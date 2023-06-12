@@ -1203,14 +1203,17 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     IberEnum PagosEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_PAYMENTS);
                     IberObject PagoAplicado = PagosEmpleado.First();
+                    EstructurarData estructurarData = new EstructurarData();
                     while (PagoAplicado != null)
                     {
+                       
+
                         Payment payment = new Payment();
                         payment.IdPayment = PagoAplicado.GetLongVal("ID");
                         payment.IdTender = PagoAplicado.GetLongVal("TENDER_ID");
                         payment.Tip = PagoAplicado.GetDoubleVal("TIP");
                         payment.Amount = PagoAplicado.GetDoubleVal("AMOUNT");
-                        payment.LabelPayment = PagoAplicado.GetStringVal("IDENT");
+                        payment.LabelPayment = estructurarData.NombreTender(PagoAplicado.GetLongVal("TENDER_ID")) + "_" + PagoAplicado.GetStringVal("IDENT");
                         check.Payments.Add(payment);
                         PagoAplicado = PagosEmpleado.Next();
                     }
