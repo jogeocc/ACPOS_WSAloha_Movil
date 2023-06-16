@@ -1584,8 +1584,8 @@ namespace AlohaWebServiceMobile.Utils
                     formaPago.Propina = (decimal)pago.Tip;
                     formaPago.Total = (decimal)pago.Amount;
                     formaPago.Nombre = pago.LabelPayment;
-                    formaPago.MostrarTotal = true;
-                    formaPago.MostrarPropina = true;
+                    formaPago.MostrarTotal = false;
+                    formaPago.MostrarPropina = false;
                     formaPago.Importe = (decimal)pago.Amount;
 
 
