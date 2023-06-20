@@ -93,6 +93,7 @@ namespace AlohaWebServiceMobile.Utils
                         IdEmpleado = IdEmpleado,
                         UserName = NombreEmpleado(IdEmpleado)
                     });
+                    xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado, IdEmpleado.ToString(), "SI");
                 }
                 else
                 {
@@ -351,6 +352,7 @@ namespace AlohaWebServiceMobile.Utils
                 response.mensaje = "Salida realizada con éxito";
 
                 response.Estado = true;
+                xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_EMPLOYEES, idEmpleado, idEmpleado.ToString(), "NO");
             }
             catch (Exception ex)
             {
@@ -1206,7 +1208,7 @@ namespace AlohaWebServiceMobile.Utils
                     EstructurarData estructurarData = new EstructurarData();
                     while (PagoAplicado != null)
                     {
-                       
+
 
                         Payment payment = new Payment();
                         payment.IdPayment = PagoAplicado.GetLongVal("ID");
@@ -1575,8 +1577,8 @@ namespace AlohaWebServiceMobile.Utils
                     detallePedido.Articulos.Add(articulo);
                 }
 
-               
-                foreach(var pago in check.Payments)
+
+                foreach (var pago in check.Payments)
                 {
                     FormaPago formaPago = new FormaPago();
 
@@ -2214,7 +2216,7 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                bool IsSuccess = App.DbManager.UpdatePagoPendiente(requestPagoPendiente.id, requestPagoPendiente.EntryId, requestPagoPendiente.infoPago,requestPagoPendiente.TransactionNumber, requestPagoPendiente.TransactionAuth);
+                bool IsSuccess = App.DbManager.UpdatePagoPendiente(requestPagoPendiente.id, requestPagoPendiente.EntryId, requestPagoPendiente.infoPago, requestPagoPendiente.TransactionNumber, requestPagoPendiente.TransactionAuth);
                 if (IsSuccess)
                 {
                     responseAloha.Estado = true;
