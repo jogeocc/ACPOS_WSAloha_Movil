@@ -1803,6 +1803,7 @@ namespace AlohaWebServiceMobile.Utils
                 if (UserInSesion != null)
                 {
                     App.bdInterna.users.Remove(UserInSesion);
+                    xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado, IdEmpleado.ToString(), "NO");
                     responseDesktop.Codigo = (int)CodigosError.NO_ERROR;
                     responseDesktop.Mensaje = "Usuario liberado correctamente";
                 }
