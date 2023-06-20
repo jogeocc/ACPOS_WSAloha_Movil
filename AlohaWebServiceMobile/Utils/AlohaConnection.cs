@@ -341,7 +341,6 @@ namespace AlohaWebServiceMobile.Utils
             ResponseAloha response = new ResponseAloha();
             try
             {
-
                 VerificarIber();
                 //xFunction.LogOut(IdTerm);
                 User UserInSesion = App.bdInterna.users.Find(u => u.IdEmpleado == idEmpleado);
