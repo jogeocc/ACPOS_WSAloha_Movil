@@ -1762,7 +1762,18 @@ namespace AlohaWebServiceMobile.Utils
             //    App.logger.Error($"Error al LOGOUT interno{ex.Message}");
             //}
         }
+        private void LoginInternoHold(int IdTerm, int IdEmpleado)
+        {
+            try
+            {
+                xFunction.LogIn(IdTerm, IdEmpleado, "", "");
 
+            }
+            catch (Exception ex)
+            {
+                App.logger.Error($"Error al LOGIN interno{ex.Message}");
+            }
+        }
         private void LoginInterno(int IdTerm, int IdEmpleado)
         {
             //try
@@ -2163,7 +2174,7 @@ namespace AlohaWebServiceMobile.Utils
                     //if (user == null)
                     //{
                     //}
-                    LoginInterno(producto.IdTerminal, producto.IdEmpleado);
+                    LoginInternoHold(producto.IdTerminal, producto.IdEmpleado);
 
                     xFunction.DeselectAllEntries(producto.IdTerminal);
                     xFunction.SelectEntryAndChildren(producto.IdTerminal, producto.IdCheck, producto.IdEntry);
