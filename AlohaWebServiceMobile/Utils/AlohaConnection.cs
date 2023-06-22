@@ -2270,13 +2270,21 @@ namespace AlohaWebServiceMobile.Utils
         }
         public void LiberaTerminalApagada(int IdEmpleado, int IdTerm)
         {
-            IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
-            IberObject Empleado = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado).First();
-            int IdTerminal = Empleado.GetLongVal($"LOGINTERMINAL");
-            if (IdTerm == IdTerminal)
+            try
             {
-                xFunction.LogOut(IdTerminal);
+                IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
+                IberObject Empleado = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado).First();
+                int IdTerminal = Empleado.GetLongVal($"LOGINTERMINAL");
+                if (IdTerm == IdTerminal)
+                {
+                    xFunction.LogOut(IdTerminal);
+                }
             }
+            catch (Exception ex)
+            {
+
+            }
+
         }
     }
 }
