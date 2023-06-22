@@ -351,6 +351,7 @@ namespace AlohaWebServiceMobile.Utils
                 response.mensaje = "Salida realizada con éxito";
 
                 response.Estado = true;
+                xFunction.LogOut(IdTerm);
                 xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_EMPLOYEES, idEmpleado, idEmpleado.ToString(), "NO");
             }
             catch (Exception ex)
