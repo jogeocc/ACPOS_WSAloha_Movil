@@ -1751,39 +1751,39 @@ namespace AlohaWebServiceMobile.Utils
 
         private void LogoutInterno(int Idterm)
         {
-            try
-            {
-                xFunction.LogOut(Idterm);
-            }
-            catch (Exception ex)
-            {
-                App.logger.Error($"Error al LOGOUT interno{ex.Message}");
-            }
+            //try
+            //{
+            //    xFunction.LogOut(Idterm);
+            //}
+            //catch (Exception ex)
+            //{
+            //    App.logger.Error($"Error al LOGOUT interno{ex.Message}");
+            //}
         }
 
         private void LoginInterno(int IdTerm, int IdEmpleado)
         {
-            try
-            {
-                xFunction.LogIn(IdTerm, IdEmpleado, "", "");
+            //try
+            //{
+            //    xFunction.LogIn(IdTerm, IdEmpleado, "", "");
 
-            }
-            catch (Exception ex)
-            {
-                App.logger.Error($"Error al LOGIN interno{ex.Message}");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    App.logger.Error($"Error al LOGIN interno{ex.Message}");
+            //}
         }
 
 
         private void Encolamiento()
         {
-            while (true)
-            {
-                if (!App.IsBusy)
-                {
-                    break;
-                }
-            }
+            //while (true)
+            //{
+            //    if (!App.IsBusy)
+            //    {
+            //        break;
+            //    }
+            //}
         }
 
 
