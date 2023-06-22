@@ -1817,6 +1817,7 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     App.bdInterna.users.Remove(UserInSesion);
                     xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado, IdEmpleado.ToString(), "NO");
+                    LiberaTerminalApagada(IdEmpleado);
                     responseDesktop.Codigo = (int)CodigosError.NO_ERROR;
                     responseDesktop.Mensaje = "Usuario liberado correctamente";
                 }
@@ -2279,17 +2280,29 @@ namespace AlohaWebServiceMobile.Utils
             }
             return responseAloha;
         }
-        public void LiberaTerminalApagada(int IdEmpleado, int IdTerm)
+        public void LiberaTerminalApagada(int IdEmpleado, int IdTerm = 0)
         {
             try
             {
-                IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
-                IberObject Empleado = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado).First();
-                int IdTerminal = Empleado.GetLongVal($"LOGINTERMINAL");
-                if (IdTerm == IdTerminal)
+                if (IdTerm == 0)
                 {
-                    xFunction.LogOut(IdTerminal);
+                    IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
+                    IberObject Empleado = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado).First();
+                    int IdTerminal = Empleado.GetLongVal($"LOGINTERMINAL");
+                    if (IdTerm == IdTerminal)
+                    {
+                        xFunction.LogOut(IdTerminal);
+                    }
                 }
+                else
+                {
+                    IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
+                    IberObject Empleado = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado).First();
+                    int IdTerminal = Empleado.GetLongVal($"LOGINTERMINAL");
+                    xFunction.LogOut(IdTerminal);
+
+                }
+
             }
             catch (Exception ex)
             {
