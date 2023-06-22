@@ -63,6 +63,7 @@ namespace AlohaWebServiceMobile.Utils
                 {
                     VerificarIber();
                     Encolamiento();
+                    LiberaTerminalApagada(IdEmpleado, IdTerm);
                     App.IsBusy = true;
 
                     //string NumPassword = IdEmpleado.ToString();
@@ -2266,6 +2267,16 @@ namespace AlohaWebServiceMobile.Utils
                 App.logger.Error($"ERROR AL VALIDAR PAGO PENDIENTE", ex);
             }
             return responseAloha;
+        }
+        public void LiberaTerminalApagada(int IdEmpleado, int IdTerm)
+        {
+            IIberDepot depot = AlohaSdkFactory.GetIberDepotInstance();
+            IberObject Empleado = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado).First();
+            int IdTerminal = Empleado.GetLongVal($"LOGINTERMINAL");
+            if (IdTerm == IdTerminal)
+            {
+                xFunction.LogOut(IdTerminal);
+            }
         }
     }
 }
