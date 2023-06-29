@@ -488,7 +488,9 @@ namespace AlohaWebServiceMobile.Utils
                         Etiqueta_min = tdr.IDMINDIGIT,
                         Etiqueta_max = tdr.IDMAXDIGIT,
                         Etiqueta_nombre = tdr.IDENTNAME,
-                        Monto_Defecto = tdr.DEFAULTAMT
+                        Monto_Defecto = tdr.DEFAULTAMT,
+                        Requiere_Firma = tdr.SIGNATURE,
+
                     }); ;
                 }
             }
@@ -724,12 +726,12 @@ namespace AlohaWebServiceMobile.Utils
                 using (AplicacionBdContextoALH contextoALH = new AplicacionBdContextoALH(pathALoha))
                 {
                     var TendersAloha = new TDRServicio(contextoALH).GetAll();
-                    Name=TendersAloha.Find(ID => ID.ID == IdTender).NAME;
+                    Name = TendersAloha.Find(ID => ID.ID == IdTender).NAME;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL RECUPERAR NOMBRE DEL TENDER",ex);
+                App.logger.Error($"ERROR AL RECUPERAR NOMBRE DEL TENDER", ex);
             }
 
             return Name;

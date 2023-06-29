@@ -27,5 +27,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         /// The monto defecto.
         /// </value>
         public double Monto_Defecto { get; set; }
+
+        public bool Requiere_Firma { get; set; }
     }
 }
