@@ -156,6 +156,7 @@ namespace AlohaWebServiceMobile.Utils
                         for (int i = 0; i < sub.items.Count; i++)
                         {
                             Item item = sub.items[i];
+                            IdsItems.Clear();
                             item = RecursividadItems(item);
                         }
                     }
@@ -214,10 +215,20 @@ namespace AlohaWebServiceMobile.Utils
         public int profundidad;
         public int producto;
         public List<int> IdsPaneles = new List<int>();
+        public List<int> IdsItems = new List<int>();
 
         public Item RecursividadItems(Item item)
         {
+
+            if (IdsItems.Contains(item.id))
+            {
+                return item;
+            };
+
+            Console.WriteLine(item.id);
+            Console.WriteLine(item.descripcion_larga);
             profundidad++;
+            Console.WriteLine(profundidad);
             try
             {
                 if (ItemsDbfs.Any(I => I.ID == item.id))
@@ -273,6 +284,7 @@ namespace AlohaWebServiceMobile.Utils
                                     ItemMOD.id = ListaMods[i].ITEMID;
 
                                     ITM itemDBF = ItemsDbfs.Find(I => I.ID == ItemMOD.id);
+                                    if (itemDBF == null) continue;
                                     ItemMOD.descripcion_corta = DecodeToASCII(itemDBF.SHORTNAME);
                                     ItemMOD.descripcion_larga = DecodeToASCII(itemDBF.LONGNAME);
                                     ItemMOD.Impuesto_1 = itemDBF.TAXID;
@@ -347,7 +359,11 @@ namespace AlohaWebServiceMobile.Utils
 
                                         if (AuxList.Count > 0)
                                         {
+
+                           
+                                            IdsItems.Add(item.id);
                                             ItemMOD = RecursividadItems(ItemMOD);
+
                                         }
 
                                         mod.item_mod.Add(ItemMOD);
