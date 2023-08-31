@@ -158,6 +158,7 @@ namespace AlohaWebServiceMobile.Utils
                             Item item = sub.items[i];
                             IdsItems.Clear();
                             item = RecursividadItems(item);
+                            IdsItems.Clear();
                         }
                     }
                     else
@@ -195,6 +196,7 @@ namespace AlohaWebServiceMobile.Utils
                                 Boton_item.id = IdProducto;
                                 producto = IdProducto;
                                 profundidad = 0;
+                                IdsItems.Clear();
                                 Boton_item = RecursividadItems(Boton_item);
                                 if (Boton_item != null)
                                 {
@@ -220,10 +222,10 @@ namespace AlohaWebServiceMobile.Utils
         public Item RecursividadItems(Item item)
         {
 
-            if (IdsItems.Contains(item.id))
-            {
-                return item;
-            };
+            //if (IdsItems.Contains(item.id))
+            //{
+            //    return item;
+            //};
 
             Console.WriteLine(item.id);
             Console.WriteLine(item.descripcion_larga);
@@ -314,6 +316,12 @@ namespace AlohaWebServiceMobile.Utils
 
                                     if (AuxList.Count > 0)
                                     {
+                                        IdsItems.Add(item.id);
+
+                                        if (IdsItems.Contains(item.id))
+                                        {
+                                            return item;
+                                        };
                                         ItemMOD = RecursividadItems(ItemMOD);
                                     }
 
@@ -360,7 +368,11 @@ namespace AlohaWebServiceMobile.Utils
                                         if (AuxList.Count > 0)
                                         {
 
-                           
+                                            if (IdsItems.Contains(item.id))
+                                            {
+                                                return item;
+                                            };
+
                                             IdsItems.Add(item.id);
                                             ItemMOD = RecursividadItems(ItemMOD);
 
