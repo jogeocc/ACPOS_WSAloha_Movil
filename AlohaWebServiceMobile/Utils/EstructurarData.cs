@@ -364,12 +364,12 @@ namespace AlohaWebServiceMobile.Utils
 
                                             if (IdsItems.Contains(item.id))
                                             {
+                                                mod.item_mod.Add(ItemMOD);
                                                 continue ;
                                             }
 
                                             IdsItems.Add(item.id);
                                             ItemMOD = RecursividadItems(ItemMOD);
-
                                         }
 
                                         mod.item_mod.Add(ItemMOD);
@@ -443,6 +443,11 @@ namespace AlohaWebServiceMobile.Utils
                     Boton_item.id = IdProducto;
                     producto = IdProducto;
                     profundidad = 0;
+                    //if (IdsItems.Contains(IdProducto))
+                    //{
+                    //    continue;
+                    //}
+
                     Boton_item = RecursividadItems(Boton_item);
                     if (Boton_item != null)
                     {
