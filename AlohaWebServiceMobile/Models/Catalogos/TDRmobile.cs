@@ -29,5 +29,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public double Monto_Defecto { get; set; }
 
         public bool Requiere_Firma { get; set; }
+        
+        public bool Requiere_Expiracion { get; set; }
     }
 }
