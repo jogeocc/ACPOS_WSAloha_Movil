@@ -29,7 +29,19 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public double Monto_Defecto { get; set; }
 
         public bool Requiere_Firma { get; set; }
+
+
+        /// <summary>
+        /// INICIO 09/11/2023.
+        /// FIN 09/11/2023.
+        /// Campo para indicar que se necesita la fecha de expiracion
+        /// </summary>
+        /// <value>
+        /// bool.
+        /// </value>
         
+
         public bool Requiere_Expiracion { get; set; }
+
     }
 }

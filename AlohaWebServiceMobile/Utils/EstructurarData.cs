@@ -64,6 +64,10 @@ namespace AlohaWebServiceMobile.Utils
 
             //RELACIONAR TODO LA DATA DEL MENU -> SUBMENUS -> ITEMS -> MODS -> ITEMS
 
+
+            // RELACIONAR TODO LA DATA DEL MENU->SUBMENUS-> paneles -> btns -> btns item -> mod -> item
+            // o btn panel -> btns item o btn panel
+
             //RECOLECTAR PRIMER PASO MENUS
             int Menu;
             if (IdMenu == 0)
@@ -167,6 +171,9 @@ namespace AlohaWebServiceMobile.Utils
                         List<BTN> Btns = BtnsDbfs.FindAll(B => B.PANELID == sub.panel_id && (B.FUNC == (int)AlohaPanelCodes.BOTON_PANEL || B.FUNC == (int)AlohaPanelCodes.BOTON_ITEM));
                         foreach (var btn in Btns)
                         {
+                            IdsItems.Clear();
+                            IdsPaneles.Clear();
+
                             if (btn.FUNC == (int)AlohaPanelCodes.BOTON_PANEL)
                             {
 
@@ -401,7 +408,7 @@ namespace AlohaWebServiceMobile.Utils
 
             if (IdsPaneles.Contains(Panel.id_panel))
             {
-                return null;
+                return item;
             }
 
             IdsPaneles.Add(Panel.id_panel);
@@ -517,7 +524,7 @@ namespace AlohaWebServiceMobile.Utils
                         Etiqueta_nombre = tdr.IDENTNAME,
                         Monto_Defecto = tdr.DEFAULTAMT,
                         Requiere_Firma = tdr.SIGNATURE,
-
+                        Requiere_Expiracion = tdr.EXPIRATION
                     }); ;
                 }
             }

@@ -2291,8 +2291,10 @@ namespace AlohaWebServiceMobile.Utils
                     int IdTerminal = Empleado.GetLongVal($"LOGINTERMINAL");
                     if (IdTerm == IdTerminal)
                     {
-                        xFunction.LogOut(IdTerminal);
+                        //xFunction.LogOut(IdTerminal);
                     }
+                    xFunction.LogOut(IdTerminal);
+
                 }
                 else
                 {
