@@ -162,7 +162,9 @@ namespace AlohaWebServiceMobile.Utils
                         for (int i = 0; i < sub.items.Count; i++)
                         {
                             Item item = sub.items[i];
-                            //IdsItems.Clear();
+                            IdsItems.Clear();
+                            IdsPaneles.Clear();
+                            profundidad = 0;
                             item = RecursividadItems(item);
                         }
                     }
@@ -372,7 +374,7 @@ namespace AlohaWebServiceMobile.Utils
                                             if (IdsItems.Contains(item.id))
                                             {
                                                 mod.item_mod.Add(ItemMOD);
-                                                continue ;
+                                                continue;
                                             }
 
                                             IdsItems.Add(item.id);

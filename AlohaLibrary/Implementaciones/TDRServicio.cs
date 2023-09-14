@@ -32,6 +32,8 @@ namespace AlohaLibrary.Implementaciones
                 var Props = Tdr.GetType().GetProperties().ToList();
                 foreach (PropertyInfo prop in Props)
                 {
+                    Console.WriteLine(prop.Name);
+
                     if (prop.PropertyType == typeof(double))
                     {
                         //VALORES DOUBLE
@@ -40,9 +42,11 @@ namespace AlohaLibrary.Implementaciones
                     }
                     else
                     {
-                        if (int.TryParse(item[prop.Name].ToString(), out int value))
+                        //if (int.TryParse(item[prop.Name].ToString(), out int value) && prop.PropertyType == typeof(string))
+                        if  (prop.PropertyType == typeof(int))
                         {
                             //ENTEROS
+                            int.TryParse(item[prop.Name].ToString(), out int value);
                             prop.SetValue(Tdr, value);
                         }
                         else if ((item[prop.Name].ToString().ToUpper() == "Y" || item[prop.Name].ToString().ToUpper() == "N"))
