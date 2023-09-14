@@ -158,6 +158,7 @@
     <Compile Include="Modelos\GNDTndr.cs" />
     <Compile Include="Modelos\TDR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\GeneralFunctions.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

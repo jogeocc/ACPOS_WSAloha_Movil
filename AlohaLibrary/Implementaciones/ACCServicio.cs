@@ -2,6 +2,7 @@
 using AlohaLibrary.Infraestrutura;
 using AlohaLibrary.Interfaces;
 using AlohaLibrary.Modelos;
+using AlohaLibrary.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,38 +27,13 @@ namespace AlohaLibrary.Implementaciones
             DataSet ds = new DataSet();
             EjecutarConsulta(query).Fill(ds, "ACC");
             DataTable tabla = ds.Tables["ACC"];
+
+
+
             foreach (DataRow ACCES in tabla.Rows)
             {
                 ACC Acceso = new ACC();
-
-                var Props = Acceso.GetType().GetProperties().ToList();
-                foreach (PropertyInfo prop in Props)
-                {
-                    if (prop.PropertyType == typeof(double))
-                    {
-                        //VALORES DOUBLE
-                        double.TryParse(ACCES[prop.Name].ToString(), out double result);
-                        prop.SetValue(Acceso, result);
-                    }
-                    else
-                    {
-                        if (int.TryParse(ACCES[prop.Name].ToString(), out int value))
-                        {
-                            //ENTEROS
-                            prop.SetValue(Acceso, value);
-                        }
-                        else if ((ACCES[prop.Name].ToString().ToUpper() == "Y" || ACCES[prop.Name].ToString().ToUpper() == "N"))
-                        {
-                            //BOOLEANO TIPO ALOHA
-                            prop.SetValue(Acceso, ACCES[prop.Name].ToString().ToUpper() == "Y");
-                        }
-                        else
-                        {
-                            //CADENAS
-                            prop.SetValue(Acceso, ACCES[prop.Name].ToString());
-                        }
-                    }
-                }
+                new GeneralFunctions().ReadDbf(ACCES, ref Acceso);
                 List.Add(Acceso);
             }
             return List;
