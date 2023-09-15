@@ -30,41 +30,7 @@ namespace AlohaLibrary.Implementaciones
             foreach (DataRow item in tabla.Rows)
             {
                 TDR Tdr = new TDR();
-
                 new GeneralFunctions().ReadDbf(item, ref Tdr);
-
-                //var Props = Tdr.GetType().GetProperties().ToList();
-                //foreach (PropertyInfo prop in Props)
-                //{
-                //    Console.WriteLine(prop.Name);
-
-                //    if (prop.PropertyType == typeof(double))
-                //    {
-                //        //VALORES DOUBLE
-                //        double.TryParse(item[prop.Name].ToString(), out double result);
-                //        prop.SetValue(Tdr, result);
-                //    }
-                //    else
-                //    {
-                //        //if (int.TryParse(item[prop.Name].ToString(), out int value) && prop.PropertyType == typeof(string))
-                //        if  (prop.PropertyType == typeof(int))
-                //        {
-                //            //ENTEROS
-                //            int.TryParse(item[prop.Name].ToString(), out int value);
-                //            prop.SetValue(Tdr, value);
-                //        }
-                //        else if ((item[prop.Name].ToString().ToUpper() == "Y" || item[prop.Name].ToString().ToUpper() == "N"))
-                //        {
-                //            //BOOLEANO TIPO ALOHA
-                //            prop.SetValue(Tdr, item[prop.Name].ToString().ToUpper() == "Y");
-                //        }
-                //        else
-                //        {
-                //            //CADENAS
-                //            prop.SetValue(Tdr, item[prop.Name].ToString());
-                //        }
-                //    }
-                //}
                 Lista.Add(Tdr);
             }
             return Lista;

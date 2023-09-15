@@ -28,7 +28,7 @@ namespace AlohaWebServiceMobile.Utils
         private List<MODEXT> ModsDbfs15 = new List<MODEXT>();
         private List<BTN> BtnsDbfs = new List<BTN>();
         private List<PNL> PNLSDbfs = new List<PNL>();
-
+        private List<VER> VerDBFS = new List<VER>();
         private List<QTYPRICE> Qtyprices = new List<QTYPRICE>();
 
         private int BotonPlu = 999999;
@@ -52,11 +52,15 @@ namespace AlohaWebServiceMobile.Utils
                 ModsDbfs = new MODServicio(contextoAlh).GetAll();
                 BtnsDbfs = new BTNServicio(contextoAlh).GetAll();
                 PNLSDbfs = new PNLServicio(contextoAlh).GetAll();
+                VerDBFS = new VERServicio(contextoAlh).GetAll();
 
-
-                if (File.Exists(pathALoha + @"\MODEXT.dbf"))
+                VER VersionAloha = VerDBFS.First();
+                if (VersionAloha.SFTVERSION >= 15)
                 {
-                    ModsDbfs15 = new MODEXTServicio(contextoAlh).GetAll();
+                    if (File.Exists(pathALoha + @"\MODEXT.dbf"))
+                    {
+                        ModsDbfs15 = new MODEXTServicio(contextoAlh).GetAll();
+                    }
                 }
 
                 Qtyprices = new QTYPRICEServicio(contextoAlh).GetAll();

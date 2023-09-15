@@ -79,6 +79,7 @@
     <Compile Include="Implementaciones\GNDTndrServicio.cs" />
     <Compile Include="Implementaciones\OrdenServicioALH.cs" />
     <Compile Include="Implementaciones\TDRServicio.cs" />
+    <Compile Include="Implementaciones\VERServicio.cs" />
     <Compile Include="Infraestructura\BdContextoALH.cs" />
     <Compile Include="Implementaciones\FormaPagoServicioALH.cs" />
     <Compile Include="Infraestructura\ServicioBaseALH.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Interfaces\IGNDTndrServicio.cs" />
     <Compile Include="Interfaces\IOrdenServicioALH.cs" />
     <Compile Include="Interfaces\ITDRServicio.cs" />
+    <Compile Include="Interfaces\IVER.cs" />
     <Compile Include="ModelosPersonalizados\Sale.cs" />
     <Compile Include="ModelosPersonalizados\SaleDiscount.cs" />
     <Compile Include="ModelosPersonalizados\Tender.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="Modelos\OrdenALH.cs" />
     <Compile Include="Modelos\GNDTndr.cs" />
     <Compile Include="Modelos\TDR.cs" />
+    <Compile Include="Modelos\VER.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\GeneralFunctions.cs" />
   </ItemGroup>
