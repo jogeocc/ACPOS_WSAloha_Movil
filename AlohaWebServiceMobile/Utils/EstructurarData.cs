@@ -203,13 +203,20 @@ namespace AlohaWebServiceMobile.Utils
                                 Item Boton_item = new Item();
 
                                 List<string> Params = btn.PARAMS.Split(',').ToList();
-                                int param1 = int.Parse(Params[0]);
-                                int param2 = int.Parse(Params[1]);
-                                double param3 = double.Parse(Params[2]);
-                                int param4 = int.Parse(Params[3]);
-                                int param5 = int.Parse(Params[4]);
+                                int desconocido = int.Parse(Params[0]);
+                                int NumItem = int.Parse(Params[1]);
+                                double PriceButton = double.Parse(Params[2]);
+                                int PriceLevel = int.Parse(Params[3]);
+                                int PriceMethod = int.Parse(Params[4]);
 
-
+                                Boton_item.id = NumItem;
+                                producto = NumItem;
+                                profundidad = 0;
+                                Boton_item = RecursividadItems(Boton_item);
+                                if (Boton_item != null)
+                                {
+                                    sub.Btns.Add(Boton_item);
+                                }
                             }
                             else
                             {
