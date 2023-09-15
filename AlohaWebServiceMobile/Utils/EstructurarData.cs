@@ -174,7 +174,7 @@ namespace AlohaWebServiceMobile.Utils
                     }
                     else
                     {
-                        List<BTN> Btns = BtnsDbfs.FindAll(B => B.PANELID == sub.panel_id && (B.FUNC == (int)AlohaPanelCodes.BOTON_PANEL || B.FUNC == (int)AlohaPanelCodes.BOTON_ITEM) || B.FUNC == (int)AlohaPanelCodes.BOTON_SMART_ITEM);
+                        List<BTN> Btns = BtnsDbfs.FindAll(B => B.PANELID == sub.panel_id && (B.FUNC == (int)AlohaPanelCodes.BOTON_PANEL || B.FUNC == (int)AlohaPanelCodes.BOTON_ITEM || B.FUNC == (int)AlohaPanelCodes.BOTON_SMART_ITEM));
                         foreach (var btn in Btns)
                         {
                             IdsItems.Clear();
