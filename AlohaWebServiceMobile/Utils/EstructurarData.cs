@@ -201,6 +201,13 @@ namespace AlohaWebServiceMobile.Utils
                                 Item Boton_item = new Item();
 
                                 List<string> Params = btn.PARAMS.Split(',').ToList();
+                                int param1 = int.Parse(Params[0]);
+                                int param2 = int.Parse(Params[1]);
+                                double param3 = double.Parse(Params[2]);
+                                int param4 = int.Parse(Params[3]);
+                                int param5 = int.Parse(Params[4]);
+
+
                             }
                             else
                             {
