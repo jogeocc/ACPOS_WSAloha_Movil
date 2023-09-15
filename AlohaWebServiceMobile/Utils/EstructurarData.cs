@@ -221,8 +221,6 @@ namespace AlohaWebServiceMobile.Utils
             return Menus;
         }
 
-
-
         public int profundidad;
         public int producto;
         public List<int> IdsPaneles = new List<int>();

@@ -3,6 +3,7 @@ using AlohaLibrary.Enums;
 using AlohaLibrary.Infraestrutura;
 using AlohaLibrary.Interfaces;
 using AlohaLibrary.Modelos;
+using AlohaLibrary.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,7 +23,7 @@ namespace AlohaLibrary.Implementaciones
         {
             List<CAT> categorias = new List<CAT>();
 
-            string query = $"SELECT ID, NAME, SALES FROM CAT";
+            string query = $"SELECT * FROM CAT";
 
             DataSet ds = new DataSet();
             EjecutarConsulta(query).Fill(ds, "CAT");
@@ -30,12 +31,9 @@ namespace AlohaLibrary.Implementaciones
 
             foreach (DataRow item in tabla.Rows)
             {
-                categorias.Add(new CAT
-                {
-                    ID = int.Parse(item["ID"].ToString()),
-                    NAME = item["NAME"].ToString(),
-                    SALES = item["SALES"].ToString().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N
-                });
+                CAT CAT = new CAT();
+                new GeneralFunctions().ReadDbf(item, ref CAT);
+                categorias.Add(CAT);
             }
 
             return categorias;
