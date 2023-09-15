@@ -9,6 +9,7 @@ namespace AlohaWebServiceMobile.Enums
     public enum AlohaPanelCodes
     {
         BOTON_PANEL = 199,
-        BOTON_ITEM = 195
+        BOTON_ITEM = 195,
+        BOTON_SMART_ITEM = 194,
     }
 }
