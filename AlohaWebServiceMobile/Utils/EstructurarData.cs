@@ -446,8 +446,11 @@ namespace AlohaWebServiceMobile.Utils
                     if (IdPanel != 0)
                     {
                         Boton_panel.id_panel = IdPanel;
-                        Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
-                        Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+                        //Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+                        //Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+
+                        Boton_panel.descripcion_larga = btn.TEXT;
+                        Boton_panel.descripcion_corta = btn.TEXT;
                         Boton_panel = RecursividadPaneles(Boton_panel);
                         if (Boton_panel != null)
                         {
