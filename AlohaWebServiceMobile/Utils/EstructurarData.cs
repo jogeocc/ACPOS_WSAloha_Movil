@@ -408,7 +408,7 @@ namespace AlohaWebServiceMobile.Utils
 
             if (IdsPaneles.Contains(Panel.id_panel))
             {
-                return item;
+                return null;
             }
 
             IdsPaneles.Add(Panel.id_panel);
