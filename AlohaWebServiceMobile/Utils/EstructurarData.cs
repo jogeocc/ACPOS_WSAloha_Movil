@@ -179,12 +179,12 @@ namespace AlohaWebServiceMobile.Utils
 
                         for (int i = 1; i <= 48; i++)
                         {
+                            int origen = i;
                             for (int j = 0; j < Columnas; j++)
                             {
-                                int origen = i;
                                 try
                                 {
-                                    if (Pasados.Contains(origen))
+                                    if (!Pasados.Contains(origen))
                                     {
                                         listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
                                         Pasados.Add(origen);
