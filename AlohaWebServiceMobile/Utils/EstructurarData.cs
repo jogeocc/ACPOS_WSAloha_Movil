@@ -443,7 +443,7 @@ namespace AlohaWebServiceMobile.Utils
             IdsPaneles.Add(Panel.id_panel);
 
             List<BTN> Btns = BtnsDbfs.FindAll(B => B.PANELID == Panel.id_panel && (B.FUNC == (int)AlohaPanelCodes.BOTON_PANEL || B.FUNC == (int)AlohaPanelCodes.BOTON_ITEM));
-
+            Btns = Btns.OrderBy(p => Math.Sqrt(p.X * p.X + p.Y * p.Y)).ThenBy(p => p.X).ToList();
             foreach (var btn in Btns)
             {
                 if (btn.FUNC == (int)AlohaPanelCodes.BOTON_PANEL)
