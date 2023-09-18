@@ -9,9 +9,11 @@ using AlohaWebServiceMobile.Models.Catalogos;
 using Design_Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -128,7 +130,7 @@ namespace AlohaWebServiceMobile.Utils
                         string AuxPrice = "PRICE";
                         string AuxPrmethod = "PRMETHOD";
                         string AuxPRICELVL = "PRICELVL";
-                        int couter = 0;
+                        int couter = 1;
                         foreach (var propItem in Props.FindAll(p => p.Name.ToString().Contains("ITEM")))
                         {
 
@@ -145,6 +147,7 @@ namespace AlohaWebServiceMobile.Utils
                                     submenu_precio_sub = double.Parse(Props.Find(P => P.Name == AuxPrice + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString()) / 100,
                                 });
                             }
+                            couter++;
                         }
                         #endregion
 
@@ -166,6 +169,61 @@ namespace AlohaWebServiceMobile.Utils
                     IdsPaneles.Clear();
                     if (!sub.UsePanels)
                     {
+                        var x = 1 % 7;
+                        int Filas = 7;
+                        int Columnas = 3;
+
+
+                        List<Item> listordenada = new List<Item>();
+                        List<int> Pasados = new List<int>();
+                        foreach (var item in sub.items)
+                        {
+                            try
+                            {
+                                if (!Pasados.Contains(item.PosicionDbf))
+                                {
+                                    int origen = item.PosicionDbf;
+                                    listordenada.Add(item);
+                                    Pasados.Add(origen);
+
+                                    origen = origen + Filas;
+                                    listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
+                                    Pasados.Add(origen);
+
+                                    origen = origen + Filas;
+                                    listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
+                                    Pasados.Add(origen);
+
+
+                                    //origen = origen + Filas;
+                                    //listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
+                                    //Pasados.Add(origen);
+
+                                    //origen = origen + Filas;
+                                    //listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
+                                    //Pasados.Add(origen);
+
+                                    //origen = origen + Filas;
+                                    //listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
+                                    //Pasados.Add(origen);
+
+                                    //origen = origen + Filas;
+                                    //listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
+                                    //Pasados.Add(origen);
+
+                                }
+
+                            }
+                            catch
+                            {
+                            }
+
+                        }
+
+                        sub.items = listordenada;
+                        //sub.items = sub.items.OrderBy(I => I.PosicionDbf % 7).ThenBy(I => (I.PosicionDbf % 7) < 0).ToList();
+
+
                         for (int i = 0; i < sub.items.Count; i++)
                         {
                             Item item = sub.items[i];
@@ -255,6 +313,7 @@ namespace AlohaWebServiceMobile.Utils
 
             return Menus;
         }
+
 
         public int profundidad;
         public int producto;
