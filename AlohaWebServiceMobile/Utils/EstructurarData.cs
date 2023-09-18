@@ -131,12 +131,14 @@ namespace AlohaWebServiceMobile.Utils
                         int couter = 0;
                         foreach (var propItem in Props.FindAll(p => p.Name.ToString().Contains("ITEM")))
                         {
+
                             if ((int)propItem.GetValue(SubMenu) > 0)
                             {
                                 var id = (int)propItem.GetValue(SubMenu);
                                 if (id == BotonPlu) continue;
                                 sub.items.Add(new Item
                                 {
+                                    PosicionDbf = couter,
                                     id = (int)propItem.GetValue(SubMenu),
                                     submenu_precio_metodo = int.Parse(Props.Find(P => P.Name == AuxPrmethod + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString()),
                                     submenu_precio_nivel = int.Parse(Props.Find(P => P.Name == AuxPRICELVL + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString()),

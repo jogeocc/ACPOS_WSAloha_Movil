@@ -35,6 +35,8 @@ namespace AlohaWebServiceMobile.Models.Catalogos
 
     public class Item
     {
+        public int PosicionDbf { get; set; }
+
         public int id { get; set; }
         public string descripcion_corta { get; set; } = "";
         public string descripcion_larga { get; set; } = "";
