@@ -179,11 +179,11 @@ namespace AlohaWebServiceMobile.Utils
 
                         for (int i = 1; i <= 48; i++)
                         {
-                            try
+                            for (int j = 0; j < Columnas; j++)
                             {
-                                for (int j = 0; j < Columnas; j++)
+                                int origen = i;
+                                try
                                 {
-                                    int origen = i;
                                     if (Pasados.Contains(origen))
                                     {
                                         listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
@@ -191,8 +191,13 @@ namespace AlohaWebServiceMobile.Utils
                                     }
                                     origen += Filas;
                                 }
+                                catch (Exception ex)
+                                {
+
+                                }
+
+
                             }
-                            catch (Exception ex) { }
 
                         }
                         //foreach (var item in sub.items)
