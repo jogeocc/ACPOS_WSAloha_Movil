@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AlohaWebServiceMobile.Utils
 {
@@ -175,7 +176,10 @@ namespace AlohaWebServiceMobile.Utils
                     else
                     {
                         List<BTN> Btns = BtnsDbfs.FindAll(B => B.PANELID == sub.panel_id && (B.FUNC == (int)AlohaPanelCodes.BOTON_PANEL || B.FUNC == (int)AlohaPanelCodes.BOTON_ITEM || B.FUNC == (int)AlohaPanelCodes.BOTON_SMART_ITEM));
-                        Btns = Btns.OrderBy(p => Math.Sqrt(p.X * p.X + p.Y * p.Y)).ThenBy(p => p.X).ToList();
+                        Btns = Btns.OrderBy(p => p.Y).ThenBy(p => p.X).ToList();
+                        //Btns = Btns.OrderBy(p => p.X).ThenBy(p => p.Y).ToList();
+
+
                         foreach (var btn in Btns)
                         {
                             IdsItems.Clear();
@@ -443,7 +447,9 @@ namespace AlohaWebServiceMobile.Utils
             IdsPaneles.Add(Panel.id_panel);
 
             List<BTN> Btns = BtnsDbfs.FindAll(B => B.PANELID == Panel.id_panel && (B.FUNC == (int)AlohaPanelCodes.BOTON_PANEL || B.FUNC == (int)AlohaPanelCodes.BOTON_ITEM));
-            Btns = Btns.OrderBy(p => Math.Sqrt(p.X * p.X + p.Y * p.Y)).ThenBy(p => p.X).ToList();
+            //Btns = Btns.OrderBy(p => p.X).ThenBy(p => p.Y).ToList();
+            Btns = Btns.OrderBy(p => p.Y).ThenBy(p => p.X).ToList();
+            //Btns = Btns.OrderBy(p => Math.Sqrt(p.X * p.X + p.Y * p.Y)).ThenBy(p => p.X).ToList();
             foreach (var btn in Btns)
             {
                 if (btn.FUNC == (int)AlohaPanelCodes.BOTON_PANEL)
@@ -493,6 +499,8 @@ namespace AlohaWebServiceMobile.Utils
                         item.PanelTransicion.Btns.Add(Boton_item);
                     }
                 }
+
+                //item.PanelTransicion.Btns = item.PanelTransicion.Btns.OrderBy(p => Math.Sqrt(p.EjeX * p.EjeX + p.EjeY * p.EjeY)).ThenBy(p => p.EjeX).ToList();
             }
             return item;
         }
