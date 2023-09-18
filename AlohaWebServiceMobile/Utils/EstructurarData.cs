@@ -169,56 +169,54 @@ namespace AlohaWebServiceMobile.Utils
                     IdsPaneles.Clear();
                     if (!sub.UsePanels)
                     {
-                        var x = 1 % 7;
                         int Filas = 7;
                         int Columnas = 3;
 
 
                         List<Item> listordenada = new List<Item>();
                         List<int> Pasados = new List<int>();
-                        foreach (var item in sub.items)
+
+
+                        for (int i = 1; i <= 48; i++)
                         {
                             try
                             {
-                                if (!Pasados.Contains(item.PosicionDbf))
+                                for (int j = 0; j < Columnas; j++)
                                 {
-                                    int origen = item.PosicionDbf;
-                                    listordenada.Add(item);
-                                    Pasados.Add(origen);
-
-                                    origen = origen + Filas;
-                                    listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
-                                    Pasados.Add(origen);
-
-                                    origen = origen + Filas;
-                                    listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
-                                    Pasados.Add(origen);
-
-
-                                    //origen = origen + Filas;
-                                    //listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
-                                    //Pasados.Add(origen);
-
-                                    //origen = origen + Filas;
-                                    //listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
-                                    //Pasados.Add(origen);
-
-                                    //origen = origen + Filas;
-                                    //listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
-                                    //Pasados.Add(origen);
-
-                                    //origen = origen + Filas;
-                                    //listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
-                                    //Pasados.Add(origen);
-
+                                    int origen = i;
+                                    if (Pasados.Contains(origen))
+                                    {
+                                        listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
+                                        Pasados.Add(origen);
+                                    }
+                                    origen += Filas;
                                 }
-
                             }
-                            catch
-                            {
-                            }
+                            catch (Exception ex) { }
 
                         }
+                        //foreach (var item in sub.items)
+                        //{
+                        //    try
+                        //    {
+                        //        if (!Pasados.Contains(item.PosicionDbf))
+                        //        {
+                        //            int origen = item.PosicionDbf;
+                        //            for (int i = 0; i < Columnas; i++)
+                        //            {
+                        //                listordenada.Add(item);
+                        //                Pasados.Add(origen);
+                        //                origen += Filas;
+
+                        //            }
+                        //        }
+
+                        //    }
+                        //    catch
+                        //    {
+                        //    }
+
+                        //}
 
                         sub.items = listordenada;
                         //sub.items = sub.items.OrderBy(I => I.PosicionDbf % 7).ThenBy(I => (I.PosicionDbf % 7) < 0).ToList();
