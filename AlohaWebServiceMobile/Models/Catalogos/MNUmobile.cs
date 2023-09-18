@@ -72,6 +72,13 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public int Impuesto_1 { get; set; }
         public int Impuesto_2 { get; set; }
         public int Impuesto_3 { get; set; }
+        //15/09/2023 CAMPOS EXTRAS PARA OBTENER LOS COLORES DEL BTN EN TEXT, FONDO, Y POSICION EN UN PLANO, y un campo booleano para definir si es color defaults
+        //todo
+        //points.OrderBy(p => Math.Sqrt(p.X * p.X + p.Y * p.Y)).ThenBy(p => p.X).ToList();
+        public bool ColorDefecto { get; set; }
+        public int EjeX { get; set; }
+        public int EjeY { get; set; }
+
     }
 
     public class Mod

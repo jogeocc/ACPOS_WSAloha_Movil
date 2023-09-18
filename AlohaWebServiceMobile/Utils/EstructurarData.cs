@@ -186,6 +186,8 @@ namespace AlohaWebServiceMobile.Utils
                                 Item Boton_panel = new Item();
                                 int.TryParse(btn.PARAMS, out int IdPanel);
                                 Boton_panel.id_panel = IdPanel;
+                                Boton_panel.EjeX = btn.X;
+                                Boton_panel.EjeY = btn.Y;
                                 //Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
                                 //Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
                                 Boton_panel.descripcion_larga = btn.TEXT;
