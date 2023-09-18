@@ -130,7 +130,8 @@ namespace AlohaWebServiceMobile.Utils
                         string AuxPrice = "PRICE";
                         string AuxPrmethod = "PRMETHOD";
                         string AuxPRICELVL = "PRICELVL";
-                        int couter = 1;
+                        int couter = 0;
+                        int Posicion = 1;
                         foreach (var propItem in Props.FindAll(p => p.Name.ToString().Contains("ITEM")))
                         {
 
@@ -140,14 +141,14 @@ namespace AlohaWebServiceMobile.Utils
                                 if (id == BotonPlu) continue;
                                 sub.items.Add(new Item
                                 {
-                                    PosicionDbf = couter,
+                                    PosicionDbf = Posicion,
                                     id = (int)propItem.GetValue(SubMenu),
                                     submenu_precio_metodo = int.Parse(Props.Find(P => P.Name == AuxPrmethod + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString()),
                                     submenu_precio_nivel = int.Parse(Props.Find(P => P.Name == AuxPRICELVL + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString()),
                                     submenu_precio_sub = double.Parse(Props.Find(P => P.Name == AuxPrice + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString()) / 100,
                                 });
                             }
-                            couter++;
+                            Posicion++;
                         }
                         #endregion
 
@@ -169,7 +170,7 @@ namespace AlohaWebServiceMobile.Utils
                     IdsPaneles.Clear();
                     if (!sub.UsePanels)
                     {
-                        int Filas = 7;
+                        int Filas = 8;
                         int Columnas = 3;
 
 
@@ -179,49 +180,31 @@ namespace AlohaWebServiceMobile.Utils
 
                         for (int i = 1; i <= 48; i++)
                         {
-                            int origen = i;
-                            for (int j = 0; j < Columnas; j++)
+                            if (!Pasados.Contains(i))
                             {
-                                try
+                                int origen = i;
+                                for (int j = 0; j < Columnas; j++)
                                 {
-                                    if (!Pasados.Contains(origen))
+                                    try
                                     {
-                                        listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
-                                        Pasados.Add(origen);
+                                        if (!Pasados.Contains(origen))
+                                        {
+                                            listordenada.Add(sub.items.First(I => I.PosicionDbf == origen));
+                                            Pasados.Add(origen);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+
                                     }
                                     origen += Filas;
-                                }
-                                catch (Exception ex)
-                                {
 
                                 }
-
-
                             }
 
+
                         }
-                        //foreach (var item in sub.items)
-                        //{
-                        //    try
-                        //    {
-                        //        if (!Pasados.Contains(item.PosicionDbf))
-                        //        {
-                        //            int origen = item.PosicionDbf;
-                        //            for (int i = 0; i < Columnas; i++)
-                        //            {
-                        //                listordenada.Add(item);
-                        //                Pasados.Add(origen);
-                        //                origen += Filas;
-
-                        //            }
-                        //        }
-
-                        //    }
-                        //    catch
-                        //    {
-                        //    }
-
-                        //}
+ 
 
                         sub.items = listordenada;
                         //sub.items = sub.items.OrderBy(I => I.PosicionDbf % 7).ThenBy(I => (I.PosicionDbf % 7) < 0).ToList();
