@@ -175,6 +175,7 @@ namespace AlohaWebServiceMobile.Utils
                     else
                     {
                         List<BTN> Btns = BtnsDbfs.FindAll(B => B.PANELID == sub.panel_id && (B.FUNC == (int)AlohaPanelCodes.BOTON_PANEL || B.FUNC == (int)AlohaPanelCodes.BOTON_ITEM || B.FUNC == (int)AlohaPanelCodes.BOTON_SMART_ITEM));
+                        Btns = Btns.OrderBy(p => Math.Sqrt(p.X * p.X + p.Y * p.Y)).ThenBy(p => p.X).ToList();
                         foreach (var btn in Btns)
                         {
                             IdsItems.Clear();
