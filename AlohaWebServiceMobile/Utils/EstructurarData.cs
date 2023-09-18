@@ -204,7 +204,7 @@ namespace AlohaWebServiceMobile.Utils
 
 
                         }
- 
+
 
                         sub.items = listordenada;
                         //sub.items = sub.items.OrderBy(I => I.PosicionDbf % 7).ThenBy(I => (I.PosicionDbf % 7) < 0).ToList();
@@ -241,8 +241,17 @@ namespace AlohaWebServiceMobile.Utils
                                 Boton_panel.EjeY = btn.Y;
                                 //Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
                                 //Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+
+                                if (btn.TEXT.Contains("\\n"))
+                                {
+                                    btn.TEXT = btn.TEXT.Replace("\\n", " ");
+                                }
+
+                                btn.TEXT = DecodeToASCII(btn.TEXT);
                                 Boton_panel.descripcion_larga = btn.TEXT;
                                 Boton_panel.descripcion_corta = btn.TEXT;
+
+
                                 //IdsItems.Clear();
                                 IdsPaneles.Add(sub.panel_id);
                                 Boton_panel = RecursividadPaneles(Boton_panel);
@@ -511,6 +520,13 @@ namespace AlohaWebServiceMobile.Utils
                         Boton_panel.id_panel = IdPanel;
                         //Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
                         //Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
+
+                        if (btn.TEXT.Contains("\\n"))
+                        {
+                            btn.TEXT = btn.TEXT.Replace("\\n", " ");
+                        }
+
+                        btn.TEXT = DecodeToASCII(btn.TEXT);
 
                         Boton_panel.descripcion_larga = btn.TEXT;
                         Boton_panel.descripcion_corta = btn.TEXT;
