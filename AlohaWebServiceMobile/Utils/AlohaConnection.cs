@@ -560,54 +560,59 @@ namespace AlohaWebServiceMobile.Utils
             return entry;
         }
 
-        public ResponseAloha AddItem(RequestAddItem requestAddItem)
-        {
-            ResponseAloha responseAloha = new ResponseAloha();
 
-            try
-            {
+        #region Version vieja
+        //public ResponseAloha AddItem(RequestAddItem requestAddItem)
+        //{
+        //    ResponseAloha responseAloha = new ResponseAloha();
 
-                VerificarIber();
-                Encolamiento();
-                App.IsBusy = true;
-                LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
+        //    try
+        //    {
 
-                int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem._item.IdItem, "", requestAddItem._item.Amount);
-                #region modificadores
-                foreach (var mod in requestAddItem._item.Mods)
-                {
-                    xFunction.ModItem(requestAddItem.IdTerm, idEntry, mod.IdMod, "", mod.Amount, mod.ModCode);
-                }
-                #endregion
-                xFunction.EndItem(requestAddItem.IdTerm);
-                if (!string.IsNullOrEmpty(requestAddItem._item.SpecialMessage) || !string.IsNullOrEmpty(requestAddItem._item.Unidad_Medida))
-                {
-                    string Mensaje = "";
+        //        VerificarIber();
+        //        Encolamiento();
+        //        App.IsBusy = true;
+        //        LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
 
-                    Mensaje += requestAddItem._item.Cantidad_Peso > 0 ? requestAddItem._item.Cantidad_Peso.ToString() : "";
+        //        int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem._item.IdItem, "", requestAddItem._item.Amount);
+        //        #region modificadores
+        //        foreach (var mod in requestAddItem._item.Mods)
+        //        {
+        //            xFunction.ModItem(requestAddItem.IdTerm, idEntry, mod.IdMod, "", mod.Amount, mod.ModCode);
+        //        }
+        //        #endregion
+        //        xFunction.EndItem(requestAddItem.IdTerm);
+        //        if (!string.IsNullOrEmpty(requestAddItem._item.SpecialMessage) || !string.IsNullOrEmpty(requestAddItem._item.Unidad_Medida))
+        //        {
+        //            string Mensaje = "";
 
-                    Mensaje += !string.IsNullOrEmpty(requestAddItem._item.Unidad_Medida) ? requestAddItem._item.Unidad_Medida : "";
+        //            Mensaje += requestAddItem._item.Cantidad_Peso > 0 ? requestAddItem._item.Cantidad_Peso.ToString() : "";
 
-                    Mensaje += !string.IsNullOrEmpty(requestAddItem._item.SpecialMessage) ? $" {requestAddItem._item.SpecialMessage}" : "";
+        //            Mensaje += !string.IsNullOrEmpty(requestAddItem._item.Unidad_Medida) ? requestAddItem._item.Unidad_Medida : "";
 
-                    xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, Mensaje);
-                }
-                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-                responseAloha.mensaje = "Producto insertado con exito";
-                LogoutInterno(requestAddItem.IdTerm);
-                App.IsBusy = false;
-            }
-            catch (Exception ex)
-            {
-                responseAloha.Codigo = (int)CodigosError.ERROR;
-                responseAloha.Estado = false;
-                responseAloha.mensaje = $"Error al agregar item {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error("Error al agregar item", ex);
-                LogoutInterno(requestAddItem.IdTerm);
-                App.IsBusy = false;
-            };
-            return responseAloha;
-        }
+        //            Mensaje += !string.IsNullOrEmpty(requestAddItem._item.SpecialMessage) ? $" {requestAddItem._item.SpecialMessage}" : "";
+
+        //            xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, Mensaje);
+        //        }
+        //        responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+        //        responseAloha.mensaje = "Producto insertado con exito";
+        //        LogoutInterno(requestAddItem.IdTerm);
+        //        App.IsBusy = false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        responseAloha.Codigo = (int)CodigosError.ERROR;
+        //        responseAloha.Estado = false;
+        //        responseAloha.mensaje = $"Error al agregar item {(ErroresAloha.MensajeMobile(ex.Message))}";
+        //        App.logger.Error("Error al agregar item", ex);
+        //        LogoutInterno(requestAddItem.IdTerm);
+        //        App.IsBusy = false;
+        //    };
+        //    return responseAloha;
+        //}
+
+        #endregion
+
 
         public ResponseAloha ConfirmOrderMode(int IdTerm, int IdMesa, int IdModoPedido, int idEmpleado, List<EntryesMode> selectedEntries, int idCheck)
         {
@@ -884,42 +889,61 @@ namespace AlohaWebServiceMobile.Utils
                     int IdEntryBase = xFunction.BeginItem(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, item.IdItem, "", item.Amount);
                     IdsEntryes.Add(IdEntryBase);
                     #region SECCION DE MODIFICADORES.
-                    List<int> EntrysLevels = new List<int>();
-                    for (int i = 0; i < item.Mods.Count; i++)
+
+
+                    foreach (var mod in item.Mods)
                     {
-                        ListsMods mod = item.Mods[i];
-
-                        ListsMods modSiguientes = new ListsMods();
-                        if (i == item.Mods.Count - 1)
-                        {
-
-                        }
-                        else
-                        {
-                            modSiguientes = item.Mods[i + 1];
-                        }
-
-                        if (mod.LevelMode > 1)
-                        {
-                            if (mod.LevelMode < modSiguientes.LevelMode)
-                            {
-                                EntrysLevels.Add(xFunction.ModItemEx(requestHoldCheck.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
-                            }
-                            else if (mod.LevelMode == modSiguientes.LevelMode)
-                            {
-                                xFunction.ModItemEx(requestHoldCheck.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
-                            }
-                            else
-                            {
-                                xFunction.ModItemEx(requestHoldCheck.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
-                            }
-                        }
-                        else
-                        {
-                            EntrysLevels = new List<int>();
-                            EntrysLevels.Add(xFunction.ModItemEx(requestHoldCheck.IdTerm, IdEntryBase, mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
-                        }
+                        RecursividadModificadores(requestHoldCheck.IdTerm, mod, IdEntryBase);
                     }
+
+                    #region Version vieja
+
+
+                    //List<int> EntrysLevels = new List<int>();
+
+                    //for (int i = 0; i < item.Mods.Count; i++)
+                    //{
+
+
+
+                    //    ListsMods mod = item.Mods[i];
+
+                    //    ListsMods modSiguientes = new ListsMods();
+                    //    if (i == item.Mods.Count - 1)
+                    //    {
+
+                    //    }
+                    //    else
+                    //    {
+                    //        modSiguientes = item.Mods[i + 1];
+                    //    }
+
+                    //    if (mod.LevelMode > 1)
+                    //    {
+                    //        if (mod.LevelMode < modSiguientes.LevelMode)
+                    //        {
+                    //            EntrysLevels.Add(xFunction.ModItemEx(requestHoldCheck.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
+                    //        }
+                    //        else if (mod.LevelMode == modSiguientes.LevelMode)
+                    //        {
+                    //            xFunction.ModItemEx(requestHoldCheck.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
+                    //        }
+                    //        else
+                    //        {
+                    //            xFunction.ModItemEx(requestHoldCheck.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        EntrysLevels = new List<int>();
+                    //        EntrysLevels.Add(xFunction.ModItemEx(requestHoldCheck.IdTerm, IdEntryBase, mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
+                    //    }
+                    //}
+
+
+                    #endregion
+
+
                     #endregion
                     xFunction.EndItem(requestHoldCheck.IdTerm);
                     if (!string.IsNullOrEmpty(item.SpecialMessage) || !string.IsNullOrEmpty(item.Unidad_Medida))

@@ -12,7 +12,6 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int IdTerm { get; set; }
         public int IdCheck { get; set; }
         public List<ItemAloha> item { get; set; } = new List<ItemAloha>();
-        public ItemAloha _item { get; set; }
     }
 
     public class ItemAloha
@@ -32,7 +31,6 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public double Amount { get; set; }
         public int IdGrupo { get; set; }
         public int ModCode { get; set; }
-        public int LevelMode { get; set; }
 
         public List<ListsMods> Mods { get; set; } = new List<ListsMods>();
     }
