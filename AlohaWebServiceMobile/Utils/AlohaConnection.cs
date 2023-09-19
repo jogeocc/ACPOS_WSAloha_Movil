@@ -485,20 +485,20 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
-        public void RecursividadModificadores(int Idterm, ListsMods ListItemMods, int idEntryBase)
+        public void RecursividadModificadores(int Idterm, Mod Modificador, int idEntryBase)
         {
-            foreach (var mod in ListItemMods.Mods)
-            {
-                int IdEntry = xFunction.ModItemEx(Idterm, idEntryBase, mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
+            int IdEntry = xFunction.ModItemEx(Idterm, idEntryBase, Modificador.IdGrupo, Modificador.IdMod, "", Modificador.Amount, Modificador.ModCode);
 
-                if (mod.Mods.Count > 0)
+            if (Modificador.Mods.Count > 0)
+            {
+                foreach (Mod mod in Modificador.Mods)
                 {
-                    foreach (var ModInterno in mod.Mods)
-                    {
-                        RecursividadModificadores(Idterm, ModInterno, IdEntry);
-                    }
+                    RecursividadModificadores(Idterm, mod, IdEntry);
+
                 }
+
             }
+
         }
 
         public ResponseAloha AddItemNivelesPruebas()
