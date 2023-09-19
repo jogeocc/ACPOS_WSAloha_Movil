@@ -494,13 +494,14 @@ namespace AlohaWebServiceMobile.Utils
                 //nivel 1
                 var Mod1 = xFunction.ModItemEx(idterm, IdEntryBase, 10072, 108, "", 111, 0);
 
-                for (int i = 0; i < 5; i++) {
-                 
-                   Mod1 = xFunction.ModItemEx(idterm, Mod1, 10000, 108, "", 111, 0);
+                for (int i = 0; i < 5; i++)
+                {
+
+                    Mod1 = xFunction.ModItemEx(idterm, Mod1, 10000, 108, "", 111, 0);
                 }
 
 
-              
+
 
 
 

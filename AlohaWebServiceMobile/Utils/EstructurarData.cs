@@ -7,6 +7,7 @@ using AlohaWebServiceMobile.EntityFrameWork.Models;
 using AlohaWebServiceMobile.Enums;
 using AlohaWebServiceMobile.Models.Catalogos;
 using Design_Library;
+using LecturaAppConfig;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -457,8 +458,16 @@ namespace AlohaWebServiceMobile.Utils
 
                                         if (AuxList.Count > 0)
                                         {
+                                            //todo cambios para el sistema de pruebas por niveles de productos
                                             var counter = IdsItems.Select(I => I == item.id).ToList();
-                                            if (IdsItems.Contains(item.id) && counter.Count >= 10)
+                                            int nivelesItems = LACSystem.GetInt("NIVELES_ITEMS", 1);
+
+                                            if (nivelesItems <= 0)
+                                            {
+                                                nivelesItems = 1;
+                                            }
+
+                                            if (IdsItems.Contains(item.id) && counter.Count >= nivelesItems)
                                             {
                                                 mod.item_mod.Add(ItemMOD);
                                                 continue;
