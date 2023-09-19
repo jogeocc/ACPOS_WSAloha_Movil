@@ -482,21 +482,27 @@ namespace AlohaWebServiceMobile.Utils
             try
             {
                 VerificarIber();
-                int idterm = 4;
+                int idterm = 1;
                 int IdCheck = 1048579;
                 //nivel 0
-                int IdEntryBase = xFunction.BeginItem(idterm, IdCheck, 9104, "", 0);
+                int IdEntryBase = xFunction.BeginItem(idterm, IdCheck, 209, "", 0);
+                xFunction.ModItemEx(idterm, IdEntryBase, 10012, 5138, "", 111, 0);
+                xFunction.ModItemEx(idterm, IdEntryBase, 10001, 5003, "", 111, 0);
+
+
                 var info = GetEntry(idterm);
                 //nivel 1
-                xFunction.ModItemEx(idterm, IdEntryBase, 16011, 2124, "", 111, 0);
-                //nivel 1
-                xFunction.ModItemEx(idterm, IdEntryBase, 10007, 16001, "", 111, 0);
-                //nivel 1
-                int IdNivel1 = xFunction.ModItemEx(idterm, IdEntryBase, 10001, 19004, "", 111, 0);
-                //nivel 2
-                int IdNivel2 = xFunction.ModItemEx(idterm, IdNivel1, 16011, 2123, "", 222, 0);
-                //nivel 3
-                int IdNivel3 = xFunction.ModItemEx(idterm, IdNivel2, 16002, 2059, "", 333, 0);
+                var Mod1 = xFunction.ModItemEx(idterm, IdEntryBase, 10072, 108, "", 111, 0);
+
+                for (int i = 0; i < 5; i++) {
+                 
+                   Mod1 = xFunction.ModItemEx(idterm, Mod1, 10000, 108, "", 111, 0);
+                }
+
+
+              
+
+
 
                 //TRANSFERIR EL BUFFER DE MEMORIA AL POS PARA REFLEJAR PRODUCTO
                 xFunction.EndItem(idterm);

@@ -33,5 +33,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int IdGrupo { get; set; }
         public int ModCode { get; set; }
         public int LevelMode { get; set; }
+
+        public List<ListsMods> Mods { get; set; } = new List<ListsMods>();
     }
 }
