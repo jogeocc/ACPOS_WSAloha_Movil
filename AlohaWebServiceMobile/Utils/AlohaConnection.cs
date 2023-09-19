@@ -407,41 +407,52 @@ namespace AlohaWebServiceMobile.Utils
                     #region modificadores
                     //int NivelMod = 1;
                     List<int> EntrysLevels = new List<int>();
-                    for (int i = 0; i < item.Mods.Count; i++)
+
+                    foreach (var mod in item.Mods)
                     {
-                        ListsMods mod = item.Mods[i];
-
-                        ListsMods modSiguientes = new ListsMods();
-                        if (i == item.Mods.Count - 1)
-                        {
-
-                        }
-                        else
-                        {
-                            modSiguientes = item.Mods[i + 1];
-                        }
-
-                        if (mod.LevelMode > 1)
-                        {
-                            if (mod.LevelMode < modSiguientes.LevelMode)
-                            {
-                                EntrysLevels.Add(xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
-                            }
-                            else if (mod.LevelMode == modSiguientes.LevelMode)
-                            {
-                                xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
-                            }
-                            else
-                            {
-                                xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
-                            }
-                        }
-                        else
-                        {
-                            EntrysLevels = new List<int>();
-                            EntrysLevels.Add(xFunction.ModItemEx(requestAddItem.IdTerm, IdEntryBase, mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
-                        }
+                        RecursividadModificadores(requestAddItem.IdTerm, mod, IdEntryBase);
                     }
+
+                    #region Antigua Version
+
+                    //for (int i = 0; i < item.Mods.Count; i++)
+                    //{
+                    //    ListsMods mod = item.Mods[i];
+
+                    //    ListsMods modSiguientes = new ListsMods();
+                    //    if (i == item.Mods.Count - 1)
+                    //    {
+
+                    //    }
+                    //    else
+                    //    {
+                    //        modSiguientes = item.Mods[i + 1];
+                    //    }
+
+                    //    if (mod.LevelMode > 1)
+                    //    {
+                    //        if (mod.LevelMode < modSiguientes.LevelMode)
+                    //        {
+                    //            EntrysLevels.Add(xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
+                    //        }
+                    //        else if (mod.LevelMode == modSiguientes.LevelMode)
+                    //        {
+                    //            xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
+                    //        }
+                    //        else
+                    //        {
+                    //            xFunction.ModItemEx(requestAddItem.IdTerm, EntrysLevels[EntrysLevels.Count - 1], mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        EntrysLevels = new List<int>();
+                    //        EntrysLevels.Add(xFunction.ModItemEx(requestAddItem.IdTerm, IdEntryBase, mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode));
+                    //    }
+                    //}
+
+                    #endregion
+
                     #endregion
                     xFunction.EndItem(requestAddItem.IdTerm);
                     if (!string.IsNullOrEmpty(item.SpecialMessage) || !string.IsNullOrEmpty(item.Unidad_Medida))
@@ -474,7 +485,21 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+        public void RecursividadModificadores(int Idterm, ListsMods ListItemMods, int idEntryBase)
+        {
+            foreach (var mod in ListItemMods.Mods)
+            {
+                int IdEntry = xFunction.ModItemEx(Idterm, idEntryBase, mod.IdGrupo, mod.IdMod, "", mod.Amount, mod.ModCode);
 
+                if (mod.Mods.Count > 0)
+                {
+                    foreach (var ModInterno in mod.Mods)
+                    {
+                        RecursividadModificadores(Idterm, ModInterno, IdEntry);
+                    }
+                }
+            }
+        }
 
         public ResponseAloha AddItemNivelesPruebas()
         {
