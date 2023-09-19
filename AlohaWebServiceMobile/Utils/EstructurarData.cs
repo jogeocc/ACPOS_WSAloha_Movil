@@ -457,8 +457,8 @@ namespace AlohaWebServiceMobile.Utils
 
                                         if (AuxList.Count > 0)
                                         {
-
-                                            if (IdsItems.Contains(item.id))
+                                            var counter = IdsItems.Select(I => I == item.id).ToList();
+                                            if (IdsItems.Contains(item.id) && counter.Count >= 10)
                                             {
                                                 mod.item_mod.Add(ItemMOD);
                                                 continue;
