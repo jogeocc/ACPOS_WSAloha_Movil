@@ -96,6 +96,7 @@ namespace WindowsServiceAlohaMobile
             try
             {
                 server.CloseAsync();
+                Environment.Exit(0);
 
             }
             catch (Exception ex)
