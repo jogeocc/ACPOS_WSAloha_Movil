@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="TBTitulos" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource FontZiseLetrasTitulos}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource FontTextoLetrasTitulos}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource ColorLetras}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TextoNuevoEditarMapeo" TargetType="TextBlock">
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource CLRColorTablaContenidoForeground}"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontZiseLetrasChicasMapeo}"/>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="BotonesMapeo1" TargetType="Button">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource DepBtnsColor}"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="{DynamicResource SinBordes}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="60,3,0,0"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontZiseLetrasChicas1}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource FontTextoLetrasChicas1}"/>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource ColorBotonesMapeo}"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="White"/>
+
+    </Style>
+
+    <Style x:Key="BotonesMapeo2" TargetType="Button">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource DepBtnsColor}"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="{DynamicResource SinBordes}"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="0,3,60,0"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontZiseLetrasChicas1}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource FontTextoLetrasChicas1}"/>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource ColorBotonesMapeo}"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="Wheat"/>
+
+    </Style>
+    
+</ResourceDictionary>

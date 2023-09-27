@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="SCBError" Color="{DynamicResource CLRError}"/>
+
+    <Color x:Key="CLRColorPrimario">#264e9f</Color>
+    <Color x:Key="CLRError">#FF5252</Color>
+    <Color x:Key="CLRColorTablaHeaderForeground">#ffffff</Color>
+    <Color x:Key="CLRColorTablaContenidoForeground">#000000</Color>
+    <Color x:Key="CLRColorTablaContenidoForegroundMouseOver">#000000</Color>
+
+    <Color x:Key="DepBtnsColor">#ffffff</Color>
+    <Color x:Key="ColorBotonesMapeo">#4E5452</Color>
+
+</ResourceDictionary>

@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DD265F88-C8A9-4957-BE5E-1EBECF613C45}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WindowsServiceAlohaMobile</RootNamespace>
+    <AssemblyName>WindowsServiceAlohaMobile</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aloha.SDK.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resource\DLLS\Aloha.SDK.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="EncryptDataJson, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resource\DLLS\EncryptDataJson.dll</HintPath>
+    </Reference>
+    <Reference Include="LasaActivity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>Resource\DLLS\LasaActivity.dll</HintPath>
+    </Reference>
+    <Reference Include="LasaFOHLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>Resource\DLLS\LasaFOHLib.dll</HintPath>
+    </Reference>
+    <Reference Include="LecturaAppConfig, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resource\DLLS\LecturaAppConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resource\DLLS\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TicketGenerateAloha, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resource\DLLS\TicketGenerateAloha.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlohaExtractInfo\ExtraccionCuenta.cs" />
+    <Compile Include="Aloha\AlohaFilename.cs" />
+    <Compile Include="CodigosErrorAloha\ErroresAloha.cs" />
+    <Compile Include="Controllers\AlohaController.cs" />
+    <Compile Include="Endpoints\SapEndpoints.cs" />
+    <Compile Include="EntityFrameWork\Context\ApplicationDbContext.cs" />
+    <Compile Include="EntityFrameWork\Enums\TipoRespuesta.cs" />
+    <Compile Include="EntityFrameWork\Implementaciones\Mapeo_pagoServicio.cs" />
+    <Compile Include="EntityFrameWork\Implementaciones\Pagos_pendientesServicio.cs" />
+    <Compile Include="EntityFrameWork\Implementaciones\Producto_pedido_esperaServicio.cs" />
+    <Compile Include="EntityFrameWork\Infraestructura\DatabaseFactory.cs" />
+    <Compile Include="EntityFrameWork\Infraestructura\Disposable.cs" />
+    <Compile Include="EntityFrameWork\Infraestructura\IDatabaseFactory.cs" />
+    <Compile Include="EntityFrameWork\Infraestructura\IServiceBase.cs" />
+    <Compile Include="EntityFrameWork\Infraestructura\ServiceBase.cs" />
+    <Compile Include="EntityFrameWork\Interface\IMapeo_pagos.cs" />
+    <Compile Include="EntityFrameWork\Interface\IPagos_pendientes.cs" />
+    <Compile Include="EntityFrameWork\Interface\IProducto_pedido_espera.cs" />
+    <Compile Include="EntityFrameWork\Migrations\202211032220510_MapeoDePagosV1.cs" />
+    <Compile Include="EntityFrameWork\Migrations\Configuration.cs" />
+    <Compile Include="EntityFrameWork\Models\Mapeo_pagos.cs" />
+    <Compile Include="EntityFrameWork\Models\Pagos_pendientes.cs" />
+    <Compile Include="EntityFrameWork\Models\Producto_Pedido_Espera.cs" />
+    <Compile Include="EntityFrameWork\Models\Ticket_smart.cs" />
+    <Compile Include="Enums\ActivadorSAP.cs" />
+    <Compile Include="Enums\AlohaActions.cs" />
+    <Compile Include="Enums\AlohaEvents.cs" />
+    <Compile Include="Enums\AlohaPanelCodes.cs" />
+    <Compile Include="Enums\CodigosError.cs" />
+    <Compile Include="Enums\EnumPantalla.cs" />
+    <Compile Include="Enums\ModCodesAloha.cs" />
+    <Compile Include="Enums\OrderModesAloha.cs" />
+    <Compile Include="Enums\TipoRespuesta.cs" />
+    <Compile Include="Models\Aloha\BlueTooh\ResponsePrinter.cs" />
+    <Compile Include="Models\Aloha\Desktop\RequestUser.cs" />
+    <Compile Include="Models\Aloha\Desktop\ResponseDesktop.cs" />
+    <Compile Include="Models\Aloha\MesaEmpleado.cs" />
+    <Compile Include="Models\Aloha\ModelCombineTables.cs" />
+    <Compile Include="Models\Aloha\ModeloNuevo.cs" />
+    <Compile Include="Models\Aloha\RequestClockIn.cs" />
+    <Compile Include="Models\Aloha\RequestAddItem.cs" />
+    <Compile Include="Models\Aloha\RequestAplyPayment.cs" />
+    <Compile Include="Models\Aloha\RequestCloseCheck.cs" />
+    <Compile Include="Models\Aloha\RequestCloseCheckSap.cs" />
+    <Compile Include="Models\Aloha\RequestCloseTabTable.cs" />
+    <Compile Include="Models\Aloha\RequestCombineTables.cs" />
+    <Compile Include="Models\Aloha\RequestDeletePayment.cs" />
+    <Compile Include="Models\Aloha\RequestDividirCuenta.cs" />
+    <Compile Include="Models\Aloha\RequestGetCheck.cs" />
+    <Compile Include="Models\Aloha\RequestHoldCheck.cs" />
+    <Compile Include="Models\Aloha\RequestListTables.cs" />
+    <Compile Include="Models\Aloha\RequestLogin.cs" />
+    <Compile Include="Models\Aloha\RequestLogout.cs" />
+    <Compile Include="Models\Aloha\RequestOpenCheck.cs" />
+    <Compile Include="Models\Aloha\RequestOpenTable.cs" />
+    <Compile Include="Models\Aloha\RequestOrderMode.cs" />
+    <Compile Include="Models\Aloha\RequestPagoPendiente.cs" />
+    <Compile Include="Models\Aloha\RequestPrint.cs" />
+    <Compile Include="Models\Aloha\RequestPrintBluetooth.cs" />
+    <Compile Include="Models\Aloha\RequestPrintCheckSap.cs" />
+    <Compile Include="Models\Aloha\RequestPrintXML.cs" />
+    <Compile Include="Models\Aloha\RequestVoidItem.cs" />
+    <Compile Include="Models\Aloha\ResponseAloha.cs" />
+    <Compile Include="Models\Aloha\System\EventsAloha.cs" />
+    <Compile Include="Models\Catalogos\BTNMobile.cs" />
+    <Compile Include="Models\Catalogos\ITMmobile.cs" />
+    <Compile Include="Models\Catalogos\JOBmobile.cs" />
+    <Compile Include="Models\Catalogos\MNUmobile.cs" />
+    <Compile Include="Models\Catalogos\MODCODEmobile.cs" />
+    <Compile Include="Models\Catalogos\MODmobile.cs" />
+    <Compile Include="Models\Catalogos\ODRmobile.cs" />
+    <Compile Include="Models\Catalogos\PNLMobile.cs" />
+    <Compile Include="Models\Catalogos\PRTMobile.cs" />
+    <Compile Include="Models\Catalogos\SUBmobile.cs" />
+    <Compile Include="Models\Catalogos\TAXMobile.cs" />
+    <Compile Include="Models\Catalogos\TDRmobile.cs" />
+    <Compile Include="Models\Catalogos\VOIDMobile.cs" />
+    <Compile Include="Models\SAP\TicketSapModel.cs" />
+    <Compile Include="Models\Transacciones\BdInterna.cs" />
+    <Compile Include="Models\Transacciones\InfoAloha.cs" />
+    <Compile Include="Rest\RestSAP.cs" />
+    <Compile Include="Service1.cs" />
+    <Compile Include="Service1.Designer.cs">
+      <DependentUpon>Service1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\AlohaConnection.cs" />
+    <Compile Include="Utils\AppConfig.cs" />
+    <Compile Include="Utils\BmpManager.cs" />
+    <Compile Include="Utils\DbManager.cs" />
+    <Compile Include="Utils\EstructurarData.cs" />
+    <Compile Include="Utils\FuncionesArchivo.cs" />
+    <Compile Include="Utils\IconoNotificacion.cs" />
+    <Compile Include="Utils\LecturaINI.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="MANUALES\Manual de usuario.docx" />
+    <None Include="MANUALES\Manual Tecnico.docx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlohaLibrary\AlohaLibrary.csproj">
+      <Project>{3c37ff9d-6d23-49ef-bfc3-04cecd5dff21}</Project>
+      <Name>AlohaLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Design\config-ticket.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\DLLS\Aloha.SDK.Common.dll" />
+    <Content Include="Resource\DLLS\EncryptDataJson.dll" />
+    <Content Include="Resource\DLLS\LasaActivity.dll" />
+    <Content Include="Resource\DLLS\LasaFOHLib.dll" />
+    <Content Include="Resource\DLLS\LecturaAppConfig.dll" />
+    <Content Include="Resource\DLLS\log4net.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\DLLS\TicketGenerateAloha.dll" />
+    <Content Include="Resource\Icons\icono.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Design\Styles\Components\Botones.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Design\Styles\Components\Color.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Design\Styles\Components\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Design\Styles\Components\FondoPantalla.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Design\Styles\Components\FuentesLetras.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Design\Styles\Components\Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Design\Styles\Components\TextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Design\Styles\Components\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Design\Styles\Components\Textos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\Design\Styles\Components\Thickness.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
