@@ -1,10 +1,8 @@
-﻿using AlohaWebServiceMobile.AlohaExtractInfo;
-using AlohaWebServiceMobile.EntityFrameWork.Models;
-using AlohaWebServiceMobile.Models;
-using AlohaWebServiceMobile.Models.Aloha;
-using AlohaWebServiceMobile.Models.Aloha.Desktop;
-using AlohaWebServiceMobile.Models.SAP;
-using AlohaWebServiceMobile.Models.Transacciones;
+﻿using WindowsServiceAlohaMobile.AlohaExtractInfo;
+using WindowsServiceAlohaMobile.EntityFrameWork.Models;
+using WindowsServiceAlohaMobile.Models;
+using WindowsServiceAlohaMobile.Models.Aloha;
+using WindowsServiceAlohaMobile.Models.Aloha.Desktop;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

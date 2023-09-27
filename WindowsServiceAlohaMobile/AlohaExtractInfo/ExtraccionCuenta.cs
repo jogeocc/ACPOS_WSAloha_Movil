@@ -1,6 +1,4 @@
-﻿using AlohaLibrary.SDK.Common;
-using WindowsServiceAlohaMobile.Models.ALoha;
-using WindowsServiceAlohaMobile.Models.SAP;
+﻿using Aloha.SDK.Common;
 using LasaFOHLib;
 using System;
 using System.Collections.Generic;
@@ -8,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketGenerateAloha.Models;
+using WindowsServiceAlohaMobile.Models.Aloha.SAP;
 
 namespace WindowsServiceAlohaMobile.AlohaExtractInfo
 {

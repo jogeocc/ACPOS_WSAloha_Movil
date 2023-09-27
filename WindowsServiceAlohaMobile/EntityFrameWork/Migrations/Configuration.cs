@@ -5,14 +5,14 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<AlohaWebServiceMobile.EntityFrameWork.Context.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Context.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(AlohaWebServiceMobile.EntityFrameWork.Context.ApplicationDbContext context)
+        protected override void Seed(Context.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -1,8 +1,4 @@
-﻿using AlohaWebServiceMobile.Models.Transacciones;
-using AlohaWebServiceMobile.Rest;
-using AlohaWebServiceMobile.Utils;
-using AlohaWebServiceMobile.Views.Modals;
-using EncryptDataJson;
+﻿using EncryptDataJson;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -10,11 +6,15 @@ using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.ServiceProcess;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
 using System.Windows;
+using WindowsServiceAlohaMobile.Models.Aloha.Transacciones;
+using WindowsServiceAlohaMobile.Rest;
+using WindowsServiceAlohaMobile.Utils;
 
 namespace WindowsServiceAlohaMobile
 {
@@ -28,7 +28,6 @@ namespace WindowsServiceAlohaMobile
         public static readonly ILog logger = LogManager.GetLogger("Aloha_vapiano");
         public bool iniciar = false;
         public bool IsError = false;
-        public ViewLoading splash = new ViewLoading();
         public static EstructurarData Catalogos = new EstructurarData();
         public static AlohaConnection AlohaConnection = new AlohaConnection();
         public static AppConfig appConfig = new AppConfig();
@@ -37,14 +36,13 @@ namespace WindowsServiceAlohaMobile
         public static bool IsBusy = false;
         public static LecturaINI iniAloha = new LecturaINI(AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder() + @"\aloha.ini");
         public static InfoAloha Aloha = new InfoAloha();
-        public static MainWindow VentanaPrincipal;
         public static EncryptJSON EncryptDataJson = new EncryptJSON();
         public static RestSAP restSAP = new RestSAP();
         public static DbManager DbManager = new DbManager();
         public static Thread HiloProductoPendiente;
 
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private void Application_Startup(object sender)
         {
             try
             {
@@ -53,7 +51,6 @@ namespace WindowsServiceAlohaMobile
                     Environment.Exit(0);
                 logger.Info("------------------------------------------------");
                 logger.Info($"Iniciando sistema {Version}");
-                splash.Show();
 
                 Task.Factory.StartNew(() =>
                 {
