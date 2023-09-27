@@ -22,7 +22,7 @@ namespace WindowsServiceAlohaMobile
             var service = new ACPOS_SERVICE_MOBILE();
             ServicesToRun = new ServiceBase[]
             {
-
+                service
             };
 
             //ServiceBase.Run(ServicesToRun);

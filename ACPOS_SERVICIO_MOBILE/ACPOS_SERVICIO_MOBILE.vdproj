@@ -575,6 +575,48 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_2973EB862F1B404A82987281481A44FD"
+            {
+            "Name" = "8:Primary output from WindowsServiceAlohaMobile (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_C878D30713084223BABF0AE44746F844"
+            "FileType" = "3:2"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_93A135CC_FB6B_4F75_A7A6_10EB34C30423"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_397C124644C14060BE113673D53B7EE6"
+            {
+            "Name" = "8:Primary output from WindowsServiceAlohaMobile (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_C878D30713084223BABF0AE44746F844"
+            "FileType" = "3:2"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_7CBC8CAA_A264_4DAD_B07E_2B75CB51F188"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_537D23B08C3040CA9BE08DB2F6306FF9"
+            {
+            "Name" = "8:Primary output from WindowsServiceAlohaMobile (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_C878D30713084223BABF0AE44746F844"
+            "FileType" = "3:2"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_5A9E907E_CD55_4595_9EFD_C31C4B57EE00"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -2033,6 +2075,34 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{DD265F88-C8A9-4957-BE5E-1EBECF613C45}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_DC85B4B391CD4328876609312802AF58"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_E9C33BC1928A49E7A9603C109EF83760"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
             "OutputProjectGuid" = "8:{DD265F88-C8A9-4957-BE5E-1EBECF613C45}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
