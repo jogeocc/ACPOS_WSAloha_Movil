@@ -8,7 +8,7 @@
     <ProjectGuid>{DD265F88-C8A9-4957-BE5E-1EBECF613C45}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>WindowsServiceAlohaMobile</RootNamespace>
-    <AssemblyName>WindowsServiceAlohaMobile</AssemblyName>
+    <AssemblyName>ACPOS_SERVICIO_MOBILE</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
