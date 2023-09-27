@@ -17,7 +17,6 @@ using System.Web.Http;
 
 namespace WindowsServiceAlohaMobile.Controllers
 {
-    [RoutePrefix("api/v1/aloha")]
     public class AlohaController : ApiController
     {
         //RECUPERACION DE CATALOGOS
