@@ -22,7 +22,7 @@ namespace WindowsServiceAlohaMobile
     /// Interaction logic for App.xaml
     /// </summary>
 
-    public partial class Service1 : ServiceBase
+    public partial class ACPOS_SERVICE_MOBILE : ServiceBase
     {
         public static string Version = "Versión 18";
         public static readonly ILog logger = LogManager.GetLogger("Aloha_vapiano");
@@ -41,7 +41,7 @@ namespace WindowsServiceAlohaMobile
         public static Thread HiloProductoPendiente;
 
 
-        public Service1()
+        public ACPOS_SERVICE_MOBILE()
         {
             InitializeComponent();
         }

@@ -1,7 +1,7 @@
 ﻿
 namespace WindowsServiceAlohaMobile
 {
-    partial class Service1
+    partial class ACPOS_SERVICE_MOBILE
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -29,8 +29,11 @@ namespace WindowsServiceAlohaMobile
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            // 
+            // ACPOS_SERVICE_MOBILE
+            // 
+            this.ServiceName = "ACPOS_SERVICE_MOBILE";
+
         }
 
         #endregion

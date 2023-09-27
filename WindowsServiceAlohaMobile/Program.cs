@@ -19,7 +19,7 @@ namespace WindowsServiceAlohaMobile
         {
 
             ServiceBase[] ServicesToRun;
-            var service = new Service1();
+            var service = new ACPOS_SERVICE_MOBILE();
             ServicesToRun = new ServiceBase[]
             {
 
@@ -30,13 +30,13 @@ namespace WindowsServiceAlohaMobile
 
             if (!Environment.UserInteractive)
             {
-                Service1.logger.Info($"APLICACION EJECUTADA COMO SERVICIO");
+                ACPOS_SERVICE_MOBILE.logger.Info($"APLICACION EJECUTADA COMO SERVICIO");
                 ServiceBase.Run(ServicesToRun);
                 // Startup as service.
             }
             else
             {
-                Service1.logger.Info($"APLICACION EJECUTADA COMO APP");
+                ACPOS_SERVICE_MOBILE.logger.Info($"APLICACION EJECUTADA COMO APP");
                 service.inicio();
                 // Startup as application
             }

@@ -586,7 +586,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                Service1.logger.Error("Error al obtener MODS", ex);
+                ACPOS_SERVICE_MOBILE.logger.Error("Error al obtener MODS", ex);
             }
             return mods;
         }
@@ -812,7 +812,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                Service1.logger.Error("Error al obtener diseños", ex);
+                ACPOS_SERVICE_MOBILE.logger.Error("Error al obtener diseños", ex);
             }
 
             return DesignJson;
@@ -876,7 +876,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                Service1.logger.Error($"ERROR AL RECUPERAR NOMBRE DEL TENDER", ex);
+                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL RECUPERAR NOMBRE DEL TENDER", ex);
             }
 
             return Name;

@@ -28,7 +28,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.Transacciones
         public new void Add(T item)
         {
             base.Add(item);
-            Service1.funcionesArchivo.AddTrans(item as User);
+            ACPOS_SERVICE_MOBILE.funcionesArchivo.AddTrans(item as User);
         }
 
         /// <summary>
@@ -38,13 +38,13 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.Transacciones
         public new void Remove(T item)
         {
             base.Remove(item);
-            Service1.funcionesArchivo.DeleteTrans(item as User);
+            ACPOS_SERVICE_MOBILE.funcionesArchivo.DeleteTrans(item as User);
 
         }
         public new void Clear()
         {
             base.Clear();
-            Service1.funcionesArchivo.WriteTrans("");
+            ACPOS_SERVICE_MOBILE.funcionesArchivo.WriteTrans("");
         }
     }
 }

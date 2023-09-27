@@ -21,13 +21,13 @@ namespace WindowsServiceAlohaMobile.Utils
             try
             {
                 //Service1.bdInterna.users.Add(user);
-                string json = JsonConvert.SerializeObject(Service1.bdInterna.users);
+                string json = JsonConvert.SerializeObject(ACPOS_SERVICE_MOBILE.bdInterna.users);
                 WriteTrans(json);
 
             }
             catch (Exception ex)
             {
-                Service1.logger.Error($"Error guardando transacciones", ex);
+                ACPOS_SERVICE_MOBILE.logger.Error($"Error guardando transacciones", ex);
             }
         }
 
@@ -36,12 +36,12 @@ namespace WindowsServiceAlohaMobile.Utils
             try
             {
                 //Service1.bdInterna.users.Remove(user);
-                string json = JsonConvert.SerializeObject(Service1.bdInterna.users);
+                string json = JsonConvert.SerializeObject(ACPOS_SERVICE_MOBILE.bdInterna.users);
                 WriteTrans(json);
             }
             catch (Exception ex)
             {
-                Service1.logger.Error($"Error al eliminar usuario saliendo de sesion", ex);
+                ACPOS_SERVICE_MOBILE.logger.Error($"Error al eliminar usuario saliendo de sesion", ex);
             }
         }
 
@@ -60,7 +60,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 if (!string.IsNullOrEmpty(json))
                 {
-                    Service1.logger.Info($"NO EXISTEN USUARIOS ACTUALES EN SISTEMA");
+                    ACPOS_SERVICE_MOBILE.logger.Info($"NO EXISTEN USUARIOS ACTUALES EN SISTEMA");
                     Users = JsonConvert.DeserializeObject<MyOwnList<User>>(json);
                 }
 
@@ -68,7 +68,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                Service1.logger.Error($"Error al recuperar usuarios en sesion", ex);
+                ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar usuarios en sesion", ex);
             }
 
 

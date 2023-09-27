@@ -37,24 +37,24 @@ namespace WindowsServiceAlohaMobile.Rest
                 {
                     Xml = xml,
                 };
-                DataEncrypt EncriptInfo = Service1.EncryptDataJson.EncryptDataJSON(ticketSapModel);
-                Service1.logger.Info($"JSON: \r\n {JsonConvert.SerializeObject(EncriptInfo)}");
+                DataEncrypt EncriptInfo = ACPOS_SERVICE_MOBILE.EncryptDataJson.EncryptDataJSON(ticketSapModel);
+                ACPOS_SERVICE_MOBILE.logger.Info($"JSON: \r\n {JsonConvert.SerializeObject(EncriptInfo)}");
                 restRequest.AddJsonBody(EncriptInfo);
                 RestResponse<DataEncrypt> response = ClientSap.Execute<DataEncrypt>(restRequest);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    Service1.logger.Info($"INFORMACION ENVIADA CON EXITO A SAP");
-                    Service1.logger.Info($"{response.Content}");
+                    ACPOS_SERVICE_MOBILE.logger.Info($"INFORMACION ENVIADA CON EXITO A SAP");
+                    ACPOS_SERVICE_MOBILE.logger.Info($"{response.Content}");
                 }
                 else
                 {
-                    Service1.logger.Info($"ERROR AL MANDAR XML DE TICKET");
-                    Service1.logger.Info($"{response.Content}");
+                    ACPOS_SERVICE_MOBILE.logger.Info($"ERROR AL MANDAR XML DE TICKET");
+                    ACPOS_SERVICE_MOBILE.logger.Info($"{response.Content}");
                 }
             }
             catch (Exception ex)
             {
-                Service1.logger.Error($"ERROR AL ENVIAR INFORMACION TICKET HACIA SAP", ex);
+                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL ENVIAR INFORMACION TICKET HACIA SAP", ex);
             }
         }
 
@@ -67,24 +67,24 @@ namespace WindowsServiceAlohaMobile.Rest
                 {
                     socios = detallePagos
                 };
-                DataEncrypt EncriptInfo = Service1.EncryptDataJson.EncryptDataJSON(ticketSapModel);
-                Service1.logger.Info($"JSON: \r\n {JsonConvert.SerializeObject(EncriptInfo)}");
+                DataEncrypt EncriptInfo = ACPOS_SERVICE_MOBILE.EncryptDataJson.EncryptDataJSON(ticketSapModel);
+                ACPOS_SERVICE_MOBILE.logger.Info($"JSON: \r\n {JsonConvert.SerializeObject(EncriptInfo)}");
                 restRequest.AddJsonBody(EncriptInfo);
                 RestResponse<DataEncrypt> response = ClientSap.Execute<DataEncrypt>(restRequest);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    Service1.logger.Info($"INFORMACION ENVIADA CON EXITO A SAP");
-                    Service1.logger.Info($"{response.Content}");
+                    ACPOS_SERVICE_MOBILE.logger.Info($"INFORMACION ENVIADA CON EXITO A SAP");
+                    ACPOS_SERVICE_MOBILE.logger.Info($"{response.Content}");
                 }
                 else
                 {
-                    Service1.logger.Info($"ERROR AL MANDAR PAGOS DE TICKET");
-                    Service1.logger.Info($"{response.Content}");
+                    ACPOS_SERVICE_MOBILE.logger.Info($"ERROR AL MANDAR PAGOS DE TICKET");
+                    ACPOS_SERVICE_MOBILE.logger.Info($"{response.Content}");
                 }
             }
             catch (Exception ex)
             {
-                Service1.logger.Error($"ERROR AL ENVIAR INFORMACION DE PAGOS HACIA SAP", ex);
+                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL ENVIAR INFORMACION DE PAGOS HACIA SAP", ex);
             }
         }
     }
