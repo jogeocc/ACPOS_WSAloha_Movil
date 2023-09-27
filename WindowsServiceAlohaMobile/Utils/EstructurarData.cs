@@ -2,10 +2,6 @@
 using AlohaLibrary.Enums;
 using AlohaLibrary.Implementaciones;
 using AlohaLibrary.Modelos;
-using AlohaWebServiceMobile.EntityFrameWork.Context;
-using AlohaWebServiceMobile.EntityFrameWork.Models;
-using AlohaWebServiceMobile.Enums;
-using AlohaWebServiceMobile.Models.Catalogos;
 using Design_Library;
 using LecturaAppConfig;
 using System;
@@ -16,7 +12,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using WindowsServiceAlohaMobile.EntityFrameWork.Context;
+using WindowsServiceAlohaMobile.EntityFrameWork.Models;
+using WindowsServiceAlohaMobile.Enums;
+using WindowsServiceAlohaMobile.Models.Aloha.Catalogos;
 
 namespace WindowsServiceAlohaMobile.Utils
 {
@@ -80,7 +79,7 @@ namespace WindowsServiceAlohaMobile.Utils
             int Menu;
             if (IdMenu == 0)
             {
-                Menu = App.appConfig.ID_MENU_MOVIL;
+                Menu = Service1.appConfig.ID_MENU_MOVIL;
             }
             else
             {
@@ -587,7 +586,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error("Error al obtener MODS", ex);
+                Service1.logger.Error("Error al obtener MODS", ex);
             }
             return mods;
         }
@@ -813,7 +812,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error("Error al obtener diseños", ex);
+                Service1.logger.Error("Error al obtener diseños", ex);
             }
 
             return DesignJson;
@@ -877,7 +876,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL RECUPERAR NOMBRE DEL TENDER", ex);
+                Service1.logger.Error($"ERROR AL RECUPERAR NOMBRE DEL TENDER", ex);
             }
 
             return Name;

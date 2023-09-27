@@ -1,11 +1,11 @@
-﻿using AlohaWebServiceMobile.Models.Transacciones;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WindowsServiceAlohaMobile.Models.Aloha.Transacciones;
 
 namespace WindowsServiceAlohaMobile.Utils
 {
@@ -20,14 +20,14 @@ namespace WindowsServiceAlohaMobile.Utils
 
             try
             {
-                //App.bdInterna.users.Add(user);
-                string json = JsonConvert.SerializeObject(App.bdInterna.users);
+                //Service1.bdInterna.users.Add(user);
+                string json = JsonConvert.SerializeObject(Service1.bdInterna.users);
                 WriteTrans(json);
 
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error guardando transacciones", ex);
+                Service1.logger.Error($"Error guardando transacciones", ex);
             }
         }
 
@@ -35,13 +35,13 @@ namespace WindowsServiceAlohaMobile.Utils
         {
             try
             {
-                //App.bdInterna.users.Remove(user);
-                string json = JsonConvert.SerializeObject(App.bdInterna.users);
+                //Service1.bdInterna.users.Remove(user);
+                string json = JsonConvert.SerializeObject(Service1.bdInterna.users);
                 WriteTrans(json);
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al eliminar usuario saliendo de sesion", ex);
+                Service1.logger.Error($"Error al eliminar usuario saliendo de sesion", ex);
             }
         }
 
@@ -60,7 +60,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 if (!string.IsNullOrEmpty(json))
                 {
-                    App.logger.Info($"NO EXISTEN USUARIOS ACTUALES EN SISTEMA");
+                    Service1.logger.Info($"NO EXISTEN USUARIOS ACTUALES EN SISTEMA");
                     Users = JsonConvert.DeserializeObject<MyOwnList<User>>(json);
                 }
 
@@ -68,7 +68,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al recuperar usuarios en sesion", ex);
+                Service1.logger.Error($"Error al recuperar usuarios en sesion", ex);
             }
 
 

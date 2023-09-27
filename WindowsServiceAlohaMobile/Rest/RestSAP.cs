@@ -1,6 +1,4 @@
-﻿using AlohaWebServiceMobile.Endpoints;
-using AlohaWebServiceMobile.Models.SAP;
-using EncryptDataJson.Modelos;
+﻿using EncryptDataJson.Modelos;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
@@ -9,6 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using WindowsServiceAlohaMobile.Endpoints;
+using WindowsServiceAlohaMobile.Models.Aloha.SAP;
 
 namespace WindowsServiceAlohaMobile.Rest
 {
@@ -25,7 +25,7 @@ namespace WindowsServiceAlohaMobile.Rest
         /// </summary>
         public RestSAP()
         {
-            ClientSap = new RestClient(App.appConfig.DIRECCION_SAP);
+            ClientSap = new RestClient(Service1.appConfig.DIRECCION_SAP);
         }
 
         public void SendXmlSAP(string xml)
@@ -37,24 +37,24 @@ namespace WindowsServiceAlohaMobile.Rest
                 {
                     Xml = xml,
                 };
-                DataEncrypt EncriptInfo = App.EncryptDataJson.EncryptDataJSON(ticketSapModel);
-                App.logger.Info($"JSON: \r\n {JsonConvert.SerializeObject(EncriptInfo)}");
+                DataEncrypt EncriptInfo = Service1.EncryptDataJson.EncryptDataJSON(ticketSapModel);
+                Service1.logger.Info($"JSON: \r\n {JsonConvert.SerializeObject(EncriptInfo)}");
                 restRequest.AddJsonBody(EncriptInfo);
                 RestResponse<DataEncrypt> response = ClientSap.Execute<DataEncrypt>(restRequest);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    App.logger.Info($"INFORMACION ENVIADA CON EXITO A SAP");
-                    App.logger.Info($"{response.Content}");
+                    Service1.logger.Info($"INFORMACION ENVIADA CON EXITO A SAP");
+                    Service1.logger.Info($"{response.Content}");
                 }
                 else
                 {
-                    App.logger.Info($"ERROR AL MANDAR XML DE TICKET");
-                    App.logger.Info($"{response.Content}");
+                    Service1.logger.Info($"ERROR AL MANDAR XML DE TICKET");
+                    Service1.logger.Info($"{response.Content}");
                 }
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL ENVIAR INFORMACION TICKET HACIA SAP", ex);
+                Service1.logger.Error($"ERROR AL ENVIAR INFORMACION TICKET HACIA SAP", ex);
             }
         }
 
@@ -67,24 +67,24 @@ namespace WindowsServiceAlohaMobile.Rest
                 {
                     socios = detallePagos
                 };
-                DataEncrypt EncriptInfo = App.EncryptDataJson.EncryptDataJSON(ticketSapModel);
-                App.logger.Info($"JSON: \r\n {JsonConvert.SerializeObject(EncriptInfo)}");
+                DataEncrypt EncriptInfo = Service1.EncryptDataJson.EncryptDataJSON(ticketSapModel);
+                Service1.logger.Info($"JSON: \r\n {JsonConvert.SerializeObject(EncriptInfo)}");
                 restRequest.AddJsonBody(EncriptInfo);
                 RestResponse<DataEncrypt> response = ClientSap.Execute<DataEncrypt>(restRequest);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    App.logger.Info($"INFORMACION ENVIADA CON EXITO A SAP");
-                    App.logger.Info($"{response.Content}");
+                    Service1.logger.Info($"INFORMACION ENVIADA CON EXITO A SAP");
+                    Service1.logger.Info($"{response.Content}");
                 }
                 else
                 {
-                    App.logger.Info($"ERROR AL MANDAR PAGOS DE TICKET");
-                    App.logger.Info($"{response.Content}");
+                    Service1.logger.Info($"ERROR AL MANDAR PAGOS DE TICKET");
+                    Service1.logger.Info($"{response.Content}");
                 }
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL ENVIAR INFORMACION DE PAGOS HACIA SAP", ex);
+                Service1.logger.Error($"ERROR AL ENVIAR INFORMACION DE PAGOS HACIA SAP", ex);
             }
         }
     }

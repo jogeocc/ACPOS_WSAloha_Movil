@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace WindowsServiceAlohaMobile.Models.Aloha.Catalogos
 {
-    class VOIDMobile
+    public class VOIDMobile
     {
+        public int ID { get; set; }
+
+        public string NAME { get; set; }
     }
 }

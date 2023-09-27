@@ -42,7 +42,12 @@ namespace WindowsServiceAlohaMobile
         public static Thread HiloProductoPendiente;
 
 
-        private void Application_Startup(object sender)
+        public Service1()
+        {
+            InitializeComponent();
+        }
+        HttpSelfHostServer server;
+        protected override void OnStart(string[] args)
         {
             try
             {
@@ -58,7 +63,7 @@ namespace WindowsServiceAlohaMobile
                     {
                         IniciarWebService();
                         bdInterna.users = funcionesArchivo.ReadTrans();
-                        //CargarInfoAlohaIni();
+                        CargarInfoAlohaIni();
 
                     }
                     catch (Exception ex)
@@ -70,18 +75,12 @@ namespace WindowsServiceAlohaMobile
                 {
                     if (IsError)
                     {
-                        //splash.Close();
                         Environment.Exit(0);
                     }
 
-                    /*
-                     CargaIcono();
-                    VentanaPrincipal = new MainWindow();
-                    App.logger.Info($"CARGANDO SUBPROCESOS");
+                    logger.Info($"CARGANDO SUBPROCESOS");
                     ProcesarOrdenPendiente();
-                    App.logger.Info($"SISTEMA CARGADO CON EXITO");
-                    //splash.Hide();
-                     */
+                    logger.Info($"SISTEMA CARGADO CON EXITO");
                 }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
 
             }
@@ -89,8 +88,21 @@ namespace WindowsServiceAlohaMobile
             {
                 logger.Error(ex);
             }
+
         }
 
+        protected override void OnStop()
+        {
+            try
+            {
+                server.CloseAsync();
+
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"ERROR CERRANDO SERVICIO", ex);
+            }
+        }
 
         private void IniciarWebService()
         {
@@ -99,7 +111,7 @@ namespace WindowsServiceAlohaMobile
             HttpSelfHostConfiguration config_server = new HttpSelfHostConfiguration(url_base);
             config_server.MaxReceivedMessageSize = 2147483647;
             config_server.MapHttpAttributeRoutes();
-            var server = new HttpSelfHostServer(config_server);
+            server = new HttpSelfHostServer(config_server);
             var task = server.OpenAsync();
             task.Wait();
         }

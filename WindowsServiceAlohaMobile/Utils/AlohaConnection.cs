@@ -2,20 +2,6 @@
 using AlohaLibrary.Contexto;
 using AlohaLibrary.Implementaciones;
 using AlohaLibrary.Modelos;
-using AlohaWebServiceMobile.Aloha;
-using AlohaWebServiceMobile.AlohaExtractInfo;
-using AlohaWebServiceMobile.CodigosErrorAloha;
-using AlohaWebServiceMobile.Controllers;
-using AlohaWebServiceMobile.EntityFrameWork.Context;
-using AlohaWebServiceMobile.EntityFrameWork.Models;
-using AlohaWebServiceMobile.Enums;
-using AlohaWebServiceMobile.Models;
-using AlohaWebServiceMobile.Models.Aloha;
-using AlohaWebServiceMobile.Models.Aloha.BlueTooth;
-using AlohaWebServiceMobile.Models.Aloha.Desktop;
-using AlohaWebServiceMobile.Models.Aloha.System;
-using AlohaWebServiceMobile.Models.SAP;
-using AlohaWebServiceMobile.Models.Transacciones;
 using LasaFOHLib;
 using LecturaAppConfig;
 using Newtonsoft.Json;
@@ -37,10 +23,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.ExceptionHandling;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Animation;
 using TicketGenerateAloha;
 using TicketGenerateAloha.Models;
+using WindowsServiceAlohaMobile.Aloha;
+using WindowsServiceAlohaMobile.AlohaExtractInfo;
+using WindowsServiceAlohaMobile.CodigosErrorAloha;
+using WindowsServiceAlohaMobile.EntityFrameWork.Context;
+using WindowsServiceAlohaMobile.EntityFrameWork.Models;
+using WindowsServiceAlohaMobile.Enums;
+using WindowsServiceAlohaMobile.Models.Aloha;
+using WindowsServiceAlohaMobile.Models.Aloha.BlueTooh;
+using WindowsServiceAlohaMobile.Models.Aloha.Desktop;
+using WindowsServiceAlohaMobile.Models.Aloha.SAP;
+using WindowsServiceAlohaMobile.Models.Aloha.System;
+using WindowsServiceAlohaMobile.Models.Aloha.Transacciones;
 
 namespace WindowsServiceAlohaMobile.Utils
 {
@@ -57,23 +53,23 @@ namespace WindowsServiceAlohaMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                User UserInSesion = App.bdInterna.users.Find(u => u.IdEmpleado == IdEmpleado);
+                User UserInSesion = Service1.bdInterna.users.Find(u => u.IdEmpleado == IdEmpleado);
 
                 if (UserInSesion == null)
                 {
                     VerificarIber();
                     Encolamiento();
                     LiberaTerminalApagada(IdEmpleado, IdTerm);
-                    App.IsBusy = true;
+                    Service1.IsBusy = true;
 
                     //string NumPassword = IdEmpleado.ToString();
                     //int digits = NumPassword.Length;
                     //int empleado = 0;
                     //string password = "";
-                    //if (digits >= App.Aloha.MinNumLenghtEmployee)
+                    //if (digits >= Service1.Aloha.MinNumLenghtEmployee)
                     //{
-                    //    empleado = int.Parse(NumPassword.Substring(0, NumPassword.Length - App.Aloha.MinNumLenghtEmployee));
-                    //    password = NumPassword.Substring(App.Aloha.MinNumLenghtEmployee);
+                    //    empleado = int.Parse(NumPassword.Substring(0, NumPassword.Length - Service1.Aloha.MinNumLenghtEmployee));
+                    //    password = NumPassword.Substring(Service1.Aloha.MinNumLenghtEmployee);
                     //}
                     //else
                     //{
@@ -89,7 +85,7 @@ namespace WindowsServiceAlohaMobile.Utils
                     responseAloha.idJobs = IdsJobsEmpleado(IdSistema);
                     responseAloha.mesas_empleado = RecuperarMesas(IdSistema, IdTerm);
                     LogoutInterno(IdTerm);
-                    App.bdInterna.users.Add(new User
+                    Service1.bdInterna.users.Add(new User
                     {
                         IdEmpleado = IdEmpleado,
                         UserName = NombreEmpleado(IdEmpleado)
@@ -100,17 +96,17 @@ namespace WindowsServiceAlohaMobile.Utils
                 {
                     responseAloha.mensaje = $"Usuario ya en sesion";
                     responseAloha.Codigo = (int)CodigosError.ERROR;
-                    App.logger.Error($"El usuario ya esta en sesion");
+                    Service1.logger.Error($"El usuario ya esta en sesion");
                 }
 
             }
             catch (Exception ex)
             {
                 responseAloha.mensaje = $"Error al intentar ingresar con el usuario {IdEmpleado} - {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error("Error al ingresar con el usuario tal", ex);
+                Service1.logger.Error("Error al ingresar con el usuario tal", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
         }
 
@@ -121,7 +117,7 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
+                Service1.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 xFunction.ClockIn(IdTerm, IdJobCode);
                 response.Estado = true;
@@ -132,10 +128,10 @@ namespace WindowsServiceAlohaMobile.Utils
                 response.Estado = false;
                 response.Codigo = (int)CodigosError.ERROR;
                 response.mensaje = $"Error al intentar registrarse con el usuario {idEmpleado} - {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error("Error al intentar registrarse con el usuario", ex);
+                Service1.logger.Error("Error al intentar registrarse con el usuario", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return response;
         }
 
@@ -146,8 +142,8 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
-                App.logger.Info($"Creando mesa {idNumMesa} de usuario {idEmpleado}");
+                Service1.IsBusy = true;
+                Service1.logger.Info($"Creando mesa {idNumMesa} de usuario {idEmpleado}");
                 LoginInterno(IdTerm, idEmpleado);
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
@@ -162,10 +158,10 @@ namespace WindowsServiceAlohaMobile.Utils
                 responseAloha.Estado = false;
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.mensaje = $"Error abriendo mesa {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error($"Error al abrir mesa id = {idNumMesa}", ex);
+                Service1.logger.Error($"Error al abrir mesa id = {idNumMesa}", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
         }
 
@@ -177,8 +173,8 @@ namespace WindowsServiceAlohaMobile.Utils
                 //Para abrir un tab, por defecto debe de ser el numero de mesa en 0
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
-                App.logger.Info($"Creando mesa {idNumMesa} de usuario {idEmpleado}");
+                Service1.IsBusy = true;
+                Service1.logger.Info($"Creando mesa {idNumMesa} de usuario {idEmpleado}");
                 LoginInterno(IdTerm, idEmpleado);
                 int IdMesaInterno = xFunction.AddTable(IdTerm, 0, idNumMesa, NombreMesa, NumInvitados);
                 responseAloha.idMesa = IdMesaInterno;
@@ -193,10 +189,10 @@ namespace WindowsServiceAlohaMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.Estado = false;
                 responseAloha.mensaje = $"Error abriendo mesa-cuenta {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error($"Error abriendo mesa-cuenta id = {idNumMesa}", ex);
+                Service1.logger.Error($"Error abriendo mesa-cuenta id = {idNumMesa}", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
         }
 
@@ -216,7 +212,7 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
+                Service1.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 var Mesas = RecuperarMesas(idEmpleado, IdTerm);
                 if (Mesas.Exists(M => M.Id == IdMesaInterno))
@@ -232,7 +228,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 else
                 {
-                    App.logger.Info($"CHEQUE NO ENCONTRADO, CREANDO NUEVO CHEQUE");
+                    Service1.logger.Info($"CHEQUE NO ENCONTRADO, CREANDO NUEVO CHEQUE");
                     responseAloha.idMesa = xFunction.AddCheck(IdTerm, IdMesaInterno);
                 }
 
@@ -246,10 +242,10 @@ namespace WindowsServiceAlohaMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.Estado = false;
                 responseAloha.mensaje = $"Error al abrir cheque {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error($"Error al abrir cheque", ex);
+                Service1.logger.Error($"Error al abrir cheque", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
         }
 
@@ -260,7 +256,7 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
+                Service1.IsBusy = true;
                 VerificarIber();
                 LoginInterno(IdTerm, idEmpleado);
                 xFunction.CloseCheck(IdTerm, IdCheckInterno);
@@ -273,10 +269,10 @@ namespace WindowsServiceAlohaMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.Estado = false;
                 responseAloha.mensaje = $"Error al cerrar cheque {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error($"Error al cerrar cheque", ex);
+                Service1.logger.Error($"Error al cerrar cheque", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
 
         }
@@ -288,7 +284,7 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
+                Service1.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 xFunction.CloseTable(IdTerm, IdMesaInterno);
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
@@ -300,10 +296,10 @@ namespace WindowsServiceAlohaMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.Estado = false;
                 responseAloha.mensaje = $"Error al cerrar mesa {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error($"Error al cerrar mesa", ex);
+                Service1.logger.Error($"Error al cerrar mesa", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
         }
 
@@ -344,10 +340,10 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 //xFunction.LogOut(IdTerm);
-                User UserInSesion = App.bdInterna.users.Find(u => u.IdEmpleado == idEmpleado);
+                User UserInSesion = Service1.bdInterna.users.Find(u => u.IdEmpleado == idEmpleado);
                 if (UserInSesion != null)
                 {
-                    App.bdInterna.users.Remove(UserInSesion);
+                    Service1.bdInterna.users.Remove(UserInSesion);
                 }
                 response.mensaje = "Salida realizada con éxito";
 
@@ -360,7 +356,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 response.Codigo = (int)CodigosError.ERROR;
                 response.Estado = false;
                 response.mensaje = $"Error al salir de terminal {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error($"Error al salir de la terminal {IdTerm}", ex);
+                Service1.logger.Error($"Error al salir de la terminal {IdTerm}", ex);
             }
             return response;
         }
@@ -381,7 +377,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 response.Codigo = (int)CodigosError.ERROR;
                 response.Estado = false;
                 response.mensaje = $"Error al hacer salida {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error($"Error al hacer salida {IdTerm}", ex);
+                Service1.logger.Error($"Error al hacer salida {IdTerm}", ex);
                 LogoutInterno(IdTerm);
             }
             return response;
@@ -397,7 +393,7 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
+                Service1.IsBusy = true;
                 LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
                 List<int> IdsEntryes = new List<int>();
                 foreach (ItemAloha item in requestAddItem.item)
@@ -470,18 +466,18 @@ namespace WindowsServiceAlohaMobile.Utils
                 responseAloha.check = RecuperarCheque(requestAddItem.IdCheck, IdsEntryes);
 
                 LogoutInterno(requestAddItem.IdTerm);
-                App.IsBusy = false;
+                Service1.IsBusy = false;
             }
             catch (Exception ex)
             {
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.Estado = false;
                 responseAloha.mensaje = $"Error al agregar item {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error("Error al agregar item", ex);
+                Service1.logger.Error("Error al agregar item", ex);
                 LogoutInterno(requestAddItem.IdTerm);
-                App.IsBusy = false;
+                Service1.IsBusy = false;
             };
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
         }
 
@@ -571,7 +567,7 @@ namespace WindowsServiceAlohaMobile.Utils
 
         //        VerificarIber();
         //        Encolamiento();
-        //        App.IsBusy = true;
+        //        Service1.IsBusy = true;
         //        LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
 
         //        int idEntry = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, requestAddItem._item.IdItem, "", requestAddItem._item.Amount);
@@ -592,21 +588,21 @@ namespace WindowsServiceAlohaMobile.Utils
 
         //            Mensaje += !string.IsNullOrEmpty(requestAddItem._item.SpecialMessage) ? $" {requestAddItem._item.SpecialMessage}" : "";
 
-        //            xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, Mensaje);
+        //            xFunction.Service1lySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, idEntry, Mensaje);
         //        }
         //        responseAloha.Codigo = (int)CodigosError.NO_ERROR;
         //        responseAloha.mensaje = "Producto insertado con exito";
         //        LogoutInterno(requestAddItem.IdTerm);
-        //        App.IsBusy = false;
+        //        Service1.IsBusy = false;
         //    }
         //    catch (Exception ex)
         //    {
         //        responseAloha.Codigo = (int)CodigosError.ERROR;
         //        responseAloha.Estado = false;
         //        responseAloha.mensaje = $"Error al agregar item {(ErroresAloha.MensajeMobile(ex.Message))}";
-        //        App.logger.Error("Error al agregar item", ex);
+        //        Service1.logger.Error("Error al agregar item", ex);
         //        LogoutInterno(requestAddItem.IdTerm);
-        //        App.IsBusy = false;
+        //        Service1.IsBusy = false;
         //    };
         //    return responseAloha;
         //}
@@ -621,7 +617,7 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
+                Service1.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 bool isSelectedEntryes = false;
                 if (selectedEntries.Count > 0)
@@ -640,7 +636,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 xFunction.DeselectAllEntries(IdTerm);
                 if (isSelectedEntryes)
                 {
-                    App.DbManager.UpdateProductosEnEspera(selectedEntries, IdMesa, IdTerm);
+                    Service1.DbManager.UpdateProductosEnEspera(selectedEntries, IdMesa, IdTerm);
                 }
             }
             catch (Exception ex)
@@ -648,11 +644,11 @@ namespace WindowsServiceAlohaMobile.Utils
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.Estado = false;
                 responseAloha.mensaje = $"Error al confirmar pedido {(ErroresAloha.MensajeMobile(ex.Message))}";
-                App.logger.Error("Error al confirmar pedido", ex);
+                Service1.logger.Error("Error al confirmar pedido", ex);
 
                 LogoutInterno(IdTerm);
             };
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
         }
 
@@ -663,7 +659,7 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
+                Service1.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 responseAloha.idPago = xFunction.ApplyPayment(IdTerm, IdCheckId, IdTender, Amount, Tip, Digitos, Expiration, Info, authorization);
                 responseAloha.Estado = true;
@@ -676,10 +672,10 @@ namespace WindowsServiceAlohaMobile.Utils
                 responseAloha.Estado = false;
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.mensaje = $"Error al aplicar pago,{ErroresAloha.MensajeMobile(ex.Message)}";
-                App.logger.Error("Error al aplicar pago", ex);
+                Service1.logger.Error("Error al aplicar pago", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
         }
 
@@ -690,7 +686,7 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
+                Service1.IsBusy = true;
                 LoginInterno(IdTerm, idEmpleado);
                 xFunction.DeletePayment(IdTerm, IdCheckId, IdPayment);
                 responseAloha.Estado = true;
@@ -703,10 +699,10 @@ namespace WindowsServiceAlohaMobile.Utils
                 responseAloha.Estado = false;
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.mensaje = $"Error al eliminar pago,{ErroresAloha.MensajeMobile(ex.Message)}";
-                App.logger.Error("Error al eliminar pago", ex);
+                Service1.logger.Error("Error al eliminar pago", ex);
                 LogoutInterno(IdTerm);
             }
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
         }
 
@@ -717,7 +713,7 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
+                Service1.IsBusy = true;
                 LoginInterno(idTerm, IdEmpleado);
 
                 #region Seccion que cambia el ruteo de impresoras
@@ -735,10 +731,10 @@ namespace WindowsServiceAlohaMobile.Utils
                 responseAloha.Estado = false;
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.mensaje = $"Error al imprimir,{ErroresAloha.MensajeMobile(ex.Message)}";
-                App.logger.Error("Error al imprimir", ex);
+                Service1.logger.Error("Error al imprimir", ex);
                 LogoutInterno(idTerm);
             }
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
         }
 
@@ -751,7 +747,7 @@ namespace WindowsServiceAlohaMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
-                App.IsBusy = true;
+                Service1.IsBusy = true;
                 LoginInterno(idTerm, idEmpleado);
                 foreach (var itemAnulado in itemAnulados)
                 {
@@ -767,11 +763,11 @@ namespace WindowsServiceAlohaMobile.Utils
                 responseAloha.Estado = false;
                 responseAloha.Codigo = (int)CodigosError.ERROR;
                 responseAloha.mensaje = $"Error al elimiar producto, {ErroresAloha.MensajeMobile(ex.Message)}";
-                App.logger.Error("Error al elimiar producto", ex);
+                Service1.logger.Error("Error al elimiar producto", ex);
                 LogoutInterno(idTerm);
 
             }
-            App.IsBusy = false;
+            Service1.IsBusy = false;
             return responseAloha;
         }
 
@@ -779,12 +775,12 @@ namespace WindowsServiceAlohaMobile.Utils
         {
             try
             {
-                App.logger.Info($"LIMPIANDO A TODOS LOS USUARIOS DEL SISTEMA");
-                App.bdInterna.users.Clear();
+                Service1.logger.Info($"LIMPIANDO A TODOS LOS USUARIOS DEL SISTEMA");
+                Service1.bdInterna.users.Clear();
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al liberar empleados del sistema", ex);
+                Service1.logger.Error($"Error al liberar empleados del sistema", ex);
             }
         }
 
@@ -808,14 +804,14 @@ namespace WindowsServiceAlohaMobile.Utils
                     xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
                     if (IsHold)
                     {
-                        App.DbManager.UpdateProductosEnEspera(Cuenta.IdCheckOrigen, Cuenta.IdCheckDestino, Cuenta.IdEntry);
+                        Service1.DbManager.UpdateProductosEnEspera(Cuenta.IdCheckOrigen, Cuenta.IdCheckDestino, Cuenta.IdEntry);
                     }
                     iteracion++;
                 }
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al dividir cuentas", ex);
+                Service1.logger.Error($"Error al dividir cuentas", ex);
 
             }
             //var xchecs = RecuperarCheque(1048586);
@@ -850,22 +846,22 @@ namespace WindowsServiceAlohaMobile.Utils
             catch (Exception ex)
             {
 
-                App.logger.Error($"ERROR AL COMBINAR MESAS DEL SISTEMA", ex);
+                Service1.logger.Error($"ERROR AL COMBINAR MESAS DEL SISTEMA", ex);
             }
             LogoutInterno(requestCombineTables.IdTerm);
         }
         public void PrintTicketSap(RequestPrintCheckSap requestCloseCheckSAP)
         {
-            App.logger.Info($"POR ENVIAR INFO HACIA SAP");
-            App.logger.Info($"{JsonConvert.SerializeObject(requestCloseCheckSAP)}");
-            App.restSAP.SendXmlSAP(requestCloseCheckSAP.SAP_XML);
+            Service1.logger.Info($"POR ENVIAR INFO HACIA SAP");
+            Service1.logger.Info($"{JsonConvert.SerializeObject(requestCloseCheckSAP)}");
+            Service1.restSAP.SendXmlSAP(requestCloseCheckSAP.SAP_XML);
 
         }
 
         public void GetPagosTicketSap(int checkId)
         {
             List<DetallePago> detallePago = new ExtraccionCuenta().MonitoreoCuenta(checkId);
-            App.restSAP.SendPagosSocioSap(detallePago);
+            Service1.restSAP.SendPagosSocioSap(detallePago);
 
         }
 
@@ -966,10 +962,10 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL COLOCAR PRODUCTOS EN HOLD", ex);
+                Service1.logger.Error($"ERROR AL COLOCAR PRODUCTOS EN HOLD", ex);
             }
             #region GUARDAR EN BD
-            App.DbManager.AddProductoEspera(requestHoldCheck);
+            Service1.DbManager.AddProductoEspera(requestHoldCheck);
             #endregion
             LogoutInterno(requestHoldCheck.IdTerm);
 
@@ -1155,7 +1151,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al recuperar mesa", ex);
+                Service1.logger.Error($"Error al recuperar mesa", ex);
             }
 
             return mesaEmpleado;
@@ -1195,7 +1191,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 check.Tax = tax;
                 double MontoTotal = ChequeAbierto.GetDoubleVal("SUBTOTAL");
                 //ITEMS DEL CHEQUE
-                List<Producto_Pedido_Espera> ListaPedidos = App.DbManager.GetProductosTiempoEspera(IdCheck);
+                List<Producto_Pedido_Espera> ListaPedidos = Service1.DbManager.GetProductosTiempoEspera(IdCheck);
                 try
                 {
                     IberEnum ItemsEmpleado = ChequeAbierto.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
@@ -1222,7 +1218,7 @@ namespace WindowsServiceAlohaMobile.Utils
                                 if (item.Ordered)
                                 {
                                     //TODO AGREGAR NUEVOS DATOS AL SISTEMA
-                                    //App.DbManager.UpdateProductosEnEspera();
+                                    //Service1.DbManager.UpdateProductosEnEspera();
                                 }
                                 else
                                 {
@@ -1280,7 +1276,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-                    App.logger.Error($"Error al obtener pagos aplicados en la cuenta");
+                    Service1.logger.Error($"Error al obtener pagos aplicados en la cuenta");
                 }
                 //Promociones aplicadas a la mesa
                 try
@@ -1427,7 +1423,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-                    App.logger.Error($"Error al obtener pagos aplicados en la cuenta");
+                    Service1.logger.Error($"Error al obtener pagos aplicados en la cuenta");
                 }
 
                 //Promociones aplicadas a la mesa
@@ -1530,7 +1526,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al recuperar los jobs del empelado {IdEmpleado}", ex);
+                Service1.logger.Error($"Error al recuperar los jobs del empelado {IdEmpleado}", ex);
             }
             return ListaJobs;
         }
@@ -1546,7 +1542,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error("Error recuperando nombre del empleado", ex);
+                Service1.logger.Error("Error recuperando nombre del empleado", ex);
             }
 
             return nombre;
@@ -1564,7 +1560,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error("", ex);
+                Service1.logger.Error("", ex);
             }
             return IsClocked;
 
@@ -1581,7 +1577,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al recuperar nombre de la mesa", ex);
+                Service1.logger.Error($"Error al recuperar nombre de la mesa", ex);
             }
 
             return Name;
@@ -1661,7 +1657,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al recuperar detalle de ticket", ex);
+                Service1.logger.Error($"Error al recuperar detalle de ticket", ex);
             }
 
             return detallePedido;
@@ -1678,7 +1674,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL RECUPERAR NOMBRE DE MESERO", ex);
+                Service1.logger.Error($"ERROR AL RECUPERAR NOMBRE DE MESERO", ex);
             }
             return PosName;
         }
@@ -1694,7 +1690,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 int CheckId = Cheque.GetLongVal("ID");
                 modelCombineTables.IdCheck = CheckId;
 
-                App.logger.Info($"mesas del empleado {EnumMesasChecks.Count}");
+                Service1.logger.Info($"mesas del empleado {EnumMesasChecks.Count}");
                 for (int i = 0; i < EnumMesasChecks.Count; i++)
                 {
                     ICheckEntryNewEx[] Entryes = xFunction.GetCheckEntriesNewEx(IdTerm, CheckId);
@@ -1706,7 +1702,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR NO SE PUDO RECUPERAR CHEQUES DE LA MESA", ex);
+                Service1.logger.Error($"ERROR NO SE PUDO RECUPERAR CHEQUES DE LA MESA", ex);
             }
 
             return List;
@@ -1724,7 +1720,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR REGISTRAR VARIABLE DE ALOHA EN SISTEMA", ex);
+                Service1.logger.Error($"ERROR REGISTRAR VARIABLE DE ALOHA EN SISTEMA", ex);
             }
         }
 
@@ -1753,7 +1749,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR FUNCION 34, RECUPERANDO ALGUN HOLD DE LOS CHEQUES DE LA MESA", ex);
+                Service1.logger.Error($"ERROR FUNCION 34, RECUPERANDO ALGUN HOLD DE LOS CHEQUES DE LA MESA", ex);
             }
             return isHold;
         }
@@ -1778,7 +1774,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR OBTENIENDO LOS CHEQUES DE LA MESA", ex);
+                Service1.logger.Error($"ERROR OBTENIENDO LOS CHEQUES DE LA MESA", ex);
             }
             return ListaCheques;
         }
@@ -1800,7 +1796,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL DETERMINAR QUE EL PRODUCTO ES HOLD", ex);
+                Service1.logger.Error($"ERROR AL DETERMINAR QUE EL PRODUCTO ES HOLD", ex);
             }
             return isHold;
         }
@@ -1815,7 +1811,7 @@ namespace WindowsServiceAlohaMobile.Utils
             //}
             //catch (Exception ex)
             //{
-            //    App.logger.Error($"Error al LOGOUT interno{ex.Message}");
+            //    Service1.logger.Error($"Error al LOGOUT interno{ex.Message}");
             //}
         }
         private void LoginInternoHold(int IdTerm, int IdEmpleado)
@@ -1827,7 +1823,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al LOGIN interno{ex.Message}");
+                Service1.logger.Error($"Error al LOGIN interno{ex.Message}");
             }
         }
         private void LoginInterno(int IdTerm, int IdEmpleado)
@@ -1839,7 +1835,7 @@ namespace WindowsServiceAlohaMobile.Utils
             //}
             //catch (Exception ex)
             //{
-            //    App.logger.Error($"Error al LOGIN interno{ex.Message}");
+            //    Service1.logger.Error($"Error al LOGIN interno{ex.Message}");
             //}
         }
 
@@ -1848,7 +1844,7 @@ namespace WindowsServiceAlohaMobile.Utils
         {
             //while (true)
             //{
-            //    if (!App.IsBusy)
+            //    if (!Service1.IsBusy)
             //    {
             //        break;
             //    }
@@ -1860,7 +1856,7 @@ namespace WindowsServiceAlohaMobile.Utils
 
         public BdInterna GetUsersInSession()
         {
-            return App.bdInterna;
+            return Service1.bdInterna;
         }
 
         public ResponseDesktop ReleaseUser(int IdEmpleado)
@@ -1868,10 +1864,10 @@ namespace WindowsServiceAlohaMobile.Utils
             ResponseDesktop responseDesktop = new ResponseDesktop();
             try
             {
-                User UserInSesion = App.bdInterna.users.Find(u => u.IdEmpleado == IdEmpleado);
+                User UserInSesion = Service1.bdInterna.users.Find(u => u.IdEmpleado == IdEmpleado);
                 if (UserInSesion != null)
                 {
-                    App.bdInterna.users.Remove(UserInSesion);
+                    Service1.bdInterna.users.Remove(UserInSesion);
                     xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_EMPLOYEES, IdEmpleado, IdEmpleado.ToString(), "NO");
                     LiberaTerminalApagada(IdEmpleado);
                     responseDesktop.Codigo = (int)CodigosError.NO_ERROR;
@@ -1885,7 +1881,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error en la liberacion del empleado {IdEmpleado}", ex);
+                Service1.logger.Error($"Error en la liberacion del empleado {IdEmpleado}", ex);
                 responseDesktop.Codigo = (int)CodigosError.ERROR;
                 responseDesktop.Mensaje = $"Error durante la liberacion del usuario con id {IdEmpleado}";
             }
@@ -1973,7 +1969,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL GUARDAR TICKET SMART PARA REIMPRESION", ex);
+                Service1.logger.Error($"ERROR AL GUARDAR TICKET SMART PARA REIMPRESION", ex);
             }
             return ResponsePagoPendiente;
         }
@@ -1992,7 +1988,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al obtener el ticket para reimpresion", ex);
+                Service1.logger.Error($"Error al obtener el ticket para reimpresion", ex);
             }
             return ResponsePagosPendiente;
         }
@@ -2053,13 +2049,13 @@ namespace WindowsServiceAlohaMobile.Utils
 
 
                     iberPrinter.PrintStream(XML);
-                    App.logger.Info($"Iniciado proceso de impresión");
+                    Service1.logger.Info($"Iniciado proceso de impresión");
                 }
 
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error al imprimir", ex);
+                Service1.logger.Error($"Error al imprimir", ex);
             }
             return IsSuccess;
         }
@@ -2221,13 +2217,13 @@ namespace WindowsServiceAlohaMobile.Utils
         public void ProcesarProductosEnEspera()
         {
             VerificarIber();
-            var lista = App.DbManager.GETProductosEnEspera();
+            var lista = Service1.DbManager.GETProductosEnEspera();
 
             foreach (Producto_Pedido_Espera producto in lista)
             {
                 try
                 {
-                    //var user = App.bdInterna.users.Find(u => u.IdEmpleado == producto.IdEmpleado);
+                    //var user = Service1.bdInterna.users.Find(u => u.IdEmpleado == producto.IdEmpleado);
                     //if (user == null)
                     //{
                     //}
@@ -2241,14 +2237,14 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-                    App.logger.Error($"ERROR AL ENVIAR PRODUCTO EN ESPERA A ORDENAR", ex);
+                    Service1.logger.Error($"ERROR AL ENVIAR PRODUCTO EN ESPERA A ORDENAR", ex);
                 }
                 LogoutInterno(producto.IdTerminal);
             }
             lista = lista.Where(P => P.IsOrdered == 1).ToList();
             if (lista.Count > 0)
             {
-                App.DbManager.UpdateProductosEnEspera(lista);
+                Service1.DbManager.UpdateProductosEnEspera(lista);
 
             }
         }
@@ -2277,7 +2273,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR RECUPERANDO LOCALSTATE", ex);
+                Service1.logger.Error($"ERROR RECUPERANDO LOCALSTATE", ex);
             }
         }
 
@@ -2286,7 +2282,7 @@ namespace WindowsServiceAlohaMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                bool IsSuccess = App.DbManager.UpdatePagoPendiente(requestPagoPendiente.id, requestPagoPendiente.EntryId, requestPagoPendiente.infoPago, requestPagoPendiente.TransactionNumber, requestPagoPendiente.TransactionAuth);
+                bool IsSuccess = Service1.DbManager.UpdatePagoPendiente(requestPagoPendiente.id, requestPagoPendiente.EntryId, requestPagoPendiente.infoPago, requestPagoPendiente.TransactionNumber, requestPagoPendiente.TransactionAuth);
                 if (IsSuccess)
                 {
                     responseAloha.Estado = true;
@@ -2303,7 +2299,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL ACTUALIZADO ENTRY ID", ex);
+                Service1.logger.Error($"ERROR AL ACTUALIZADO ENTRY ID", ex);
             }
             return responseAloha;
         }
@@ -2313,7 +2309,7 @@ namespace WindowsServiceAlohaMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
-                Pagos_pendientes pagos_Pendientes = App.DbManager.ValidarPagoPendiente(requestPagoPendiente.EntryId);
+                Pagos_pendientes pagos_Pendientes = Service1.DbManager.ValidarPagoPendiente(requestPagoPendiente.EntryId);
                 if (pagos_Pendientes != null)
                 {
                     responseAloha.pago_Pendiente = pagos_Pendientes;
@@ -2332,7 +2328,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL VALIDAR PAGO PENDIENTE", ex);
+                Service1.logger.Error($"ERROR AL VALIDAR PAGO PENDIENTE", ex);
             }
             return responseAloha;
         }

@@ -1,7 +1,4 @@
-﻿using AlohaWebServiceMobile.EntityFrameWork.Context;
-using AlohaWebServiceMobile.EntityFrameWork.Models;
-using AlohaWebServiceMobile.Models.Aloha;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -9,6 +6,9 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
+using WindowsServiceAlohaMobile.EntityFrameWork.Context;
+using WindowsServiceAlohaMobile.EntityFrameWork.Models;
+using WindowsServiceAlohaMobile.Models.Aloha;
 
 namespace WindowsServiceAlohaMobile.Utils
 {
@@ -45,7 +45,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL AGREGAR REGISROS A LA TABLA DE PRODUCTOS DE ESPERA.", ex);
+                Service1.logger.Error($"ERROR AL AGREGAR REGISROS A LA TABLA DE PRODUCTOS DE ESPERA.", ex);
             }
             return IsAdded;
         }
@@ -67,7 +67,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL OBTENER LA LISTA DE PRODUCTOS EN ESPERA DEL DOB", ex);
+                Service1.logger.Error($"ERROR AL OBTENER LA LISTA DE PRODUCTOS EN ESPERA DEL DOB", ex);
             }
             return ListaProductosEspera;
         }
@@ -90,7 +90,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL ACTUALIZAR PRODUCTOS EN ESPERA", ex);
+                Service1.logger.Error($"ERROR AL ACTUALIZAR PRODUCTOS EN ESPERA", ex);
             }
         }
 
@@ -107,7 +107,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL RECUPERAR PRODUCTOS PARA APPLICACION MOVIL", ex);
+                Service1.logger.Error($"ERROR AL RECUPERAR PRODUCTOS PARA APPLICACION MOVIL", ex);
             }
             return ListaProductos;
         }
@@ -128,7 +128,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL ACTUALIZAR REGISTRO", ex);
+                Service1.logger.Error($"ERROR AL ACTUALIZAR REGISTRO", ex);
             }
         }
 
@@ -160,7 +160,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL ACTUALIZAR TABLA DE PRODUCTOS EN ESPERA", ex);
+                Service1.logger.Error($"ERROR AL ACTUALIZAR TABLA DE PRODUCTOS EN ESPERA", ex);
             }
         }
 
@@ -182,7 +182,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL VALIDAR EXISTENCIA DE PAGO PENDIENTE", ex);
+                Service1.logger.Error($"ERROR AL VALIDAR EXISTENCIA DE PAGO PENDIENTE", ex);
             }
             return PagoPendiente;
 
@@ -206,7 +206,7 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                App.logger.Error($"ERROR AL VALIDAR EXISTENCIA DE PAGO PENDIENTE", ex);
+                Service1.logger.Error($"ERROR AL VALIDAR EXISTENCIA DE PAGO PENDIENTE", ex);
             }
             return ISsuccess;
         }

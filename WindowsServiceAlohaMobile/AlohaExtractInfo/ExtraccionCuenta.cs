@@ -19,7 +19,7 @@ namespace WindowsServiceAlohaMobile.AlohaExtractInfo
             {
                 IIberFuncs23 xfuncs23 = AlohaSdkFactory.GetIberFuncs23Instance();
                 bool IsIberTS = xfuncs23.IsTableService();
-                App.logger.Info($"IBER ES: {(IsIberTS ? "TABLE" : "QS")}");
+                Service1.logger.Info($"IBER ES: {(IsIberTS ? "TABLE" : "QS")}");
                 if (IsIberTS)
                 {
                     try
@@ -47,20 +47,20 @@ namespace WindowsServiceAlohaMobile.AlohaExtractInfo
                     }
                     catch (Exception ex)
                     {
-                        App.logger.Error("error al rastrear info", ex);
+                        Service1.logger.Error("error al rastrear info", ex);
                     }
 
                 }
                 else
                 {
-                    App.logger.Info($"IBER ES: {(IsIberTS ? "TABLE" : "QS")}");
+                    Service1.logger.Info($"IBER ES: {(IsIberTS ? "TABLE" : "QS")}");
 
                     //check = IberQs(requestCheck);
                 }
             }
             catch (Exception ex)
             {
-                App.logger.Error($"Error Identificando servicio", ex);
+                Service1.logger.Error($"Error Identificando servicio", ex);
             }
 
             return ListaPagosSocios;

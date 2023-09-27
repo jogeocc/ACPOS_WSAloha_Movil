@@ -1,5 +1,4 @@
 ﻿using Aloha.SDK.Common;
-using AlohaWebServiceMobile.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
