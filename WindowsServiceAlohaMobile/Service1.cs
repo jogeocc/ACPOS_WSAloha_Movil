@@ -30,7 +30,6 @@ namespace WindowsServiceAlohaMobile
         public bool IsError = false;
         public static EstructurarData Catalogos = new EstructurarData();
         public static AlohaConnection AlohaConnection = new AlohaConnection();
-        public static AppConfig appConfig = new AppConfig();
         public static BdInterna bdInterna = new BdInterna();
         public static FuncionesArchivo funcionesArchivo = new FuncionesArchivo();
         public static bool IsBusy = false;
@@ -47,6 +46,10 @@ namespace WindowsServiceAlohaMobile
             InitializeComponent();
         }
         HttpSelfHostServer server;
+        public void inicio()
+        {
+            OnStart(new string[] { });
+        }
         protected override void OnStart(string[] args)
         {
             try
@@ -57,32 +60,17 @@ namespace WindowsServiceAlohaMobile
                 logger.Info("------------------------------------------------");
                 logger.Info($"Iniciando sistema {Version}");
 
-                Task.Factory.StartNew(() =>
+                IniciarWebService();
+                bdInterna.users = funcionesArchivo.ReadTrans();
+                CargarInfoAlohaIni();
+                if (IsError)
                 {
-                    try
-                    {
-                        IniciarWebService();
-                        bdInterna.users = funcionesArchivo.ReadTrans();
-                        CargarInfoAlohaIni();
+                    Environment.Exit(0);
+                }
 
-                    }
-                    catch (Exception ex)
-                    {
-                        IsError = true;
-                        logger.Error(ex);
-                    }
-                }).ContinueWith(task =>
-                {
-                    if (IsError)
-                    {
-                        Environment.Exit(0);
-                    }
-
-                    logger.Info($"CARGANDO SUBPROCESOS");
-                    ProcesarOrdenPendiente();
-                    logger.Info($"SISTEMA CARGADO CON EXITO");
-                }, System.Threading.CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
-
+                logger.Info($"CARGANDO SUBPROCESOS");
+                ProcesarOrdenPendiente();
+                logger.Info($"SISTEMA CARGADO CON EXITO");
             }
             catch (Exception ex)
             {
@@ -108,7 +96,7 @@ namespace WindowsServiceAlohaMobile
         private void IniciarWebService()
         {
 
-            string url_base = String.Format(appConfig.URL_BASE, appConfig.IP, appConfig.PORT);
+            string url_base = String.Format(Program.appConfig.URL_BASE, Program.appConfig.IP, Program.appConfig.PORT);
             HttpSelfHostConfiguration config_server = new HttpSelfHostConfiguration(url_base);
             config_server.MaxReceivedMessageSize = 2147483647;
             config_server.MapHttpAttributeRoutes();
@@ -138,5 +126,7 @@ namespace WindowsServiceAlohaMobile
             });
             HiloProductoPendiente.Start();
         }
+
+
     }
 }

@@ -79,7 +79,7 @@ namespace WindowsServiceAlohaMobile.Utils
             int Menu;
             if (IdMenu == 0)
             {
-                Menu = Service1.appConfig.ID_MENU_MOVIL;
+                Menu = Program.appConfig.ID_MENU_MOVIL;
             }
             else
             {

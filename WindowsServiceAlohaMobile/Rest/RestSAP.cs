@@ -25,7 +25,7 @@ namespace WindowsServiceAlohaMobile.Rest
         /// </summary>
         public RestSAP()
         {
-            ClientSap = new RestClient(Service1.appConfig.DIRECCION_SAP);
+            ClientSap = new RestClient(Program.appConfig.DIRECCION_SAP);
         }
 
         public void SendXmlSAP(string xml)

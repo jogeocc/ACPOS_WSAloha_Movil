@@ -55,12 +55,12 @@
     </Reference>
     <Reference Include="LasaActivity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
       <HintPath>Resource\DLLS\LasaActivity.dll</HintPath>
     </Reference>
     <Reference Include="LasaFOHLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
       <HintPath>Resource\DLLS\LasaFOHLib.dll</HintPath>
     </Reference>
     <Reference Include="LecturaAppConfig, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
