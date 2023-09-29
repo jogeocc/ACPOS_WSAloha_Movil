@@ -262,6 +262,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resource\DLLS\Aloha.SDK.Common.dll" />
+    <Content Include="Resource\DLLS\Design_Library.dll" />
     <Content Include="Resource\DLLS\EncryptDataJson.dll" />
     <Content Include="Resource\DLLS\LasaActivity.dll" />
     <Content Include="Resource\DLLS\LasaFOHLib.dll" />

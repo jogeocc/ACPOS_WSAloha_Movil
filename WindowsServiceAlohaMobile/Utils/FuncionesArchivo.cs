@@ -11,8 +11,11 @@ namespace WindowsServiceAlohaMobile.Utils
 {
     public class FuncionesArchivo
     {
-        private string NombreArchivo = ".\\Trans.log";
-        private string RespaldoArchivo = ".\\Mirror.log";
+
+        string rutaArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Recursos/SQLConsultas/delete_bloqueo_socio.sql");
+
+        private string NombreArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Trans.log");
+        private string RespaldoArchivo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Mirror.log");
 
 
         public void AddTrans(User user)
