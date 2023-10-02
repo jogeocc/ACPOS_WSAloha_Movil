@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace WindowsServiceAlohaMobile.EntityFrameWork.Models
 {
+    [JsonObject]
     public class Pagos_pendientes
     {
         [Key]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace WindowsServiceAlohaMobile.EntityFrameWork.Models
 {
+    [JsonObject]
     public class Producto_Pedido_Espera
     {
         [Key]
