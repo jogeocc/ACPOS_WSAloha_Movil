@@ -53,6 +53,10 @@ namespace WindowsServiceAlohaMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
+
+
+
+
                 User UserInSesion = ACPOS_SERVICE_MOBILE.bdInterna.users.Find(u => u.IdEmpleado == IdEmpleado);
 
                 if (UserInSesion == null)
@@ -77,7 +81,16 @@ namespace WindowsServiceAlohaMobile.Utils
                     //    password = "";
                     //}
 
-                    int IdSistema = xFunction.LogIn(IdTerm, IdEmpleado, "", "");
+                    string Password = "";
+                    if (IdEmpleado >= ACPOS_SERVICE_MOBILE.AlohaIni.MinNumLenghtEmployee)
+                    {
+                        string DataComplete = IdEmpleado.ToString();
+                        string emp = DataComplete.Substring(0, ACPOS_SERVICE_MOBILE.AlohaIni.MinNumLenghtEmployee);
+                        IdEmpleado = int.Parse(emp);
+                        Password = DataComplete.Substring(ACPOS_SERVICE_MOBILE.AlohaIni.MinNumLenghtEmployee);
+                    }
+
+                    int IdSistema = xFunction.LogIn(IdTerm, IdEmpleado, Password, "");
                     responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                     responseAloha.isClockIn = IsAlreadyClockIn(IdSistema);
                     responseAloha.mensaje = "Login realizado con exito";

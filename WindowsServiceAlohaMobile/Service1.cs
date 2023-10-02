@@ -34,7 +34,7 @@ namespace WindowsServiceAlohaMobile
         public static FuncionesArchivo funcionesArchivo = new FuncionesArchivo();
         public static bool IsBusy = false;
         public static LecturaINI iniAloha = new LecturaINI(AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder() + @"\aloha.ini");
-        public static InfoAloha Aloha = new InfoAloha();
+        public static InfoAloha AlohaIni = new InfoAloha();
         public static EncryptJSON EncryptDataJson = new EncryptJSON();
         public static RestSAP restSAP = new RestSAP();
         public static DbManager DbManager = new DbManager();
@@ -108,9 +108,9 @@ namespace WindowsServiceAlohaMobile
         private void CargarInfoAlohaIni()
         {
             int.TryParse(iniAloha.Read("NUMEMPDIGITS", "Ibertech"), out int NumMinEmp);
-            Aloha.MinNumLenghtEmployee = NumMinEmp;
+            AlohaIni.MinNumLenghtEmployee = NumMinEmp;
             int.TryParse(iniAloha.Read("MAXPASSWORD", "Ibertech"), out int NumMaxPassEmp);
-            Aloha.MinNumLenghtEmployee = NumMaxPassEmp;
+            AlohaIni.MinNumLenghtEmployee = NumMaxPassEmp;
 
         }
 
