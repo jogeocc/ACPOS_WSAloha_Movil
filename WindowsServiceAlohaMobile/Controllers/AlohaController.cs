@@ -25,6 +25,7 @@ namespace WindowsServiceAlohaMobile.Controllers
         public HttpResponseMessage version()
         {
             object obj = new { ip = Program.appConfig.IP, port = Program.appConfig.PORT };
+
             return Request.CreateResponse(HttpStatusCode.OK, obj, Configuration.Formatters.JsonFormatter);
         }
 
