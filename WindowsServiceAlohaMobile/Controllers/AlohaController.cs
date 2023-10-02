@@ -22,10 +22,10 @@ namespace WindowsServiceAlohaMobile.Controllers
         //RECUPERACION DE CATALOGOS
         [HttpGet]
         [Route("version")]
-        public IHttpActionResult version()
+        public HttpResponseMessage version()
         {
             object obj = new { ip = Program.appConfig.IP, port = Program.appConfig.PORT };
-            return Ok(obj);
+            return Request.CreateResponse(HttpStatusCode.OK, obj, Configuration.Formatters.JsonFormatter);
         }
 
         [HttpGet]

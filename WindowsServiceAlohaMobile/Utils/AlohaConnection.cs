@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Management.Instrumentation;
@@ -84,6 +85,7 @@ namespace WindowsServiceAlohaMobile.Utils
                     string Password = "";
                     if (IdEmpleado >= ACPOS_SERVICE_MOBILE.AlohaIni.MinNumLenghtEmployee)
                     {
+                        ACPOS_SERVICE_MOBILE.logger.Info($"DIGITOS EMP:{ACPOS_SERVICE_MOBILE.AlohaIni.MinNumLenghtEmployee}");
                         string DataComplete = IdEmpleado.ToString();
                         string emp = DataComplete.Substring(0, ACPOS_SERVICE_MOBILE.AlohaIni.MinNumLenghtEmployee);
                         IdEmpleado = int.Parse(emp);

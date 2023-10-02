@@ -110,7 +110,7 @@ namespace WindowsServiceAlohaMobile
             int.TryParse(iniAloha.Read("NUMEMPDIGITS", "Ibertech"), out int NumMinEmp);
             AlohaIni.MinNumLenghtEmployee = NumMinEmp;
             int.TryParse(iniAloha.Read("MAXPASSWORD", "Ibertech"), out int NumMaxPassEmp);
-            AlohaIni.MinNumLenghtEmployee = NumMaxPassEmp;
+            AlohaIni.MaxPassLenghtEmployee = NumMaxPassEmp;
 
         }
 
