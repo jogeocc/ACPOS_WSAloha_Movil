@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using TicketGenerateAloha;
 
 namespace WindowsServiceAlohaMobile.Models.Aloha.BlueTooh
 {
+    [JsonObject]
     public class ResponsePrinter
     {
         public string mensaje { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace WindowsServiceAlohaMobile.Models.Aloha.Transacciones
 {
+    [JsonObject]
     public class BdInterna
     {
         public MyOwnList<User> users { get; set; } = new MyOwnList<User>();
     }
-
+    [JsonObject]
     public class User
     {
         public int IdEmpleado { get; set; }

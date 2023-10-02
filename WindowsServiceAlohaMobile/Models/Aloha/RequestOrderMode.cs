@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsServiceAlohaMobile.Models.Aloha
 {
+    [JsonObject]
     public class RequestOrderMode
     {
 
@@ -17,7 +19,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public int IdModoPedido { get; set; }
         public List<EntryesMode> SelectedEntries { get; set; } = new List<EntryesMode>();
     }
-
+    [JsonObject]
     public class EntryesMode
     {
         public int EntrieId { get; set; }

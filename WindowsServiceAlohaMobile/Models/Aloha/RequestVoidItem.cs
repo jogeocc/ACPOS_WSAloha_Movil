@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 
 namespace WindowsServiceAlohaMobile.Models.Aloha
 {
+    [JsonObject]
     public class RequestVoidItem
     {
         public int IdTerm { get; set; }
@@ -11,6 +13,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public List<ItemAnulado> ItemAnulados { get; set; } = new List<ItemAnulado>();
         public int IdVoidReason { get; set; }
     }
+    [JsonObject]
     public class ItemAnulado
     {
         public int IdEntry { get; set; }

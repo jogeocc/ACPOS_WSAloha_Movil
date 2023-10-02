@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using WindowsServiceAlohaMobile.EntityFrameWork.Models;
 
 namespace WindowsServiceAlohaMobile.Models.Aloha
 {
+    [JsonObject]
     public class ResponseAloha
     {
         public bool isClockIn { get; set; }

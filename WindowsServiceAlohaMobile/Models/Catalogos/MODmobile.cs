@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsServiceAlohaMobile.Models.Aloha.Catalogos
 {
+    [JsonObject]
     public class MODmobile
     {
         public int id_modificador { get; set; }
@@ -18,6 +20,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.Catalogos
         public byte status { get; set; }
         public List<itemModificador> items_modificador { get; set; } = new List<itemModificador>();
     }
+    [JsonObject]
     public class itemModificador
     {
         public int id_item { get; set; }

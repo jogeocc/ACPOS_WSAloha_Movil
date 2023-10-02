@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace WindowsServiceAlohaMobile.Models.Aloha
 {
+    [JsonObject]
     public class MesaEmpleado
     {
         public bool IsTable { get; set; }
@@ -21,6 +22,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public bool IsHold { get; set; }
         public string IsHoldVERSION2 { get; set; }
     }
+    [JsonObject]
     public class Check
     {
         public int Id { get; set; }
@@ -38,7 +40,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public double TotalCheck { get; set; }
         public int NumCheck { get; set; }
     }
-
+    [JsonObject]
     public class Comp
     {
         public int Id { get; set; }
@@ -47,7 +49,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public string Name { get; set; }
         public string Unit { get; set; }
     }
-
+    [JsonObject]
     public class Promotion
     {
         public int Id { get; set; }
@@ -55,7 +57,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public string Name { get; set; }
         public double AmountDiscount { get; set; }
     }
-
+    [JsonObject]
     public class Item
     {
         public int Id { get; set; }
@@ -86,6 +88,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public string HoldTime { get; set; } = "";
         public int HoldOrderMode { get; set; }
     }
+    [JsonObject]
     public class Payment
     {
         public int IdPayment { get; set; }

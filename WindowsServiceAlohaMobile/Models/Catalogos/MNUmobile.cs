@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsServiceAlohaMobile.Models.Aloha.Catalogos
 {
+    [JsonObject]
     public class MNUmobile
     {
         public int id_menu { get; set; }
@@ -17,6 +19,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.Catalogos
 
         public List<SubMenu> subMenus { get; set; } = new List<SubMenu>();
     }
+    [JsonObject]
     public class SubMenu
     {
         public int id { get; set; }
@@ -32,7 +35,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.Catalogos
         public List<Item> items { get; set; } = new List<Item>();
         public List<Item> Btns { get; set; } = new List<Item>();
     }
-
+    [JsonObject]
     public class Item
     {
         public int PosicionDbf { get; set; }
@@ -82,7 +85,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.Catalogos
         public int EjeY { get; set; }
 
     }
-
+    [JsonObject]
     public class Mod
     {
         public int id_modificador { get; set; }
