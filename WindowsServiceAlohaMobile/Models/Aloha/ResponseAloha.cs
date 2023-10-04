@@ -11,6 +11,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
     [JsonObject]
     public class ResponseAloha
     {
+        public int IdEmpleadoSistema { get; set; }
         public bool isClockIn { get; set; }
         public bool Estado { get; set; }
         public List<MesaEmpleado> mesas_empleado { get; set; }

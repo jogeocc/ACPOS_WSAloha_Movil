@@ -94,6 +94,7 @@ namespace WindowsServiceAlohaMobile.Utils
 
                     int IdSistema = xFunction.LogIn(IdTerm, IdEmpleado, Password, "");
                     responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+                    responseAloha.IdEmpleadoSistema = IdSistema;
                     responseAloha.isClockIn = IsAlreadyClockIn(IdSistema);
                     responseAloha.mensaje = "Login realizado con exito";
                     responseAloha.Nombre_Empleado = NombreEmpleado(IdSistema);
