@@ -39,7 +39,7 @@ namespace WindowsServiceAlohaMobile
         public static RestSAP restSAP = new RestSAP();
         public static DbManager DbManager = new DbManager();
         public static Thread HiloProductoPendiente;
-
+        public static bool isServicio = true;
 
         public ACPOS_SERVICE_MOBILE()
         {
@@ -48,6 +48,7 @@ namespace WindowsServiceAlohaMobile
         HttpSelfHostServer server;
         public void inicio()
         {
+            isServicio = false;
             OnStart(new string[] { });
         }
         protected override void OnStart(string[] args)
@@ -71,6 +72,13 @@ namespace WindowsServiceAlohaMobile
                 logger.Info($"CARGANDO SUBPROCESOS");
                 ProcesarOrdenPendiente();
                 logger.Info($"SISTEMA CARGADO CON EXITO");
+                if (!isServicio)
+                {
+                    logger.Info($"EJECUCION COMO APP LOGRADA");
+                    while (true)
+                    {
+                    }
+                }
             }
             catch (Exception ex)
             {
