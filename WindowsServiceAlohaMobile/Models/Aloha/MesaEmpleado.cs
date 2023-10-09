@@ -81,7 +81,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
                     ||
                     ModCode == (int)ModCodes.MOD_DELETED;
             }
-        }
+        }  
 
         //CAMPOS DE LA FECHA 10/05/2023
         //AUTO HOLD ORDER MODE
