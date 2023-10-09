@@ -934,6 +934,7 @@ namespace WindowsServiceAlohaMobile.Utils
                     COMPMobile comp = new COMPMobile();
                     comp.Name = p.NAME;
                     comp.Id = p.ID;
+                    List.Add(comp);
                 }
 
             }catch(Exception ex)
