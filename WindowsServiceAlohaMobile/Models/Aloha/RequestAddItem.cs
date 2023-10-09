@@ -14,6 +14,9 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public int IdTerm { get; set; }
         public int IdCheck { get; set; }
         public List<ItemAloha> item { get; set; } = new List<ItemAloha>();
+
+        public int NumSilla { get; set; }
+
     }
     [JsonObject]
     public class ItemAloha

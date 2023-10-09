@@ -414,7 +414,18 @@ namespace WindowsServiceAlohaMobile.Utils
                 List<int> IdsEntryes = new List<int>();
                 foreach (ItemAloha item in requestAddItem.item)
                 {
-                    int IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
+
+                    int IdEntryBase = 0;
+
+                    if(requestAddItem.NumSilla > 0)
+                    {
+                        IdEntryBase = xFunction.BeginPivotSeatItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount, requestAddItem.NumSilla);
+                    }
+                    else
+                    {
+                        IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
+                    }
+
                     IdsEntryes.Add(IdEntryBase);
                     #region modificadores
                     //int NivelMod = 1;
@@ -466,6 +477,7 @@ namespace WindowsServiceAlohaMobile.Utils
                     #endregion
 
                     #endregion
+                    //xFunction.
                     xFunction.EndItem(requestAddItem.IdTerm);
                     if (!string.IsNullOrEmpty(item.SpecialMessage) || !string.IsNullOrEmpty(item.Unidad_Medida))
                     {
@@ -476,7 +488,7 @@ namespace WindowsServiceAlohaMobile.Utils
                         xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, IdEntryBase, Mensaje);
                     }
                 }
-
+                
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto insertado con exito";
                 responseAloha.check = RecuperarCheque(requestAddItem.IdCheck, IdsEntryes);
