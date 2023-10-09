@@ -910,7 +910,17 @@ namespace WindowsServiceAlohaMobile.Utils
                 List<int> IdsEntryes = new List<int>();
                 foreach (ItemAloha item in requestHoldCheck.item)
                 {
-                    int IdEntryBase = xFunction.BeginItem(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, item.IdItem, "", item.Amount);
+
+                    int IdEntryBase = 0;
+
+                    if (requestHoldCheck.NumSilla > 0)
+                    {
+                        IdEntryBase = xFunction.BeginPivotSeatItem(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, item.IdItem, "", item.Amount, requestHoldCheck.NumSilla);
+                    }
+                    else
+                    {
+                        IdEntryBase = xFunction.BeginItem(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, item.IdItem, "", item.Amount);
+                    }
                     IdsEntryes.Add(IdEntryBase);
                     #region SECCION DE MODIFICADORES.
 
@@ -982,6 +992,7 @@ namespace WindowsServiceAlohaMobile.Utils
                     #region HOLD ENTRY
                     xFunction.DeselectAllEntries(requestHoldCheck.IdTerm);
                     xFunction.SelectEntryAndChildren(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, IdEntryBase);
+                    //1 => es igual a true, 0 => es igual a false
                     xFunction.HoldUnorderedEntriesOnCheck(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, 1);
                     xFunction.DeselectAllEntries(requestHoldCheck.IdTerm);
                     #endregion
