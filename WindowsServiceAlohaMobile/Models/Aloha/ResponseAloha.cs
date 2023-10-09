@@ -31,5 +31,6 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public int NumCheck { get; set; }
         //CAMPO PAGO PENDIENTE 09-06-2023
         public Pagos_pendientes pago_Pendiente { get; set; }
+
     }
 }

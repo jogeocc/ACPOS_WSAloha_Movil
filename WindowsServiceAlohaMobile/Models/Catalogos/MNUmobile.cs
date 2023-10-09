@@ -18,6 +18,9 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.Catalogos
         public byte status { get; set; } = 1;
 
         public List<SubMenu> subMenus { get; set; } = new List<SubMenu>();
+
+        public bool UseSeats { get; set; }
+
     }
     [JsonObject]
     public class SubMenu

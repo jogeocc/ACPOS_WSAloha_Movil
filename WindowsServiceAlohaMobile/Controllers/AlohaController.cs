@@ -132,6 +132,24 @@ namespace WindowsServiceAlohaMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, SmartAlohaCodigos, Configuration.Formatters.JsonFormatter);
         }
 
+
+        [HttpGet]
+        [Route("PROMO")]
+        public HttpResponseMessage PROMO()
+        {
+            var promociones = ACPOS_SERVICE_MOBILE.Catalogos.ObtenerPromos();
+            return Request.CreateResponse(HttpStatusCode.OK, promociones, Configuration.Formatters.JsonFormatter);
+        }
+
+
+        [HttpGet]
+        [Route("COMP")]
+        public HttpResponseMessage COMP()
+        {
+            var Cortesias = ACPOS_SERVICE_MOBILE.Catalogos.ObtenerCortesias();
+            return Request.CreateResponse(HttpStatusCode.OK, Cortesias, Configuration.Formatters.JsonFormatter);
+        }
+
         //ACCIONES DE ALOHA CONNECTION
         [HttpPost]
         [Route("clockin")]

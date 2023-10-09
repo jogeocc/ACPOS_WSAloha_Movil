@@ -4,6 +4,7 @@ using AlohaLibrary.Implementaciones;
 using AlohaLibrary.Modelos;
 using Design_Library;
 using LecturaAppConfig;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ using WindowsServiceAlohaMobile.EntityFrameWork.Context;
 using WindowsServiceAlohaMobile.EntityFrameWork.Models;
 using WindowsServiceAlohaMobile.Enums;
 using WindowsServiceAlohaMobile.Models.Aloha.Catalogos;
+using WindowsServiceAlohaMobile.Models.Catalogos;
 
 namespace WindowsServiceAlohaMobile.Utils
 {
@@ -33,6 +35,8 @@ namespace WindowsServiceAlohaMobile.Utils
         private List<PNL> PNLSDbfs = new List<PNL>();
         private List<VER> VerDBFS = new List<VER>();
         private List<QTYPRICE> Qtyprices = new List<QTYPRICE>();
+        private List<PRO> PRODbfs = new List<PRO>();
+        private List<CMP> CMPDbfs = new List<CMP>();
 
         private int BotonPlu = 999999;
         public EstructurarData()
@@ -881,6 +885,62 @@ namespace WindowsServiceAlohaMobile.Utils
             }
 
             return Name;
+        }
+
+
+        // FUNCIONES EXTRA 12-06-2023
+
+        public List<PROMOMobile> ObtenerPromos()
+        {
+            List<PROMOMobile> list = new List<PROMOMobile>();
+            try
+            {
+                using (AplicacionBdContextoALH db = new AplicacionBdContextoALH(pathALoha))
+                {
+                    PRODbfs = new PROServicio(db).GetAll();
+                }
+
+                foreach (var p in PRODbfs)
+                {
+                    PROMOMobile Promo = new PROMOMobile();
+
+                    Promo.Name = p.NAME;
+                    Promo.Id = p.ID;
+
+                    list.Add(Promo);
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL OBTENER PROMOS",ex);
+            }
+            return list;
+        }
+
+        public List<COMPMobile> ObtenerCortesias()
+        {
+            List<COMPMobile> List = new List<COMPMobile>();
+            try
+            {
+                using(AplicacionBdContextoALH db = new AplicacionBdContextoALH())
+                {
+                    CMPDbfs = new CMPServicio(db).GetAll();
+                }
+                foreach(var p in CMPDbfs)
+                {
+                    COMPMobile comp = new COMPMobile();
+                    comp.Name = p.NAME;
+                    comp.Id = p.ID;
+                }
+
+            }catch(Exception ex)
+            {
+                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL OBTENER CORTESIAS",ex);
+            }
+            return List;
         }
     }
 }

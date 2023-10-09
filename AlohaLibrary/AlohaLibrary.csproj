@@ -48,6 +48,7 @@
     <Compile Include="Implementaciones\ACCServicio.cs" />
     <Compile Include="Implementaciones\BTNServicio.cs" />
     <Compile Include="Implementaciones\CITServicio.cs" />
+    <Compile Include="Implementaciones\CMPServicio.cs" />
     <Compile Include="Implementaciones\GCHKINFOServicio.cs" />
     <Compile Include="Implementaciones\GCIServicio.cs" />
     <Compile Include="Implementaciones\JOBServicio.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Interfaces\IBTN.cs" />
     <Compile Include="Interfaces\ICATServicio.cs" />
     <Compile Include="Interfaces\ICIT.cs" />
+    <Compile Include="Interfaces\ICMP.cs" />
     <Compile Include="Interfaces\IGCHKINFOServicio.cs" />
     <Compile Include="Interfaces\IGCI.cs" />
     <Compile Include="Interfaces\IGNDVoid.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="Modelos\BTN.cs" />
     <Compile Include="Modelos\CAT.cs" />
     <Compile Include="Modelos\CIT.cs" />
+    <Compile Include="Modelos\CMP.cs" />
     <Compile Include="Modelos\GCHKINFO.cs" />
     <Compile Include="Modelos\GCI.cs" />
     <Compile Include="Modelos\GNDVoid.cs" />
