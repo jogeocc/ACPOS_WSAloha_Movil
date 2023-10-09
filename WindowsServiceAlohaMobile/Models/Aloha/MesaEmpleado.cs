@@ -87,6 +87,10 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         //AUTO HOLD ORDER MODE
         public string HoldTime { get; set; } = "";
         public int HoldOrderMode { get; set; }
+
+        //CAMPOS DE LA FECHA 09/10/2023
+        public int NumSilla { get; set; }
+
     }
     [JsonObject]
     public class Payment

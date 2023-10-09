@@ -1273,6 +1273,7 @@ namespace WindowsServiceAlohaMobile.Utils
                         {
                             check.Items.First(I => I.IdEntry == IdPadre).SpecialMessage = item.Name;
                         }
+                        item.NumSilla = ItemAbierto.GetLongVal("SEAT");
                         ItemAbierto = ItemsEmpleado.Next();
                     }
 
