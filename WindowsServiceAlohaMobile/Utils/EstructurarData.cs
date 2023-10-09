@@ -94,6 +94,7 @@ namespace WindowsServiceAlohaMobile.Utils
             foreach (MNU menu in MenusDbfs.Where(M => M.ID == Menu))
             {
                 MNUmobile mNUmobile = new MNUmobile();
+                mNUmobile.UseSeats = ACPOS_SERVICE_MOBILE.AlohaIni.UseSeats;
                 mNUmobile.id_menu = menu.ID;
                 mNUmobile.descripcion_larga = menu.LONGNAME;
                 mNUmobile.descripcion_corta = menu.SHORTNAME;
