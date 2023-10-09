@@ -417,7 +417,7 @@ namespace WindowsServiceAlohaMobile.Utils
 
                     int IdEntryBase = 0;
 
-                    if(requestAddItem.NumSilla > 0)
+                    if (requestAddItem.NumSilla > 0)
                     {
                         IdEntryBase = xFunction.BeginPivotSeatItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount, requestAddItem.NumSilla);
                     }
@@ -488,7 +488,7 @@ namespace WindowsServiceAlohaMobile.Utils
                         xFunction.ApplySpecialMessage(requestAddItem.IdTerm, requestAddItem.IdCheck, IdEntryBase, Mensaje);
                     }
                 }
-                
+
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Producto insertado con exito";
                 responseAloha.check = RecuperarCheque(requestAddItem.IdCheck, IdsEntryes);
@@ -1369,11 +1369,11 @@ namespace WindowsServiceAlohaMobile.Utils
                         AmountPayed += Pago.Amount;
                     });
                 }
-                check.AmountDue = MontoTotal - AmountPayed;
+                check.AmountDue = ChequeAbierto.GetDoubleVal("COMPLETETOTAL");
 
                 check.Guests = ChequeAbierto.GetLongVal("GUESTS");
                 check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
-                check.TotalCheck = ChequeAbierto.GetDoubleVal("COMPLETETOTAL");
+                check.TotalCheck = ChequeAbierto.GetDoubleVal("SUBTOTAL");
                 //se agrega un mas 1, ya que empieza a contar a partir del cero 0
                 check.NumCheck = ChequeAbierto.GetLongVal($"NUMBER") + 1;
 
