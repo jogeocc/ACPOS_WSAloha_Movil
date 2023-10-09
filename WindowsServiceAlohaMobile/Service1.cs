@@ -119,7 +119,16 @@ namespace WindowsServiceAlohaMobile
             AlohaIni.MinNumLenghtEmployee = NumMinEmp;
             int.TryParse(iniAloha.Read("MAXPASSWORD", "Ibertech"), out int NumMaxPassEmp);
             AlohaIni.MaxPassLenghtEmployee = NumMaxPassEmp;
+            string IsOnlyTables = iniAloha.Read("PIVOTSEATING", "Ibertech");
+            
+            if(IsOnlyTables.ToLower()== "false") {
+                AlohaIni.UseSeats = false;
+            }
+            else
+            {
+                AlohaIni.UseSeats = true;
 
+            }
         }
 
         public static void ProcesarOrdenPendiente()

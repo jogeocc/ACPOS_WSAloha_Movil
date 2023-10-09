@@ -12,5 +12,6 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.Transacciones
     {
         public int MinNumLenghtEmployee { get; set; }
         public int MaxPassLenghtEmployee { get; set; }
+        public bool UseSeats { get; set; }
     }
 }
