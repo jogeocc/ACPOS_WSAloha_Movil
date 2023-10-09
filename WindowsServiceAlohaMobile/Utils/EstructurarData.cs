@@ -910,6 +910,7 @@ namespace WindowsServiceAlohaMobile.Utils
                     list.Add(Promo);
                 }
 
+                list = list.OrderBy(C => C.Id).ToList();
 
 
             }
@@ -921,7 +922,7 @@ namespace WindowsServiceAlohaMobile.Utils
         }
 
         public List<COMPMobile> ObtenerCortesias()
-        {
+        { 
             List<COMPMobile> List = new List<COMPMobile>();
             try
             {
@@ -936,6 +937,7 @@ namespace WindowsServiceAlohaMobile.Utils
                     comp.Id = p.ID;
                     List.Add(comp);
                 }
+                List = List.OrderBy(C=>C.Id).ToList();
 
             }catch(Exception ex)
             {
