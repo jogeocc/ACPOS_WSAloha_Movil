@@ -1369,11 +1369,13 @@ namespace WindowsServiceAlohaMobile.Utils
                         AmountPayed += Pago.Amount;
                     });
                 }
-                check.AmountDue = ChequeAbierto.GetDoubleVal("COMPLETETOTAL");
+
+
+                check.AmountDue = ChequeAbierto.GetDoubleVal("COMPLETETOTAL") - AmountPayed;
 
                 check.Guests = ChequeAbierto.GetLongVal("GUESTS");
                 check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
-                check.TotalCheck = ChequeAbierto.GetDoubleVal("SUBTOTAL");
+                check.TotalCheck = ChequeAbierto.GetDoubleVal("COMPLETETOTAL");
                 //se agrega un mas 1, ya que empieza a contar a partir del cero 0
                 check.NumCheck = ChequeAbierto.GetLongVal($"NUMBER") + 1;
 
