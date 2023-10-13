@@ -303,6 +303,7 @@ namespace WindowsServiceAlohaMobile.Controllers
         [Route("ValidarPagoPendiente")]
         public HttpResponseMessage ValidarPagoPendiente(Pagos_pendientes requestPagoPendiente)
         {
+            ACPOS_SERVICE_MOBILE.logger.Info($"JSON RECUPERADO {JsonConvert.SerializeObject(requestPagoPendiente)}");
             var response = ACPOS_SERVICE_MOBILE.AlohaConnection.ValidarPagoPendiente(requestPagoPendiente);
 
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);

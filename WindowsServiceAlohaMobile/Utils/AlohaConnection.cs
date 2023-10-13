@@ -329,7 +329,10 @@ namespace WindowsServiceAlohaMobile.Utils
 
             DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm, idMesa, idEmpleado);
 
-            response.ticket_precuenta = new Ticket(@"Design\config-ticket.txt", detallePedido);
+            string ruta= Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Design\config-ticket.txt");
+
+
+            response.ticket_precuenta = new Ticket(ruta, detallePedido);
 
             foreach (var pie in response.ticket_precuenta.pie)
             {
