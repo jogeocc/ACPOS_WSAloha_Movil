@@ -824,6 +824,8 @@ namespace WindowsServiceAlohaMobile.Utils
                 VerificarIber();
                 LoginInterno(requestDividirCuenta.IdTerm, requestDividirCuenta.IdEmpleado);
 
+
+
                 xFunction.DeselectAllEntries(requestDividirCuenta.IdTerm);
                 foreach (CheckOpen Cuenta in requestDividirCuenta.cheksOpen)
                 {
@@ -2409,5 +2411,16 @@ namespace WindowsServiceAlohaMobile.Utils
             }
 
         }
+
+
+
+        #region
+
+        public void DivisionPrueba()
+        {
+            VerificarIber();
+        }
+
+        #endregion
     }
 }

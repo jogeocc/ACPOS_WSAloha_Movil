@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 using WindowsServiceAlohaMobile.EntityFrameWork.Context;
+using WindowsServiceAlohaMobile.EntityFrameWork.Interface;
 using WindowsServiceAlohaMobile.EntityFrameWork.Models;
 using WindowsServiceAlohaMobile.Models.Aloha;
 
@@ -209,6 +210,82 @@ namespace WindowsServiceAlohaMobile.Utils
                 ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL VALIDAR EXISTENCIA DE PAGO PENDIENTE", ex);
             }
             return ISsuccess;
+        }
+
+
+        public bool IsDeviceValid(string IdDevice)
+        {
+            bool IsValid = false;
+            try
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    var device = db.device.Where(D => D.Id_Device == IdDevice).First();
+                    if (device != null && device.Id_Device != "")
+                    {
+                        IsValid = true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar datos de tabla", ex);
+            }
+            return IsValid;
+        }
+
+        public bool CheckNumMaxLicencias()
+        {
+            bool IsValid = false;
+            try
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    var device = db.device.ToList();
+
+                    int NumDevices = device.Count;
+                    if (NumDevices >= 3)
+                    {
+                        IsValid = false;
+                    }
+                    else
+                    {
+                        IsValid = true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar datos de tabla", ex);
+            }
+            return IsValid;
+        }
+
+        public bool AddDeviceLicencia(string Id_device, string Id_name)
+        {
+            bool IsSuccess = false;
+            try
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    Device device = new Device();
+
+                    device.Id_Device = Id_device;
+                    device.Device_name = Id_name;
+
+
+                    db.device.Add(device);
+                    db.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar datos de tabla", ex);
+            }
+            return IsSuccess;
         }
     }
 }

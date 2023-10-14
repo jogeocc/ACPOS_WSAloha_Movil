@@ -14,6 +14,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using WindowsServiceAlohaMobile.Models.Licencia;
 
 namespace WindowsServiceAlohaMobile.Controllers
 {
@@ -148,6 +149,14 @@ namespace WindowsServiceAlohaMobile.Controllers
         {
             var Cortesias = ACPOS_SERVICE_MOBILE.Catalogos.ObtenerCortesias();
             return Request.CreateResponse(HttpStatusCode.OK, Cortesias, Configuration.Formatters.JsonFormatter);
+        }
+
+        [HttpPost]
+        [Route("IdTelefono")]
+        public HttpResponseMessage IdTelefono(DeviceLicencia device)
+        {
+            bool response = ACPOS_SERVICE_MOBILE.Licencia.ValidarLimiteLicencias(device);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
         //ACCIONES DE ALOHA CONNECTION

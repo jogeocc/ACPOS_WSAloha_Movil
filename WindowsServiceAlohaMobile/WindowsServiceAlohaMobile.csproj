@@ -141,6 +141,7 @@
     <Compile Include="Endpoints\SapEndpoints.cs" />
     <Compile Include="EntityFrameWork\Context\ApplicationDbContext.cs" />
     <Compile Include="EntityFrameWork\Enums\TipoRespuesta.cs" />
+    <Compile Include="EntityFrameWork\Implementaciones\DeviceServicio.cs" />
     <Compile Include="EntityFrameWork\Implementaciones\Mapeo_pagoServicio.cs" />
     <Compile Include="EntityFrameWork\Implementaciones\Pagos_pendientesServicio.cs" />
     <Compile Include="EntityFrameWork\Implementaciones\Producto_pedido_esperaServicio.cs" />
@@ -149,11 +150,13 @@
     <Compile Include="EntityFrameWork\Infraestructura\IDatabaseFactory.cs" />
     <Compile Include="EntityFrameWork\Infraestructura\IServiceBase.cs" />
     <Compile Include="EntityFrameWork\Infraestructura\ServiceBase.cs" />
+    <Compile Include="EntityFrameWork\Interface\IDevice.cs" />
     <Compile Include="EntityFrameWork\Interface\IMapeo_pagos.cs" />
     <Compile Include="EntityFrameWork\Interface\IPagos_pendientes.cs" />
     <Compile Include="EntityFrameWork\Interface\IProducto_pedido_espera.cs" />
     <Compile Include="EntityFrameWork\Migrations\202211032220510_MapeoDePagosV1.cs" />
     <Compile Include="EntityFrameWork\Migrations\Configuration.cs" />
+    <Compile Include="EntityFrameWork\Models\Device.cs" />
     <Compile Include="EntityFrameWork\Models\Mapeo_pagos.cs" />
     <Compile Include="EntityFrameWork\Models\Pagos_pendientes.cs" />
     <Compile Include="EntityFrameWork\Models\Producto_Pedido_Espera.cs" />
@@ -213,6 +216,7 @@
     <Compile Include="Models\Catalogos\TAXMobile.cs" />
     <Compile Include="Models\Catalogos\TDRmobile.cs" />
     <Compile Include="Models\Catalogos\VOIDMobile.cs" />
+    <Compile Include="Models\Licencia\DeviceLicencia.cs" />
     <Compile Include="Models\SAP\TicketSapModel.cs" />
     <Compile Include="Models\Transacciones\BdInterna.cs" />
     <Compile Include="Models\Transacciones\InfoAloha.cs" />
@@ -238,6 +242,7 @@
     <Compile Include="Utils\EstructurarData.cs" />
     <Compile Include="Utils\FuncionesArchivo.cs" />
     <Compile Include="Utils\LecturaINI.cs" />
+    <Compile Include="Utils\Licencia.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -350,6 +355,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

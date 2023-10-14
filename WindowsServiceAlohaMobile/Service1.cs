@@ -40,6 +40,7 @@ namespace WindowsServiceAlohaMobile
         public static DbManager DbManager = new DbManager();
         public static Thread HiloProductoPendiente;
         public static bool isServicio = true;
+        public static Licencia Licencia = new Licencia();
 
         public ACPOS_SERVICE_MOBILE()
         {
