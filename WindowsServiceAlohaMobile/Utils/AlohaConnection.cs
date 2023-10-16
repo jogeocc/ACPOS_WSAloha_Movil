@@ -329,7 +329,7 @@ namespace WindowsServiceAlohaMobile.Utils
 
             DetallePedido detallePedido = GetDetallePedidoTicket(cheque, mesa, idTerm, idMesa, idEmpleado);
 
-            string ruta= Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Design\config-ticket.txt");
+            string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Design\config-ticket.txt");
 
 
             response.ticket_precuenta = new Ticket(ruta, detallePedido);
@@ -2412,7 +2412,21 @@ namespace WindowsServiceAlohaMobile.Utils
 
         }
 
+        //16-10-2023
 
+        public List<int> TablesUsed()
+        {
+            List<int> List = new List<int>();
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                ACPOS_SERVICE_MOBILE.logger.Error($"", ex);
+            }
+            return List;
+        }
 
         #region
 
