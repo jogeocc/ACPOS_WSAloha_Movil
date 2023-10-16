@@ -278,6 +278,7 @@ namespace WindowsServiceAlohaMobile.Utils
 
                     db.device.Add(device);
                     db.SaveChanges();
+                    IsSuccess = true;
                 }
 
             }

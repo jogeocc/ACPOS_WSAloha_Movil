@@ -25,8 +25,14 @@ namespace WindowsServiceAlohaMobile.EntityFrameWork.Context
         {
 
             dbModelBuilder.Entity<Device>()
-    .HasIndex(d => new { d.Id_Device })
-    .IsUnique(true);
+          .Property(d => d.Id_Device)
+          .IsRequired();
+
+            dbModelBuilder.Entity<Device>()
+                .HasIndex(d => new { d.Id_Device })
+                .IsUnique(true)
+            ;
+
         }
 
         public override Task<int> SaveChangesAsync()

@@ -12,12 +12,13 @@ namespace WindowsServiceAlohaMobile.EntityFrameWork.Models
     public class Device
     {
         [Key]
-        public int ID{ get; set; }
+        public int ID { get; set; }
 
-        
+
+        [MaxLength(100)]
         public string Id_Device { get; set; }
 
-        public string Device_name {  get; set; }
+        public string Device_name { get; set; }
 
     }
 }
