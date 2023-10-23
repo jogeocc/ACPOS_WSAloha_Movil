@@ -1044,6 +1044,13 @@ namespace WindowsServiceAlohaMobile.Utils
                     mesaEmpleado.Name = MesaAbierta.GetStringVal("NAME");
                     mesaEmpleado.IsTable = MesaAbierta.GetBoolVal("TYPE") == 0 ? false : true;
                     mesaEmpleado.IdMesa = MesaAbierta.GetLongVal("TABLEDEF_ID");
+                    mesaEmpleado.NumSeats = MesaAbierta.GetLongVal("NUM_SEATS");
+                    mesaEmpleado.NumSeats = mesaEmpleado.NumSeats - 1;
+                    if (mesaEmpleado.NumSeats < 0)
+                    {
+                        mesaEmpleado.NumSeats = 0;
+
+                    }
                     mesaEmpleado.IsHold = IsAnyCheckHold(mesaEmpleado.Id, idTerm);
                     mesaEmpleado.IsHoldVERSION2 = mesaEmpleado.IsHold ? "SI" : "NO";
                     IberEnum ChequesEmpleado = MesaAbierta.GetEnum((int)COMEnums.INTERNAL_TABLES_CHECKS);

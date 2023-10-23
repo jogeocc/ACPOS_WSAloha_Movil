@@ -21,6 +21,9 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public List<Check> Checks { get; set; } = new List<Check>();
         public bool IsHold { get; set; }
         public string IsHoldVERSION2 { get; set; }
+
+        public int NumSeats {  get; set; } 
+
     }
     [JsonObject]
     public class Check
@@ -35,7 +38,6 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public List<Promotion> Promotions { get; set; } = new List<Promotion>();
         public List<Comp> Comps { get; set; } = new List<Comp>();
 
-        [JsonIgnore]
         public int Guests { get; set; }
         public double TotalCheck { get; set; }
         public int NumCheck { get; set; }

@@ -24,7 +24,7 @@ namespace WindowsServiceAlohaMobile
 
     public partial class ACPOS_SERVICE_MOBILE : ServiceBase
     {
-        public static string Version = "Versión 25";
+        public static string Version = "Versión 28";
         public static readonly ILog logger = LogManager.GetLogger("Aloha_vapiano");
         public bool iniciar = false;
         public bool IsError = false;
@@ -121,8 +121,9 @@ namespace WindowsServiceAlohaMobile
             int.TryParse(iniAloha.Read("MAXPASSWORD", "Ibertech"), out int NumMaxPassEmp);
             AlohaIni.MaxPassLenghtEmployee = NumMaxPassEmp;
             string IsOnlyTables = iniAloha.Read("PIVOTSEATING", "Ibertech");
-            
-            if(IsOnlyTables.ToLower()== "false") {
+
+            if (IsOnlyTables.ToLower() == "false")
+            {
                 AlohaIni.UseSeats = false;
             }
             else
