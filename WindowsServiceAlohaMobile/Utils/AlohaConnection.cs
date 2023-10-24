@@ -420,9 +420,9 @@ namespace WindowsServiceAlohaMobile.Utils
 
                     int IdEntryBase = 0;
 
-                    if (requestAddItem.NumSilla > 0)
+                    if (item.NumSilla > 0)
                     {
-                        IdEntryBase = xFunction.BeginPivotSeatItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount, requestAddItem.NumSilla);
+                        IdEntryBase = xFunction.BeginPivotSeatItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount, item.NumSilla);
                     }
                     else
                     {
@@ -918,9 +918,9 @@ namespace WindowsServiceAlohaMobile.Utils
 
                     int IdEntryBase = 0;
 
-                    if (requestHoldCheck.NumSilla > 0)
+                    if (item.NumSilla > 0)
                     {
-                        IdEntryBase = xFunction.BeginPivotSeatItem(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, item.IdItem, "", item.Amount, requestHoldCheck.NumSilla);
+                        IdEntryBase = xFunction.BeginPivotSeatItem(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, item.IdItem, "", item.Amount, item.NumSilla);
                     }
                     else
                     {

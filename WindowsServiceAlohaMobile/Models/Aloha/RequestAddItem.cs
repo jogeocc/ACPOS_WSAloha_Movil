@@ -15,7 +15,6 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public int IdCheck { get; set; }
         public List<ItemAloha> item { get; set; } = new List<ItemAloha>();
 
-        public int NumSilla { get; set; }
 
     }
     [JsonObject]
@@ -29,6 +28,8 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         //13/09/2022 CAMPOS ADICIONALES PARA OBTENCION DE PRODUCTOS DE PESO KG,LT, LB
         public string Unidad_Medida { get; set; }
         public double Cantidad_Peso { get; set; }
+        public int NumSilla { get; set; }
+
     }
     [JsonObject]
     public class Mod
