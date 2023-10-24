@@ -22,7 +22,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public bool IsHold { get; set; }
         public string IsHoldVERSION2 { get; set; }
 
-        public int NumSeats {  get; set; } 
+        public int NumSeats { get; set; }
 
     }
     [JsonObject]
@@ -41,6 +41,8 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public int Guests { get; set; }
         public double TotalCheck { get; set; }
         public int NumCheck { get; set; }
+        public int NumSilas { get; set; }
+
     }
     [JsonObject]
     public class Comp
@@ -83,7 +85,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
                     ||
                     ModCode == (int)ModCodes.MOD_DELETED;
             }
-        }  
+        }
 
         //CAMPOS DE LA FECHA 10/05/2023
         //AUTO HOLD ORDER MODE

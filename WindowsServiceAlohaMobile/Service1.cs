@@ -24,7 +24,7 @@ namespace WindowsServiceAlohaMobile
 
     public partial class ACPOS_SERVICE_MOBILE : ServiceBase
     {
-        public static string Version = "Versión 28";
+        public static string Version = "Versión 30";
         public static readonly ILog logger = LogManager.GetLogger("Aloha_vapiano");
         public bool iniciar = false;
         public bool IsError = false;

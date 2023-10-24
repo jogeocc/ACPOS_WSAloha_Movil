@@ -1240,6 +1240,8 @@ namespace WindowsServiceAlohaMobile.Utils
                 xFunction.GetCheckTotal(IdCheck, out SubTotal, out tax);
                 check.Amount = SubTotal;
                 check.Tax = tax;
+
+                //check.NumSilas = GetSillas();
                 double MontoTotal = ChequeAbierto.GetDoubleVal("SUBTOTAL");
                 //ITEMS DEL CHEQUE
                 List<Producto_Pedido_Espera> ListaPedidos = ACPOS_SERVICE_MOBILE.DbManager.GetProductosTiempoEspera(IdCheck);
