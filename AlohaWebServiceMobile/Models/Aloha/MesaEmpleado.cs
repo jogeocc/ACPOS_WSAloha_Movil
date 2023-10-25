@@ -38,6 +38,7 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int Guests { get; set; }
         public double TotalCheck { get; set; }
         public int NumCheck { get; set; }
+        public int NumSillas { get; set; }
     }
 
     public class Comp

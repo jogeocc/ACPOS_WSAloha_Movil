@@ -1193,6 +1193,8 @@ namespace AlohaWebServiceMobile.Utils
                 xFunction.GetCheckTotal(IdCheck, out SubTotal, out tax);
                 check.Amount = SubTotal;
                 check.Tax = tax;
+                int TableId = ChequeAbierto.GetLongVal("TABLE_ID");
+                check.NumSillas = TableId;
                 double MontoTotal = ChequeAbierto.GetDoubleVal("SUBTOTAL");
                 //ITEMS DEL CHEQUE
                 List<Producto_Pedido_Espera> ListaPedidos = App.DbManager.GetProductosTiempoEspera(IdCheck);
