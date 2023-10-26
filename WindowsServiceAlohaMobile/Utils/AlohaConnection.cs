@@ -6,6 +6,7 @@ using LasaFOHLib;
 using LecturaAppConfig;
 using Newtonsoft.Json;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
@@ -1240,7 +1241,15 @@ namespace WindowsServiceAlohaMobile.Utils
                 xFunction.GetCheckTotal(IdCheck, out SubTotal, out tax);
                 check.Amount = SubTotal;
                 check.Tax = tax;
+                int TableId = ChequeAbierto.GetLongVal("TABLE_ID");
+                IberObject table = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES, TableId).First();
+                check.NumSeats = table.GetLongVal("NUM_SEATS") - 1;
 
+                if (check.NumSeats < 0)
+                {
+                    check.NumSeats = 0;
+
+                }
                 //check.NumSilas = GetSillas();
                 double MontoTotal = ChequeAbierto.GetDoubleVal("SUBTOTAL");
                 //ITEMS DEL CHEQUE
@@ -2442,6 +2451,7 @@ namespace WindowsServiceAlohaMobile.Utils
         public void DivisionPrueba()
         {
             VerificarIber();
+            var xxxFunction = AlohaSdkFactory.GetIberFuncs28Instance();
         }
 
         #endregion
