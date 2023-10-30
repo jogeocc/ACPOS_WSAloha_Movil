@@ -1,6 +1,8 @@
-﻿using System;
+﻿using LicenseKeyDll.Utils;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text;
@@ -240,12 +242,18 @@ namespace WindowsServiceAlohaMobile.Utils
             bool IsValid = false;
             try
             {
+                LicenseKeyFunctions Prueba = new LicenseKeyFunctions();
+                string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Licencia.lic");
+                var DATA = Prueba.ShowLicense(ruta);
+
+
+
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
                     var device = db.device.ToList();
 
                     int NumDevices = device.Count;
-                    if (NumDevices >= 3)
+                    if (NumDevices >= DATA.Devices)
                     {
                         IsValid = false;
                     }
