@@ -36,6 +36,10 @@ namespace WindowsServiceAlohaMobile.Utils
                     }
                 }
             }
+            else
+            {
+                ACPOS_SERVICE_MOBILE.logger.Info($"FECHA DE VIGENCIA EXPIRADA");
+            }
             return IsValid;
         }
 
