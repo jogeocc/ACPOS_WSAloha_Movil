@@ -20,16 +20,20 @@ namespace WindowsServiceAlohaMobile.Utils
         public bool ValidarLimiteLicencias(Models.Licencia.DeviceLicencia device)
         {
             bool IsValid = false;
-            if (ValidarLicenciaActiva(device.IdDevice))
+
+            if (IsFechaValida())
             {
-                IsValid = true;
-            }
-            else
-            {
-                bool IsLicenciasMax = ACPOS_SERVICE_MOBILE.DbManager.CheckNumMaxLicencias();
-                if (IsLicenciasMax)
+                if (ValidarLicenciaActiva(device.IdDevice))
                 {
-                    IsValid = ACPOS_SERVICE_MOBILE.DbManager.AddDeviceLicencia(device.IdDevice, device.DeviceName);
+                    IsValid = true;
+                }
+                else
+                {
+                    bool IsLicenciasMax = ACPOS_SERVICE_MOBILE.DbManager.CheckNumMaxLicencias();
+                    if (IsLicenciasMax)
+                    {
+                        IsValid = ACPOS_SERVICE_MOBILE.DbManager.AddDeviceLicencia(device.IdDevice, device.DeviceName);
+                    }
                 }
             }
             return IsValid;
@@ -40,6 +44,15 @@ namespace WindowsServiceAlohaMobile.Utils
             bool Exists = ACPOS_SERVICE_MOBILE.DbManager.IsDeviceValid(IdDevice);
 
             return Exists;
+        }
+
+        public bool IsFechaValida()
+        {
+            bool IsValid = false;
+
+            IsValid = ACPOS_SERVICE_MOBILE.DbManager.IsFechaValida();
+
+            return IsValid;
         }
     }
 }

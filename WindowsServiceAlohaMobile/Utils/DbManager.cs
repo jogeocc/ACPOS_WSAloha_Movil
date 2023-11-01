@@ -296,5 +296,18 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             return IsSuccess;
         }
+
+        public bool IsFechaValida()
+        {
+            bool IsValid = false;
+            LicenseKeyFunctions Prueba = new LicenseKeyFunctions();
+            string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Licencia.lic");
+            var DATA = Prueba.ShowLicense(ruta);
+            if (DATA != null)
+            {
+                IsValid = DateTime.Now.Date <= DATA.Expiration;
+            }
+            return IsValid;
+        }
     }
 }
