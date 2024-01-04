@@ -87,6 +87,9 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.Catalogos
         public int EjeX { get; set; }
         public int EjeY { get; set; }
 
+        public int CX { get; set; }
+        public int CY { get; set; }
+
     }
     [JsonObject]
     public class Mod

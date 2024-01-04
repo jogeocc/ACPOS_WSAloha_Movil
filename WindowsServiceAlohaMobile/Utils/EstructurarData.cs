@@ -244,6 +244,8 @@ namespace WindowsServiceAlohaMobile.Utils
                                 Boton_panel.id_panel = IdPanel;
                                 Boton_panel.EjeX = btn.X;
                                 Boton_panel.EjeY = btn.Y;
+                                Boton_panel.CX = btn.CX;
+                                Boton_panel.CY = btn.CY;
                                 //Boton_panel.descripcion_larga = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
                                 //Boton_panel.descripcion_corta = PNLSDbfs.First(P => P.ID == IdPanel).NAME;
 
@@ -298,6 +300,13 @@ namespace WindowsServiceAlohaMobile.Utils
 
 
                                 Boton_item.id = IdProducto;
+
+
+                                Boton_item.EjeX = btn.X;
+                                Boton_item.EjeY = btn.Y;
+                                Boton_item.CX = btn.CX;
+                                Boton_item.CY = btn.CY;
+
                                 producto = IdProducto;
                                 profundidad = 0;
                                 Boton_item = RecursividadItems(Boton_item);
