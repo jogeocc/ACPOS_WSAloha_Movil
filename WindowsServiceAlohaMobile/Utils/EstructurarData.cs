@@ -451,7 +451,7 @@ namespace WindowsServiceAlohaMobile.Utils
                                         int condicion = int.Parse(modificador.methods[j].ToString());
                                         if (condicion == 0)
                                         {
-                                            ItemMOD.item_precio = modificador.precios[j];
+                                            ItemMOD.item_precio = modificador.precios[j] / 100;
                                         }
                                         else
                                         {
