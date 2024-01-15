@@ -888,7 +888,10 @@ namespace WindowsServiceAlohaMobile.Utils
         {
             ACPOS_SERVICE_MOBILE.logger.Info($"POR ENVIAR INFO HACIA SAP");
             ACPOS_SERVICE_MOBILE.logger.Info($"{JsonConvert.SerializeObject(requestCloseCheckSAP)}");
-            ACPOS_SERVICE_MOBILE.restSAP.SendXmlSAP(requestCloseCheckSAP.SAP_XML);
+            ACPOS_SERVICE_MOBILE.logger.Info($"RECUPERANDO CENTRO DE CONSUMO DE: {requestCloseCheckSAP.CheckId}");
+            int IdRev = recuperarIdRev(requestCloseCheckSAP.CheckId);
+            ACPOS_SERVICE_MOBILE.logger.Info($"CENTRO DE CONSUMO RECUPERADO: {IdRev}");
+            ACPOS_SERVICE_MOBILE.restSAP.SendXmlSAP(requestCloseCheckSAP.SAP_XML, IdRev);
 
         }
 
@@ -1241,6 +1244,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 xFunction.GetCheckTotal(IdCheck, out SubTotal, out tax);
                 check.Amount = SubTotal;
                 check.Tax = tax;
+                check.IdRev = ChequeAbierto.GetLongVal("REV_ID");
                 int TableId = ChequeAbierto.GetLongVal("TABLE_ID");
                 IberObject table = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES, TableId).First();
                 check.NumSeats = table.GetLongVal("NUM_SEATS") - 1;
@@ -2445,6 +2449,27 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             return List;
         }
+
+
+
+        public int recuperarIdRev(int IdCheck) {
+
+            int IdRev = 0;
+            try
+            {
+                IberObject ChequeAbierto = depot.FindObjectFromId((int)COMEnums.INTERNAL_CHECKS, IdCheck).First();
+                IdRev = ChequeAbierto.GetLongVal("REV_ID");
+            }
+            catch (Exception ex) {
+                ACPOS_SERVICE_MOBILE.logger.Error($"", ex);
+
+            }
+
+
+            return IdRev;
+
+        }
+
 
         #region
 

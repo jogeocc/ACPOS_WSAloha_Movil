@@ -14,6 +14,8 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.SAP
 
         public List<DetallePago> socios { get; set; }
 
+        public long Id_Rev { get; set; }
+
     }
     [JsonObject]
     public class DetallePago
@@ -21,5 +23,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.SAP
         public string CardCode { get; set; }
 
         public double Amount { get; set; }
+
+        public long Id_Rev { get; set; }
     }
 }

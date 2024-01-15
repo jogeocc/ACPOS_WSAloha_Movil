@@ -42,6 +42,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public double TotalCheck { get; set; }
         public int NumCheck { get; set; }
         public int NumSeats { get; set; }
+        public int IdRev { get; set; }
 
     }
     [JsonObject]

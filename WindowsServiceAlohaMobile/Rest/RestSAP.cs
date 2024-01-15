@@ -28,7 +28,7 @@ namespace WindowsServiceAlohaMobile.Rest
             ClientSap = new RestClient(Program.appConfig.DIRECCION_SAP);
         }
 
-        public void SendXmlSAP(string xml)
+        public void SendXmlSAP(string xml, long id_rev)
         {
             try
             {
@@ -36,6 +36,7 @@ namespace WindowsServiceAlohaMobile.Rest
                 TicketSapModel ticketSapModel = new TicketSapModel()
                 {
                     Xml = xml,
+                    Id_Rev = id_rev
                 };
                 DataEncrypt EncriptInfo = ACPOS_SERVICE_MOBILE.EncryptDataJson.EncryptDataJSON(ticketSapModel);
                 ACPOS_SERVICE_MOBILE.logger.Info($"JSON: \r\n {JsonConvert.SerializeObject(EncriptInfo)}");

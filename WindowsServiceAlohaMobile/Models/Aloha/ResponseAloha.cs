@@ -32,5 +32,8 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         //CAMPO PAGO PENDIENTE 09-06-2023
         public Pagos_pendientes pago_Pendiente { get; set; }
 
+        //CAMPO PARA RECUPERAR EL ID_REV
+        public int IdRev { get; set; }
+
     }
 }
