@@ -1318,7 +1318,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-
+                    ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar items {IdCheck}", ex);
                 }
                 //PAGOS APLICADOS A LA MESA
                 try
@@ -1343,7 +1343,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-                    ACPOS_SERVICE_MOBILE.logger.Error($"Error al obtener pagos aplicados en la cuenta");
+                    ACPOS_SERVICE_MOBILE.logger.Error($"Error al obtener pagos aplicados en la cuenta {IdCheck}",ex);
                 }
                 //Promociones aplicadas a la mesa
                 try
@@ -1363,7 +1363,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-
+                    ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar Promociones cuenta: {IdCheck}", ex);
                 }
                 //Cortesias aplicadas a la mesa
                 try
@@ -1384,7 +1384,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-
+                    ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar Cortesias cuenta: {IdCheck}", ex);
                 }
                 double AmountPayed = 0;
                 //Aritmetica para Monto pendiente de pagar
@@ -1399,16 +1399,19 @@ namespace WindowsServiceAlohaMobile.Utils
 
 
                 check.AmountDue = ChequeAbierto.GetDoubleVal("COMPLETETOTAL") - AmountPayed;
+                check.AmountDue = MontoTotal - AmountPayed;
 
                 check.Guests = ChequeAbierto.GetLongVal("GUESTS");
                 check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
                 check.TotalCheck = ChequeAbierto.GetDoubleVal("COMPLETETOTAL");
+                check.TotalCheck = MontoTotal;
                 //se agrega un mas 1, ya que empieza a contar a partir del cero 0
                 check.NumCheck = ChequeAbierto.GetLongVal($"NUMBER") + 1;
 
             }
             catch (Exception ex)
             {
+                ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar la cuenta: {IdCheck}", ex);
                 check = null;
             }
             return check;

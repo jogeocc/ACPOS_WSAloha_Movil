@@ -793,7 +793,11 @@ namespace WindowsServiceAlohaMobile.Utils
                     FUNC = Boton.FUNC,
                     PARAMS = Boton.PARAMS,
                     PANELID = Boton.PANELID,
-                    ID = Boton.ID
+                    ID = Boton.ID,
+                    X = Boton.X,
+                    Y = Boton.Y,
+                    CX = Boton.CX,
+                    CY = Boton.CY
                 });
             }
 
