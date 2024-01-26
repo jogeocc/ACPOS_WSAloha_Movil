@@ -1180,6 +1180,68 @@ namespace AlohaWebServiceMobile.Utils
             return responseAloha;
         }
 
+
+        public ResponseAloha LockTable(int idTerm, int idCheck)
+        {
+            VerificarIber();
+            ResponseAloha responseAloha = new ResponseAloha();
+            responseAloha.Estado = BloquearMesa(idTerm, idCheck);
+
+            if (responseAloha.Estado)
+            {
+                responseAloha.mensaje = "Mesa Bloqueada correctamente";
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+            }
+            else
+            {
+                responseAloha.mensaje = "Error al bloquear la mesa";
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+            }
+            return responseAloha;
+        }
+
+
+        public ResponseAloha UnLockTable(int idTerm, int idCheck)
+        {
+            VerificarIber();
+            ResponseAloha responseAloha = new ResponseAloha();
+            responseAloha.Estado = DesbloquearMesa(idTerm, idCheck);
+
+            if (responseAloha.Estado)
+            {
+                responseAloha.mensaje = "Mesa Desbloqueada correctamente";
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+            }
+            else
+            {
+                responseAloha.mensaje = "Error al desbloquear la mesa";
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+            }
+            return responseAloha;
+        }
+
+
+        public ResponseAloha LockOrder(int idTerm, int idCheck)
+        {
+            VerificarIber();
+            ResponseAloha responseAloha = new ResponseAloha();
+            responseAloha.Estado = BloquearOrder(idTerm, idCheck);
+
+            if (responseAloha.Estado)
+            {
+                responseAloha.mensaje = "Mesa Bloqueada correctamente";
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+            }
+            else
+            {
+                responseAloha.mensaje = "Error al bloquear la mesa";
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+            }
+            return responseAloha;
+        }
+
+
+
         private Check RecuperarCheque(int IdCheck)
         {
             Check check = new Check();
@@ -2370,5 +2432,57 @@ namespace AlohaWebServiceMobile.Utils
             }
 
         }
+
+
+        public bool BloquearMesa(int IdTerm, int IdTable)
+        {
+            bool isLockTable = true;
+            try
+            {
+              xFunction.LockTable(IdTerm, IdTable);
+            }
+            catch (Exception ex)
+            {
+                isLockTable = false;
+                App.logger.Error($"ERROR AL BLOQUEAR LA MESA", ex);
+            }
+            return isLockTable;
+        }
+
+
+
+        public bool DesbloquearMesa(int IdTerm, int IdTable)
+        {
+            bool isLockTable = true;
+            try
+            {
+                xFunction.UnlockTable(IdTerm, IdTable);
+            }
+            catch (Exception ex)
+            {
+                isLockTable = false;
+                App.logger.Error($"ERROR AL DESBLOQUEAR LA MESA", ex);
+            }
+            return isLockTable;
+        }
+
+
+
+        public bool BloquearOrder(int IdTerm, int IdTable)
+        {
+            bool isLockTable = true;
+            try
+            {
+                xFunction.Order(IdTerm, IdTable);
+            }
+            catch (Exception ex)
+            {
+                isLockTable = false;
+                App.logger.Error($"ERROR AL DESBLOQUEAR LA MESA", ex);
+            }
+            return isLockTable;
+        }
+
+
     }
 }

@@ -16,6 +16,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using WindowsServiceAlohaMobile.Models.Aloha;
 
 namespace AlohaWebServiceMobile.Controllers
 {
@@ -227,6 +228,27 @@ namespace AlohaWebServiceMobile.Controllers
             ResponseAloha response = App.AlohaConnection.ListTables(requestListTables.IdEmpleado, requestListTables.IdTerm);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
+
+
+        [HttpPost]
+        [Route("LockTable")]
+        public HttpResponseMessage LockTable(RequestLockTable requestLockTable)
+        {
+            ResponseAloha response = App.AlohaConnection.LockTable(requestLockTable.IdTerm, requestLockTable.IdMesa);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+
+
+        [HttpPost]
+        [Route("UnLockTable")]
+        public HttpResponseMessage UnLockTable(RequestLockTable requestLockTable)
+        {
+            ResponseAloha response = App.AlohaConnection.UnLockTable(requestLockTable.IdTerm, requestLockTable.IdMesa);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+
         [HttpPost]
         [Route("GetCheck")]
         public HttpResponseMessage GetCheck(RequestGetCheck requestGetCheck)
@@ -234,6 +256,8 @@ namespace AlohaWebServiceMobile.Controllers
             ResponseAloha response = App.AlohaConnection.GetCheck(requestGetCheck.IdCheck);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
+
+
 
         [HttpPost]
         [Route("DeletePayment")]
