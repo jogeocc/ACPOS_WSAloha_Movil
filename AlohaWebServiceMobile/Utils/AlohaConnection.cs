@@ -1221,27 +1221,6 @@ namespace AlohaWebServiceMobile.Utils
         }
 
 
-        public ResponseAloha LockOrder(int idTerm, int idCheck)
-        {
-            VerificarIber();
-            ResponseAloha responseAloha = new ResponseAloha();
-            responseAloha.Estado = BloquearOrder(idTerm, idCheck);
-
-            if (responseAloha.Estado)
-            {
-                responseAloha.mensaje = "Mesa Bloqueada correctamente";
-                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
-            }
-            else
-            {
-                responseAloha.mensaje = "Error al bloquear la mesa";
-                responseAloha.Codigo = (int)CodigosError.ERROR;
-            }
-            return responseAloha;
-        }
-
-
-
         private Check RecuperarCheque(int IdCheck)
         {
             Check check = new Check();
@@ -2437,8 +2416,10 @@ namespace AlohaWebServiceMobile.Utils
         public bool BloquearMesa(int IdTerm, int IdTable)
         {
             bool isLockTable = true;
+            App.logger.Info($"BLOQUEAR LA MESA - TERM: {IdTerm} MESA: {IdTable}");
             try
             {
+
               xFunction.LockTable(IdTerm, IdTable);
             }
             catch (Exception ex)
@@ -2453,6 +2434,7 @@ namespace AlohaWebServiceMobile.Utils
 
         public bool DesbloquearMesa(int IdTerm, int IdTable)
         {
+            
             bool isLockTable = true;
             try
             {
@@ -2465,24 +2447,6 @@ namespace AlohaWebServiceMobile.Utils
             }
             return isLockTable;
         }
-
-
-
-        public bool BloquearOrder(int IdTerm, int IdTable)
-        {
-            bool isLockTable = true;
-            try
-            {
-                xFunction.Order(IdTerm, IdTable);
-            }
-            catch (Exception ex)
-            {
-                isLockTable = false;
-                App.logger.Error($"ERROR AL DESBLOQUEAR LA MESA", ex);
-            }
-            return isLockTable;
-        }
-
 
     }
 }

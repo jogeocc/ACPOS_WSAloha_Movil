@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.7.34031.279
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlohaWebServiceMobile", "AlohaWebServiceMobile\AlohaWebServiceMobile.csproj", "{A54830F5-F401-4848-8E93-8ABAF90EBCB1}"
 EndProject
@@ -13,22 +13,30 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ACPOS_SERVICIO_MOBILE", "AC
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CGBV|Any CPU = CGBV|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A54830F5-F401-4848-8E93-8ABAF90EBCB1}.CGBV|Any CPU.ActiveCfg = CGBV|Any CPU
+		{A54830F5-F401-4848-8E93-8ABAF90EBCB1}.CGBV|Any CPU.Build.0 = CGBV|Any CPU
 		{A54830F5-F401-4848-8E93-8ABAF90EBCB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A54830F5-F401-4848-8E93-8ABAF90EBCB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A54830F5-F401-4848-8E93-8ABAF90EBCB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A54830F5-F401-4848-8E93-8ABAF90EBCB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C37FF9D-6D23-49EF-BFC3-04CECD5DFF21}.CGBV|Any CPU.ActiveCfg = CGBV|Any CPU
+		{3C37FF9D-6D23-49EF-BFC3-04CECD5DFF21}.CGBV|Any CPU.Build.0 = CGBV|Any CPU
 		{3C37FF9D-6D23-49EF-BFC3-04CECD5DFF21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C37FF9D-6D23-49EF-BFC3-04CECD5DFF21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C37FF9D-6D23-49EF-BFC3-04CECD5DFF21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C37FF9D-6D23-49EF-BFC3-04CECD5DFF21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD265F88-C8A9-4957-BE5E-1EBECF613C45}.CGBV|Any CPU.ActiveCfg = CGBV|Any CPU
+		{DD265F88-C8A9-4957-BE5E-1EBECF613C45}.CGBV|Any CPU.Build.0 = CGBV|Any CPU
 		{DD265F88-C8A9-4957-BE5E-1EBECF613C45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD265F88-C8A9-4957-BE5E-1EBECF613C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD265F88-C8A9-4957-BE5E-1EBECF613C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD265F88-C8A9-4957-BE5E-1EBECF613C45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99EE061B-BC8A-446A-80A2-3632A71518EE}.CGBV|Any CPU.ActiveCfg = CGBV
 		{99EE061B-BC8A-446A-80A2-3632A71518EE}.Debug|Any CPU.ActiveCfg = Debug
 		{99EE061B-BC8A-446A-80A2-3632A71518EE}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection

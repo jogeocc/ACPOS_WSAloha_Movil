@@ -493,5 +493,27 @@ namespace WindowsServiceAlohaMobile.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }
+
+
+
+
+        [HttpPost]
+        [Route("LockTable")]
+        public HttpResponseMessage LockTable(RequestLockTable requestLockTable)
+        {
+            ResponseAloha response = ACPOS_SERVICE_MOBILE.AlohaConnection.LockTable(requestLockTable.IdTerm, requestLockTable.IdMesa);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+
+
+        [HttpPost]
+        [Route("UnLockTable")]
+        public HttpResponseMessage UnLockTable(RequestLockTable requestLockTable)
+        {
+            ResponseAloha response = ACPOS_SERVICE_MOBILE.AlohaConnection.UnLockTable(requestLockTable.IdTerm, requestLockTable.IdMesa);
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
     }
 }

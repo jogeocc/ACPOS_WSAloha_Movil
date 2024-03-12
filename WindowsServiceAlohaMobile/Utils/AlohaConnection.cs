@@ -1318,7 +1318,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-                    ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar items {IdCheck}", ex);
+                   // ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar items {IdCheck}", ex);
                 }
                 //PAGOS APLICADOS A LA MESA
                 try
@@ -1343,7 +1343,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-                    ACPOS_SERVICE_MOBILE.logger.Error($"Error al obtener pagos aplicados en la cuenta {IdCheck}",ex);
+                   // ACPOS_SERVICE_MOBILE.logger.Error($"Error al obtener pagos aplicados en la cuenta {IdCheck}",ex);
                 }
                 //Promociones aplicadas a la mesa
                 try
@@ -1363,7 +1363,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-                    ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar Promociones cuenta: {IdCheck}", ex);
+                    //ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar Promociones cuenta: {IdCheck}", ex);
                 }
                 //Cortesias aplicadas a la mesa
                 try
@@ -1384,7 +1384,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-                    ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar Cortesias cuenta: {IdCheck}", ex);
+                  //  ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar Cortesias cuenta: {IdCheck}", ex);
                 }
                 double AmountPayed = 0;
                 //Aritmetica para Monto pendiente de pagar
@@ -1399,12 +1399,24 @@ namespace WindowsServiceAlohaMobile.Utils
 
 
                 check.AmountDue = ChequeAbierto.GetDoubleVal("COMPLETETOTAL") - AmountPayed;
-                check.AmountDue = MontoTotal - AmountPayed;
+                //CAMBIO PARA EL CLUB DE GOLF
+                    check.AmountDue = MontoTotal - AmountPayed;
+                    check.AmountDue = SubTotal - AmountPayed;
+                //-----------------------------
+
 
                 check.Guests = ChequeAbierto.GetLongVal("GUESTS");
                 check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
                 check.TotalCheck = ChequeAbierto.GetDoubleVal("COMPLETETOTAL");
-                check.TotalCheck = MontoTotal;
+                
+                
+                //CAMBIO PARA EL CLUB DE GOLF
+                    check.TotalCheck = MontoTotal;
+                    check.TotalCheck = SubTotal;
+                //-----------------------------
+
+
+
                 //se agrega un mas 1, ya que empieza a contar a partir del cero 0
                 check.NumCheck = ChequeAbierto.GetLongVal($"NUMBER") + 1;
 
@@ -2474,7 +2486,7 @@ namespace WindowsServiceAlohaMobile.Utils
         }
 
 
-        #region
+#region
 
         public void DivisionPrueba()
         {
@@ -2482,6 +2494,85 @@ namespace WindowsServiceAlohaMobile.Utils
             var xxxFunction = AlohaSdkFactory.GetIberFuncs28Instance();
         }
 
-        #endregion
+#endregion
+
+
+
+        public ResponseAloha LockTable(int idTerm, int idCheck)
+        {
+            VerificarIber();
+            ResponseAloha responseAloha = new ResponseAloha();
+            responseAloha.Estado = BloquearMesa(idTerm, idCheck);
+
+            if (responseAloha.Estado)
+            {
+                responseAloha.mensaje = "Mesa Bloqueada correctamente";
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+            }
+            else
+            {
+                responseAloha.mensaje = "Error al bloquear la mesa";
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+            }
+            return responseAloha;
+        }
+
+
+        public ResponseAloha UnLockTable(int idTerm, int idCheck)
+        {
+            VerificarIber();
+            ResponseAloha responseAloha = new ResponseAloha();
+            responseAloha.Estado = DesbloquearMesa(idTerm, idCheck);
+
+            if (responseAloha.Estado)
+            {
+                responseAloha.mensaje = "Mesa Desbloqueada correctamente";
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+            }
+            else
+            {
+                responseAloha.mensaje = "Error al desbloquear la mesa";
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+            }
+            return responseAloha;
+        }
+
+
+        public bool BloquearMesa(int IdTerm, int IdTable)
+        {
+            bool isLockTable = true;
+            ACPOS_SERVICE_MOBILE.logger.Info($"BLOQUEAR LA MESA - TERM: {IdTerm} MESA: {IdTable}");
+            try
+            {
+
+                xFunction.LockTable(IdTerm, IdTable);
+            }
+            catch (Exception ex)
+            {
+                isLockTable = false;
+                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL BLOQUEAR LA MESA", ex);
+            }
+            return isLockTable;
+        }
+
+
+
+        public bool DesbloquearMesa(int IdTerm, int IdTable)
+        {
+
+            bool isLockTable = true;
+            ACPOS_SERVICE_MOBILE.logger.Info($"DESBLOQUEAR LA MESA - TERM: {IdTerm} MESA: {IdTable}");
+            try
+            {
+                xFunction.UnlockTable(IdTerm, IdTable);
+            }
+            catch (Exception ex)
+            {
+                isLockTable = false;
+                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL DESBLOQUEAR LA MESA", ex);
+            }
+            return isLockTable;
+        }
+
     }
 }
