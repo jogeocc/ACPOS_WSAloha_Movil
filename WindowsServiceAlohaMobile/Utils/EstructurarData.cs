@@ -354,6 +354,8 @@ namespace WindowsServiceAlohaMobile.Utils
                     item.Impuesto_1 = articulo.TAXID;
                     item.Impuesto_2 = articulo.TAXID2;
                     item.Impuesto_3 = articulo.VTAXID;
+                    item.AskDesc = articulo.ASKDESC==TipoLogicoALH.Y;
+                    item.AskPrice = articulo.ASKPRICE==TipoLogicoALH.Y;
 
                     if (articulo.MOD1 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD1, });
                     if (articulo.MOD2 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD2, });

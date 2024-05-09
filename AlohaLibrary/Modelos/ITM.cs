@@ -38,8 +38,8 @@ namespace AlohaLibrary.Modelos
         public int MOD8 { get; set; }
         public int MOD9 { get; set; }
         public int MOD10 { get; set; }
-        public String ASKDESC { get; set; }
-        public String ASKPRICE { get; set; }
+        public Enums.TipoLogicoALH ASKDESC { get; set; }
+        public Enums.TipoLogicoALH ASKPRICE { get; set; }
         public String ISREFILL { get; set; }
         public int VROUTING { get; set; }
         public int IS_KVI { get; set; }

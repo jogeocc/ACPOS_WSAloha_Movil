@@ -89,6 +89,10 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.Catalogos
 
         public int CX { get; set; }
         public int CY { get; set; }
+        public bool AskDesc { get; set; }
+        public bool AskPrice { get; set; }
+
+
 
     }
     [JsonObject]

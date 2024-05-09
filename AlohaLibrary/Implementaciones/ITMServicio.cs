@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AlohaLibrary.Contexto;
+using AlohaLibrary.Enums;
 using AlohaLibrary.Infraestrutura;
 using AlohaLibrary.Interfaces;
 using AlohaLibrary.Modelos;
@@ -56,6 +57,8 @@ namespace AlohaLibrary.Implementaciones
                     MOD8 = int.Parse(item["MOD8"].ToString()),
                     MOD9 = int.Parse(item["MOD9"].ToString()),
                     MOD10 = int.Parse(item["MOD10"].ToString()),
+                    ASKDESC = item["ASKDESC"].ToString().ToUpper().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N,
+                    ASKPRICE = item["ASKPRICE"].ToString().ToUpper().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N,
                 });
             }
 
