@@ -405,8 +405,8 @@ namespace WindowsServiceAlohaMobile.Utils
                                     ItemMOD.Impuesto_1 = itemDBF.TAXID;
                                     ItemMOD.Impuesto_2 = itemDBF.TAXID2;
                                     ItemMOD.Impuesto_3 = itemDBF.VTAXID;
-                                   // ItemMOD.AskDesc = itemDBF.ASKDESC == TipoLogicoALH.Y;
-                                   // ItemMOD.AskPrice = itemDBF.ASKPRICE == TipoLogicoALH.Y;
+                                    ItemMOD.AskDesc = itemDBF.ASKDESC == TipoLogicoALH.Y;
+                                    ItemMOD.AskPrice = itemDBF.ASKPRICE == TipoLogicoALH.Y;
 
                                     int condicion = ListaMods[i].PRMETHOD;
 
