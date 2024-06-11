@@ -354,8 +354,8 @@ namespace WindowsServiceAlohaMobile.Utils
                     item.Impuesto_1 = articulo.TAXID;
                     item.Impuesto_2 = articulo.TAXID2;
                     item.Impuesto_3 = articulo.VTAXID;
-                    item.AskDesc = articulo.ASKDESC==TipoLogicoALH.Y;
-                    item.AskPrice = articulo.ASKPRICE==TipoLogicoALH.Y;
+                    item.AskDesc = articulo.ASKDESC ==TipoLogicoALH.Y;
+                    item.AskPrice = articulo.ASKPRICE ==TipoLogicoALH.Y;
 
                     if (articulo.MOD1 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD1, });
                     if (articulo.MOD2 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD2, });
@@ -405,7 +405,13 @@ namespace WindowsServiceAlohaMobile.Utils
                                     ItemMOD.Impuesto_1 = itemDBF.TAXID;
                                     ItemMOD.Impuesto_2 = itemDBF.TAXID2;
                                     ItemMOD.Impuesto_3 = itemDBF.VTAXID;
+                                   // ItemMOD.AskDesc = itemDBF.ASKDESC == TipoLogicoALH.Y;
+                                   // ItemMOD.AskPrice = itemDBF.ASKPRICE == TipoLogicoALH.Y;
+
                                     int condicion = ListaMods[i].PRMETHOD;
+
+
+
                                     if (condicion == 0)
                                     {
                                         ItemMOD.item_precio = decimal.Parse(ListaMods[i].PRICE.ToString());
