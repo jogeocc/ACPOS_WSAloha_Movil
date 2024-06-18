@@ -423,11 +423,11 @@ namespace WindowsServiceAlohaMobile.Utils
 
                     if (item.NumSilla > 0)
                     {
-                        IdEntryBase = xFunction.BeginPivotSeatItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount, item.NumSilla);
+                        IdEntryBase = xFunction.BeginPivotSeatItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, item.DescItem, item.Amount, item.NumSilla);
                     }
                     else
                     {
-                        IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
+                        IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, item.DescItem, item.Amount);
                     }
 
                     IdsEntryes.Add(IdEntryBase);
@@ -515,7 +515,7 @@ namespace WindowsServiceAlohaMobile.Utils
 
         public void RecursividadModificadores(int Idterm, Mod Modificador, int idEntryBase)
         {
-            int IdEntry = xFunction.ModItemEx(Idterm, idEntryBase, Modificador.IdGrupo, Modificador.IdMod, "", Modificador.Amount, Modificador.ModCode);
+            int IdEntry = xFunction.ModItemEx(Idterm, idEntryBase, Modificador.IdGrupo, Modificador.IdMod, Modificador.DescName, Modificador.Amount, Modificador.ModCode);
 
             if (Modificador.Mods.Count > 0)
             {
