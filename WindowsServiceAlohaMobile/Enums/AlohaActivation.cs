@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace WindowsServiceAlohaMobile.Enums
 {
-    public enum AlohaEvents
+    public enum AlohaActivation
     {
-        FOOTERMSGBYTERMINAL,
-        SETPRICECHANGE,
-        EOD
+        Daily,
+        Weekday,
+        Month,
+        Date
     }
 }

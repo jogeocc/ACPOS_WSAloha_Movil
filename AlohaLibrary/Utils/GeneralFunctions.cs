@@ -36,6 +36,10 @@ namespace AlohaLibrary.Utils
                         //BOOLEANO TIPO ALOHA
                         prop.SetValue(ItemModelo, ItemDbf[prop.Name].ToString().ToUpper() == "Y");
                     }
+                    else if (DateTime.TryParse(ItemDbf[prop.Name].ToString(), out DateTime date))
+                    {
+                        prop.SetValue(ItemModelo, date);
+                    }
                     else
                     {
                         //CADENAS

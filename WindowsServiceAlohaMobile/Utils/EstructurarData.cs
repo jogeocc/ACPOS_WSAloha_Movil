@@ -8,11 +8,13 @@ using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using WindowsServiceAlohaMobile.Aloha;
 using WindowsServiceAlohaMobile.EntityFrameWork.Context;
 using WindowsServiceAlohaMobile.EntityFrameWork.Models;
 using WindowsServiceAlohaMobile.Enums;
@@ -37,6 +39,9 @@ namespace WindowsServiceAlohaMobile.Utils
         private List<QTYPRICE> Qtyprices = new List<QTYPRICE>();
         private List<PRO> PRODbfs = new List<PRO>();
         private List<CMP> CMPDbfs = new List<CMP>();
+        //NUEVOS
+        private List<PC> PCDbfs = new List<PC>();
+        private List<PCID> PCIDbfs = new List<PCID>();
 
         private int BotonPlu = 999999;
         public EstructurarData()
@@ -354,8 +359,8 @@ namespace WindowsServiceAlohaMobile.Utils
                     item.Impuesto_1 = articulo.TAXID;
                     item.Impuesto_2 = articulo.TAXID2;
                     item.Impuesto_3 = articulo.VTAXID;
-                    item.AskDesc = articulo.ASKDESC ==TipoLogicoALH.Y;
-                    item.AskPrice = articulo.ASKPRICE ==TipoLogicoALH.Y;
+                    item.AskDesc = articulo.ASKDESC == TipoLogicoALH.Y;
+                    item.AskPrice = articulo.ASKPRICE == TipoLogicoALH.Y;
 
                     if (articulo.MOD1 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD1, });
                     if (articulo.MOD2 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD2, });
@@ -940,34 +945,122 @@ namespace WindowsServiceAlohaMobile.Utils
             }
             catch (Exception ex)
             {
-                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL OBTENER PROMOS",ex);
+                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL OBTENER PROMOS", ex);
             }
             return list;
         }
 
         public List<COMPMobile> ObtenerCortesias()
-        { 
+        {
             List<COMPMobile> List = new List<COMPMobile>();
             try
             {
-                using(AplicacionBdContextoALH db = new AplicacionBdContextoALH())
+                using (AplicacionBdContextoALH db = new AplicacionBdContextoALH())
                 {
                     CMPDbfs = new CMPServicio(db).GetAll();
                 }
-                foreach(var p in CMPDbfs)
+                foreach (var p in CMPDbfs)
                 {
                     COMPMobile comp = new COMPMobile();
                     comp.Name = p.NAME;
                     comp.Id = p.ID;
                     List.Add(comp);
                 }
-                List = List.OrderBy(C=>C.Id).ToList();
+                List = List.OrderBy(C => C.Id).ToList();
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL OBTENER CORTESIAS",ex);
+                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL OBTENER CORTESIAS", ex);
             }
             return List;
         }
+
+        //FUNCIONES EXTRA 20-06-2024
+        //OBTENER PRICE CHANGES DE EVENTS.CFG
+
+        public List<PCmobile> ExtraerPriceChanges()
+        {
+            List<PCmobile> List = new List<PCmobile>();
+            try
+            {
+                using (AplicacionBdContextoALH db = new AplicacionBdContextoALH())
+                {
+                    PCDbfs = new PCServicio(db).GetAll();
+                }
+                foreach (var p in PCDbfs)
+                {
+                    PCmobile PriceChange = new PCmobile()
+                    {
+                        ID = p.ID,
+                        NAME = p.NAME,
+                        OWNERID = p.OWNERID,
+                        STARTDATE = p.STARTDATE,
+                        USERNUMBER = p.USERNUMBER,
+                        ENDDATE = p.ENDDATE
+                    };
+                    List.Add(PriceChange);
+                }
+
+                List = List.OrderBy(C => C.ID).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL OBTENER CORTESIAS", ex);
+            }
+            return List;
+        }
+
+        public List<PCIDmobile> ExtraerPriceChangesItems()
+        {
+            List<PCIDmobile> List = new List<PCIDmobile>();
+            try
+            {
+                using (AplicacionBdContextoALH db = new AplicacionBdContextoALH())
+                {
+                    PCIDbfs = new PCIDServicio(db).GetAll();
+                }
+                foreach (var p in PCIDbfs)
+                {
+                    PCIDmobile PriceChangeItem = new PCIDmobile()
+                    {
+                        ID = p.ID,
+                        OWNERID = p.OWNERID,
+                        ALLOWEDIT = p.ALLOWEDIT,
+                        ITEMID = p.ITEMID,
+                        MINPRICE = p.MINPRICE,
+                        PRICE = p.PRICE,
+                        RECPRICE = p.RECPRICE
+                    };
+                    List.Add(PriceChangeItem);
+                }
+
+                List = List.OrderBy(C => C.ID).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                ACPOS_SERVICE_MOBILE.logger.Error($"ERROR AL OBTENER CORTESIAS", ex);
+            }
+            return List;
+        }
+
+        public void ObtenerEventos()
+        {
+            string Events = Path.Combine(AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder(), AlohaFilename.EventosAloha);
+            if (File.Exists(Events))
+            {
+                var lines = File.ReadAllLines(Events);
+                foreach (var line in lines)
+                {
+                }
+            }
+            else
+            {
+                throw new Exception("No se encontre el archivo de events.cfg");
+            }
+        }
+
     }
 }

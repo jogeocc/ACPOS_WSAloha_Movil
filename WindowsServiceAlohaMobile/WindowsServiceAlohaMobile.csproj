@@ -177,6 +177,7 @@
     <Compile Include="EntityFrameWork\Models\Ticket_smart.cs" />
     <Compile Include="Enums\ActivadorSAP.cs" />
     <Compile Include="Enums\AlohaActions.cs" />
+    <Compile Include="Enums\AlohaActivation.cs" />
     <Compile Include="Enums\AlohaEvents.cs" />
     <Compile Include="Enums\AlohaPanelCodes.cs" />
     <Compile Include="Enums\CodigosError.cs" />
@@ -187,9 +188,12 @@
     <Compile Include="Models\Aloha\BlueTooh\ResponsePrinter.cs" />
     <Compile Include="Models\Aloha\Desktop\RequestUser.cs" />
     <Compile Include="Models\Aloha\Desktop\ResponseDesktop.cs" />
+    <Compile Include="Models\Aloha\DisablePriceChange.cs" />
+    <Compile Include="Models\Aloha\Events\EventsAloha.cs" />
     <Compile Include="Models\Aloha\MesaEmpleado.cs" />
     <Compile Include="Models\Aloha\ModelCombineTables.cs" />
     <Compile Include="Models\Aloha\ModeloNuevo.cs" />
+    <Compile Include="Models\Aloha\PriceChange.cs" />
     <Compile Include="Models\Aloha\RequestClockIn.cs" />
     <Compile Include="Models\Aloha\RequestAddItem.cs" />
     <Compile Include="Models\Aloha\RequestAplyPayment.cs" />
@@ -218,12 +222,15 @@
     <Compile Include="Models\Aloha\System\EventsAloha.cs" />
     <Compile Include="Models\Catalogos\BTNMobile.cs" />
     <Compile Include="Models\Catalogos\COMPMobile.cs" />
+    <Compile Include="Models\Catalogos\EVENTSmobile.cs" />
     <Compile Include="Models\Catalogos\ITMmobile.cs" />
     <Compile Include="Models\Catalogos\JOBmobile.cs" />
     <Compile Include="Models\Catalogos\MNUmobile.cs" />
     <Compile Include="Models\Catalogos\MODCODEmobile.cs" />
     <Compile Include="Models\Catalogos\MODmobile.cs" />
     <Compile Include="Models\Catalogos\ODRmobile.cs" />
+    <Compile Include="Models\Catalogos\PCIDmobile.cs" />
+    <Compile Include="Models\Catalogos\PCmobile.cs" />
     <Compile Include="Models\Catalogos\PNLMobile.cs" />
     <Compile Include="Models\Catalogos\PROMOMobile.cs" />
     <Compile Include="Models\Catalogos\PRTMobile.cs" />

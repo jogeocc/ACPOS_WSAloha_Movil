@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using WindowsServiceAlohaMobile.Models.Licencia;
+using WindowsServiceAlohaMobile.EntityFrameWork.Interface;
 
 namespace WindowsServiceAlohaMobile.Controllers
 {
@@ -157,6 +158,29 @@ namespace WindowsServiceAlohaMobile.Controllers
         {
             bool response = ACPOS_SERVICE_MOBILE.Licencia.ValidarLimiteLicencias(device);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+        [HttpGet]
+        [Route("PC")]
+        public HttpResponseMessage PC(DeviceLicencia device)
+        {
+            var response = ACPOS_SERVICE_MOBILE.Catalogos.ExtraerPriceChanges();
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
+        [HttpGet]
+        [Route("PCID")]
+        public HttpResponseMessage PCID()
+        {
+            var response = ACPOS_SERVICE_MOBILE.Catalogos.ExtraerPriceChangesItems();
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+        [HttpGet]
+        [Route("Events")]
+        public HttpResponseMessage Events()
+        {
+            ACPOS_SERVICE_MOBILE.Catalogos.ObtenerEventos();
+            return Request.CreateResponse(HttpStatusCode.OK, "", Configuration.Formatters.JsonFormatter);
         }
 
         //ACCIONES DE ALOHA CONNECTION

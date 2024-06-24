@@ -66,6 +66,8 @@
     <Compile Include="Implementaciones\MODEXTServicio.cs" />
     <Compile Include="Implementaciones\MODServicio.cs" />
     <Compile Include="Implementaciones\MULTCURRServicio.cs" />
+    <Compile Include="Implementaciones\PCIDServicio.cs" />
+    <Compile Include="Implementaciones\PCServicio.cs" />
     <Compile Include="Implementaciones\PNLServicio.cs" />
     <Compile Include="Implementaciones\PRDServicio.cs" />
     <Compile Include="Implementaciones\PRLServicio.cs" />
@@ -109,6 +111,8 @@
     <Compile Include="Interfaces\IMODCODE.cs" />
     <Compile Include="Interfaces\IMODEXT.cs" />
     <Compile Include="Interfaces\IMULTCURR.cs" />
+    <Compile Include="Interfaces\IPC.cs" />
+    <Compile Include="Interfaces\IPCID.cs" />
     <Compile Include="Interfaces\IPNL.cs" />
     <Compile Include="Interfaces\IPRDServicio.cs" />
     <Compile Include="Interfaces\IPRL.cs" />
@@ -149,6 +153,8 @@
     <Compile Include="Modelos\MODCODE.cs" />
     <Compile Include="Modelos\MODEXT.cs" />
     <Compile Include="Modelos\MULTCURR.cs" />
+    <Compile Include="Modelos\PC.cs" />
+    <Compile Include="Modelos\PCID.cs" />
     <Compile Include="Modelos\PNL.cs" />
     <Compile Include="Modelos\PRD.cs" />
     <Compile Include="Modelos\PRL.cs" />
