@@ -8,6 +8,7 @@ namespace WindowsServiceAlohaMobile.Enums
 {
     public enum AlohaActivation
     {
+        def,
         Daily,
         Weekday,
         Month,

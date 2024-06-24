@@ -13,9 +13,9 @@ namespace WindowsServiceAlohaMobile.Models.Catalogos
         public int ID { get; set; }
         public int ITEMID { get; set; }
         public int OWNERID { get; set; }
-        public decimal PRICE { get; set; }
+        public double PRICE { get; set; }
         public bool ALLOWEDIT { get; set; }
-        public decimal MINPRICE { get; set; }
-        public decimal RECPRICE { get; set; }
+        public double MINPRICE { get; set; }
+        public double RECPRICE { get; set; }
     }
 }

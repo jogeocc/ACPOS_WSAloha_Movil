@@ -10,6 +10,7 @@ namespace WindowsServiceAlohaMobile.Enums
     {
         FOOTERMSGBYTERMINAL,
         SETPRICECHANGE,
+        DISABLEPRICECHANGE,
         EOD
     }
 }

@@ -179,8 +179,8 @@ namespace WindowsServiceAlohaMobile.Controllers
         [Route("Events")]
         public HttpResponseMessage Events()
         {
-            ACPOS_SERVICE_MOBILE.Catalogos.ObtenerEventos();
-            return Request.CreateResponse(HttpStatusCode.OK, "", Configuration.Formatters.JsonFormatter);
+            var response = ACPOS_SERVICE_MOBILE.Catalogos.ObtenerEventos();
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
         //ACCIONES DE ALOHA CONNECTION

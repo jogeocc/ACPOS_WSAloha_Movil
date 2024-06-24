@@ -3,12 +3,14 @@ using AlohaLibrary.Enums;
 using AlohaLibrary.Implementaciones;
 using AlohaLibrary.Modelos;
 using Design_Library;
+using EncryptDataJson;
 using LecturaAppConfig;
 using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Eventing.Reader;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,6 +22,7 @@ using WindowsServiceAlohaMobile.EntityFrameWork.Models;
 using WindowsServiceAlohaMobile.Enums;
 using WindowsServiceAlohaMobile.Models.Aloha.Catalogos;
 using WindowsServiceAlohaMobile.Models.Catalogos;
+using static System.Collections.Specialized.BitVector32;
 
 namespace WindowsServiceAlohaMobile.Utils
 {
@@ -1046,20 +1049,101 @@ namespace WindowsServiceAlohaMobile.Utils
             return List;
         }
 
-        public void ObtenerEventos()
+        public List<EVENTSmobile> ObtenerEventos()
         {
             string Events = Path.Combine(AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder(), AlohaFilename.EventosAloha);
+            var LstIdsPricesChanges = ExtraerPriceChanges();
+            var LstIdsPricesChangesItems = ExtraerPriceChangesItems();
+
+            int? dia = null;
+            DateTime? FechaAccion = null;
+            AlohaActivation TypeActivation = AlohaActivation.def;
+            List<EVENTSmobile> lstEvents = new List<EVENTSmobile>();
             if (File.Exists(Events))
             {
-                var lines = File.ReadAllLines(Events);
-                foreach (var line in lines)
+                string[] lines = File.ReadAllLines(Events);
+                foreach (string line in lines)
                 {
+                    if (line.Split(' ').Length > 1)
+                    {
+                        //SON LAS ACCIONES ENTRE LOS []
+                        var parts = line.Split();
+                        var args = parts.Skip(2).ToArray();
+                        var timeParss = parts[0].Trim().Split(':');
+                        EVENTSmobile EventMobile = new EVENTSmobile();
+
+
+
+                        TimeSpan time = new TimeSpan(Convert.ToInt32(timeParss[0]), Convert.ToInt32(timeParss[1]), 0);
+                        AlohaEvents command;
+                        if (!Enum.TryParse<AlohaEvents>(parts[1], true, out command))
+                        {
+                            ACPOS_SERVICE_MOBILE.logger.Info($"NO SE DETECTO TIPO DE ACCION ALOHA {parts[1]}");
+                            continue;
+                        }
+                        //ASIGNACION A MODELO EVENTO ACCION
+                        EventMobile.TipoActivacion = TypeActivation;
+                        EventMobile.TipoEvento = command;
+                        EventMobile.Hour = time;
+                        EventMobile.dia = dia;
+                        EventMobile.fecha = FechaAccion;
+                        if (args.Length > 0)
+                        {
+                            EventMobile.IdPriceChange = Convert.ToInt32(args[0]);
+                            EventMobile.IdRevenueCenter = Convert.ToInt32(args[1]);
+                        }
+                        if (EventMobile.TipoEvento == AlohaEvents.SETPRICECHANGE || EventMobile.TipoEvento == AlohaEvents.DISABLEPRICECHANGE)
+                        {
+                            EventMobile.NAME = LstIdsPricesChanges.Find(C => C.ID == EventMobile.IdPriceChange) == null ? "" : LstIdsPricesChanges.Find(C => C.ID == EventMobile.IdPriceChange).NAME;
+                            List<PCIDmobile> x = LstIdsPricesChangesItems.Where(C => C.ID == EventMobile.IdPriceChange).ToList();
+                            EventMobile.lstItems.AddRange(x);
+                        }
+
+                        lstEvents.Add(EventMobile);
+                    }
+                    else
+                    {
+                        //inicializar de nuevo porque es un nuevo tipo
+                        TypeActivation = AlohaActivation.def;
+
+                        dia = null;
+                        FechaAccion = null;
+
+
+                        //SON LOS PERIODOS DE ACCION Y DIA / FECHA SI ES QUE APLICA
+                        string TypeAction = line.Replace("[", "").Replace("]", "");
+                        string[] ActionParams = TypeAction.Split('.');
+                        if (ActionParams.Length == 1)
+                        {
+
+                            //SI SOLO TIENE UNO ES EL DIARIO
+                            TypeActivation = (AlohaActivation)Enum.Parse(typeof(AlohaActivation), TypeAction, true);
+
+                        }
+                        else if (ActionParams.Length == 2)
+                        {
+                            //SI TIENE dos ES EL SEMANAL O MENSUAL
+                            TypeAction = ActionParams[0];
+                            dia = Convert.ToInt32(ActionParams[1]);
+                            //recuperaciones
+                            TypeActivation = (AlohaActivation)Enum.Parse(typeof(AlohaActivation), TypeAction, true);
+
+                        }
+                        else
+                        {
+                            TypeAction = ActionParams[0];
+                            //EN OTRO CASO ES EL DE FECHA EXACTA
+                            TypeActivation = (AlohaActivation)Enum.Parse(typeof(AlohaActivation), TypeAction, true);
+                            FechaAccion = DateTime.ParseExact($"{ActionParams[1]}/{ActionParams[2]}/{ActionParams[3]}", "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                        }
+                    }
                 }
             }
             else
             {
                 throw new Exception("No se encontre el archivo de events.cfg");
             }
+            return lstEvents;
         }
 
     }
