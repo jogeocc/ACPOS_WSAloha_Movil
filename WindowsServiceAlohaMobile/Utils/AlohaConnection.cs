@@ -1817,17 +1817,20 @@ namespace WindowsServiceAlohaMobile.Utils
                 foreach (var IdCheck in ChecksInTable)
                 {
                     var Entrys = xFunction.GetCheckEntriesNewEx(idTerm, IdCheck);
-                    foreach (var entry in Entrys)
-                    {
-                        if (entry.modeEx == (int)OrderModesAloha.HOLD)
+
+                    if (Entrys != null) {
+                        foreach (var entry in Entrys)
                         {
-                            isHold = true;
+                            if (entry.modeEx == (int)OrderModesAloha.HOLD)
+                            {
+                                isHold = true;
+                                break;
+                            }
+                        }
+                        if (isHold)
+                        {
                             break;
                         }
-                    }
-                    if (isHold)
-                    {
-                        break;
                     }
                 }
             }
