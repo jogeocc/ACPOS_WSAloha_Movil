@@ -1146,5 +1146,30 @@ namespace WindowsServiceAlohaMobile.Utils
             return lstEvents;
         }
 
+
+        //FUNCIONES DESARROLLADAS 27/06/2024
+
+        public List<TRMMobile> ObtenerTerminals()
+        {
+            List<TRMMobile> ListaTerminals = new List<TRMMobile>();
+            List<TRM> ListDBFS = new List<TRM>();
+
+            using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
+            {
+                ListDBFS = new TRMServicio(contextoAlh).GetAll();
+            }
+            foreach (var term in ListDBFS)
+            {
+                ListaTerminals.Add(new TRMMobile
+                {
+                    NAME = term.NAME,
+                    ID = term.ID,
+                    REVENUE = term.REVENUE
+                });
+            }
+            return ListaTerminals;
+        }
+
+
     }
 }

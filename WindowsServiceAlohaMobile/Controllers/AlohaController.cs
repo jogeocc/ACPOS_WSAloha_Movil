@@ -183,6 +183,14 @@ namespace WindowsServiceAlohaMobile.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
 
+        [HttpGet]
+        [Route("Terminals")]
+        public HttpResponseMessage Terminals()
+        {
+            var response = ACPOS_SERVICE_MOBILE.Catalogos.ObtenerTerminals();
+            return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
+        }
+
         //ACCIONES DE ALOHA CONNECTION
         [HttpPost]
         [Route("clockin")]

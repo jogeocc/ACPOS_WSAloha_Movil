@@ -90,6 +90,7 @@
     <Compile Include="Implementaciones\GNDTurnServicio.cs" />
     <Compile Include="Implementaciones\GNDTndrServicio.cs" />
     <Compile Include="Implementaciones\OrdenServicioALH.cs" />
+    <Compile Include="Implementaciones\TRMServicio.cs" />
     <Compile Include="Implementaciones\TDRServicio.cs" />
     <Compile Include="Implementaciones\VERServicio.cs" />
     <Compile Include="Infraestructura\BdContextoALH.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Interfaces\IQTYPRICE.cs" />
     <Compile Include="Interfaces\IRsn.cs" />
     <Compile Include="Interfaces\ISUB.cs" />
+    <Compile Include="Interfaces\ITRM.cs" />
     <Compile Include="Interfaces\ITAB.cs" />
     <Compile Include="Interfaces\ITAX.cs" />
     <Compile Include="Interfaces\IREV.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Modelos\RSN.cs" />
     <Compile Include="Modelos\REV.cs" />
     <Compile Include="Modelos\SUB.cs" />
+    <Compile Include="Modelos\TRM.cs" />
     <Compile Include="Modelos\TAB.cs" />
     <Compile Include="Modelos\TAX.cs" />
     <Compile Include="Modelos\ITM.cs" />
