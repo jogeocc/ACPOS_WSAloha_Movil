@@ -1,4 +1,7 @@
-﻿using EncryptDataJson;
+﻿using AlohaLibrary.Contexto;
+using AlohaLibrary.Implementaciones;
+using AlohaLibrary.Modelos;
+using EncryptDataJson;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -41,6 +44,7 @@ namespace WindowsServiceAlohaMobile
         public static Thread HiloProductoPendiente;
         public static bool isServicio = true;
         public static Licencia Licencia = new Licencia();
+        public static List<ITM> itemsAskDesc;
 
         public ACPOS_SERVICE_MOBILE()
         {
@@ -72,6 +76,20 @@ namespace WindowsServiceAlohaMobile
 
                 logger.Info($"CARGANDO SUBPROCESOS");
                 ProcesarOrdenPendiente();
+
+                //CARGANDO ITEMS DE ALOHA
+                logger.Info($"CARGANDO ITEMS DE ALOHA QUE SI SOLICTAN NOMBRE");
+
+                var pathALoha = AlohaLibrary.Helpers.DirectoriosAloha.GetAlohaDataFolder();
+
+                using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
+                {
+                    itemsAskDesc = new ITMServicio(contextoAlh).GetAll().Where(itm => itm.ASKDESC == AlohaLibrary.Enums.TipoLogicoALH.Y ).ToList();
+
+                }
+
+
+
                 logger.Info($"SISTEMA CARGADO CON EXITO");
                 if (!isServicio)
                 {

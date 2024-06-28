@@ -29,6 +29,8 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public string Unidad_Medida { get; set; }
         public double Cantidad_Peso { get; set; }
         public int NumSilla { get; set; }
+        //17/06/2024 CAMPOS ADICIONALES PARA LOS PRODUCTOS QUE SON DE DESCRIPCION ABIERTA
+        public string DescItem { get; set; } = "";
 
     }
     [JsonObject]
@@ -40,5 +42,8 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public int ModCode { get; set; }
 
         public List<Mod> Mods { get; set; } = new List<Mod>();
+
+        //17/06/2024 CAMPOS ADICIONALES PARA LOS PRODUCTOS QUE SON DE DESCRIPCION ABIERTA
+        public string DescName { get; set; } = "";
     }
 }

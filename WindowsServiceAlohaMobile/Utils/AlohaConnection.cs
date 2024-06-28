@@ -419,15 +419,17 @@ namespace WindowsServiceAlohaMobile.Utils
                 foreach (ItemAloha item in requestAddItem.item)
                 {
 
+                    var NameItem = ACPOS_SERVICE_MOBILE.itemsAskDesc.Any(itm => itm.ID == item.IdItem) ? item.DescItem : "";
+
                     int IdEntryBase = 0;
 
                     if (item.NumSilla > 0)
                     {
-                        IdEntryBase = xFunction.BeginPivotSeatItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount, item.NumSilla);
+                        IdEntryBase = xFunction.BeginPivotSeatItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, NameItem, item.Amount, item.NumSilla);
                     }
                     else
                     {
-                        IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
+                        IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, NameItem, item.Amount);
                     }
 
                     IdsEntryes.Add(IdEntryBase);
@@ -515,7 +517,7 @@ namespace WindowsServiceAlohaMobile.Utils
 
         public void RecursividadModificadores(int Idterm, Mod Modificador, int idEntryBase)
         {
-            int IdEntry = xFunction.ModItemEx(Idterm, idEntryBase, Modificador.IdGrupo, Modificador.IdMod, "", Modificador.Amount, Modificador.ModCode);
+            int IdEntry = xFunction.ModItemEx(Idterm, idEntryBase, Modificador.IdGrupo, Modificador.IdMod, Modificador.DescName, Modificador.Amount, Modificador.ModCode);
 
             if (Modificador.Mods.Count > 0)
             {
@@ -922,13 +924,16 @@ namespace WindowsServiceAlohaMobile.Utils
 
                     int IdEntryBase = 0;
 
+                    var NameItem = ACPOS_SERVICE_MOBILE.itemsAskDesc.Any(itm => itm.ID == item.IdItem) ? item.DescItem : "";
+
+
                     if (item.NumSilla > 0)
                     {
-                        IdEntryBase = xFunction.BeginPivotSeatItem(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, item.IdItem, "", item.Amount, item.NumSilla);
+                        IdEntryBase = xFunction.BeginPivotSeatItem(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, item.IdItem, NameItem, item.Amount, item.NumSilla);
                     }
                     else
                     {
-                        IdEntryBase = xFunction.BeginItem(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, item.IdItem, "", item.Amount);
+                        IdEntryBase = xFunction.BeginItem(requestHoldCheck.IdTerm, requestHoldCheck.IdCheck, item.IdItem, NameItem, item.Amount);
                     }
                     IdsEntryes.Add(IdEntryBase);
                     #region SECCION DE MODIFICADORES.
