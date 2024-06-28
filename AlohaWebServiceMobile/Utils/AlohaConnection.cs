@@ -1002,6 +1002,7 @@ namespace AlohaWebServiceMobile.Utils
                     MesaEmpleado mesaEmpleado = new MesaEmpleado();
                     mesaEmpleado.Id = MesaAbierta.GetLongVal("ID");
                     mesaEmpleado.Name = MesaAbierta.GetStringVal("NAME");
+                    mesaEmpleado.Revenue = MesaAbierta.GetLongVal("REV_ID");
                     mesaEmpleado.IsTable = MesaAbierta.GetBoolVal("TYPE") == 0 ? false : true;
                     mesaEmpleado.IdMesa = MesaAbierta.GetLongVal("TABLEDEF_ID");
                     mesaEmpleado.IsHold = IsAnyCheckHold(mesaEmpleado.Id, idTerm);
@@ -1152,6 +1153,7 @@ namespace AlohaWebServiceMobile.Utils
                 var mesa = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES, idMesa).First();
                 mesaEmpleado.Guests = mesa.GetLongVal("NUM_GUESTS");
                 mesaEmpleado.Name = mesa.GetStringVal("NAME");
+                
             }
             catch (Exception ex)
             {
