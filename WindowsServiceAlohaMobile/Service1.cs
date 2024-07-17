@@ -3,6 +3,7 @@ using AlohaLibrary.Implementaciones;
 using AlohaLibrary.Modelos;
 using EncryptDataJson;
 using log4net;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -85,6 +86,12 @@ namespace WindowsServiceAlohaMobile
                 using (AplicacionBdContextoALH contextoAlh = new AplicacionBdContextoALH(pathALoha))
                 {
                     itemsAskDesc = new ITMServicio(contextoAlh).GetAll().Where(itm => itm.ASKDESC == AlohaLibrary.Enums.TipoLogicoALH.Y ).ToList();
+
+
+                    string itemsAskDescJson = JsonConvert.SerializeObject(itemsAskDesc, Formatting.Indented);
+
+                    // Registrar la información en el log
+                    logger.Info($"PRODUCTOS QUE SOLICITAN NOMBRE: \n{itemsAskDescJson}");
 
                 }
 

@@ -35,5 +35,8 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         //CAMPO PARA RECUPERAR EL ID_REV
         public int IdRev { get; set; }
 
+        //CAMPO PARA RECUPERAR EL REV DE LA MESA
+        public MesaEmpleado Mesa { get; set; }
+
     }
 }

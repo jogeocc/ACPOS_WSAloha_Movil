@@ -242,6 +242,7 @@ namespace WindowsServiceAlohaMobile.Utils
                         responseAloha.NumCheck = RecuperarCheque(id).NumCheck;
                     }
                     responseAloha.idMesa = id;
+                    responseAloha.Mesa = Mesa;
                 }
                 else
                 {
@@ -417,7 +418,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
                 List<int> IdsEntryes = new List<int>();
                 foreach (ItemAloha item in requestAddItem.item)
-                {
+                {               
 
                     var NameItem = ACPOS_SERVICE_MOBILE.itemsAskDesc.Any(itm => itm.ID == item.IdItem) ? item.DescItem : "";
 
@@ -429,7 +430,7 @@ namespace WindowsServiceAlohaMobile.Utils
                     }
                     else
                     {
-                        IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, NameItem, item.Amount);
+                        IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
                     }
 
                     IdsEntryes.Add(IdEntryBase);
@@ -517,7 +518,10 @@ namespace WindowsServiceAlohaMobile.Utils
 
         public void RecursividadModificadores(int Idterm, Mod Modificador, int idEntryBase)
         {
-            int IdEntry = xFunction.ModItemEx(Idterm, idEntryBase, Modificador.IdGrupo, Modificador.IdMod, Modificador.DescName, Modificador.Amount, Modificador.ModCode);
+
+            var NameItem = ACPOS_SERVICE_MOBILE.itemsAskDesc.Any(itm => itm.ID == Modificador.IdMod) ? Modificador.DescName : "";
+
+            int IdEntry = xFunction.ModItemEx(Idterm, idEntryBase, Modificador.IdGrupo, Modificador.IdMod, NameItem, Modificador.Amount, Modificador.ModCode);
 
             if (Modificador.Mods.Count > 0)
             {
@@ -1051,6 +1055,7 @@ namespace WindowsServiceAlohaMobile.Utils
                     MesaEmpleado mesaEmpleado = new MesaEmpleado();
                     mesaEmpleado.Id = MesaAbierta.GetLongVal("ID");
                     mesaEmpleado.Name = MesaAbierta.GetStringVal("NAME");
+                    mesaEmpleado.Revenue = MesaAbierta.GetLongVal("REV_ID");
                     mesaEmpleado.IsTable = MesaAbierta.GetBoolVal("TYPE") == 0 ? false : true;
                     mesaEmpleado.IdMesa = MesaAbierta.GetLongVal("TABLEDEF_ID");
                     mesaEmpleado.NumSeats = MesaAbierta.GetLongVal("NUM_SEATS");

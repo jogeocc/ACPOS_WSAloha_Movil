@@ -15,6 +15,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public string Name { get; set; }
         public int Id { get; set; }
         public int IdMesa { get; set; }
+        public int Revenue { get; set; }
 
         [JsonIgnore]
         public int Guests { get; set; }
