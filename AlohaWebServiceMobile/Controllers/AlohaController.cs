@@ -215,6 +215,7 @@ namespace AlohaWebServiceMobile.Controllers
 
         [HttpPost]
         [Route("AplyPayment")]
+        [Route("ApplyPayment")]
         public HttpResponseMessage AplyPayment(RequestAplyPayment requestAplyPayment)
         {
             var response = App.AlohaConnection.AplicarPago(requestAplyPayment.IdEmpleado, requestAplyPayment.IdTerm, requestAplyPayment.IdCheckId, requestAplyPayment.IdTender, requestAplyPayment.Amount, requestAplyPayment.Tip, requestAplyPayment.Digitos, requestAplyPayment.Expiration, requestAplyPayment.Info, requestAplyPayment.authorization);
