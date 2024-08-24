@@ -430,7 +430,7 @@ namespace WindowsServiceAlohaMobile.Utils
                     }
                     else
                     {
-                        IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, "", item.Amount);
+                        IdEntryBase = xFunction.BeginItem(requestAddItem.IdTerm, requestAddItem.IdCheck, item.IdItem, NameItem, item.Amount);
                     }
 
                     IdsEntryes.Add(IdEntryBase);
