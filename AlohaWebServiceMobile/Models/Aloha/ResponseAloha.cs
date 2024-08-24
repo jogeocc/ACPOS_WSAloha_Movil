@@ -28,5 +28,8 @@ namespace AlohaWebServiceMobile.Models.Aloha
         public int NumCheck { get; set; }
         //CAMPO PAGO PENDIENTE 09-06-2023
         public Pagos_pendientes pago_Pendiente { get; set; }
+
+        //CAMPO PARA RECUPERAR EL REV DE LA MESA
+        public MesaEmpleado Mesa { get; set; }
     }
 }

@@ -229,6 +229,7 @@ namespace AlohaWebServiceMobile.Utils
                         responseAloha.NumCheck = RecuperarCheque(id).NumCheck;
                     }
                     responseAloha.idMesa = id;
+                    responseAloha.Mesa = Mesa;
                 }
                 else
                 {
