@@ -397,6 +397,11 @@ namespace AlohaWebServiceMobile.Utils
             {
                 VerificarIber();
                 Encolamiento();
+                //RECUPERANDO QUE ES LO QUE RETORNAN
+                string RequestAdd = JsonConvert.SerializeObject(requestAddItem, Formatting.Indented);
+
+                // Registrar la información en el log
+                App.logger.Info($"PRODUCTOS QUE SOLICITAN NOMBRE: \n{RequestAdd}");
                 App.IsBusy = true;
                 LoginInterno(requestAddItem.IdTerm, requestAddItem.IdEmpleado);
                 List<int> IdsEntryes = new List<int>();

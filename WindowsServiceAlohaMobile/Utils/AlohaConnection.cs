@@ -1412,8 +1412,8 @@ namespace WindowsServiceAlohaMobile.Utils
 
                 check.AmountDue = ChequeAbierto.GetDoubleVal("COMPLETETOTAL") - AmountPayed;
                 //CAMBIO PARA EL CLUB DE GOLF
-                    check.AmountDue = MontoTotal - AmountPayed;
-                    //check.AmountDue = SubTotal - AmountPayed;
+                 //   check.AmountDue = MontoTotal - AmountPayed;
+                 //   check.AmountDue = SubTotal - AmountPayed;
                 //-----------------------------
 
 
@@ -1423,8 +1423,8 @@ namespace WindowsServiceAlohaMobile.Utils
                 
                 
                 //CAMBIO PARA EL CLUB DE GOLF
-                    check.TotalCheck = MontoTotal;
-                    //check.TotalCheck = SubTotal;
+                //    check.TotalCheck = MontoTotal;
+                //    check.TotalCheck = SubTotal;
                 //-----------------------------
 
 
