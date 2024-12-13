@@ -91,6 +91,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha.Catalogos
         public int CY { get; set; }
         public bool AskDesc { get; set; }
         public bool AskPrice { get; set; }
+        public int PRMETHOD { get; set; }
 
 
 

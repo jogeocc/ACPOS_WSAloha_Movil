@@ -152,27 +152,44 @@ namespace WindowsServiceAlohaMobile.Utils
                             {
                                 var id = (int)propItem.GetValue(SubMenu);
                                 if (id == BotonPlu) continue;
+
+                                var auxSPriceMethod = AuxPrmethod + (couter + 1).ToString().PadLeft(2, '0');
+
+                                var idItem = (int)propItem.GetValue(SubMenu);
+
+                                var submenu_precio_metodo = int.Parse(Props.Find(P => P.Name == AuxPrmethod + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString());
+
+                                var condicion = int.Parse(Props.Find(P => P.Name == AuxPrmethod + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString());
+
+                                var submenu_precio_sub = double.Parse(Props.Find(P => P.Name == AuxPrice + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString()) / 100;
+
+                                var submenu_precio_nivel = int.Parse(Props.Find(P => P.Name == AuxPRICELVL + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString());
+
+                              //  if (condicion == 0) { 
+                                
+                                    ACPOS_SERVICE_MOBILE.logger.Info($"Entro a Button Price Submenu:  {id} | {idItem} | {condicion} | PRICE_METHOD: {auxSPriceMethod} | Precio Recuperado: {submenu_precio_sub}");
+                                
+                               // }
+
+
                                 sub.items.Add(new Item
                                 {
                                     PosicionDbf = Posicion,
-                                    id = (int)propItem.GetValue(SubMenu),
-                                    submenu_precio_metodo = int.Parse(Props.Find(P => P.Name == AuxPrmethod + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString()),
-                                    submenu_precio_nivel = int.Parse(Props.Find(P => P.Name == AuxPRICELVL + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString()),
-                                    submenu_precio_sub = double.Parse(Props.Find(P => P.Name == AuxPrice + (couter + 1).ToString().PadLeft(2, '0')).GetValue(SubMenu).ToString()) / 100,
+                                    id = idItem,
+                                    submenu_precio_metodo = submenu_precio_metodo,
+                                    submenu_precio_nivel = submenu_precio_nivel,
+                                    submenu_precio_sub = submenu_precio_sub,
+                                    PRMETHOD = condicion,
                                 });
                             }
                             Posicion++;
+                            couter++;
                         }
                         #endregion
 
                     }
                 }
             }
-
-
-
-            // A PARTIR DE ESTE PUNTO REALIZAR LA RECURSIVIDAD
-
 
             //recolectar paso 3 items
             foreach (var menu in Menus)
@@ -230,6 +247,8 @@ namespace WindowsServiceAlohaMobile.Utils
                             IdsPaneles.Clear();
                             profundidad = 0;
                             item = RecursividadItems(item);
+                            
+                      
                         }
                     }
                     else
@@ -314,10 +333,12 @@ namespace WindowsServiceAlohaMobile.Utils
                                 Boton_item.EjeY = btn.Y;
                                 Boton_item.CX = btn.CX;
                                 Boton_item.CY = btn.CY;
+                                Boton_item.submenu_precio_sub = PrecioBoton;
+                                Boton_item.PRMETHOD = Metodo;
 
                                 producto = IdProducto;
                                 profundidad = 0;
-                                Boton_item = RecursividadItems(Boton_item);
+                                Boton_item = RecursividadItems(Boton_item, true);
                                 if (Boton_item != null)
                                 {
                                     sub.Btns.Add(Boton_item);
@@ -338,7 +359,7 @@ namespace WindowsServiceAlohaMobile.Utils
         public List<int> IdsPaneles = new List<int>();
         public List<int> IdsItems = new List<int>();
 
-        public Item RecursividadItems(Item item)
+        public Item RecursividadItems(Item item, Boolean IsBtn = false )
         {
 
             //if (IdsItems.Contains(item.id))
@@ -357,8 +378,12 @@ namespace WindowsServiceAlohaMobile.Utils
                     ITM articulo = ItemsDbfs.First(I => I.ID == item.id);
                     item.descripcion_corta = DecodeToASCII(articulo.SHORTNAME);
                     item.descripcion_larga = DecodeToASCII(articulo.LONGNAME);
-                    item.item_precio = articulo.PRICE;
-                    item.item_precio_ID = articulo.PRICE_ID;
+
+                   // if (!IsBtn) {
+                        item.item_precio = articulo.PRICE;
+                        item.item_precio_ID = articulo.PRICE_ID;
+                    //}
+                   
                     item.Impuesto_1 = articulo.TAXID;
                     item.Impuesto_2 = articulo.TAXID2;
                     item.Impuesto_3 = articulo.VTAXID;
@@ -375,8 +400,6 @@ namespace WindowsServiceAlohaMobile.Utils
                     if (articulo.MOD8 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD8, });
                     if (articulo.MOD9 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD9, });
                     if (articulo.MOD10 != 0) item.mods.Add(new Mod { id_modificador = articulo.MOD10 });
-
-
 
 
                     if (Qtyprices.Any(I => I.ITEMID == item.id))
@@ -417,12 +440,17 @@ namespace WindowsServiceAlohaMobile.Utils
                                     ItemMOD.AskPrice = itemDBF.ASKPRICE == TipoLogicoALH.Y;
 
                                     int condicion = ListaMods[i].PRMETHOD;
-
+                                    ItemMOD.PRMETHOD = condicion;
 
 
                                     if (condicion == 0)
                                     {
-                                        ItemMOD.item_precio = decimal.Parse(ListaMods[i].PRICE.ToString());
+                                      
+                                        ItemMOD.submenu_precio_sub = double.Parse(ListaMods[i].PRICE.ToString());
+                                        ItemMOD.item_precio = ItemsDbfs.First(I => I.ID == ItemMOD.id).PRICE;
+                                        ACPOS_SERVICE_MOBILE.logger.Info($"Aloha > 15 Entro a Button Price {ItemMOD.id} | {condicion} | Precio Recuperado: {double.Parse(ListaMods[i].PRICE.ToString())}");
+
+
                                     }
                                     else
                                     {
@@ -467,9 +495,17 @@ namespace WindowsServiceAlohaMobile.Utils
                                         ItemMOD.AskDesc = itemDBF.ASKDESC == TipoLogicoALH.Y;
                                         ItemMOD.AskPrice = itemDBF.ASKPRICE == TipoLogicoALH.Y;
                                         int condicion = int.Parse(modificador.methods[j].ToString());
+
+                                        //AQUI PARA MODIFICAR PRECIOS DE LOS ITEM O BUTTON
+                                        ItemMOD.PRMETHOD = condicion;
                                         if (condicion == 0)
                                         {
-                                            ItemMOD.item_precio = modificador.precios[j] / 100;
+                                            decimal monto = modificador.precios[j] / 100;
+
+                                            ACPOS_SERVICE_MOBILE.logger.Info($"ALOHA < 15 Entro a Button Price {ItemMOD.id} | {condicion} | Precio Recuperado: {monto}");
+
+                                            ItemMOD.submenu_precio_sub = double.Parse(monto.ToString());
+                                            ItemMOD.item_precio = ItemsDbfs.First(I => I.ID == ItemMOD.id).PRICE;
                                         }
                                         else
                                         {
@@ -592,12 +628,14 @@ namespace WindowsServiceAlohaMobile.Utils
                     Boton_item.id = IdProducto;
                     producto = IdProducto;
                     profundidad = 0;
+                    Boton_item.submenu_precio_sub = PrecioBoton;
+                    Boton_item.PRMETHOD = Metodo;
                     //if (IdsItems.Contains(IdProducto))
                     //{
                     //    continue;
                     //}
 
-                    Boton_item = RecursividadItems(Boton_item);
+                    Boton_item = RecursividadItems(Boton_item, true);
                     if (Boton_item != null)
                     {
                         item.PanelTransicion.Btns.Add(Boton_item);

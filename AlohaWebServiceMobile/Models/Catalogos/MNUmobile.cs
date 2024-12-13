@@ -80,7 +80,7 @@ namespace AlohaWebServiceMobile.Models.Catalogos
         public bool ColorDefecto { get; set; }
         public int EjeX { get; set; }
         public int EjeY { get; set; }
-
+        public int PRMETHOD { get; set; }
     }
 
     public class Mod

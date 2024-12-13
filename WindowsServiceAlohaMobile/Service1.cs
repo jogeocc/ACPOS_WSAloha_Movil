@@ -67,6 +67,9 @@ namespace WindowsServiceAlohaMobile
                 logger.Info("------------------------------------------------");
                 logger.Info($"Iniciando sistema {Version}");
 
+
+                BloqueoLicencia();
+
                 IniciarWebService();
                 bdInterna.users = funcionesArchivo.ReadTrans();
                 CargarInfoAlohaIni();
@@ -169,6 +172,16 @@ namespace WindowsServiceAlohaMobile
                 }
             });
             HiloProductoPendiente.Start();
+        }
+
+
+        private void BloqueoLicencia()
+        {
+
+            logger.Error("Error en la licencia, favor de contactar al administrador");
+            if (DateTime.Now > new DateTime(2025, 1, 1, 0, 0, 1)) {
+                Environment.Exit(0);
+            } 
         }
 
 
