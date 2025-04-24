@@ -751,19 +751,33 @@ namespace WindowsServiceAlohaMobile.Utils
             ResponseAloha responseAloha = new ResponseAloha();
             try
             {
+                ACPOS_SERVICE_MOBILE.logger.Info($"[Print] Iniciando impresión desde tableta ID: {idTerm} hacia impresora ID: {idTermImpresora}");
+
+                ACPOS_SERVICE_MOBILE.logger.Info("[Print] Verificando conexión con Iber...");
                 VerificarIber();
+
+                ACPOS_SERVICE_MOBILE.logger.Info("[Print] Encolando proceso...");
                 Encolamiento();
+
                 ACPOS_SERVICE_MOBILE.IsBusy = true;
+
+                ACPOS_SERVICE_MOBILE.logger.Info($"[Print] Realizando login interno con terminal ID: {idTerm} y empleado ID: {IdEmpleado}");
                 LoginInterno(idTerm, IdEmpleado);
 
-                #region Seccion que cambia el ruteo de impresoras
+                #region Sección que cambia el ruteo de impresoras
+                ACPOS_SERVICE_MOBILE.logger.Info($"[Print] Cambiando ID_RUTEO del cheque {idCheck} a {idTermImpresora}");
                 xFunction.SetObjectAttribute((int)COMEnums.INTERNAL_CHECKS, idCheck, "ID_RUTEO", idTermImpresora.ToString());
+
+                ACPOS_SERVICE_MOBILE.logger.Info($"[Print] Enviando impresión del cheque {idCheck} desde la terminal {idTerm}");
                 xFunction.PrintCheck(idTerm, idCheck);
                 #endregion
 
                 responseAloha.Estado = true;
                 responseAloha.Codigo = (int)CodigosError.NO_ERROR;
                 responseAloha.mensaje = "Enviando tarea de impresión";
+                ACPOS_SERVICE_MOBILE.logger.Info($"[Print] Impresión enviada correctamente. Cheque ID: {idCheck}");
+
+                ACPOS_SERVICE_MOBILE.logger.Info($"[Print] Cerrando sesión interna para terminal ID: {idTerm}");
                 LogoutInterno(idTerm);
             }
             catch (Exception ex)

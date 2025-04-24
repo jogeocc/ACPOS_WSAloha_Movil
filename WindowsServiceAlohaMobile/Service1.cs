@@ -28,8 +28,8 @@ namespace WindowsServiceAlohaMobile
 
     public partial class ACPOS_SERVICE_MOBILE : ServiceBase
     {
-        public static string Version = "Versión 30";
-        public static readonly ILog logger = LogManager.GetLogger("Aloha_vapiano");
+        public static string Version = "Versión 1.6.0";
+        public static readonly ILog logger = LogManager.GetLogger("Comandero_Movil");
         public bool iniciar = false;
         public bool IsError = false;
         public static EstructurarData Catalogos = new EstructurarData();
@@ -178,10 +178,10 @@ namespace WindowsServiceAlohaMobile
         private void BloqueoLicencia()
         {
 
-            logger.Error("Error en la licencia, favor de contactar al administrador");
+            /*logger.Error("Error en la licencia, favor de contactar al administrador");
             if (DateTime.Now > new DateTime(2025, 1, 1, 0, 0, 1)) {
                 Environment.Exit(0);
-            } 
+            } */
         }
 
 

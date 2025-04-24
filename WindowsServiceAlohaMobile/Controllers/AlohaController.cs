@@ -258,6 +258,9 @@ namespace WindowsServiceAlohaMobile.Controllers
         [Route("AddItem")]
         public HttpResponseMessage AddItem(RequestAddItem requestAddItem)
         {
+
+            ACPOS_SERVICE_MOBILE.logger.Info($"ADD ITEM - JSON RECUPERADO\n {JsonConvert.SerializeObject(requestAddItem)}");
+
             ResponseAloha response = ACPOS_SERVICE_MOBILE.AlohaConnection.AddItems(requestAddItem);
             return Request.CreateResponse(HttpStatusCode.OK, response, Configuration.Formatters.JsonFormatter);
         }
@@ -488,6 +491,14 @@ namespace WindowsServiceAlohaMobile.Controllers
             ACPOS_SERVICE_MOBILE.logger.Info($"EVENTO CIERRE DE CHEQUE RECIBIDO, INICIADO");
             ACPOS_SERVICE_MOBILE.AlohaConnection.GetPagosTicketSap(requestCloseCheckSap.CheckId);
             ACPOS_SERVICE_MOBILE.logger.Info($"EVENTO CIERRE DE CHEQUE RECIBIDO, FIN");
+
+            if (LecturaAppConfig.LACSystem.GetBoolean("ACTIVE_MON_COCINA_ACPOS", false)) {
+
+                ResponseAloha response =  ACPOS_SERVICE_MOBILE.AlohaConnection.GetCheck(requestCloseCheckSap.CheckId);
+
+
+            }
+
 
             return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }

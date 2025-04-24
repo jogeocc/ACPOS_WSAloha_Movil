@@ -38,10 +38,10 @@ namespace AlohaLibrary.Implementaciones
                     SEC_NUM = int.Parse(item["SEC_NUM"].ToString()),
                     SSN = int.Parse(item["SSN"].ToString()),
                     SSNTEXT = (item["SSNTEXT"].ToString()),
-                    FIRSTNAME = (item["FIRSTNAME"].ToString()),
-                    MIDDLENAME = (item["MIDDLENAME"].ToString()),
-                    LASTNAME = (item["LASTNAME"].ToString()),
-                    NICKNAME = (item["NICKNAME"].ToString()),
+                    FIRSTNAME = Reconvertir(item["FIRSTNAME"].ToString()),
+                    MIDDLENAME = Reconvertir(item["MIDDLENAME"].ToString()),
+                    LASTNAME = Reconvertir(item["LASTNAME"].ToString()),
+                    NICKNAME = Reconvertir(item["NICKNAME"].ToString()),
                     JOBCODE1 = int.Parse((item["JOBCODE1"].ToString())),
                     TERMINATED = item["TERMINATED"].ToString().ToUpper().Equals("Y") ? TipoLogicoALH.Y : TipoLogicoALH.N
                 });

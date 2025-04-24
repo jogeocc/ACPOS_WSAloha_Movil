@@ -27,5 +27,23 @@ namespace AlohaLibrary.Infraestrutura
         }
 
         public abstract List<T> GetAll();
+
+
+        public  string Reconvertir(string cadena)
+        {
+            if (string.IsNullOrEmpty(cadena))
+                return string.Empty;
+
+            Encoding extAscii = Encoding.GetEncoding(850);   // OEM Latin-1
+            Encoding win1252 = Encoding.GetEncoding(1252);   // Windows-1252
+
+            byte[] bytes1252 = extAscii.GetBytes(cadena);
+
+            byte[] output = Encoding.Convert(win1252, extAscii, bytes1252);
+
+            return extAscii.GetString(output);
+        }
+
+
     }
 }
