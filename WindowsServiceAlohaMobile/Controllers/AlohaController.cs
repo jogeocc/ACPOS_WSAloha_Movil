@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using WindowsServiceAlohaMobile.Models.Licencia;
 using WindowsServiceAlohaMobile.EntityFrameWork.Interface;
+using WindowsServiceAlohaMobile.Rest;
 
 namespace WindowsServiceAlohaMobile.Controllers
 {
@@ -488,20 +489,45 @@ namespace WindowsServiceAlohaMobile.Controllers
         [Route("CloseCheckSap")]
         public HttpResponseMessage CloseCheckSap(RequestCloseCheckSap requestCloseCheckSap)
         {
-            ACPOS_SERVICE_MOBILE.logger.Info($"EVENTO CIERRE DE CHEQUE RECIBIDO, INICIADO");
+            ACPOS_SERVICE_MOBILE.logger.Info("EVENTO CIERRE DE CHEQUE RECIBIDO, INICIADO");
+
             ACPOS_SERVICE_MOBILE.AlohaConnection.GetPagosTicketSap(requestCloseCheckSap.CheckId);
-            ACPOS_SERVICE_MOBILE.logger.Info($"EVENTO CIERRE DE CHEQUE RECIBIDO, FIN");
 
-            if (LecturaAppConfig.LACSystem.GetBoolean("ACTIVE_MON_COCINA_ACPOS", false)) {
+            ACPOS_SERVICE_MOBILE.logger.Info("EVENTO CIERRE DE CHEQUE RECIBIDO, FIN");
 
-                ResponseAloha response =  ACPOS_SERVICE_MOBILE.AlohaConnection.GetCheck(requestCloseCheckSap.CheckId);
+            if (LecturaAppConfig.LACSystem.GetBoolean("ACTIVE_MON_COCINA_ACPOS", false))
+            {
+                try
+                {
+                    ResponseAloha response = ACPOS_SERVICE_MOBILE.AlohaConnection.GetCheck(requestCloseCheckSap.CheckId);
 
+                    response.IdEmpleadoSistema = requestCloseCheckSap.EmployeeId;
+                    response.Nombre_Empleado = ACPOS_SERVICE_MOBILE.AlohaConnection.NombreEmpleado(requestCloseCheckSap.EmployeeId);
 
+                    // Ejecutar en un hilo en segundo plano
+                    Task.Run(async () =>
+                    {
+                        try
+                        {
+                            RestAgenteMon restAgenteMon = new RestAgenteMon();
+                            await restAgenteMon.EnviarOrdenAlohaAsync(response);
+                            ACPOS_SERVICE_MOBILE.logger.Info("Orden enviada correctamente al Agente Monitor.");
+                        }
+                        catch (Exception ex)
+                        {
+                            ACPOS_SERVICE_MOBILE.logger.Error("Error al enviar la orden al Agente Monitor", ex);
+                        }
+                    });
+                }
+                catch (Exception ex)
+                {
+                    ACPOS_SERVICE_MOBILE.logger.Error("Error al preparar datos para el Agente Monitor", ex);
+                }
             }
 
-
-            return Request.CreateResponse(HttpStatusCode.OK, $"Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
+            return Request.CreateResponse(HttpStatusCode.OK, "Cheque cerrado recibido correctamente", Configuration.Formatters.JsonFormatter);
         }
+
 
         [HttpPost]
         [Route("HoldCheck")]

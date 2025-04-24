@@ -240,6 +240,9 @@
     <Compile Include="Models\Catalogos\TRMMobile.cs" />
     <Compile Include="Models\Catalogos\VOIDMobile.cs" />
     <Compile Include="Models\Licencia\DeviceLicencia.cs" />
+    <Compile Include="Models\MonCocina\DatosMesero.cs" />
+    <Compile Include="Models\MonCocina\OrdenRequest.cs" />
+    <Compile Include="Models\MonCocina\Producto.cs" />
     <Compile Include="Models\SAP\TicketSapModel.cs" />
     <Compile Include="Models\Transacciones\BdInterna.cs" />
     <Compile Include="Models\Transacciones\InfoAloha.cs" />
@@ -249,6 +252,7 @@
     <Compile Include="ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
+    <Compile Include="Rest\RestAgenteMon.cs" />
     <Compile Include="Rest\RestSAP.cs" />
     <Compile Include="Service1.cs">
       <SubType>Component</SubType>
