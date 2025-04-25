@@ -67,6 +67,5 @@ namespace WindowsServiceAlohaMobile.AlohaExtractInfo
 
             return ListaPagosSocios;
         }
-
     }
 }

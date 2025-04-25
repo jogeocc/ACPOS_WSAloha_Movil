@@ -17,6 +17,7 @@ using System.Web.Http;
 using WindowsServiceAlohaMobile.Models.Licencia;
 using WindowsServiceAlohaMobile.EntityFrameWork.Interface;
 using WindowsServiceAlohaMobile.Rest;
+using WindowsServiceAlohaMobile.Enums;
 
 namespace WindowsServiceAlohaMobile.Controllers
 {
@@ -499,7 +500,15 @@ namespace WindowsServiceAlohaMobile.Controllers
             {
                 try
                 {
-                    ResponseAloha response = ACPOS_SERVICE_MOBILE.AlohaConnection.GetCheck(requestCloseCheckSap.CheckId);
+                    ResponseAloha response = ACPOS_SERVICE_MOBILE.AlohaConnection.GetCloseCheck(requestCloseCheckSap);
+
+                    if (response.Codigo == (int)CodigosError.NO_ERROR)
+                    {
+                        ACPOS_SERVICE_MOBILE.logger.Info($"{response.mensaje}");
+                    }
+                    else {
+                        ACPOS_SERVICE_MOBILE.logger.Error($"{response.mensaje}");
+                    }
 
                     response.IdEmpleadoSistema = requestCloseCheckSap.EmployeeId;
                     response.Nombre_Empleado = ACPOS_SERVICE_MOBILE.AlohaConnection.NombreEmpleado(requestCloseCheckSap.EmployeeId);

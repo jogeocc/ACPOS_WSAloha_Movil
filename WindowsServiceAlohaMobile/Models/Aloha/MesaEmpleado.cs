@@ -44,6 +44,7 @@ namespace WindowsServiceAlohaMobile.Models.Aloha
         public int NumCheck { get; set; }
         public int NumSeats { get; set; }
         public int IdRev { get; set; }
+        public string NumMesa { get; set; } = "-";
 
     }
     [JsonObject]

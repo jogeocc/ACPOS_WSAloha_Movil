@@ -2603,5 +2603,248 @@ namespace WindowsServiceAlohaMobile.Utils
             return isLockTable;
         }
 
+
+        public ResponseAloha GetCloseCheck(RequestCloseCheckSap requestCloseCheckSap)
+        {
+            VerificarIber();
+            ResponseAloha responseAloha = new ResponseAloha();
+            responseAloha.check = RecuperarChequeCerrado(requestCloseCheckSap);
+
+            if (responseAloha.check != null)
+            {
+                responseAloha.mensaje = "Cheque recueprado correctamente";
+                responseAloha.Codigo = (int)CodigosError.NO_ERROR;
+            }
+            else
+            {
+                responseAloha.mensaje = "Error recuperando data del cheque";
+                responseAloha.Codigo = (int)CodigosError.ERROR;
+            }
+            return responseAloha;
+        }
+
+        private Check RecuperarChequeCerrado(RequestCloseCheckSap requestCloseCheckSap)
+        {
+            Check check = new Check();
+            try
+            {
+                check.Id = requestCloseCheckSap.CheckId;
+
+                // 1. Obtener el empleado por ID
+                IberEnum enumEmpleado = depot.FindObjectFromId((int)COMEnums.INTERNAL_EMPLOYEES, requestCloseCheckSap.EmployeeId);
+                IberObject empleado = enumEmpleado.First();
+
+                if (empleado == null)
+                    throw new Exception("Empleado no encontrado con ID: " + requestCloseCheckSap.EmployeeId);
+
+                // 2. Obtener el cheque cerrado desde el objeto del empleado
+                IberEnum chequesCerradosEnum = empleado.GetEnum((int)COMEnums.INTERNAL_EMP_CLOSED_CHECKS);
+                IberObject ChequeCerrado = chequesCerradosEnum.First();
+
+                while (ChequeCerrado != null)
+                {
+                    if (ChequeCerrado.GetLongVal("ID") == requestCloseCheckSap.CheckId)
+                    {
+                        break;
+                    }
+
+                    ChequeCerrado = chequesCerradosEnum.Next();
+                }
+
+                if (ChequeCerrado == null)
+                    throw new Exception("Cheque cerrado no encontrado con ID: " + requestCloseCheckSap.CheckId);
+
+                // 3. Obtener la mesa
+                IberEnum MesasCerradasEnum = empleado.GetEnum((int)COMEnums.INTERNAL_EMP_CLOSED_TABLES);
+                IberObject MesaCerrada = MesasCerradasEnum.First();
+
+                while (MesaCerrada != null)
+                {
+                    if (MesaCerrada.GetLongVal("ID") == requestCloseCheckSap.TableId)
+                    {
+                        break;
+                    }
+
+                    MesaCerrada = MesasCerradasEnum.Next();
+                }
+
+                if (MesaCerrada == null)
+                {
+                    throw new Exception("Mesa cerrado no encontrado con ID: " + requestCloseCheckSap.TableId);
+                }
+
+
+               
+                // Calcular totales
+                double SubTotal = 0;
+                double tax = 0;
+                xFunction.GetCheckTotal(requestCloseCheckSap.CheckId, out SubTotal, out tax);
+                check.Amount = SubTotal;
+                check.Tax = tax;
+                check.IdRev = ChequeCerrado.GetLongVal("REV_ID");
+
+                check.NumMesa = MesaCerrada.GetLongVal("TABLEDEF_ID") + "";
+                check.NumSeats = 0;
+                //check.NumSeats = table.GetLongVal("NUM_SEATS") - 1;
+                if (check.NumSeats < 0) check.NumSeats = 0;
+
+                double MontoTotal = ChequeCerrado.GetDoubleVal("SUBTOTAL");
+
+                // Obtener productos en espera
+                List<Producto_Pedido_Espera> ListaPedidos = ACPOS_SERVICE_MOBILE.DbManager.GetProductosTiempoEspera(requestCloseCheckSap.CheckId);
+
+                // ITEMS DEL CHEQUE
+                try
+                {
+                    IberEnum ItemsEmpleado = ChequeCerrado.GetEnum((int)COMEnums.INTERNAL_CHECKS_ENTRIES);
+                    IberObject ItemAbierto = ItemsEmpleado.First();
+                    int IdPadre = 0;
+
+                    while (ItemAbierto != null)
+                    {
+                        Item item = new Item();
+                        item.Id = ItemAbierto.GetLongVal("DATA");
+                        item.IdEntry = ItemAbierto.GetLongVal("ID");
+                        item.Name = ItemAbierto.GetStringVal("DISP_NAME");
+                        item.Price = ItemAbierto.GetDoubleVal("PRICE");
+                        item.DisplayPrice = ItemAbierto.GetStringVal("DISP_PRICE").Trim();
+                        item.ModCode = ItemAbierto.GetLongVal("MOD_CODE");
+                        item.NivelMod = ItemAbierto.GetLongVal("LEVEL");
+                        int IsMessage = ItemAbierto.GetLongVal("TYPE");
+                        item.Ordered = ItemAbierto.GetBoolVal("SELECTED") > 0;
+                        item.OrderMode = ItemAbierto.GetLongVal("MODE");
+                        item.Modstring = ItemAbierto.GetStringVal("MOD_STRING");
+                        item.NumSilla = ItemAbierto.GetLongVal("SEAT");
+
+                        foreach (var ProductoEspera in ListaPedidos)
+                        {
+                            if (item.IdEntry == ProductoEspera.IdEntry)
+                            {
+                                if (item.Ordered)
+                                {
+                                    // Actualizar si es necesario
+                                }
+                                else
+                                {
+                                    item.HoldTime = ProductoEspera.HoldEnd.ToString("HH:mm:ss");
+                                    item.HoldOrderMode = ProductoEspera.IdOrderMode;
+                                }
+                                break;
+                            }
+                        }
+
+                        if (IsMessage == 0)
+                        {
+                            if (item.NivelMod == 0)
+                            {
+                                IdPadre = item.IdEntry;
+                                check.Items.Add(item);
+                            }
+                            else
+                            {
+                                check.Items.First(I => I.IdEntry == IdPadre).Mods.Add(item);
+                            }
+                        }
+                        else
+                        {
+                            check.Items.First(I => I.IdEntry == IdPadre).SpecialMessage = item.Name;
+                        }
+
+                        ItemAbierto = ItemsEmpleado.Next();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar items del cheque {requestCloseCheckSap.CheckId}", ex);
+                }
+
+                // PAGOS APLICADOS
+                try
+                {
+                    IberEnum PagosEmpleado = ChequeCerrado.GetEnum((int)COMEnums.INTERNAL_CHECKS_PAYMENTS);
+                    IberObject PagoAplicado = PagosEmpleado.First();
+                    EstructurarData estructurarData = new EstructurarData();
+
+                    while (PagoAplicado != null)
+                    {
+                        Payment payment = new Payment();
+                        payment.IdPayment = PagoAplicado.GetLongVal("ID");
+                        payment.IdTender = PagoAplicado.GetLongVal("TENDER_ID");
+                        payment.Tip = PagoAplicado.GetDoubleVal("TIP");
+                        payment.Amount = PagoAplicado.GetDoubleVal("AMOUNT");
+                        payment.LabelPayment = estructurarData.NombreTender(payment.IdTender) + "_" + PagoAplicado.GetStringVal("IDENT");
+                        check.Payments.Add(payment);
+                        PagoAplicado = PagosEmpleado.Next();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // ACPOS_SERVICE_MOBILE.logger.Error($"Error al obtener pagos en cheque cerrado {requestCloseCheckSap.CheckId}", ex);
+                }
+
+                // PROMOCIONES
+                try
+                {
+                    IberEnum PromocionesEmpleado = ChequeCerrado.GetEnum((int)COMEnums.INTERNAL_CHECKS_PROMOS);
+                    IberObject PromocionAbierto = PromocionesEmpleado.First();
+
+                    while (PromocionAbierto != null)
+                    {
+                        Promotion promotion = new Promotion();
+                        promotion.Id = PromocionAbierto.GetLongVal("ID");
+                        promotion.IdPromo = PromocionAbierto.GetLongVal("PROMOTION_ID");
+                        promotion.Name = PromocionAbierto.GetStringVal("IDENT");
+                        promotion.AmountDiscount = PromocionAbierto.GetDoubleVal("AMOUNT");
+                        check.Promotions.Add(promotion);
+                        PromocionAbierto = PromocionesEmpleado.Next();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar promociones en cheque cerrado {requestCloseCheckSap.CheckId}", ex);
+                }
+
+                // CORTESÍAS
+                try
+                {
+                    IberEnum CortesiasEmpleado = ChequeCerrado.GetEnum((int)COMEnums.INTERNAL_CHECKS_COMPS);
+                    IberObject CortesiaAbierta = CortesiasEmpleado.First();
+
+                    while (CortesiaAbierta != null)
+                    {
+                        Comp Comp = new Comp();
+                        Comp.Id = CortesiaAbierta.GetLongVal("ID");
+                        Comp.IdComp = CortesiaAbierta.GetLongVal("COMPTYPE_ID");
+                        Comp.Unit = CortesiaAbierta.GetStringVal("UNIT");
+                        Comp.Name = CortesiaAbierta.GetStringVal("NAME");
+                        Comp.AmountDiscount = CortesiaAbierta.GetDoubleVal("AMOUNT");
+                        check.Comps.Add(Comp);
+                        CortesiaAbierta = CortesiasEmpleado.Next();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar cortesías en cheque cerrado {requestCloseCheckSap.CheckId}", ex);
+                }
+
+                // CALCULAR MONTO PENDIENTE
+                double AmountPayed = check.Payments.Sum(p => p.Amount);
+                check.AmountDue = ChequeCerrado.GetDoubleVal("COMPLETETOTAL") - AmountPayed;
+
+                check.Guests = ChequeCerrado.GetLongVal("GUESTS");
+                check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
+                check.TotalCheck = ChequeCerrado.GetDoubleVal("COMPLETETOTAL");
+                check.NumCheck = ChequeCerrado.GetLongVal("NUMBER") + 1;
+            }
+            catch (Exception ex)
+            {
+                ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar la cuenta cerrada {requestCloseCheckSap.CheckId}", ex);
+                check = null;
+            }
+
+            return check;
+        }
+
+
     }
 }
