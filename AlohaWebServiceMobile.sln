@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsServiceAlohaMobile",
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ACPOS_SERVICIO_MOBILE", "ACPOS_SERVICIO_MOBILE\ACPOS_SERVICIO_MOBILE.vdproj", "{99EE061B-BC8A-446A-80A2-3632A71518EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtraccionInfoAloha", "ExtraccionInfoAloha\ExtraccionInfoAloha.csproj", "{648CB9E0-0B0D-46D3-BE37-796CAAE2A4B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CGBV|Any CPU = CGBV|Any CPU
@@ -39,6 +41,12 @@ Global
 		{99EE061B-BC8A-446A-80A2-3632A71518EE}.CGBV|Any CPU.ActiveCfg = CGBV
 		{99EE061B-BC8A-446A-80A2-3632A71518EE}.Debug|Any CPU.ActiveCfg = Debug
 		{99EE061B-BC8A-446A-80A2-3632A71518EE}.Release|Any CPU.ActiveCfg = Release
+		{648CB9E0-0B0D-46D3-BE37-796CAAE2A4B7}.CGBV|Any CPU.ActiveCfg = Debug|Any CPU
+		{648CB9E0-0B0D-46D3-BE37-796CAAE2A4B7}.CGBV|Any CPU.Build.0 = Debug|Any CPU
+		{648CB9E0-0B0D-46D3-BE37-796CAAE2A4B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{648CB9E0-0B0D-46D3-BE37-796CAAE2A4B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{648CB9E0-0B0D-46D3-BE37-796CAAE2A4B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{648CB9E0-0B0D-46D3-BE37-796CAAE2A4B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
