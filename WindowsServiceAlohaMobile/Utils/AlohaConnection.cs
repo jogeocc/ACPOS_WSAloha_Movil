@@ -1426,8 +1426,8 @@ namespace WindowsServiceAlohaMobile.Utils
 
                 check.AmountDue = ChequeAbierto.GetDoubleVal("COMPLETETOTAL") - AmountPayed;
                 //CAMBIO PARA EL CLUB DE GOLF
-                 //   check.AmountDue = MontoTotal - AmountPayed;
-                 //   check.AmountDue = SubTotal - AmountPayed;
+                    check.AmountDue = MontoTotal - AmountPayed;
+                    check.AmountDue = SubTotal - AmountPayed;
                 //-----------------------------
 
 
@@ -1437,8 +1437,8 @@ namespace WindowsServiceAlohaMobile.Utils
                 
                 
                 //CAMBIO PARA EL CLUB DE GOLF
-                //    check.TotalCheck = MontoTotal;
-                //    check.TotalCheck = SubTotal;
+                    check.TotalCheck = MontoTotal;
+                    check.TotalCheck = SubTotal;
                 //-----------------------------
 
 
@@ -2638,18 +2638,8 @@ namespace WindowsServiceAlohaMobile.Utils
                     throw new Exception("Empleado no encontrado con ID: " + requestCloseCheckSap.EmployeeId);
 
                 // 2. Obtener el cheque cerrado desde el objeto del empleado
-                IberEnum chequesCerradosEnum = empleado.GetEnum((int)COMEnums.INTERNAL_EMP_CLOSED_CHECKS);
+                IberEnum chequesCerradosEnum = depot.FindObjectFromId((int)COMEnums.INTERNAL_CHECKS, requestCloseCheckSap.CheckId);
                 IberObject ChequeCerrado = chequesCerradosEnum.First();
-
-                while (ChequeCerrado != null)
-                {
-                    if (ChequeCerrado.GetLongVal("ID") == requestCloseCheckSap.CheckId)
-                    {
-                        break;
-                    }
-
-                    ChequeCerrado = chequesCerradosEnum.Next();
-                }
 
                 if (ChequeCerrado == null)
                     throw new Exception("Cheque cerrado no encontrado con ID: " + requestCloseCheckSap.CheckId);
@@ -2658,23 +2648,13 @@ namespace WindowsServiceAlohaMobile.Utils
                 IberEnum MesasCerradasEnum = empleado.GetEnum((int)COMEnums.INTERNAL_EMP_CLOSED_TABLES);
                 IberObject MesaCerrada = MesasCerradasEnum.First();
 
-                while (MesaCerrada != null)
-                {
-                    if (MesaCerrada.GetLongVal("ID") == requestCloseCheckSap.TableId)
-                    {
-                        break;
-                    }
-
+                while (MesaCerrada != null && MesaCerrada.GetLongVal("ID") != requestCloseCheckSap.TableId)
                     MesaCerrada = MesasCerradasEnum.Next();
-                }
 
                 if (MesaCerrada == null)
-                {
-                    throw new Exception("Mesa cerrado no encontrado con ID: " + requestCloseCheckSap.TableId);
-                }
+                    throw new Exception("Mesa cerrada no encontrada con ID: " + requestCloseCheckSap.TableId);
 
 
-               
                 // Calcular totales
                 double SubTotal = 0;
                 double tax = 0;
@@ -2755,7 +2735,7 @@ namespace WindowsServiceAlohaMobile.Utils
                 }
                 catch (Exception ex)
                 {
-                    // ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar items del cheque {requestCloseCheckSap.CheckId}", ex);
+                   // ACPOS_SERVICE_MOBILE.logger.Error($"Error al recuperar items del cheque {requestCloseCheckSap.CheckId}", ex);
                 }
 
                 // PAGOS APLICADOS
