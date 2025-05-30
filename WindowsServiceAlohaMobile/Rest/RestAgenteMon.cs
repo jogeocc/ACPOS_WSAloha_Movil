@@ -34,6 +34,7 @@ namespace WindowsServiceAlohaMobile.Rest
                 HoraOrden = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), // puedes ajustar si se tiene un campo real
                 EstadoOrden = "Activa", // valor fijo, puedes personalizar
                 Impreso = "NO",
+                referencia = resp.check?.Payments?.FirstOrDefault()?.LabelPayment,
                 Productos = resp.check?.Items?.Select((item, index) => MapProducto(item, (index + 1).ToString())).ToList() ?? new List<Producto>()
             };
 

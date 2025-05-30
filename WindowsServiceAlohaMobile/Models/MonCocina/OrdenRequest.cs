@@ -16,5 +16,6 @@ namespace WindowsServiceAlohaMobile.Models.MonCocina
         public string EstadoOrden { get; set; }
         public string Impreso { get; set; }
         public List<Producto> Productos { get; set; }
+        public string referencia { get; set; }
     }
 }

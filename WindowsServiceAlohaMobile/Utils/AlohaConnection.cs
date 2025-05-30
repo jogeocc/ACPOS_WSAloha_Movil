@@ -1426,8 +1426,8 @@ namespace WindowsServiceAlohaMobile.Utils
 
                 check.AmountDue = ChequeAbierto.GetDoubleVal("COMPLETETOTAL") - AmountPayed;
                 //CAMBIO PARA EL CLUB DE GOLF
-                    check.AmountDue = MontoTotal - AmountPayed;
-                    check.AmountDue = SubTotal - AmountPayed;
+                 //   check.AmountDue = MontoTotal - AmountPayed;
+                 //   check.AmountDue = SubTotal - AmountPayed;
                 //-----------------------------
 
 
@@ -1437,8 +1437,8 @@ namespace WindowsServiceAlohaMobile.Utils
                 
                 
                 //CAMBIO PARA EL CLUB DE GOLF
-                    check.TotalCheck = MontoTotal;
-                    check.TotalCheck = SubTotal;
+                   // check.TotalCheck = MontoTotal;
+                   // check.TotalCheck = SubTotal;
                 //-----------------------------
 
 
@@ -2645,12 +2645,10 @@ namespace WindowsServiceAlohaMobile.Utils
                     throw new Exception("Cheque cerrado no encontrado con ID: " + requestCloseCheckSap.CheckId);
 
                 // 3. Obtener la mesa
-                IberEnum MesasCerradasEnum = empleado.GetEnum((int)COMEnums.INTERNAL_EMP_CLOSED_TABLES);
+                IberEnum MesasCerradasEnum = depot.FindObjectFromId((int)COMEnums.INTERNAL_TABLES, requestCloseCheckSap.TableId);
                 IberObject MesaCerrada = MesasCerradasEnum.First();
 
-                while (MesaCerrada != null && MesaCerrada.GetLongVal("ID") != requestCloseCheckSap.TableId)
-                    MesaCerrada = MesasCerradasEnum.Next();
-
+               
                 if (MesaCerrada == null)
                     throw new Exception("Mesa cerrada no encontrada con ID: " + requestCloseCheckSap.TableId);
 
@@ -2752,7 +2750,7 @@ namespace WindowsServiceAlohaMobile.Utils
                         payment.IdTender = PagoAplicado.GetLongVal("TENDER_ID");
                         payment.Tip = PagoAplicado.GetDoubleVal("TIP");
                         payment.Amount = PagoAplicado.GetDoubleVal("AMOUNT");
-                        payment.LabelPayment = estructurarData.NombreTender(payment.IdTender) + "_" + PagoAplicado.GetStringVal("IDENT");
+                        payment.LabelPayment = PagoAplicado.GetStringVal("IDENT");
                         check.Payments.Add(payment);
                         PagoAplicado = PagosEmpleado.Next();
                     }
