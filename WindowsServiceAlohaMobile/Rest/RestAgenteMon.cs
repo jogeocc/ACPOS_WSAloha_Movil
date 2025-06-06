@@ -21,6 +21,16 @@ namespace WindowsServiceAlohaMobile.Rest
 
         public OrdenRequest ConvertirOrdenRequest(ResponseAloha resp)
         {
+            double TotalCheque = 0.0;
+            try
+            {
+                TotalCheque = ((double)resp.check?.TotalCheck);
+            }
+            catch (Exception ex) { 
+            
+            }
+
+
             var orden = new OrdenRequest
             {
                 FolioOrden = resp.check?.ChceckNumber.ToString() ?? "0",
@@ -50,6 +60,8 @@ namespace WindowsServiceAlohaMobile.Rest
                 NombreCorto = item.Name,
                 Movimiento = item.IdEntry,
                 IdProductoCompuesto = idCompuesto,
+                PrecioDisplay = item.DisplayPrice,
+                Precio = item.Price,
                 Modificadores = item.Mods?.Select((mod, idx) => MapProducto(mod, idCompuesto)).ToList() ?? new List<Producto>()
             };
         }

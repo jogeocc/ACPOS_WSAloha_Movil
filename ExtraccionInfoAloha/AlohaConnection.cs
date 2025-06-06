@@ -222,7 +222,6 @@ namespace ExtraccionInfoAloha
                 check.AmountDue = ChequeCerrado.GetDoubleVal("COMPLETETOTAL") - AmountPayed;
                 check.Guests = ChequeCerrado.GetLongVal("GUESTS");
                 check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
-                check.TotalCheck = ChequeCerrado.GetDoubleVal("COMPLETETOTAL");
                 check.NumCheck = ChequeCerrado.GetLongVal("NUMBER") + 1;
             }
             catch (Exception ex)

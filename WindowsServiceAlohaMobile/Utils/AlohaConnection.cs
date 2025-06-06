@@ -1426,8 +1426,8 @@ namespace WindowsServiceAlohaMobile.Utils
 
                 check.AmountDue = ChequeAbierto.GetDoubleVal("COMPLETETOTAL") - AmountPayed;
                 //CAMBIO PARA EL CLUB DE GOLF
-                 //   check.AmountDue = MontoTotal - AmountPayed;
-                 //   check.AmountDue = SubTotal - AmountPayed;
+                    check.AmountDue = MontoTotal - AmountPayed;
+                    check.AmountDue = SubTotal - AmountPayed;
                 //-----------------------------
 
 
@@ -1437,8 +1437,8 @@ namespace WindowsServiceAlohaMobile.Utils
                 
                 
                 //CAMBIO PARA EL CLUB DE GOLF
-                   // check.TotalCheck = MontoTotal;
-                   // check.TotalCheck = SubTotal;
+                    check.TotalCheck = MontoTotal;
+                    check.TotalCheck = SubTotal;
                 //-----------------------------
 
 
@@ -2809,9 +2809,10 @@ namespace WindowsServiceAlohaMobile.Utils
                 double AmountPayed = check.Payments.Sum(p => p.Amount);
                 check.AmountDue = ChequeCerrado.GetDoubleVal("COMPLETETOTAL") - AmountPayed;
 
+               
                 check.Guests = ChequeCerrado.GetLongVal("GUESTS");
                 check.ChceckNumber = SdkFunctions.GetCheckNumberFromCheckId(check.Id);
-                check.TotalCheck = ChequeCerrado.GetDoubleVal("COMPLETETOTAL");
+                check.TotalCheck =    SubTotal;
                 check.NumCheck = ChequeCerrado.GetLongVal("NUMBER") + 1;
             }
             catch (Exception ex)

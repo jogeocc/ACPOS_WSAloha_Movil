@@ -14,5 +14,7 @@ namespace WindowsServiceAlohaMobile.Models.MonCocina
         public int Movimiento { get; set; }
         public string IdProductoCompuesto { get; set; }
         public List<Producto> Modificadores { get; set; } = new List<Producto>();
+        public string PrecioDisplay { get; set; }
+        public double Precio { get; set; }
     }
 }
